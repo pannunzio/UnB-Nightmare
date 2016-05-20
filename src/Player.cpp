@@ -32,7 +32,7 @@ Player::Player() : sp("img/playerRunning.png", 6, 0.1){
 Player::~Player() {
 	// TODO Auto-generated destructor stub
 }
-
+// teste git
 Player& Player::GetInstance(){
 	return *player;
 }
