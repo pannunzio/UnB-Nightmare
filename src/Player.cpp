@@ -16,7 +16,7 @@ Player* Player::player = nullptr;
 #define MAXSPEED 5
 #define DISTANCE_CAMERA 150
 
-Player::Player() : sp("img/playerRunning.png", 6, 0.1){
+Player::Player() : sp("img/playerRunning.png", 6, 0.09){
 	subLayer = 2;
 
 	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());

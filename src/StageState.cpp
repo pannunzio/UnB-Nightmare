@@ -87,7 +87,7 @@ void StageState::Render(){
 //Parametros: N/A***************************************************//
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/stageState.ogg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
 	stateData.playerVictory = false;
