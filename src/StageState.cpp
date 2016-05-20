@@ -71,7 +71,7 @@ void StageState::Render(){
 	bg.Render(0,0);
 	Camera::Update(Game::GetInstance().GetDeltaTime());
 	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y + 100);
-	tileMap.Render(0,0);
+	//tileMap.Render(0,0);
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		// cout intuito de bebugar
 		//std::cout << "Entered for StageState::Render" << std::endl;

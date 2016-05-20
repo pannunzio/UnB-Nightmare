@@ -18,6 +18,7 @@ Player* Player::player = nullptr;
 
 Player::Player() : sp("img/playerRunning.png", 6, 0.1){
 	subLayer = 2;
+
 	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
 	speed = MAXSPEED;
 	acceleration = 1.5;
@@ -40,7 +41,7 @@ float Player::GetSpeed(){
 }
 
 void Player::Update(float dt){
-	std::cout << " box.x player: " << box.x << " camera pos: " << Camera::pos.x << std::endl;
+	//colocando na posicao certa
 	if(box.x - Camera::pos.x > DISTANCE_CAMERA)
 		isRightPosition = true;
 	else
