@@ -29,7 +29,7 @@ enum TextStyle{
 class Text {
 public:
 
-	Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x= 0, int y=0);
+	Text(char* fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x= 0, int y=0);
 	~Text();
 	Text();
 
@@ -41,7 +41,7 @@ public:
 
 private:
 	void RemakeTexture();
-	std::string fontFile;
+	char* fontFile;
 	TTF_Font* font;
 	SDL_Texture* texture;
 	std::string text;
@@ -49,7 +49,6 @@ private:
 	int fontSize;
 	SDL_Color color;
 	Rect box;
-
 };
 
 #endif /* TEXT_H_ */

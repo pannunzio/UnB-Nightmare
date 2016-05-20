@@ -10,7 +10,8 @@
 #include "Game.h"
 #include <iostream>
 #include <string>
-Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+//Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+Text::Text(char* fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
 	box.x = x;
 	box.y = y;
 
@@ -19,8 +20,8 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text
 	this->text = text;
 	this->color = color;
 	texture = nullptr;
-	fontFile = std::to_string(fontSize) + fontFile;
-	font = Resources::GetFont(fontFile);
+//	fontFile = std::to_string(fontSize) + fontFile;
+	font = Resources::GetFont(fontFile, fontSize);
 	this->fontFile = fontFile;
 
 	RemakeTexture();
@@ -80,18 +81,15 @@ void Text::SetStyle(TextStyle style){
 
 void Text::SetFontSize(int fontSize){
 	this->fontSize = fontSize;
-	std::string str_fontSize = to_string(fontSize);
-	fontFile[0] = str_fontSize[0];
-	fontFile[1] = str_fontSize[1];
+//	std::string str_fontSize = to_string(fontSize);
+//	fontFile[0] = str_fontSize[0];
+//	fontFile[1] = str_fontSize[1];
 	RemakeTexture();
 }
 
 void Text::RemakeTexture(){
 
-	font = Resources::GetFont(fontFile);
-	std::cout << "Font file remake:" + fontFile<< std::endl;
-	//if(texture)
-	//	SDL_DestroyTexture(texture);
+	font = Resources::GetFont(fontFile, fontSize);
 	texture = nullptr;
 	SDL_Surface* surface;
 	if(style == SOLID)
@@ -112,8 +110,5 @@ void Text::RemakeTexture(){
 	box.w = width;
 	box.h = height;
 
-	box.Print();
-
-
-
+//	box.Print();
 }

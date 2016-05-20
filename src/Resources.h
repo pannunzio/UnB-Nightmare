@@ -26,7 +26,7 @@ public:
 	static Mix_Chunk* GetSound(std::string file);
 	static void ClearSound();
 
-	static TTF_Font* GetFont(std::string file);
+	static TTF_Font* GetFont(char* file, int fontSize);
 	static void ClearFont();
 
 	~Resources();

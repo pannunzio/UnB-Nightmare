@@ -10,6 +10,8 @@
 #include <SDL.h>
 #include <SDL_Image.h>
 #include <iostream>
+#include <string>
+#include <sstream>
 // inicializando
 std::unordered_map<std::string, SDL_Texture*> Resources::imageTable;
 std::unordered_map<std::string, Mix_Music*> Resources::musicTable;
@@ -107,26 +109,18 @@ void Resources::ClearFont(){
 
 }
 
-TTF_Font* Resources::GetFont(std::string file) {
-	auto busca = fontTable.find(file);
-	if(busca != fontTable.end()){
-		std::cout << "FontTable : font encontrada" << std::endl;
-		return busca->second;
-	}
+TTF_Font* Resources::GetFont(char* file, int fontSize) {
+    std::stringstream chave;
+    chave << file << fontSize;
+    std::unordered_map<string, TTF_Font*>::const_iterator indice = fontTable.find(chave.str());
 
-
-	//manipulando
-	std::string fontSize = std::string() + file[0] + file[1];
-	std::cout << "tamanho fonte:  " + fontSize << std::endl;
-	file.erase(0,2);
-	std::cout << "arquivo: " + file << std::endl;
-
-
-
-	TTF_Font* font = TTF_OpenFont(file.c_str(), std::stoi(fontSize)); // precisa ser const char
-	if(!font)
-		std::cout << "Error ao carregar font do resources" << std::endl;
-	fontTable.emplace(file,font);
-	return font;
+    if (indice == fontTable.end()){
+        TTF_Font* font = TTF_OpenFont(file, fontSize);
+        fontTable.emplace(chave.str(), font);
+        return font;
+    } else {
+        return indice->second;
+    }
+    return nullptr;
 }
 
