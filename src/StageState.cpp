@@ -20,9 +20,7 @@
 
 #include "Collision.h"
 
-
-#define TILESET_WIDTH 256
-#define TILESET_HEIGHT 256
+#include "Defines.h"
 
 
 using namespace std;
@@ -54,6 +52,12 @@ void StageState::Update(float dt){
 		   objectArray.erase (objectArray.begin() + i);
 		   i--;
 		}
+    }
+
+    if(!Player::player){
+    	Pause();
+    	stateData.playerVictory = false;
+    	Game::GetInstance().Push(new EndState(stateData));
     }
 
 
@@ -90,8 +94,7 @@ void StageState::Render(){
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
-	stateData.playerVictory = false;
-	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset2.png");
+	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player());
 	//objetors
@@ -105,6 +108,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 StageState::~StageState(){
 	// limpando o vector
 	objectArray.clear();
+	Player::player = nullptr;
 	cout << "StageState destroyed" << endl;
 }
 //Add game object

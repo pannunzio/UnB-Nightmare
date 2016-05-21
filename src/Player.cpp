@@ -20,7 +20,6 @@ Player* Player::player = nullptr;
 
 Player::Player() : sp("img/playerRunning.png", 6, 0.09){
 	subLayer = 2;
-
 	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
 	targetSpeed = speed = PLAYER_NORMAL_SPEED;
 	acceleration = 1.5;
@@ -73,6 +72,11 @@ void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
 }
 bool Player::IsDead(){
+	// camera passou player
+	if(Camera::pos.x > pos.x + sp.GetWidth()){
+		player = nullptr;
+		return true;
+	}
 	return false; // retornar true se tiver camera passou, ou se o tempo acabou
 	//isso pode ser feito pelo state data.
 
@@ -104,6 +108,8 @@ bool Player::IsRightPosition(){
 }
 
 void Player::Movement(){
+	pos = box.CenterPos();
+
 	if(InputManager::GetInstance().KeyPress(SDLK_l))
 		targetSpeed = 7.5;
 	// exemplo de diminuir velocidade

@@ -21,7 +21,6 @@ TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png"),
 void TitleState::Update(float dt){
 
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
-		std::cout << "quit requested" << std::endl;
 		quitRequested = true;
 	}
 	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
