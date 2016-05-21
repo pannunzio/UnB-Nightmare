@@ -112,8 +112,14 @@ bool Player::IsRightPosition(){
 }
 
 void Player::RenderUI(){
-	Text coffee_ui = Text("font/Call me maybe.ttf", 40, SOLID, to_string(coffee_ammo), TEXT_BLACK, 30, 30);
-	coffee_ui.Render(0,0);
+    std::string distance;
+    std::string coffee;
+    coffee = "Cafe : " + to_string(coffee_ammo);
+    distance = to_string((int)Camera::pos.x/100) + " metros";
+	Text distanceTraveled = Text("font/arial.ttf", 34, SOLID, distance, TEXT_BLACK, 30, 70);
+	Text coffeeUI = Text("font/arial.ttf", 34, SOLID, coffee, TEXT_BLACK, 30, 30);
+	coffeeUI.Render(0,0);
+	distanceTraveled.Render(0,0);
 
 }
 
