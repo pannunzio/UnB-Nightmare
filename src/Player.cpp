@@ -35,7 +35,7 @@ Player::Player() : sp("img/playerRunning.png", 6, 0.09){
 Player::~Player() {
 	player = nullptr;
 }
-// teste git
+
 
 float Player::GetSpeed(){
 	return speed;
