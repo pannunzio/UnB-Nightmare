@@ -24,7 +24,7 @@ void TitleState::Update(float dt){
 		quitRequested = true;
 	}
 	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-		Game::GetInstance().Push(new StageState);
+		Game::GetInstance().Push(new StageState());
 	}
 
 

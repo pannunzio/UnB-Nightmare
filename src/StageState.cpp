@@ -96,7 +96,8 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
-	AddObject(new Player());
+	Player* player = new Player();
+	AddObject(player);
 	//objetors
 }
 //*********************************************************************//

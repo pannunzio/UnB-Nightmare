@@ -19,6 +19,7 @@ Player* Player::player = nullptr;
 
 
 Player::Player() : sp("img/playerRunning.png", 6, 0.09){
+
 	subLayer = 2;
 	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
 	targetSpeed = speed = PLAYER_NORMAL_SPEED;
@@ -27,15 +28,15 @@ Player::Player() : sp("img/playerRunning.png", 6, 0.09){
 	powerUp = NONE;
 	player = this;
 
+	std::cout << "Player Construido" << std::endl;
+
 }
 
 Player::~Player() {
-	// TODO Auto-generated destructor stub
+	player = nullptr;
 }
 // teste git
-Player& Player::GetInstance(){
-	return *player;
-}
+
 float Player::GetSpeed(){
 	return speed;
 }

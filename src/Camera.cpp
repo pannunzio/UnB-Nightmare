@@ -44,11 +44,11 @@ void Camera::Update(float dt){
 
 	}
 	if(!focus){
-		if(Player::GetInstance().GetSpeed() <= CAMERA_NORMAL_SPEED)
+		if(Player::player->GetSpeed() <= CAMERA_NORMAL_SPEED)
 			pos.x = pos.x + speed.x*dt*100 ;//- 0.1*(Player::GetInstance().GetSpeed() - MAXSPEED)*speed.x*dt*100;
-		if(Player::GetInstance().GetSpeed() > CAMERA_NORMAL_SPEED){
-			if(Player::GetInstance().IsRightPosition())
-				pos.x = pos.x + Player::GetInstance().GetSpeed()*dt*100 ;
+		if(Player::player->GetSpeed() > CAMERA_NORMAL_SPEED){
+			if(Player::player->IsRightPosition())
+				pos.x = pos.x + Player::player->GetSpeed()*dt*100 ;
 			else
 				pos.x = pos.x + speed.x*dt*100;
 
