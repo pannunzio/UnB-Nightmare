@@ -10,21 +10,19 @@
 #include "Camera.h"
 #include <cstdlib>
 
+#include "Defines.h"
 
 Player* Player::player = nullptr;
 
-#define MAXSPEED 5
-#define DISTANCE_CAMERA 150
 
 Player::Player() : sp("img/playerRunning.png", 6, 0.09){
 	subLayer = 2;
 
 	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
-	speed = MAXSPEED;
+	targetSpeed = speed = PLAYER_NORMAL_SPEED;
 	acceleration = 1.5;
 	isRightPosition = false;
 	powerUp = NONE;
-	targetSpeed = MAXSPEED;
 	player = this;
 
 }
@@ -42,7 +40,7 @@ float Player::GetSpeed(){
 
 void Player::Update(float dt){
 	//colocando na posicao certa
-	if(box.x - Camera::pos.x > DISTANCE_CAMERA)
+	if(box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
 		isRightPosition = true;
 	else
 		isRightPosition = false;

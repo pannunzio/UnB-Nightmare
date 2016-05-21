@@ -4,15 +4,18 @@
  *  Created on: 25 de mar de 2016
  *      Author: Caio
  */
-
+#include "Defines.h"
 #include "Camera.h"
 #include "InputManager.h"
 #include "Player.h"
+
+
 GameObject* Camera::focus = nullptr;;
 Vec2 Camera::pos = Vec2(0,0);
-Vec2 Camera::speed = Vec2(5,5);
+Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,CAMERA_NORMAL_SPEED);
 
-#define CAMERA_MAXSPEED 5
+
+
 
 Camera::Camera() {
 	focus = nullptr;
@@ -41,9 +44,9 @@ void Camera::Update(float dt){
 
 	}
 	if(!focus){
-		if(Player::GetInstance().GetSpeed() <= CAMERA_MAXSPEED)
+		if(Player::GetInstance().GetSpeed() <= CAMERA_NORMAL_SPEED)
 			pos.x = pos.x + speed.x*dt*100 ;//- 0.1*(Player::GetInstance().GetSpeed() - MAXSPEED)*speed.x*dt*100;
-		if(Player::GetInstance().GetSpeed() > CAMERA_MAXSPEED){
+		if(Player::GetInstance().GetSpeed() > CAMERA_NORMAL_SPEED){
 			if(Player::GetInstance().IsRightPosition())
 				pos.x = pos.x + Player::GetInstance().GetSpeed()*dt*100 ;
 			else
