@@ -11,7 +11,7 @@
 
 
 Vec2 Camera::pos = Vec2(0,0);
-Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,CAMERA_NORMAL_SPEED);
+Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,2);
 
 int Camera::layer = 2;
 
@@ -41,15 +41,18 @@ void Camera::Update(float dt){
 
 
 		// mudança de local
-		// essa checagem na verdade tem q ser feita pelo player, ou seja, if playerWentUp, playerWentDown
+		// camera
 		if(layer == 3)
-			pos.y = 0;
-		if(layer == 2)
-			pos.y = 220;
+			if(pos.y > 0)
+				pos.y = pos.y - speed.y*dt*100;
+		if(layer == 2 )
+			if(pos.y > 220)
+			pos.y = pos.y - speed.y*dt*100;
+		if(layer == 2 )
+			if(pos.y < 220)
+			pos.y = pos.y + speed.y*dt*100;
 		if(layer == 1)
-			pos.y = 480;
-
-
-
+			if(pos.y < 480)
+				pos.y = pos.y + speed.y*dt*100;
 
 }
