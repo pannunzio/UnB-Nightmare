@@ -74,7 +74,7 @@ void StageState::Render(){
 	//chamando o render de cada gameObject
 	bg.Render(0,0);
 	Camera::Update(Game::GetInstance().GetDeltaTime());
-	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y + 100);
+	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y );
 	//tileMap.Render(0,0);
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		// cout intuito de bebugar
@@ -92,12 +92,12 @@ void StageState::Render(){
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
-	Camera::pos = Vec2(0,0);
+	Camera::pos = Vec2(0,512);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
-	AddObject(new Player());
+	AddObject(new Player(200,540));
 	//objetors
 }
 //*********************************************************************//

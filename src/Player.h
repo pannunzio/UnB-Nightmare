@@ -22,7 +22,7 @@ enum PowerUp{
 
 class Player : public GameObject{
 public:
-	Player();
+	Player(float x,float y);
 	virtual ~Player();
 	void Update(float dt);
 	void Render();
@@ -44,6 +44,11 @@ public:
 
 	void Movement();
 	void Shoot();
+
+
+
+	bool playerWentUp;
+	bool playerWentDown;
 
 private:
 	Sprite sp; // sprite

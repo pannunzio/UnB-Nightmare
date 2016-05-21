@@ -15,16 +15,17 @@ class Camera {
 public:
 	Camera();
 	~Camera();
-	static void Follow(GameObject* newFocus);
-	static void Unfollow();
 	static void Update(float dt);
 
 	void Is(std::string type);
 
 	static Vec2 pos;
 	static Vec2 speed;
+
+
 private:
-	static GameObject* focus;
+	static int layer;
+
 };
 
 #endif /* CAMERA_H_ */

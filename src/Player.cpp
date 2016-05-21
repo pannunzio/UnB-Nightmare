@@ -18,10 +18,11 @@
 Player* Player::player = nullptr;
 
 
-Player::Player() : sp("img/playerRunning.png", 6, 0.09){
+Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
-	subLayer = 2;
-	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
+	subLayer = SUBLAYER_MIDDLE;
+	layer = LAYER_MIDDLE;
+	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	targetSpeed = speed = PLAYER_NORMAL_SPEED;
 	acceleration = 1.5;
 	isRightPosition = false;
@@ -111,6 +112,18 @@ bool Player::IsRightPosition(){
 void Player::Movement(){
 	pos = box.CenterPos();
 
+	if(subLayer > 3)
+		subLayer = 3;
+	if(subLayer < 1)
+		subLayer = 1;
+
+	if(InputManager::GetInstance().KeyPress(SDLK_w)){
+		std::cout << "DEBUG\n" << std::endl;
+		std::cout << "-------------PLayer---------------------"  << std::endl;
+		std::cout << "Layer: " << layer  << std::endl;
+		std::cout << "suLayer: " << subLayer << std::endl;
+	}
+
 	if(InputManager::GetInstance().KeyPress(SDLK_l))
 		targetSpeed = 7.5;
 	// exemplo de diminuir velocidade
@@ -125,16 +138,46 @@ void Player::Movement(){
 	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
 		if(subLayer <=2){
 			subLayer++;
-			box.y = box.y - 60;
+			box.y = box.y - 20;
 		}
 	}
 	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
 		if(subLayer >=2){
 			subLayer--;
-			box.y = box.y + 60;
+			box.y = box.y + 20;
 		}
 	}
 
+	if(subLayer == SUBLAYER_TOP)
+		if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
+			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+				layer++;
+
+				box.y = box.y - 312;
+				subLayer = SUBLAYER_BOTTON;
+				playerWentUp = true;
+				playerWentDown = false;
+				if(layer == LAYER_MIDDLE)
+					box.y = RENDER_HEIGHT_21;
+				if(layer == LAYER_TOP)
+					box.y = RENDER_HEIGHT_31;
+
+			}
+
+	if(subLayer == SUBLAYER_BOTTON)
+		if(layer == LAYER_TOP || layer == LAYER_MIDDLE)
+			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+				layer--;
+				subLayer = SUBLAYER_TOP;
+				playerWentDown = true;
+				playerWentUp = false;
+
+				if(layer == LAYER_MIDDLE)
+					box.y = RENDER_HEIGHT_23;
+				if(layer == LAYER_BOTTON)
+					box.y = RENDER_HEIGHT_13;
+
+			}
 
 }
 
