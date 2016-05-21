@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "InputManager.h"
 #include "Camera.h"
+#include "Text.h"
 #include <cstdlib>
 
 #include "Bullet.h"
@@ -16,10 +17,10 @@
 #include "Defines.h"
 
 Player* Player::player = nullptr;
+int Player::coffee_ammo = 3;
 
 
 Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
-
 	subLayer = SUBLAYER_MIDDLE;
 	layer = LAYER_MIDDLE;
 	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
@@ -72,6 +73,7 @@ void Player::Update(float dt){
 }
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
+	RenderUI();
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -107,6 +109,12 @@ void Player::SetAcceleration(float acceleration){
 
 bool Player::IsRightPosition(){
 	return isRightPosition;
+}
+
+void Player::RenderUI(){
+	Text coffee_ui = Text("font/Call me maybe.ttf", 40, SOLID, to_string(coffee_ammo), TEXT_BLACK, 30, 30);
+	coffee_ui.Render(0,0);
+
 }
 
 void Player::Movement(){
@@ -155,8 +163,6 @@ void Player::Movement(){
 
 				box.y = box.y - 312;
 				subLayer = SUBLAYER_BOTTON;
-				playerWentUp = true;
-				playerWentDown = false;
 				if(layer == LAYER_MIDDLE)
 					box.y = RENDER_HEIGHT_21;
 				if(layer == LAYER_TOP)
@@ -169,9 +175,6 @@ void Player::Movement(){
 			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
 				layer--;
 				subLayer = SUBLAYER_TOP;
-				playerWentDown = true;
-				playerWentUp = false;
-
 				if(layer == LAYER_MIDDLE)
 					box.y = RENDER_HEIGHT_23;
 				if(layer == LAYER_BOTTON)
@@ -183,6 +186,9 @@ void Player::Movement(){
 
 void Player::Shoot(){
 	Vec2 shootPos = box.CenterPos();
-	Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "coffee");
-	Game::GetInstance().GetCurrentState().AddObject(coffee);
+	if(coffee_ammo>0){
+		Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "coffee");
+		Game::GetInstance().GetCurrentState().AddObject(coffee);
+		coffee_ammo--;
+	}
 }

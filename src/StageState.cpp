@@ -92,7 +92,7 @@ void StageState::Render(){
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
-	Camera::pos = Vec2(0,512);
+	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");

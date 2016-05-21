@@ -46,17 +46,17 @@ public:
 	void Shoot();
 
 
+	void RenderUI();
 
-	bool playerWentUp;
-	bool playerWentDown;
 
+	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
 	Sprite sp; // sprite
 	float speed; // velocidade
 	float acceleration; // acceleratcao
 	float targetSpeed;
 	Vec2 pos; // posicao atual para facilitar calculos
-	// fila de items
+
 	PowerUp powerUp;// enumaration de powerup
 
 	bool isRightPosition;
