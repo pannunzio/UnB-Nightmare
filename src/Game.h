@@ -8,8 +8,6 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 600
 
 #include <iostream>
 #include <SDL.h>

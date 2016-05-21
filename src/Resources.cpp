@@ -31,7 +31,6 @@ SDL_Texture* Resources::GetImage(std::string file){
 
 	auto busca = imageTable.find(file);
 	if(busca != imageTable.end()){
-		std::cout << "ImageTable : imagem encontrada" << std::endl;
 		return busca->second;
 	}
 	SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
@@ -70,7 +69,6 @@ void Resources::ClearMusic(){
 Mix_Music* Resources::GetMusic(std::string file) {
 	auto busca = musicTable.find(file);
 	if(busca != musicTable.end()){
-		std::cout << "ImageTable : musica encontrada" << std::endl;
 		return busca->second;
 	}
 	Mix_Music* music = Mix_LoadMUS((const char*)file.c_str()); // precisa ser const char
@@ -91,7 +89,6 @@ void Resources::ClearSound(){
 Mix_Chunk* Resources::GetSound(std::string file) {
 	auto busca = soundTable.find(file);
 	if(busca != soundTable.end()){
-		std::cout << "SoundTable : musica encontrada" << std::endl;
 		return busca->second;
 	}
 	Mix_Chunk* sound = Mix_LoadWAV((const char*)file.c_str()); // precisa ser const char

@@ -41,6 +41,10 @@ public:
 
 	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 
+
+	void Movement();
+	void Shoot();
+
 private:
 	Sprite sp; // sprite
 	float speed; // velocidade

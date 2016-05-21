@@ -5,10 +5,13 @@
  *      Author: apoio
  */
 
+#include "Game.h"
 #include "Player.h"
 #include "InputManager.h"
 #include "Camera.h"
 #include <cstdlib>
+
+#include "Bullet.h"
 
 #include "Defines.h"
 
@@ -39,28 +42,17 @@ float Player::GetSpeed(){
 }
 
 void Player::Update(float dt){
-	//colocando na posicao certa
+	sp.Update(dt);
+	Movement(); // faz os movimentos do input
+
+	//colocando na posicao certa o player
 	if(box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
 		isRightPosition = true;
 	else
 		isRightPosition = false;
 
 
-	//movimento de sublayer
-	sp.Update(dt);
-	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
-		if(subLayer <=2){
-			subLayer++;
-			box.y = box.y - 60;
-		}
-	}
-	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
-		if(subLayer >=2){
-			subLayer--;
-			box.y = box.y + 60;
-		}
-	}
-
+	//ir acelerando até a velocidade
 	if(!IsTargetSpeed(targetSpeed)){
 		if(targetSpeed > speed)
 			speed = speed + acceleration*dt;
@@ -69,18 +61,12 @@ void Player::Update(float dt){
 			speed = speed - acceleration*dt;
 	}
 
-	//exemplo de pegou power up
-	if(InputManager::GetInstance().KeyPress(SDLK_l))
-		targetSpeed = 7.5;
-	// exemplo de diminuir velocidade
-	if(InputManager::GetInstance().KeyPress(SDLK_j))
-		targetSpeed =4.5;
-	// exemplo de velocidade voltou ao normal
-	if(InputManager::GetInstance().KeyPress(SDLK_k))
-		targetSpeed =5;
-
 	//correndo
 	box.x = box.x + speed*dt*100;
+
+	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
+		Shoot();
+	}
 
 }
 void Player::Render(){
@@ -115,4 +101,38 @@ void Player::SetAcceleration(float acceleration){
 
 bool Player::IsRightPosition(){
 	return isRightPosition;
+}
+
+void Player::Movement(){
+	if(InputManager::GetInstance().KeyPress(SDLK_l))
+		targetSpeed = 7.5;
+	// exemplo de diminuir velocidade
+	if(InputManager::GetInstance().KeyPress(SDLK_j))
+		targetSpeed =4.5;
+	// exemplo de velocidade voltou ao normal
+	if(InputManager::GetInstance().KeyPress(SDLK_k))
+		targetSpeed =5;
+
+
+	//movimento de sublayer
+	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
+		if(subLayer <=2){
+			subLayer++;
+			box.y = box.y - 60;
+		}
+	}
+	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
+		if(subLayer >=2){
+			subLayer--;
+			box.y = box.y + 60;
+		}
+	}
+
+
+}
+
+void Player::Shoot(){
+	Vec2 shootPos = box.CenterPos();
+	Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "coffee");
+	Game::GetInstance().GetCurrentState().AddObject(coffee);
 }

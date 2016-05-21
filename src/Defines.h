@@ -11,8 +11,8 @@ using std::cout;
 using std::endl;
 
 #define SCREEN_NAME string "UnB Nightmare"
-#define SCREEN_HEIGHT int 600
-#define SCREEN_WIDTH int 1024
+#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1024
 
 #define COLOR_BLACK SDL_Color{0, 0, 0}
 #define COLOR_WHITE SDL_Color{255, 255, 255}
@@ -26,6 +26,8 @@ using std::endl;
 #define TILE_HEIGHT 256
 
 #define CAMERA_NORMAL_SPEED 5
+
+#define BULLET_MAX_DISTANCE 500
 
 
 //acrescentar mais aa medida q for usando
