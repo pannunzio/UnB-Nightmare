@@ -22,14 +22,12 @@
 #include "Rect.h"
 #include "TitleState.h"
 #include "Defines.h"
-using namespace std;
-
-
-
-
-
 #include <cstdlib>
 #include <ctime>
+
+using std::cout;
+using std::endl;
+
 Game* Game::instance = nullptr;
 
 
@@ -81,13 +79,13 @@ Game::~Game(){
 		storedState = nullptr;
 	while(!stateStack.empty())
 		stateStack.pop();
-	SDL_DestroyWindow(window);
-	SDL_DestroyRenderer(renderer);
+	Mix_CloseAudio();
 	IMG_Quit();
 	SDL_Quit();
-	Mix_CloseAudio();
 	Mix_Quit();
 	TTF_Quit();
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	cout << "game destroyed" << endl;
 }
 void Game::Push(State* state){
@@ -147,11 +145,3 @@ float Game::GetDeltaTime(){
 void Game::CalculateDeltaTime(){
 	this->dt = (SDL_GetTicks() - frameStart)/1000.0 ;
 }
-
-
-
-
-
-
-
-

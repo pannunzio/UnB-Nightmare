@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "Timer.h"
 #include "Clock.h"
+#include "Text.h"
 
 
 enum PowerUp{
@@ -33,6 +34,8 @@ public:
 	bool IsTargetSpeed(float targetSpeed);
 	void SetTargetSpeed(float targetSpeed);
 
+    Player& GetInstance();
+
 	static Player* player;
 
 	float GetSpeed();
@@ -42,17 +45,11 @@ public:
 
 	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 
-
 	void Movement();
 	void Shoot();
 
-
-	void RenderUI();
-
-
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
-	Clock clock;
 	Sprite sp; // sprite
 	float speed; // velocidade
 	float acceleration; // acceleratcao

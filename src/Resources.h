@@ -13,6 +13,8 @@
 #include <SDL_TTF.h>
 
 #include <SDL_Mixer.h>
+#include "Text.h"
+
 class Resources {
 
 public:
@@ -29,12 +31,16 @@ public:
 	static TTF_Font* GetFont(char* file, int fontSize);
 	static void ClearFont();
 
+	static Text* GetNumber(int number);
+	static void ClearNumber();
+
 	~Resources();
 private:
 	static std::unordered_map<std::string, SDL_Texture*> imageTable;
 	static std::unordered_map<std::string, Mix_Music*> musicTable;
 	static std::unordered_map<std::string, Mix_Chunk*> soundTable;
 	static std::unordered_map<std::string, TTF_Font*> fontTable;
+	static std::unordered_map<int, Text*> numbersTable;
 };
 
 #endif /* RESOURCES_H_ */

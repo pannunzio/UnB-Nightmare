@@ -38,6 +38,7 @@ public:
 	void SetColor(SDL_Color color);
 	void SetStyle(TextStyle style);
 	void SetFontSize(int fontSize);
+	void SetText(std::string text);
 
 private:
 	void RemakeTexture();

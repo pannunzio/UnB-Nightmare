@@ -17,6 +17,7 @@ std::unordered_map<std::string, SDL_Texture*> Resources::imageTable;
 std::unordered_map<std::string, Mix_Music*> Resources::musicTable;
 std::unordered_map<std::string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<std::string, TTF_Font*> Resources::fontTable;
+std::unordered_map<int, Text*> Resources::numbersTable;
 
 Resources::Resources() {
 
@@ -121,3 +122,20 @@ TTF_Font* Resources::GetFont(char* file, int fontSize) {
     return nullptr;
 }
 
+Text* Resources::GetNumber(int number){
+    std::unordered_map<int, Text*>::const_iterator indice = numbersTable.find(number);
+    if (indice == numbersTable.end()){
+        std::stringstream numero;
+        numero << number;
+        Text* text = new Text("font/arial.ttf", 34, SOLID, numero.str(), TEXT_BLACK, 980, 20);
+        numbersTable.emplace(number, text);
+        return text;
+    } else {
+        return indice->second;
+    }
+    return nullptr;
+}
+
+void Resources::ClearNumber(){
+    numbersTable.clear();
+}

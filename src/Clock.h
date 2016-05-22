@@ -1,22 +1,22 @@
-/*
- * Clock.h
- *
- *  Created on: 21 de mai de 2016
- *      Author: Caio
- */
-
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
+#include "Text.h"
 
-#include "Timer.h"
 class Clock {
 public:
-	int minutes =0;
-	int seconds = 0;
+    Clock();
+
 	void Update(float dt);
+    void Render();
+
+	float GetTime();
+	int GetMinutes();
+	int GetSeconds1();
+	int GetSeconds2();
 private:
-	Timer timer;
+	float time;
+	Text doisPontos;
 };
 
 #endif /* CLOCK_H_ */

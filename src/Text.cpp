@@ -88,6 +88,11 @@ void Text::SetFontSize(int fontSize){
 	RemakeTexture();
 }
 
+void Text::SetText(std::string text){
+    this->text = text;
+    RemakeTexture();
+}
+
 void Text::RemakeTexture(){
 
 	font = Resources::GetFont(fontFile, fontSize);
@@ -99,17 +104,12 @@ void Text::RemakeTexture(){
 		surface = TTF_RenderText_Shaded(font,text.c_str(),color, TEXT_BLACK);
 	if(style == BLENDED)
 		surface = TTF_RenderText_Blended(font,text.c_str(),color);
+
 	texture = SDL_CreateTextureFromSurface(Game::GetInstance().GetRenderer(), surface);
+	SDL_QueryTexture(this->texture, nullptr, nullptr, &surface->w, &surface->h);
+    this->box.w = surface->w;
+    this->box.h = surface->h;
 	SDL_FreeSurface(surface);
-
-	int height,width;
-	height = 0;
-	width = 0;
-
-	if(texture)
-		SDL_QueryTexture(texture,NULL,NULL,&width,&height);
-	box.w = width;
-	box.h = height;
 
 //	box.Print();
 }

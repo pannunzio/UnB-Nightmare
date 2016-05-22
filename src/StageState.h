@@ -17,6 +17,7 @@
 #include "InputManager.h"
 #include "Music.h"
 #include "StateData.h"
+#include "Clock.h"
 
 #include "TileMap.h"
 #include "TileSet.h"
@@ -36,9 +37,9 @@ private:
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
 	Sprite bg; // background
-	Music music;
+//	Music music;
 	StateData stateData;
-
+	Clock clock;
 };
 
 #endif /* STATE_H_ */

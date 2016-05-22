@@ -1,140 +1,10 @@
-<<<<<<< HEAD
-/*
- * Player.cpp
- *
- *  Created on: 18 de mai de 2016
- *      Author: apoio
- */
-
-#include "Player.h"
-#include "InputManager.h"
-#include "Camera.h"
-#include <cstdlib>
-
-
-Player* Player::player = nullptr;
-
-#define MAXSPEED 5
-#define DISTANCE_CAMERA 150
-
-Player::Player() : sp("img/playerRunning.png", 6, 0.09){
-	subLayer = 2;
-
-	box.Centralize(50,300,sp.GetWidth(),sp.GetHeight());
-	speed = MAXSPEED;
-	acceleration = 1.5;
-	isRightPosition = false;
-	powerUp = NONE;
-	targetSpeed = MAXSPEED;
-	player = this;
-
-}
-
-Player::~Player() {
-	// TODO Auto-generated destructor stub
-}
-// teste git
-Player& Player::GetInstance(){
-	return *player;
-}
-float Player::GetSpeed(){
-	return speed;
-}
-
-void Player::Update(float dt){
-	//colocando na posicao certa
-	if(box.x - Camera::pos.x > DISTANCE_CAMERA)
-		isRightPosition = true;
-	else
-		isRightPosition = false;
-
-
-	//movimento de sublayer
-	sp.Update(dt);
-	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
-		if(subLayer <=2){
-			subLayer++;
-			box.y = box.y - 60;
-		}
-	}
-	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
-		if(subLayer >=2){
-			subLayer--;
-			box.y = box.y + 60;
-		}
-	}
-
-	if(!IsTargetSpeed(targetSpeed)){
-		if(targetSpeed > speed)
-			speed = speed + acceleration*dt;
-
-		if(targetSpeed < speed)
-			speed = speed - acceleration*dt;
-	}
-
-	//exemplo de pegou power up
-	if(InputManager::GetInstance().KeyPress(SDLK_l))
-		targetSpeed = 7.5;
-	// exemplo de diminuir velocidade
-	if(InputManager::GetInstance().KeyPress(SDLK_j))
-		targetSpeed =4.5;
-	// exemplo de velocidade voltou ao normal
-	if(InputManager::GetInstance().KeyPress(SDLK_k))
-		targetSpeed =5;
-
-	//correndo
-	box.x = box.x + speed*dt*100;
-
-}
-void Player::Render(){
-	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
-}
-bool Player::IsDead(){
-	return false; // retornar true se tiver camera passou, ou se o tempo acabou
-	//isso pode ser feito pelo state data.
-
-}
-bool Player::Is(std::string type){
-	return (type == "Player");
-
-}
-void Player::NotifyCollision(GameObject* other){
-
-}
-bool Player::IsTargetSpeed(float targetSpeed){
-	if(targetSpeed <=0) // se algo a levar para tras
-		speed = targetSpeed;
-	if(abs(speed - targetSpeed) <= 0.005)
-		return true;
-	return false;
-}
-
-float Player::GetAcceleration(){
-	return acceleration;
-}
-void Player::SetAcceleration(float acceleration){
-	this->acceleration = acceleration;
-}
-
-bool Player::IsRightPosition(){
-	return isRightPosition;
-}
-=======
-/*
- * Player.cpp
- *
- *  Created on: 18 de mai de 2016
- *      Author: apoio
- */
-
 #include "Game.h"
 #include "Player.h"
 #include "InputManager.h"
 #include "Camera.h"
 #include "Text.h"
 #include <cstdlib>
-
-
+#include <sstream>
 
 #include "Bullet.h"
 
@@ -168,7 +38,7 @@ float Player::GetSpeed(){
 }
 
 void Player::Update(float dt){
-	clock.Update(dt);
+//	clock.Update(dt);
 	sp.Update(dt);
 	Movement(); // faz os movimentos do input
 
@@ -198,7 +68,6 @@ void Player::Update(float dt){
 }
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
-	RenderUI();
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -234,25 +103,6 @@ void Player::SetAcceleration(float acceleration){
 
 bool Player::IsRightPosition(){
 	return isRightPosition;
-}
-
-void Player::RenderUI(){
-	std::string clockUI;
-    std::string distanceUI;
-    std::string coffeeUI;
-
-    clockUI = "Time: " + to_string(clock.minutes) + " : " + to_string(clock.seconds);
-    coffeeUI = "Coffee : " + to_string(coffee_ammo);
-    distanceUI = to_string((int)Camera::pos.x/100) + " metros";
-
-	Text clockText = Text("font/arial.ttf", 34, SOLID, clockUI, TEXT_BLACK, 700, 30);
-	Text distanceText = Text("font/arial.ttf", 34, SOLID, distanceUI, TEXT_BLACK, 30, 70);
-	Text coffeeText = Text("font/arial.ttf", 34, SOLID, coffeeUI, TEXT_BLACK, 30, 30);
-
-	clockText.Render(0,0);
-	coffeeText.Render(0,0);
-	distanceText.Render(0,0);
-
 }
 
 void Player::Movement(){
@@ -330,4 +180,3 @@ void Player::Shoot(){
 		coffee_ammo--;
 	}
 }
->>>>>>> origin/master
