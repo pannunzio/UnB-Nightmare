@@ -12,6 +12,8 @@
 #include "Text.h"
 #include <cstdlib>
 
+
+
 #include "Bullet.h"
 
 #include "Defines.h"
@@ -44,6 +46,7 @@ float Player::GetSpeed(){
 }
 
 void Player::Update(float dt){
+	clock.Update(dt);
 	sp.Update(dt);
 	Movement(); // faz os movimentos do input
 
@@ -112,14 +115,21 @@ bool Player::IsRightPosition(){
 }
 
 void Player::RenderUI(){
-    std::string distance;
-    std::string coffee;
-    coffee = "Cafe : " + to_string(coffee_ammo);
-    distance = to_string((int)Camera::pos.x/100) + " metros";
-	Text distanceTraveled = Text("font/arial.ttf", 34, SOLID, distance, TEXT_BLACK, 30, 70);
-	Text coffeeUI = Text("font/arial.ttf", 34, SOLID, coffee, TEXT_BLACK, 30, 30);
-	coffeeUI.Render(0,0);
-	distanceTraveled.Render(0,0);
+	std::string clockUI;
+    std::string distanceUI;
+    std::string coffeeUI;
+
+    clockUI = "Time: " + to_string(clock.minutes) + " : " + to_string(clock.seconds);
+    coffeeUI = "Coffee : " + to_string(coffee_ammo);
+    distanceUI = to_string((int)Camera::pos.x/100) + " metros";
+
+	Text clockText = Text("font/arial.ttf", 34, SOLID, clockUI, TEXT_BLACK, 700, 30);
+	Text distanceText = Text("font/arial.ttf", 34, SOLID, distanceUI, TEXT_BLACK, 30, 70);
+	Text coffeeText = Text("font/arial.ttf", 34, SOLID, coffeeUI, TEXT_BLACK, 30, 30);
+
+	clockText.Render(0,0);
+	coffeeText.Render(0,0);
+	distanceText.Render(0,0);
 
 }
 

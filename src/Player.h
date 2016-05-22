@@ -10,6 +10,7 @@
 
 #include "GameObject.h"
 #include "Timer.h"
+#include "Clock.h"
 
 
 enum PowerUp{
@@ -51,6 +52,7 @@ public:
 
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
+	Clock clock;
 	Sprite sp; // sprite
 	float speed; // velocidade
 	float acceleration; // acceleratcao
