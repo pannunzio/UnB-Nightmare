@@ -50,3 +50,6 @@ obj/Release/src/Animation.o
 *.cbp
 UnB-Nightmare.depend
 *.layout
+*.o
+*.o
+Debug/src/EndState.o

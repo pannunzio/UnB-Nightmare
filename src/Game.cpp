@@ -12,6 +12,7 @@
 
 #include <iostream>
 
+
 #include "Game.h"
 #include "State.h"
 #include "Vec2.h"
@@ -20,6 +21,7 @@
 #include "InputManager.h"
 #include "Rect.h"
 #include "TitleState.h"
+#include "Defines.h"
 using namespace std;
 
 

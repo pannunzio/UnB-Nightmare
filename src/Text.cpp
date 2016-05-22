@@ -43,10 +43,11 @@ Text::~Text(){
 void Text::Render(int cameraX, int cameraY){
 
 	SDL_Rect dstRect;
-	dstRect.x = box.x + cameraX;
-	dstRect.y = box.y + cameraY;
+	dstRect.x = box.x - cameraX;
+	dstRect.y = box.y - cameraY;
 	dstRect.w = box.w;
 	dstRect.h = box.h;
+
 
 
 

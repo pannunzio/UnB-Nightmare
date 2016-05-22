@@ -8,33 +8,29 @@
 #include "Bullet.h"
 #include "Camera.h"
 #include "Game.h"
+#include "Defines.h"
 
 
 void Bullet::NotifyCollision(GameObject* other){
-	if(other->Is("Penguins") && targetsPlayer)
-		distanceLeft = 0;
-	if(other->Is("Alien")&& !targetsPlayer)
+	if(other->Is("Enemy")&& !targetsPlayer)
 		distanceLeft = 0;
 
 }
 
 bool Bullet::Is(std::string type){
-	return(type == "Bullet");
+	return(type == this->type);
 }
 
-Bullet::Bullet(float x, float y, float angle, float speed, float maxDistance, string sprite, int frameCount
-		,float frameTime, bool targetsPlayer) : sp(sprite,frameCount,frameTime){
+Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,float frameTime, bool targetsPlayer, std::string type)
+		: sp(sprite,frameCount,frameTime)
+{
+
+	this->type = type;
+	this->speed = speed;
 	this->targetsPlayer = targetsPlayer;
 	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
-	distanceLeft = maxDistance;
-	rotation = angle;
-	this->speed.x =  cos(angle*M_PI/180.0)*speed; // graus
-	this->speed.y =  sin(angle*M_PI/180.0)*speed;
-
+	distanceLeft = BULLET_MAX_DISTANCE;
 }
-
-
-
 
 Bullet::~Bullet() {
 
@@ -48,18 +44,9 @@ bool Bullet::IsDead(){
 }
 void Bullet::Update(float dt){
 	sp.Update(dt);
-	// velocidades menor q 1 sao consideradas como 0
-	Vec2 mover(speed.x*dt,speed.y*dt);
-	//box.x += mover.x;
-	//box.y += mover.y;
-	box = box + mover;
-	distanceLeft-= mover.Magnitude();
+	box.x = box.x + speed*dt*100;
+	distanceLeft-= speed*dt*100;
 }
 void Bullet::Render(){
 	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y,rotation);
-//	SDL_RenderDrawLine(Game::GetInstance().GetRenderer(),box.x -Camera::pos.x,
-//																box.y - Camera::pos.y,
-//																box.x + box.w - Camera::pos.x,
-//																box.h + box.y - Camera::pos.y);
-
 }

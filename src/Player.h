@@ -10,6 +10,7 @@
 
 #include "GameObject.h"
 #include "Timer.h"
+#include "Clock.h"
 
 
 enum PowerUp{
@@ -22,7 +23,7 @@ enum PowerUp{
 
 class Player : public GameObject{
 public:
-	Player();
+	Player(float x,float y);
 	virtual ~Player();
 	void Update(float dt);
 	void Render();
@@ -31,7 +32,7 @@ public:
 	void NotifyCollision(GameObject* other);
 	bool IsTargetSpeed(float targetSpeed);
 	void SetTargetSpeed(float targetSpeed);
-	static Player& GetInstance();
+
 	static Player* player;
 
 	float GetSpeed();
@@ -41,13 +42,23 @@ public:
 
 	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 
+
+	void Movement();
+	void Shoot();
+
+
+	void RenderUI();
+
+
+	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
+	Clock clock;
 	Sprite sp; // sprite
 	float speed; // velocidade
 	float acceleration; // acceleratcao
 	float targetSpeed;
 	Vec2 pos; // posicao atual para facilitar calculos
-	// fila de items
+
 	PowerUp powerUp;// enumaration de powerup
 
 	bool isRightPosition;
