@@ -41,3 +41,12 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+*.exe
+libFLAC-8.dll
+*.dll
+obj/Release/src/Animation.o
+*.o
+*.cbp
+UnB-Nightmare.depend
+*.layout
