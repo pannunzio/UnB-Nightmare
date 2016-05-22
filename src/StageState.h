@@ -37,7 +37,7 @@ private:
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
 	Sprite bg; // background
-//	Music music;
+	Music music;
 	StateData stateData;
 	Clock clock;
 };

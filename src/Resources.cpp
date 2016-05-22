@@ -72,10 +72,10 @@ Mix_Music* Resources::GetMusic(std::string file) {
 	if(busca != musicTable.end()){
 		return busca->second;
 	}
+
 	Mix_Music* music = Mix_LoadMUS((const char*)file.c_str()); // precisa ser const char
 	if(!music)
 		std::cout << "Error ao carregar texture do resources" << std::endl;
-	//imageTable.emplace(file,texture);
 	musicTable.emplace(file,music);
 	return music;
 }

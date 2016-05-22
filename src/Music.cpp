@@ -17,6 +17,7 @@ Music::Music(std::string file){
 
 }
 Music::~Music(){
+	music = nullptr;
 
 }
 
