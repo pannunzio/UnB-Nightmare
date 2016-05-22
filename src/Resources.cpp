@@ -37,7 +37,7 @@ SDL_Texture* Resources::GetImage(std::string file){
 	SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 	if(!renderer)
 			std::cout << "renderer bugado" << std::endl;
-	SDL_Texture* texture = IMG_LoadTexture(renderer,(const char*)file.c_str()); // precisa ser const char
+	SDL_Texture* texture = IMG_LoadTexture(renderer,file.c_str()); // precisa ser const char
 	if(!texture)
 		std::cout << "Error ao carregar texture do resources" << std::endl;
 	imageTable.emplace(file,texture);
@@ -73,7 +73,7 @@ Mix_Music* Resources::GetMusic(std::string file) {
 		return busca->second;
 	}
 
-	Mix_Music* music = Mix_LoadMUS((const char*)file.c_str()); // precisa ser const char
+	Mix_Music* music = Mix_LoadMUS(file.c_str()); // precisa ser const char
 	if(!music)
 		std::cout << "Error ao carregar texture do resources" << std::endl;
 	musicTable.emplace(file,music);
@@ -92,7 +92,7 @@ Mix_Chunk* Resources::GetSound(std::string file) {
 	if(busca != soundTable.end()){
 		return busca->second;
 	}
-	Mix_Chunk* sound = Mix_LoadWAV((const char*)file.c_str()); // precisa ser const char
+	Mix_Chunk* sound = Mix_LoadWAV(file.c_str()); // precisa ser const char
 	if(!sound)
 		std::cout << "Error ao carregar sound do resources" << std::endl;
 	soundTable.emplace(file,sound);
