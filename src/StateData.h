@@ -11,7 +11,7 @@
 class StateData {
 public:
 	bool playerVictory;
-	int timeleft; // quanto tempo sobrou
+	float timeleft; // quanto tempo sobrou
 	int turned; // quantos acertou
 };
 

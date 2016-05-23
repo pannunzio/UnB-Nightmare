@@ -67,12 +67,14 @@ void StageState::Update(float dt){
     if(clock.GetTime() < 0.5){
         Pause();
         stateData.playerVictory = false;
+        stateData.timeleft = 0;
         Game::GetInstance().Push(new EndState(stateData));
     }
 
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
+        stateData.timeleft = clock.GetTime();
         Game::GetInstance().Push(new EndState(stateData));
     }
 
