@@ -78,10 +78,12 @@ void StageState::Update(float dt){
         Game::GetInstance().Push(new EndState(stateData));
     }
 
-    if(clock.GetSeconds1()%5==0){
+    if(clock.GetSeconds1()%2 == 0){
 //        if(spawn==0)
 //            std::cout<<clock.GetSeconds1()<<std::endl;
+
         if(spawn == 0 && rand()%3 == 1){
+            cout << "spawner" << endl;
             AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
         }
         spawn = 1;
@@ -105,9 +107,16 @@ void StageState::Render(){
 	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y );
 	//tileMap.Render(0,0);
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		// cout intuito de bebugar
-		//std::cout << "Entered for StageState::Render" << std::endl;
-		objectArray[i]->Render();
+		if(objectArray[i]->subLayer == 1)
+            objectArray[i]->Render();
+	}
+	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
+		if(objectArray[i]->subLayer == 2)
+            objectArray[i]->Render();
+	}
+	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
+		if(objectArray[i]->subLayer == 3)
+            objectArray[i]->Render();
 	}
 	//tileMap.RenderLayer(1,Camera::pos.x,Camera::pos.y);
 	this->clock.Render();
