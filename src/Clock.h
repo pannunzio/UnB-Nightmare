@@ -1,6 +1,7 @@
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
+#include "Defines.h"
 #include "Text.h"
 
 class Clock {
@@ -14,6 +15,14 @@ public:
 	int GetMinutes();
 	int GetSeconds1();
 	int GetSeconds2();
+
+	int GetSecondsTotal();
+
+    //adiciona e subtrai um tempo constante do tempo.
+    //multiplica pelo peso do objeto
+	void AddTimeToTime(int peso);
+	void SubtractTimeFromTime(int peso);
+
 private:
 	float time;
 	Text doisPontos;

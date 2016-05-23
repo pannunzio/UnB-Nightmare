@@ -1,9 +1,12 @@
 #include "Clock.h"
 #include "Resources.h"
 
-Clock::Clock(): doisPontos("font/arial.ttf", 34, SOLID, " : ", TEXT_BLACK, 980, 15){
+//TIRAR ESSA CONSTANTE DAQUI
+#define CONSTANTE 5
+
+Clock::Clock(): doisPontos("font/Sketch College.ttf", 40, BLENDED, " : ", TEXT_WHITE, 980, 17){
     //VALOR ARBITRARIO COLOCAR NO DEFINES DEPOIS
-    this->time = 62;
+    this->time = 60;
 }
 
 void Clock::Update(float dt){
@@ -15,9 +18,9 @@ void Clock::Render(){
     Text* sec2 = Resources::GetNumber(GetSeconds2());
     Text* minutes = Resources::GetNumber(GetMinutes());
     sec1->Render(0,0);
-    sec2->Render(20,0);
-    this->doisPontos.Render(40, 0);
-    minutes->Render(50,0);
+    sec2->Render(25,0);
+    this->doisPontos.Render(50, 0);
+    minutes->Render(75,0);
 }
 
 float Clock::GetTime(){
@@ -30,14 +33,22 @@ int Clock::GetMinutes(){
 
 //casa mais aa direita
 int Clock::GetSeconds1(){
-    int numero = (int) this->time%60;
-    numero = numero % 10;
-    return numero;
+    return GetSecondsTotal()%10;
 }
 
 //casa mais aa esquerda
 int Clock::GetSeconds2(){
-    int numero = (int) this->time%60;
-    numero = (int)numero / 10;
-    return numero;
+    return GetSecondsTotal()/10;
+}
+
+int Clock::GetSecondsTotal(){
+    return (int) this->time%60;
+}
+
+void Clock::AddTimeToTime(int peso){
+    this->time += CONSTANTE*peso;
+}
+
+void Clock::SubtractTimeFromTime(int peso){
+    this->time -= CONSTANTE*peso;
 }

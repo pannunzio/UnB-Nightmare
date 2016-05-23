@@ -63,6 +63,19 @@ void StageState::Update(float dt){
     	Game::GetInstance().Push(new EndState(stateData));
     }
 
+    //testa se o tempo acabou
+    if(clock.GetTime() < 0.5){
+        Pause();
+        stateData.playerVictory = false;
+        Game::GetInstance().Push(new EndState(stateData));
+    }
+
+    if(Camera::pos.x > this->mapLength){
+        Pause();
+        stateData.playerVictory = true;
+        Game::GetInstance().Push(new EndState(stateData));
+    }
+
     if(clock.GetSeconds1()%5==0){
 //        if(spawn==0)
 //            std::cout<<clock.GetSeconds1()<<std::endl;
@@ -105,16 +118,20 @@ void StageState::Render(){
 //Parametros: N/A***************************************************//
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg")/*, music("audio/subsoloLoop.ogg")*/{
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
-//	music.Play(-1);
+	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,540));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn=0;
 	this->clock = Clock();
+
+	//esse 200 e o player position
+	//talvez seja melhor fazer por colisão mas no momento não rola
+	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
 }
 //*********************************************************************//
@@ -134,9 +151,9 @@ void StageState::AddObject(GameObject* ptr){
 	objectArray.emplace_back(ptr);
 }
 void StageState::Resume(){
-//	music.Play(-1);
+	music.Play(-1);
 
 }
 void StageState::Pause(){
-//	music.Stop();
+	music.Stop();
 }
