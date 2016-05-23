@@ -16,7 +16,7 @@
 #include "EndState.h"
 
 #include "Player.h"
-
+#include "Item.h"
 #include "Collision.h"
 
 #include "Defines.h"
@@ -43,7 +43,8 @@ void StageState::Update(float dt){
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	objectArray[i]->Update(dt);
     	//checando colisisao
-		for(unsigned int j = i + 1; j < objectArray.size(); j++){
+		for(unsigned int j = 0; j < objectArray.size(); j++){
+            //std::cout << "obj1: " <<i<<" "<<objectArray[i]->box.x << "|||obj2:"<<j<<" "<<objectArray[j]->box.x << std::endl;
 			if (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
 										objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180)){
 			  objectArray[i]->NotifyCollision(objectArray[j].get());
@@ -62,7 +63,17 @@ void StageState::Update(float dt){
     	Game::GetInstance().Push(new EndState(stateData));
     }
 
-
+    if(clock.GetSeconds1()%5==0){
+//        if(spawn==0)
+//            std::cout<<clock.GetSeconds1()<<std::endl;
+        if(spawn == 0 && rand()%3 == 1){
+            AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+        }
+        spawn = 1;
+    }
+    else if(spawn!=0){
+        spawn = 0;
+    }
 }
 
 
@@ -94,14 +105,15 @@ void StageState::Render(){
 //Parametros: N/A***************************************************//
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg")/*, music("audio/subsoloLoop.ogg")*/{
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
-	music.Play(-1); // se der play, o player buga
+//	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,540));
-
+	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
+    spawn=0;
 	this->clock = Clock();
 	//objetors
 }
