@@ -28,7 +28,12 @@ public:
 private:
 	Sprite bg;
 	Music music;
-	Text instruction;
+
+	//menu
+	int option;
+	Text option1;
+	Text option2;
+
 };
 
 #endif /* ENDSTATE_H_ */

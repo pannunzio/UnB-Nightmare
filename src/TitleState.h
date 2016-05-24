@@ -23,8 +23,11 @@ public:
 private:
 	Sprite bg;
 	Sprite logo;
-	Text text;
 	Timer timer;
+
+	int option;
+	Text option1;
+	Text option2;
 
 };
 

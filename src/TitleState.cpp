@@ -10,11 +10,16 @@
 #include "Text.h"
 
 #include "Game.h"
-TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png"),
-		text("font/Call me maybe.ttf",50,SOLID,"Press SPACE BAR to start",TEXT_BLACK, 0, 0){
+TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png") {
 	popRequested = quitRequested = false;
-	text.SetPos(500,500,true,false);
-	text.SetColor(SDL_Color{42,220,206});
+	option = TITLE_MIN_OPTIONS;
+
+
+	option1 = Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_WHITE, 0,0 );
+	option2 = Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
+
+	option1.SetPos(500,350,true,false);
+	option2.SetPos(500,400,true,false);
 }
 
 
@@ -23,22 +28,49 @@ void TitleState::Update(float dt){
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		quitRequested = true;
 	}
-	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-		Game::GetInstance().Push(new StageState());
+
+
+	// Menu
+
+	if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+		option--;
+		if(option < TITLE_MIN_OPTIONS)
+			option = TITLE_MAX_OPTIONS;
 	}
+	if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+		option++;
+		if(option > TITLE_MAX_OPTIONS)
+			option = TITLE_MIN_OPTIONS;
+	}
+
+	// start
+	if(option == 1){
+		option1.SetColor(TEXT_GREEN);
+		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
+			Game::GetInstance().Push(new StageState());
+	}
+	else
+		option1.SetColor(TEXT_WHITE);
+
+	// quit
+	if(option == 2){
+		option2.SetColor(TEXT_GREEN);
+		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
+			quitRequested = true;
+	}
+	else
+		option2.SetColor(TEXT_WHITE);
 
 
 }
 void TitleState::Render(){
 	timer.Update(Game::GetInstance().GetDeltaTime());
-
-
 	bg.Render(0,0);
 	logo.Render(320,100); // fazer funcao de renderizar no centro
-	if(timer.Get() < 2)
-		text.Render(0,0);
-	if(timer.Get() > 2.5)
-		timer.Restart();
+
+	//menu
+	option1.Render(0,0);
+	option2.Render(0,0);
 }
 void TitleState::Pause(){
 

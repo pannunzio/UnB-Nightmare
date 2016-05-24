@@ -53,6 +53,12 @@ using std::endl;
 #define RENDER_HEIGHT_12
 #define RENDER_HEIGHT_11
 
+#define TITLE_MAX_OPTIONS 2
+#define TITLE_MIN_OPTIONS 1
+
+#define END_MAX_OPTIONS 2
+#define END_MIN_OPTIONS 1
+
 
 
 //acrescentar mais aa medida q for usando
