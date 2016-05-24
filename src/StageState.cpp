@@ -60,6 +60,7 @@ void StageState::Update(float dt){
     if(!Player::player){
     	Pause();
     	stateData.playerVictory = false;
+    	popRequested = true;
     	Game::GetInstance().Push(new EndState(stateData));
     }
 
@@ -68,6 +69,7 @@ void StageState::Update(float dt){
         Pause();
         stateData.playerVictory = false;
         stateData.timeleft = 0;
+        popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
     }
 
@@ -75,6 +77,7 @@ void StageState::Update(float dt){
         Pause();
         stateData.playerVictory = true;
         stateData.timeleft = clock.GetTime();
+        popRequested =  true;
         Game::GetInstance().Push(new EndState(stateData));
     }
     if(clock.GetSeconds1()%2 == 0){

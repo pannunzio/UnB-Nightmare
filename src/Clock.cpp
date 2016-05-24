@@ -6,7 +6,7 @@
 
 Clock::Clock(): doisPontos("font/Sketch College.ttf", 40, BLENDED, " : ", TEXT_WHITE, 980, 17){
     //VALOR ARBITRARIO COLOCAR NO DEFINES DEPOIS
-    this->time = 60;
+    this->time = 50;
 }
 
 void Clock::Update(float dt){

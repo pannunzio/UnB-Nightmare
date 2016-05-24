@@ -90,7 +90,6 @@ Game::~Game(){
 }
 void Game::Push(State* state){
 	storedState = state;
-	stateStack.emplace(state);
 }
 
 State& Game::GetCurrentState(){
@@ -115,16 +114,24 @@ Game& Game::GetInstance(){
 void Game::Run(){
 
 
-	Push(new TitleState);
+	stateStack.emplace(new TitleState);
 	// enquanto nao clicka fechar, continuar no loop
 	while(!stateStack.top()->QuitRequested() && !stateStack.empty()){
 
 		CalculateDeltaTime();
 		frameStart = SDL_GetTicks();
 		InputManager::GetInstance().Update();
-		if(stateStack.top()->PopRequested()){
-					stateStack.pop();
+
+
+		if(stateStack.top()->QuitRequested())
+			break;
+		if(stateStack.top()->PopRequested())
+			stateStack.pop();
+		if(storedState!=nullptr){
+			stateStack.emplace(storedState);
+			storedState = nullptr;
 		}
+
 		stateStack.top()->Update(dt);
 		stateStack.top()->Render();
 
