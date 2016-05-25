@@ -76,7 +76,6 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
 			//std::cout << "AT(i,j,layer)" << At(i,j,layer) << endl;
 
 		}
-	//std::cout << "terminoouuuuuu o render layer" << std::endl;
 }
 //*****************************************************************//
 //Função: TileMap::Render(int cameraX = 0, int cameraY = 0)*******//

@@ -30,13 +30,12 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text
 }
 
 Text::Text(){
-	Text("font/Call me maybe.ttf",30,SOLID,"editar",TEXT_BLACK, 0, 0); // apeans pra nao bugar
+//	Text("font/Call me maybe.ttf",30,SOLID,"editar",TEXT_BLACK, 0, 0); // apeans pra nao bugar
 
 }
 Text::~Text(){
-	//if(texture)
-	//	SDL_DestroyTexture(texture);
-
+	if(texture)
+		SDL_DestroyTexture(texture);
 }
 
 
@@ -96,7 +95,7 @@ void Text::SetText(std::string text){
 void Text::RemakeTexture(){
 
 	font = Resources::GetFont(fontFile, fontSize);
-	texture = nullptr;
+	SDL_DestroyTexture(texture);
 	SDL_Surface* surface;
 	if(style == SOLID)
 		surface = TTF_RenderText_Solid(font,text.c_str(),color);
