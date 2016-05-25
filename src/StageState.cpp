@@ -107,7 +107,7 @@ void StageState::Render(){
 	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y );
 	//tileMap.Render(0,0);
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == 1)
+		if(objectArray[i]->subLayer == 3)
             objectArray[i]->Render();
         if(objectArray[i]->Is("Item")){
             objectArray[i]->Render();
@@ -118,7 +118,7 @@ void StageState::Render(){
             objectArray[i]->Render();
 	}
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == 3)
+		if(objectArray[i]->subLayer == 1)
             objectArray[i]->Render();
 	}
 	//tileMap.RenderLayer(1,Camera::pos.x,Camera::pos.y);
