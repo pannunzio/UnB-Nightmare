@@ -42,7 +42,14 @@ Item::Item(int layer, int subLayer, std::string item)
 void Item::Update(float dt){
     int X, W;
     bg.Update(dt);
-	box.x = box.x - speed*dt*100;
+	if(Player::player->GetSpeed() <= CAMERA_NORMAL_SPEED)
+			box.x = box.x - speed*dt*100 ;//- 0.1*(Player::GetInstance().GetSpeed() - MAXSPEED)*speed.x*dt*100;
+    if(Player::player->GetSpeed() > CAMERA_NORMAL_SPEED){
+        if(Player::player->IsRightPosition())
+            box.x = box.x - Player::player->GetSpeed()*dt*100 ;
+        else
+            box.x = box.x - speed*dt*100;
+    }
 	X = Player::player->box.x - Camera::pos.x;
 	W = Player::player->box.w / 2;
     if(Player::player->layer == layer && Player::player->subLayer==subLayer){
