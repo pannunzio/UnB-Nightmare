@@ -26,26 +26,19 @@ void EndState::Update(float dt){
 
 
 	if(option == 1){
-		option1.SetColor(TEXT_GREEN);
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
 			popRequested= true;
 			Game::GetInstance().Push(new StageState());
 
 		}
 	}
-	else
-		option1.SetColor(TEXT_WHITE);
-
 	// quit
 	if(option == 2){
-		option2.SetColor(TEXT_GREEN);
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
 			quitRequested = true;
 		}
 
 	}
-	else
-		option2.SetColor(TEXT_WHITE);
 
 }
 
