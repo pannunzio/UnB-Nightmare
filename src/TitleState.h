@@ -28,6 +28,8 @@ private:
 	int option;
 	Text option1;
 	Text option2;
+	Text option1Selected;
+	Text option2Selected;
 
 };
 

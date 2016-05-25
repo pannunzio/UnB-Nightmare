@@ -52,9 +52,13 @@ void EndState::Update(float dt){
 void EndState::Render(){
 	bg.Render(0,0);
 
-	//menu
-	option1.Render(0,0);
-	option2.Render(0,0);
+    option1.Render(0, 0);
+    option2.Render(0, 0);
+
+    if(option==1)
+        option1Selected.Render(0,0);
+    if(option==2)
+        option2Selected.Render(0,0);
 }
 
 void EndState::Pause(){
@@ -69,10 +73,14 @@ EndState::EndState(StateData stateData){
 	option = 1;
 
 	option1 = Text("font/Call me maybe.ttf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
+	option1Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Restart", TEXT_GREEN, 0,0);
 	option2 = Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
+	option2Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_GREEN, 0,0);
 
 	option1.SetPos(500,350,true,false);
+	option1Selected.SetPos(500,350,true,false);
 	option2.SetPos(500,400,true,false);
+	option2Selected.SetPos(500,400,true,false);
 
 
 	if(stateData.playerVictory){
