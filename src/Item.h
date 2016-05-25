@@ -23,7 +23,7 @@ class Item : public GameObject
         int beingUsed;
         int layer;
         int subLayer;
-        float speed;
+        Vec2 speed;
         Sprite bg;
         enum ItemType{COFFEE, SKATE, OUTRO};
         ItemType itemType;
