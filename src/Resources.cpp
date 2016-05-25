@@ -107,13 +107,13 @@ void Resources::ClearFont(){
 
 }
 
-TTF_Font* Resources::GetFont(char* file, int fontSize) {
+TTF_Font* Resources::GetFont(std::string file, int fontSize) {
     std::stringstream chave;
     chave << file << fontSize;
     std::unordered_map<string, TTF_Font*>::const_iterator indice = fontTable.find(chave.str());
 
     if (indice == fontTable.end()){
-        TTF_Font* font = TTF_OpenFont(file, fontSize);
+        TTF_Font* font = TTF_OpenFont(file.c_str(), fontSize);
         fontTable.emplace(chave.str(), font);
         return font;
     } else {

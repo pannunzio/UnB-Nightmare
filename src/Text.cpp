@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 //Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
-Text::Text(char* fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
 	box.x = x;
 	box.y = y;
 
