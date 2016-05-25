@@ -83,9 +83,7 @@ void StageState::Update(float dt){
     if(clock.GetSeconds1()%2 == 0){
 //        if(spawn==0)
 //            std::cout<<clock.GetSeconds1()<<std::endl;
-    cout << "spawn" << endl;
         if(spawn == 0 && rand()%3 == 1){
-            cout << "spawner" << endl;
             AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
         }
         spawn = 1;
@@ -138,7 +136,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
-	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
+	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tilemap-02.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,540));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));

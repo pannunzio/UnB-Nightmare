@@ -93,7 +93,7 @@ void Game::Push(State* state){
 }
 
 State& Game::GetCurrentState(){
-	return *storedState;
+	return *stateStack.top();
 }
 
 SDL_Window* Game::GetWindow(){
