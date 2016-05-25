@@ -138,7 +138,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	music.Play(-1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
-	AddObject(new Player(200,540));
+	AddObject(new Player(200,550));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn=0;
 	this->clock = Clock();

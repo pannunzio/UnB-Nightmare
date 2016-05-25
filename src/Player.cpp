@@ -149,7 +149,7 @@ void Player::Movement(){
 			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
 				layer++;
 
-				box.y = box.y - 312;
+//				box.y = box.y - 100;
 				subLayer = SUBLAYER_BOTTON;
 				if(layer == LAYER_MIDDLE)
 					box.y = RENDER_HEIGHT_21;

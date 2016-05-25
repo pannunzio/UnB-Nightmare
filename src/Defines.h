@@ -10,7 +10,7 @@ using std::string;
 using std::cout;
 using std::endl;
 
-#define SCREEN_NAME string "UnB Nightmare"
+#define SCREEN_NAME "UnB Nightmare"
 #define SCREEN_HEIGHT 600
 #define SCREEN_WIDTH 1024
 
@@ -22,7 +22,7 @@ using std::endl;
 #define PLAYER_NORMAL_ACCELERATION 1.5
 #define PLAYER_DISTANCE_TO_CAMERA 200
 
-#define TILESET_WIDTH 632
+#define TILESET_WIDTH 615
 #define TILESET_HEIGHT 1080
 
 #define CAMERA_NORMAL_SPEED 5
@@ -42,14 +42,14 @@ using std::endl;
 
 #define RENDER_HEIGHT_33
 #define RENDER_HEIGHT_32
-#define RENDER_HEIGHT_31 250
+#define RENDER_HEIGHT_31 265
 
-#define RENDER_HEIGHT_23 470
+#define RENDER_HEIGHT_23 475
 #define RENDER_HEIGHT_22
-#define RENDER_HEIGHT_21 510
+#define RENDER_HEIGHT_21 530
 
 
-#define RENDER_HEIGHT_13 720
+#define RENDER_HEIGHT_13 740
 #define RENDER_HEIGHT_12
 #define RENDER_HEIGHT_11
 
