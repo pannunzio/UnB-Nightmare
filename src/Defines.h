@@ -59,6 +59,10 @@ using std::endl;
 #define END_MAX_OPTIONS 2
 #define END_MIN_OPTIONS 1
 
+#define ITEM_HEIGHT_L3 225
+#define ITEM_HEIGHT_L2 485
+#define ITEM_HEIGHT_L1 750
+
 
 
 //acrescentar mais aa medida q for usando
