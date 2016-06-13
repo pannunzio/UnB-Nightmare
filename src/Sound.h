@@ -9,7 +9,7 @@
 #define SOUND_H_
 
 #include <iostream>
-#include <SDL_Mixer.h>
+#include <SDL_mixer.h>
 
 
 class Sound {

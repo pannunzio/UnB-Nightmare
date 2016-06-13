@@ -9,7 +9,7 @@
 #define TILESET_H_
 
 #include <iostream>
-#include "sprite.h"
+#include "Sprite.h"
 #include "Vec2.h"
 class TileSet {
 public:

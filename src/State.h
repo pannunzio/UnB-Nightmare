@@ -15,8 +15,8 @@
 #include <memory>
 #include "InputManager.h"
 
-#include "tileMap.h"
-#include "tileSet.h"
+#include "TileMap.h"
+#include "TileSet.h"
 class State {
 public:
 	State();
