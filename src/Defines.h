@@ -23,7 +23,7 @@ using std::endl;
 #define PLAYER_DISTANCE_TO_CAMERA 200
 
 #define TILESET_WIDTH 615
-#define TILESET_HEIGHT 1080
+#define TILESET_HEIGHT 360
 
 #define CAMERA_NORMAL_SPEED 5
 
