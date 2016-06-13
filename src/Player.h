@@ -48,6 +48,9 @@ public:
 	void Movement();
 	void Shoot();
 
+	void RenderHud();
+
+
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
 	Sprite sp; // sprite
@@ -56,7 +59,10 @@ private:
 	float targetSpeed;
 	Vec2 pos; // posicao atual para facilitar calculos
 
+
 	PowerUp powerUp;// enumaration de powerup
+
+	Text hud;
 
 	bool isRightPosition;
 

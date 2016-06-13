@@ -61,6 +61,9 @@ void Player::Update(float dt){
 	//correndo
 	box.x = box.x + speed*dt*100;
 
+
+	//cafe
+
 	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
 		Shoot();
 	}
@@ -68,6 +71,7 @@ void Player::Update(float dt){
 }
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
+	RenderHud();
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -177,6 +181,15 @@ void Player::Shoot(){
 	if(coffee_ammo>0){
 		Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "coffee");
 		Game::GetInstance().GetCurrentState().AddObject(coffee);
+		coffee->SetLayers(layer,subLayer); // para renderizar corretamente
 		coffee_ammo--;
 	}
 }
+
+void Player::RenderHud(){
+	std::string hudString = "Coffee: " + to_string(coffee_ammo);
+	hud = Text("font/arial.ttf", 28, SOLID, hudString, TEXT_WHITE, 40,50 );
+	hud.Render(0,0);
+
+}
+

@@ -27,7 +27,7 @@ using std::endl;
 
 #define CAMERA_NORMAL_SPEED 5
 
-#define BULLET_MAX_DISTANCE 500
+#define BULLET_MAX_DISTANCE 1000
 
 #define LAYER_TOP 3
 #define LAYER_MIDDLE 2

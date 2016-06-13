@@ -23,7 +23,7 @@ public:
 
 	bool Is(std::string type);
 
-
+	void SetLayers(int layer, int subLayer);
 	void NotifyCollision(GameObject* other);
 	bool targetsPlayer;
 private:
