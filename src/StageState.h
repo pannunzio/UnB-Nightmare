@@ -18,6 +18,8 @@
 #include "Music.h"
 #include "StateData.h"
 #include "Clock.h"
+#include "Timer.h"
+
 
 #include "TileMap.h"
 #include "TileSet.h"
@@ -40,6 +42,8 @@ private:
 	Music music;
 	StateData stateData;
 	Clock clock;
+
+	Timer cooldownTimer;
 	int spawn;
 	int mapLength;
 };

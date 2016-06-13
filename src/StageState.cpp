@@ -22,6 +22,8 @@
 #include "Defines.h"
 #include "Clock.h"
 
+#include "Obstacle.h"
+
 using std::string;
 using std::cout;
 using std::endl;
@@ -83,13 +85,20 @@ void StageState::Update(float dt){
     if(clock.GetSeconds1()%2 == 0){
 //        if(spawn==0)
 //            std::cout<<clock.GetSeconds1()<<std::endl;
-        if(spawn == 0 && rand()%3 == 1){
+        if(spawn == 0 && rand()%100 <= 50)
             AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
-        }
         spawn = 1;
     }
     else if(spawn!=0){
         spawn = 0;
+    }
+
+    // COOLDOWN TIMER DO CAIO, acho melhor q fazer tipo o de cima
+    cooldownTimer.Update(dt);
+    if(cooldownTimer.Get() > 0.5){ // repete a cada meio segundo
+    	cooldownTimer.Restart();
+    	if(rand()%100 <= 90) // 90% chance de aparecer
+        	AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     }
 }
 
@@ -147,6 +156,8 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	//talvez seja melhor fazer por colisão mas no momento não rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
+
+
 }
 //*********************************************************************//
 //Função: DESTRUTOR***************************************************//

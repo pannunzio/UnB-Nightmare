@@ -10,11 +10,12 @@
 
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Timer.h"
 
 class Obstacle : public GameObject{
 public:
-
-	Obstacle(int speed, float spawnRate, bool canBlock,std::string obstacleName, int frameCount, float frameTime);
+	Obstacle();
+	Obstacle(int speed,bool canBlock,std::string obstacleName, std::string sprite, int frameCount, float frameTime);
 	~Obstacle();
 
 	bool IsDead();
@@ -23,14 +24,11 @@ public:
 	bool Is(std::string type);
 	void NotifyCollision(GameObject* other);
 
+
 private:
 	std::string obstacleName;
-	float spawnRate; // em porcentagem
+
 	bool canBlock;
-
-
-	Timer cooldownTimer;
-
 	int speed;
 	Sprite sp;
 

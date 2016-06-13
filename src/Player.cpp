@@ -187,9 +187,11 @@ void Player::Shoot(){
 }
 
 void Player::RenderHud(){
-	std::string hudString = "Coffee: " + to_string(coffee_ammo);
-	hud = Text("font/arial.ttf", 28, SOLID, hudString, TEXT_WHITE, 40,50 );
-	hud.Render(0,0);
+	//QUANDO ARRUMAR VAZAMENTO DE MEMORIA, DESCOMENTAR ISSO AKI
+
+	//std::string hudString = "Coffee: " + to_string(coffee_ammo);
+	//hud = Text("font/arial.ttf", 28, SOLID, hudString, TEXT_WHITE, 40,50 );
+	//hud.Render(0,0);
 
 }
 

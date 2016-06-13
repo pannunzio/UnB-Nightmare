@@ -9,44 +9,45 @@
 #include "Camera.h"
 #include "Defines.h"
 #include "StageState.h"
+#include "Game.h"
+#include "Player.h"
 
-Obstacle::Obstacle(int speed, float spawnRate,  bool canBlock, std::string obstacleName, int frameCount, float frameTime)
-: sp(obstacleName,frameCount,frameTime) {
+Obstacle::Obstacle(int speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime)
+{
+	sp = Sprite(sprite,frameCount,frameTime);
 	this->speed = speed;
-	this->spawnRate = spawnRate;
+
 	this->obstacleName = obstacleName;
 	this->canBlock = canBlock;
 	layer = rand()%3 + 1;
 	subLayer = rand()%3 + 1;
 
+	// ou seja, vai dar respawn se passar no teste  //
+	box.x = Player::player->box.x + 1200;			//
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*20;		//
+    ///////////////////////////////////////////////////
+
+
+}
+
+Obstacle::~Obstacle(){
+
 }
 
 bool Obstacle::IsDead(){
+	if(box.x - Camera::pos.x < 0)
+		return true;
 	return false;
 }
 void Obstacle::Update(float dt){
-	cooldownTimer.Update(dt);
 	sp.Update(dt);
-	int spawn = 100;
-	if(cooldownTimer.Get() > 3) {// cada 3 segundos talvez spawna dnv
-		spawn = rand()%100 +1;
-	}
-	if(spawn <= spawnRate*100){
-		// ou seja, vai dar respawn se passar no teste  //
-		box.x = Player::player->box.x + 1200;			//
-	    if(layer == LAYER_TOP)							//
-	        box.y=ITEM_HEIGHT_L3;						//
-	    if(layer == LAYER_MIDDLE)						//
-	        box.y=ITEM_HEIGHT_L2;						//
-	    if(layer == LAYER_BOTTON)						//
-	        box.y=ITEM_HEIGHT_L1;						//
-	    												//
-	    box.y = box.y - (this->subLayer - 3)*20;		//
-	    ///////////////////////////////////////////////////
-		Game::GetInstance().GetCurrentState().AddObject(this);
-		spawn = 100;
-		cooldownTimer.Restart();
-	}
 
 }
 void Obstacle::Render(){
