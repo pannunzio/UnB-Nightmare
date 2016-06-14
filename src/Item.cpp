@@ -10,6 +10,7 @@ Item::Item(int layer, int subLayer, std::string item)
     beingUsed = 0;
     this->box = Rect(Player::player->box.x+1200,0,bg.GetWidth(),bg.GetHeight());
 
+    this->isDead = false;
 //    if(subLayer==SUBLAYER_BOTTON){
 //        box.Centralize(1355,305,bg.GetWidth(),bg.GetHeight());
 //        std::cout << "BOTTON";
@@ -63,7 +64,8 @@ void Item::Update(float dt){
             Player::coffee_ammo++;
         }
     }
-
+    if(beingUsed==2||box.x<-100)
+        this->isDead = true;
 }
 
 void Item::Render(){
@@ -73,9 +75,7 @@ void Item::Render(){
 void Item::Use(){}
 
 bool Item::IsDead(){
-    if(beingUsed==2||box.x<-100)
-        return true;
-    return false;
+    return this->isDead;
 }
 
 void Item::NotifyCollision(GameObject* other){
@@ -86,13 +86,15 @@ void Item::NotifyCollision(GameObject* other){
 //        }
 //        std::cout << "ITEM: " <<other->subLayer<< "|||"<<subLayer << std::endl;
 //    }
-
+    if(other->Is("Player") && other->subLayer == this->subLayer){
+        Player::player->coffee_ammo++;
+        cout << "if other is player" << Player::player->coffee_ammo << endl;
+        this->isDead = true;
+    }
 }
 
 //void Item::SpawnRandom(GameObject* target){}
 
 bool Item::Is(std::string type){
-    if(type == "Item")
-        return true;
-    return false;
+    return (type == "Item");
 }

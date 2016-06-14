@@ -27,6 +27,7 @@ public:
 
 private:
 	std::string obstacleName;
+    bool isDead;
 
 	bool canBlock;
 	int speed;

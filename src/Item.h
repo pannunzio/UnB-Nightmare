@@ -27,7 +27,7 @@ class Item : public GameObject
         Sprite bg;
         enum ItemType{COFFEE, SKATE, OUTRO};
         ItemType itemType;
-
+        bool isDead;
 };
 
 #endif // ITEM_H

@@ -25,7 +25,7 @@ public:
 
 private:
 	float time;
-	Text doisPontos;
+	Text text;
 };
 
 #endif /* CLOCK_H_ */

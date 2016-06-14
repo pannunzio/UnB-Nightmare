@@ -22,6 +22,8 @@ Obstacle::Obstacle(int speed, bool canBlock, std::string obstacleName, std::stri
 	layer = rand()%3 + 1;
 	subLayer = rand()%3 + 1;
 
+	this->isDead = false;
+
 	// ou seja, vai dar respawn se passar no teste  //
 	box.x = Player::player->box.x + 1200;			//
     if(layer == LAYER_TOP)							//
@@ -42,13 +44,13 @@ Obstacle::~Obstacle(){
 }
 
 bool Obstacle::IsDead(){
-	if(box.x - Camera::pos.x < 0)
-		return true;
-	return false;
+	return this->isDead;
 }
 void Obstacle::Update(float dt){
 	sp.Update(dt);
 
+    if(box.x - Camera::pos.x < 0)
+		this->isDead = true;
 }
 void Obstacle::Render(){
 	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
@@ -57,5 +59,7 @@ bool Obstacle::Is(std::string type){
 	return (type == obstacleName);
 }
 void Obstacle::NotifyCollision(GameObject* other){
-
+    if(other->Is("Player") && other->subLayer == this->subLayer){
+        this->isDead = true;
+    }
 }

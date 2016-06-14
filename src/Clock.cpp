@@ -1,26 +1,27 @@
 #include "Clock.h"
 #include "Resources.h"
+#include <sstream>
 
 //TIRAR ESSA CONSTANTE DAQUI
 #define CONSTANTE 5
 
-Clock::Clock(): doisPontos("font/Sketch College.ttf", 40, BLENDED, " : ", TEXT_WHITE, 980, 17){
+//lembrar de mudar o starting value da text
+Clock::Clock(): text("font/Sketch College.ttf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){
     //VALOR ARBITRARIO COLOCAR NO DEFINES DEPOIS
     this->time = 50;
 }
 
 void Clock::Update(float dt){
 	this->time -= dt;
+
+	std::stringstream novoTempo;
+    novoTempo << GetMinutes() << " : " << GetSeconds2() << GetSeconds1();
+
+	this->text.SetText(novoTempo.str());
 }
 
 void Clock::Render(){
-    Text* sec1 = Resources::GetNumber(GetSeconds1());
-    Text* sec2 = Resources::GetNumber(GetSeconds2());
-    Text* minutes = Resources::GetNumber(GetMinutes());
-    sec1->Render(0,0);
-    sec2->Render(25,0);
-    this->doisPontos.Render(50, 0);
-    minutes->Render(75,0);
+    this->text.Render(75,0);
 }
 
 float Clock::GetTime(){

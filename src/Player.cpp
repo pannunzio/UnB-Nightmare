@@ -11,7 +11,7 @@
 #include "Defines.h"
 
 Player* Player::player = nullptr;
-int Player::coffee_ammo = 3;
+int Player::coffee_ammo = 0;
 
 
 Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
@@ -22,8 +22,12 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	acceleration = 1.5;
 	isRightPosition = false;
 	powerUp = NONE;
+
+	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
+
 	player = this;
 
+    coffee_ammo = 0;
 	std::cout << "Player Construido" << std::endl;
 
 }
@@ -71,7 +75,7 @@ void Player::Update(float dt){
 }
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
-	RenderHud();
+	this->RenderHud();
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -88,7 +92,12 @@ bool Player::Is(std::string type){
 
 }
 void Player::NotifyCollision(GameObject* other){
-
+    if(other->subLayer == this->subLayer){
+        if(other->Is("obstacle1")){
+            cout<< "collision with obstacle1" << endl;
+            this->SetTargetSpeed(5.0);
+        }
+    }
 }
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed <=0) // se algo a levar para tras
@@ -187,11 +196,18 @@ void Player::Shoot(){
 }
 
 void Player::RenderHud(){
-	//QUANDO ARRUMAR VAZAMENTO DE MEMORIA, DESCOMENTAR ISSO AKI
+    //QUANDO ARRUMAR VAZAMENTO DE MEMORIA, DESCOMENTAR ISSO AKI
+    std::stringstream hudString;
+    hudString << "Coffee: " << coffee_ammo;
+    cout << "hud " << hudString.str() << endl;
 
-	//std::string hudString = "Coffee: " + to_string(coffee_ammo);
-	//hud = Text("font/arial.ttf", 28, SOLID, hudString, TEXT_WHITE, 40,50 );
-	//hud.Render(0,0);
+//	std::string hudString = "Coffee: " + to_string(coffee_ammo);
+	hud.SetText(hudString.str());
+	hud.Render(0,0);
 
 }
 
+void Player::SetTargetSpeed(float targetSpeed){
+    //????????????
+    this->targetSpeed = targetSpeed;
+}

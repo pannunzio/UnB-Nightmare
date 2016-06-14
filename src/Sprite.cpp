@@ -117,7 +117,7 @@ void Sprite::Open(string file){
 
 //	SetClip(0,0,width,height);
 
-	std::cout << "Tamanho W H :" << width << "   " <<  height  << std::endl;;
+//	std::cout << "Tamanho W H :" << width << "   " <<  height  << std::endl;;
 }
 //********************************************************************//
 //Função: Sprite::getHeight(),getWidth()*****************************//
