@@ -53,13 +53,20 @@ void Player::Update(float dt){
 		isRightPosition = false;
 
 
-	//ir acelerando até a velocidade
+	//ir acelerando atï¿½ a velocidade
 	if(!IsTargetSpeed(targetSpeed)){
+
+
 		if(targetSpeed > speed)
 			speed = speed + acceleration*dt;
 
 		if(targetSpeed < speed)
 			speed = speed - acceleration*dt;
+
+		if(targetSpeed == 0){
+			speed = 0;
+			std::cout << " entrou aki no targer speed" << std::endl;
+		}
 	}
 
 	//correndo
@@ -92,10 +99,10 @@ bool Player::Is(std::string type){
 
 }
 void Player::NotifyCollision(GameObject* other){
-    if(other->subLayer == this->subLayer){
+    if(other->subLayer == this->subLayer && other->layer == this->layer){
         if(other->Is("obstacle1")){
             cout<< "collision with obstacle1" << endl;
-            this->SetTargetSpeed(5.0);
+            this->SetTargetSpeed(0.0);
         }
     }
 }
@@ -199,7 +206,7 @@ void Player::RenderHud(){
     //QUANDO ARRUMAR VAZAMENTO DE MEMORIA, DESCOMENTAR ISSO AKI
     std::stringstream hudString;
     hudString << "Coffee: " << coffee_ammo;
-    cout << "hud " << hudString.str() << endl;
+   // cout << "hud " << hudString.str() << endl;
 
 //	std::string hudString = "Coffee: " + to_string(coffee_ammo);
 	hud.SetText(hudString.str());

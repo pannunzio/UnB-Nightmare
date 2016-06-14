@@ -60,6 +60,6 @@ bool Obstacle::Is(std::string type){
 }
 void Obstacle::NotifyCollision(GameObject* other){
     if(other->Is("Player") && other->subLayer == this->subLayer){
-        this->isDead = true;
+       // this->isDead = true;
     }
 }

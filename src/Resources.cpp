@@ -8,7 +8,7 @@
 #include "Resources.h"
 #include "Game.h"
 #include <SDL.h>
-#include <SDL_Image.h>
+#include <SDL_image.h>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -23,10 +23,10 @@ Resources::Resources() {
 
 }
 //*********************************************************************//
-//Função: Resources::GetImage(string file)**********************************************//
+//Funï¿½ï¿½o: Resources::GetImage(string file)**********************************************//
 //Retorno: SDL_Texture*******************************************************//
 //Parametros: string file**************************************************//
-//Descrição: procura se imagem ja esta no tablemap, caso nao, insere***************************************//
+//Descriï¿½ï¿½o: procura se imagem ja esta no tablemap, caso nao, insere***************************************//
 //****************************************************************//
 SDL_Texture* Resources::GetImage(std::string file){
 
@@ -44,10 +44,10 @@ SDL_Texture* Resources::GetImage(std::string file){
 	return texture;
 }
 //*********************************************************************//
-//Função: Resources::ClearImages()************************************//
+//Funï¿½ï¿½o: Resources::ClearImages()************************************//
 //Retorno: void******************************************************//
 //Parametros: void**************************************************//
-//Descrição: destroi texture por texture***************************//
+//Descriï¿½ï¿½o: destroi texture por texture***************************//
 //****************************************************************//
 void Resources::ClearImages(){
 	for (std::unordered_map<std::string, SDL_Texture*>::iterator it = imageTable.begin(); it != imageTable.end(); ++it)
