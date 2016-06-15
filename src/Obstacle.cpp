@@ -27,11 +27,11 @@ Obstacle::Obstacle(int speed, bool canBlock, std::string obstacleName, std::stri
 	// ou seja, vai dar respawn se passar no teste  //
 	box.x = Player::player->box.x + 1200;			//
     if(layer == LAYER_TOP)							//
-        box.y=ITEM_HEIGHT_L3;						//
+        box.y=ITEM_HEIGHT_L3-5;						//
     if(layer == LAYER_MIDDLE)						//
-        box.y=ITEM_HEIGHT_L2;						//
+        box.y=ITEM_HEIGHT_L2-5;						//
     if(layer == LAYER_BOTTON)						//
-        box.y=ITEM_HEIGHT_L1;						//
+        box.y=ITEM_HEIGHT_L1-5;						//
     												//
     box.y = box.y - (this->subLayer - 3)*20;		//
     ///////////////////////////////////////////////////

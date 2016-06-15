@@ -35,6 +35,18 @@ using std::endl;
 //Descrição: atualizacao do state no game loop**********************//
 //*****************************************************************//
 void StageState::Update(float dt){
+
+    if(!Player::player){
+        cout<<"AQUIII LALALA CAIO"<<endl;
+        objectArray.clear();
+    	Pause();
+    	stateData.playerVictory = false;
+    	popRequested = true;
+
+    	Game::GetInstance().Push(new EndState(stateData));
+    	return;
+    }
+
     this->clock.Update(dt);
 	if(InputManager::GetInstance().QuitRequested())
 		quitRequested = true;
@@ -47,11 +59,13 @@ void StageState::Update(float dt){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             //std::cout << "obj1: " <<i<<" "<<objectArray[i]->box.x << "|||obj2:"<<j<<" "<<objectArray[j]->box.x << std::endl;
-			if (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
-										objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180)){
-			  objectArray[i]->NotifyCollision(objectArray[j].get());
-			  objectArray[j]->NotifyCollision(objectArray[i].get());
-			}
+            if((objectArray[i]->layer == objectArray[j]->layer) && (objectArray[i]->subLayer == objectArray[j]->subLayer)){
+                if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
+                                            objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
+                  objectArray[i]->NotifyCollision(objectArray[j].get());
+                  objectArray[j]->NotifyCollision(objectArray[i].get());
+                }
+            }
 		}
 		if(objectArray[i]->IsDead()){
 		   objectArray.erase (objectArray.begin() + i);
@@ -59,12 +73,6 @@ void StageState::Update(float dt){
 		}
     }
 
-    if(!Player::player){
-    	Pause();
-    	stateData.playerVictory = false;
-    	popRequested = true;
-    	Game::GetInstance().Push(new EndState(stateData));
-    }
 
     //testa se o tempo acabou
     if(clock.GetTime() < 0.5){
@@ -74,7 +82,7 @@ void StageState::Update(float dt){
         popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
     }
-
+    //cout<<"TESTE"<<endl;
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
@@ -95,11 +103,15 @@ void StageState::Update(float dt){
 
     // COOLDOWN TIMER DO CAIO, acho melhor q fazer tipo o de cima
     cooldownTimer.Update(dt);
-    if(cooldownTimer.Get() > 0.5){ // repete a cada meio segundo
+    if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%100 <= 90) // 90% chance de aparecer
+    	if(rand()%100 <= 90){ // 90% chance de aparecer
         	AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+//        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
+//                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+    	}
     }
+
 }
 
 

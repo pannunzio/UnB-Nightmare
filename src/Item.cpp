@@ -11,18 +11,7 @@ Item::Item(int layer, int subLayer, std::string item)
     this->box = Rect(Player::player->box.x+1200,0,bg.GetWidth(),bg.GetHeight());
 
     this->isDead = false;
-//    if(subLayer==SUBLAYER_BOTTON){
-//        box.Centralize(1355,305,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "BOTTON";
-//    }
-//    if(subLayer==SUBLAYER_TOP){
-//        box.Centralize(1355,265,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "  TOP";
-//    }
-//    if(subLayer==SUBLAYER_MIDDLE){
-//        box.Centralize(1355,285,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "MIDDLE";
-//    }
+
 
     if(layer == LAYER_TOP){
         box.y=ITEM_HEIGHT_L3;
@@ -52,8 +41,13 @@ Item::Item(int layer, int subLayer, std::string item)
 
 }
 
+Item::~Item(){
+    cout<<"ITEM DESTRUIDO"<<endl;
+}
+
 void Item::Update(float dt){
     int X, W;
+    if(Player::player){
     bg.Update(dt);
 	X = Player::player->box.x;
 	W = Player::player->box.w / 2;
@@ -65,6 +59,9 @@ void Item::Update(float dt){
         }
     }
     if(beingUsed==2||box.x<-100)
+        this->isDead = true;
+    }
+    else
         this->isDead = true;
 }
 
@@ -79,21 +76,13 @@ bool Item::IsDead(){
 }
 
 void Item::NotifyCollision(GameObject* other){
-//    if(other->Is("Player")){
-//        if(other->subLayer==subLayer){
-//            beingUsed = 2;
-//            std::cout << "ITEM: " <<other->subLayer<< "|||"<<subLayer << std::endl;
-//        }
-//        std::cout << "ITEM: " <<other->subLayer<< "|||"<<subLayer << std::endl;
-//    }
+
     if(other->Is("Player") && other->subLayer == this->subLayer){
         Player::player->coffee_ammo++;
         cout << "if other is player" << Player::player->coffee_ammo << endl;
         this->isDead = true;
     }
 }
-
-//void Item::SpawnRandom(GameObject* target){}
 
 bool Item::Is(std::string type){
     return (type == "Item");

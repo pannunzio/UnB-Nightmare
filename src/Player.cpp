@@ -22,7 +22,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	acceleration = 1.5;
 	isRightPosition = false;
 	powerUp = NONE;
-
+    isColliding = false;
 	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
 
 	player = this;
@@ -52,6 +52,10 @@ void Player::Update(float dt){
 	else
 		isRightPosition = false;
 
+    if(!isColliding){
+        speed = PLAYER_NORMAL_SPEED;
+        SetTargetSpeed(PLAYER_NORMAL_SPEED);
+    }
 
 	//ir acelerando at� a velocidade
 	if(!IsTargetSpeed(targetSpeed)){
@@ -78,6 +82,7 @@ void Player::Update(float dt){
 	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
 		Shoot();
 	}
+	isColliding=false;
 
 }
 void Player::Render(){
@@ -99,12 +104,12 @@ bool Player::Is(std::string type){
 
 }
 void Player::NotifyCollision(GameObject* other){
-    if(other->subLayer == this->subLayer && other->layer == this->layer){
-        if(other->Is("obstacle1")){
-            cout<< "collision with obstacle1" << endl;
-            this->SetTargetSpeed(0.0);
-        }
+    cout<< "collision with obstacle1" << endl;
+    if(other->Is("obstacle1")){
+        this->isColliding = true;
+        this->SetTargetSpeed(0.0);
     }
+
 }
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed <=0) // se algo a levar para tras

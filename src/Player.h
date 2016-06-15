@@ -50,7 +50,6 @@ public:
 
 	void RenderHud();
 
-
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
 	Sprite sp; // sprite
@@ -64,6 +63,7 @@ private:
 
 	Text hud;
 
+    bool isColliding;
 	bool isRightPosition;
 
 

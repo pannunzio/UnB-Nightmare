@@ -10,6 +10,7 @@ class Item : public GameObject
 {
     public:
         Item(int layer, int subLayer, std::string item);
+        ~Item();
         bool IsDead();
         void Update(float dt);
         void Render();
