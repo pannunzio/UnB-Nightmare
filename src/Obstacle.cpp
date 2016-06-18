@@ -49,7 +49,7 @@ bool Obstacle::IsDead(){
 void Obstacle::Update(float dt){
 	sp.Update(dt);
 
-    if(box.x - Camera::pos.x < 0)
+    if(box.x - Camera::pos.x +100< 0)
 		this->isDead = true;
 }
 void Obstacle::Render(){

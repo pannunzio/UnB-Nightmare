@@ -64,6 +64,7 @@ private:
 	Text hud;
 
     bool isColliding;
+    bool wasColliding;
 	bool isRightPosition;
 
 

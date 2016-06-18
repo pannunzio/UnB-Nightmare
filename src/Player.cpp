@@ -23,6 +23,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	isRightPosition = false;
 	powerUp = NONE;
     isColliding = false;
+    wasColliding = false;
 	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
 
 	player = this;
@@ -53,8 +54,11 @@ void Player::Update(float dt){
 		isRightPosition = false;
 
     if(!isColliding){
-        speed = PLAYER_NORMAL_SPEED;
-        SetTargetSpeed(PLAYER_NORMAL_SPEED);
+        if(wasColliding){
+            speed = PLAYER_NORMAL_SPEED;
+            SetTargetSpeed(PLAYER_NORMAL_SPEED);
+            wasColliding = false;
+        }
     }
 
 	//ir acelerando at� a velocidade
@@ -93,6 +97,7 @@ bool Player::IsDead(){
 	// camera passou player
 	if(Camera::pos.x > pos.x + sp.GetWidth()){
 		player = nullptr;
+		cout<<"TESTE"<<endl;
 		return true;
 	}
 	return false; // retornar true se tiver camera passou, ou se o tempo acabou
@@ -104,13 +109,21 @@ bool Player::Is(std::string type){
 
 }
 void Player::NotifyCollision(GameObject* other){
-    cout<< "collision with obstacle1" << endl;
+    //cout<< "collision with obstacle1" << endl;
     if(other->Is("obstacle1")){
         this->isColliding = true;
+        this->wasColliding = true;
         this->SetTargetSpeed(0.0);
     }
 
+    if(other->Is("COFFEE")){
+        coffee_ammo++;
+    }
+    if(other->Is("SKATE")){
+        this->SetTargetSpeed(7.5);
+    }
 }
+
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed <=0) // se algo a levar para tras
 		speed = targetSpeed;
@@ -143,6 +156,8 @@ void Player::Movement(){
 		std::cout << "-------------PLayer---------------------"  << std::endl;
 		std::cout << "Layer: " << layer  << std::endl;
 		std::cout << "suLayer: " << subLayer << std::endl;
+		std::cout << "camera: "<< Camera::pos.x <<std::endl;
+		std::cout << "player: "<<pos.x + sp.GetWidth() <<std::endl;
 	}
 
 	if(InputManager::GetInstance().KeyPress(SDLK_l))

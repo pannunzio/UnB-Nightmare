@@ -37,7 +37,7 @@ using std::endl;
 void StageState::Update(float dt){
 
     if(!Player::player){
-        cout<<"AQUIII LALALA CAIO"<<endl;
+        cout<<"LOSER"<<endl;
         objectArray.clear();
     	Pause();
     	stateData.playerVictory = false;
@@ -62,7 +62,6 @@ void StageState::Update(float dt){
             if((objectArray[i]->layer == objectArray[j]->layer) && (objectArray[i]->subLayer == objectArray[j]->subLayer)){
                 if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
                                             objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
-                  objectArray[i]->NotifyCollision(objectArray[j].get());
                   objectArray[j]->NotifyCollision(objectArray[i].get());
                 }
             }
@@ -93,8 +92,12 @@ void StageState::Update(float dt){
     if(clock.GetSeconds1()%2 == 0){
 //        if(spawn==0)
 //            std::cout<<clock.GetSeconds1()<<std::endl;
-        if(spawn == 0 && rand()%100 <= 50)
-            AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+        if(spawn == 0 && rand()%100 <= 80){
+            if(rand()%2 ==1)
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+            else
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "SKATE"));
+        }
         spawn = 1;
     }
     else if(spawn!=0){
@@ -105,7 +108,7 @@ void StageState::Update(float dt){
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%100 <= 90){ // 90% chance de aparecer
+    	if(rand()%100 <= 50){ // 90% chance de aparecer
         	AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
@@ -130,9 +133,6 @@ void StageState::Render(){
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		if(objectArray[i]->subLayer == 3)
             objectArray[i]->Render();
-        if(objectArray[i]->Is("Item")){
-            objectArray[i]->Render();
-        }
 	}
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		if(objectArray[i]->subLayer == 2)

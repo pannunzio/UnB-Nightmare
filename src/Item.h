@@ -21,13 +21,9 @@ class Item : public GameObject
         bool Is(std::string type);
     protected:
     private:
-        int beingUsed;
-        int layer;
-        int subLayer;
         Vec2 speed;
         Sprite bg;
-        enum ItemType{COFFEE, SKATE, OUTRO};
-        ItemType itemType;
+        string itemType;
         bool isDead;
 };
 

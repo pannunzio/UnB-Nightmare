@@ -7,11 +7,9 @@ Item::Item(int layer, int subLayer, std::string item)
     this->layer = layer;
     this->subLayer = subLayer;
     this->speed = Vec2(CAMERA_NORMAL_SPEED,2);
-    beingUsed = 0;
     this->box = Rect(Player::player->box.x+1200,0,bg.GetWidth(),bg.GetHeight());
-
+    this->itemType = item;
     this->isDead = false;
-
 
     if(layer == LAYER_TOP){
         box.y=ITEM_HEIGHT_L3;
@@ -24,16 +22,13 @@ Item::Item(int layer, int subLayer, std::string item)
     }
     box.y = box.y - (this->subLayer - 3)*20;
 
-    if(item == "COFFEE"){
-        itemType = COFFEE;
-        bg= Sprite("img/cafe.png");
+    if(itemType == "COFFEE"){
+        bg= Sprite("img/cafeColor.png", 6, 0.09);
     }
-    if(item == "SKATE"){
-        itemType = SKATE;
-        bg= Sprite("img/coffee.png");
+    if(itemType == "SKATE"){
+        bg= Sprite("img/skate.png", 6, 0.09);
     }
-    if(item == "OUTRO"){
-        itemType = OUTRO;
+    if(itemType == "OUTRO"){
         bg= Sprite("img/coffee.png");
     }
 
@@ -46,20 +41,8 @@ Item::~Item(){
 }
 
 void Item::Update(float dt){
-    int X, W;
     if(Player::player){
-    bg.Update(dt);
-	X = Player::player->box.x;
-	W = Player::player->box.w / 2;
-    if(Player::player->layer == layer && Player::player->subLayer==subLayer){
-        if((box.x<(X+W))&&(box.x>(X-W))){
-            beingUsed = 2;
-            //caso do cafe, joao arruma isso dps
-            Player::coffee_ammo++;
-        }
-    }
-    if(beingUsed==2||box.x<-100)
-        this->isDead = true;
+        bg.Update(dt);
     }
     else
         this->isDead = true;
@@ -77,13 +60,16 @@ bool Item::IsDead(){
 
 void Item::NotifyCollision(GameObject* other){
 
-    if(other->Is("Player") && other->subLayer == this->subLayer){
-        Player::player->coffee_ammo++;
-        cout << "if other is player" << Player::player->coffee_ammo << endl;
+    if(other->Is("Player")){
+        this->isDead = true;
+    }
+    if(box.x<-100){
         this->isDead = true;
     }
 }
 
 bool Item::Is(std::string type){
-    return (type == "Item");
+    return (type == itemType);
 }
+
+

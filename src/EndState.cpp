@@ -62,7 +62,6 @@ void EndState::Resume(){
 }
 EndState::EndState(StateData stateData){
 	option = 1;
-    cout<<"PERDEUUUU"<<endl;
 	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
 	option2 = new Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
 
@@ -72,6 +71,7 @@ EndState::EndState(StateData stateData){
 	if(stateData.playerVictory){
 		music = Music("audio/endStateWin.ogg");
 		bg = Sprite("img/win.jpg");
+		cout<<"VENCEUU"<<endl;
 	}
 	else{
 		music = Music("audio/endStateLose.ogg");
