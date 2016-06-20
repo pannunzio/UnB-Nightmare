@@ -20,7 +20,7 @@ Item::Item(int layer, int subLayer, std::string item)
     if(layer == LAYER_BOTTON){
         box.y=ITEM_HEIGHT_L1;
     }
-    box.y = box.y - (this->subLayer - 3)*20;
+    box.y = box.y - (this->subLayer - 3)*26;
 
     if(itemType == "COFFEE"){
         bg= Sprite("img/cafeColor.png", 6, 0.09);

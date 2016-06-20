@@ -55,8 +55,8 @@ void TileSet::Render(unsigned index, float x, float y ) {
 }
 
 Vec2 TileSet::IndexReverse(unsigned index){
-
-	return Vec2((index%columns) ,(int)(index/columns) );
+	return Vec2((int)(index/rows) ,(index%rows) );
+	//return Vec2((index%columns) ,(int)(index/columns) );
 }
 //*****************************************************************//
 //Função: GetTileWidth(), GetTileHeight()*************************//

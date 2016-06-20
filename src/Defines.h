@@ -44,9 +44,9 @@ using std::endl;
 #define RENDER_HEIGHT_32
 #define RENDER_HEIGHT_31 265
 
-#define RENDER_HEIGHT_23 475
+#define RENDER_HEIGHT_23 495
 #define RENDER_HEIGHT_22
-#define RENDER_HEIGHT_21 530
+#define RENDER_HEIGHT_21 550
 
 
 #define RENDER_HEIGHT_13 740
@@ -59,9 +59,9 @@ using std::endl;
 #define END_MAX_OPTIONS 2
 #define END_MIN_OPTIONS 1
 
-#define ITEM_HEIGHT_L3 225
-#define ITEM_HEIGHT_L2 485
-#define ITEM_HEIGHT_L1 750
+#define ITEM_HEIGHT_L3 235
+#define ITEM_HEIGHT_L2 495
+#define ITEM_HEIGHT_L1 765
 
 
 

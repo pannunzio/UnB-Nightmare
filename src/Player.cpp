@@ -174,41 +174,39 @@ void Player::Movement(){
 	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
 		if(subLayer <=2){
 			subLayer++;
-			box.y = box.y - 20;
+			box.y = box.y - 26;
 		}
 	}
 	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
 		if(subLayer >=2){
 			subLayer--;
-			box.y = box.y + 20;
+			box.y = box.y + 26;
 		}
 	}
+    ///////////////////////////////////////////////////
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;			    //
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
 
-	if(subLayer == SUBLAYER_TOP)
+//
+	if(subLayer == SUBLAYER_TOP){
 		if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
 			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
 				layer++;
-
-//				box.y = box.y - 100;
-				subLayer = SUBLAYER_BOTTON;
-				if(layer == LAYER_MIDDLE)
-					box.y = RENDER_HEIGHT_21;
-				if(layer == LAYER_TOP)
-					box.y = RENDER_HEIGHT_31;
-
+				subLayer = SUBLAYER_TOP;
 			}
-
-	if(subLayer == SUBLAYER_BOTTON)
-		if(layer == LAYER_TOP || layer == LAYER_MIDDLE)
+		if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
 			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
 				layer--;
 				subLayer = SUBLAYER_TOP;
-				if(layer == LAYER_MIDDLE)
-					box.y = RENDER_HEIGHT_23;
-				if(layer == LAYER_BOTTON)
-					box.y = RENDER_HEIGHT_13;
-
-			}
+		}
+	}
 
 }
 
