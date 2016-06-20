@@ -59,7 +59,7 @@ using std::endl;
 #define END_MAX_OPTIONS 2
 #define END_MIN_OPTIONS 1
 
-#define ITEM_HEIGHT_L3 235
+#define ITEM_HEIGHT_L3 222
 #define ITEM_HEIGHT_L2 495
 #define ITEM_HEIGHT_L1 765
 

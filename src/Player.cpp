@@ -63,14 +63,10 @@ void Player::Update(float dt){
 
 	//ir acelerando at� a velocidade
 	if(!IsTargetSpeed(targetSpeed)){
-
-
 		if(targetSpeed > speed)
 			speed = speed + acceleration*dt;
-
 		if(targetSpeed < speed)
 			speed = speed - acceleration*dt;
-
 		if(targetSpeed == 0){
 			speed = 0;
 			std::cout << " entrou aki no targer speed" << std::endl;
@@ -87,11 +83,31 @@ void Player::Update(float dt){
 		Shoot();
 	}
 	isColliding=false;
+    ///////////////////////////////////////////////////
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;			    //
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
+
+
+
 
 }
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
 	this->RenderHud();
+    if(subLayer == 3)
+    	sp.SetScale(0.95);
+    if(subLayer == 2)
+        sp.SetScale(1);
+    if(subLayer == 1)
+        sp.SetScale(1.05);
+
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -183,16 +199,7 @@ void Player::Movement(){
 			box.y = box.y + 26;
 		}
 	}
-    ///////////////////////////////////////////////////
-    if(layer == LAYER_TOP)							//
-        box.y=ITEM_HEIGHT_L3;			    //
-    if(layer == LAYER_MIDDLE)						//
-        box.y=ITEM_HEIGHT_L2;						//
-    if(layer == LAYER_BOTTON)						//
-        box.y=ITEM_HEIGHT_L1;						//
-    												//
-    box.y = box.y - (this->subLayer - 3)*26;		//
-    ///////////////////////////////////////////////////
+
 
 //
 	if(subLayer == SUBLAYER_TOP){

@@ -138,6 +138,9 @@ void Sprite::SetScaleX(float scale){
 void Sprite::SetScaleY(float scale){
 	scaleY = scale;
 }
+void Sprite::SetScale(float scale){
+	scaleX = scaleY = scale;
+}
 
 void Sprite::Update(float dt){
 	timeElapsed+=dt;

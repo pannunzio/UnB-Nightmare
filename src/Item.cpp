@@ -11,17 +11,17 @@ Item::Item(int layer, int subLayer, std::string item)
     this->itemType = item;
     this->isDead = false;
 
-    if(layer == LAYER_TOP){
-        box.y=ITEM_HEIGHT_L3;
-    }
-    if(layer == LAYER_MIDDLE){
-        box.y=ITEM_HEIGHT_L2;
-    }
-    if(layer == LAYER_BOTTON){
-        box.y=ITEM_HEIGHT_L1;
-    }
-    box.y = box.y - (this->subLayer - 3)*26;
 
+	//
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
     if(itemType == "COFFEE"){
         bg= Sprite("img/cafeColor.png", 6, 0.09);
     }

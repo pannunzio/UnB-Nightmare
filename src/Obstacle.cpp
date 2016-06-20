@@ -21,7 +21,6 @@ Obstacle::Obstacle(int speed, bool canBlock, std::string obstacleName, std::stri
 	this->canBlock = canBlock;
 	layer = rand()%3 + 1;
 	subLayer = rand()%3 + 1;
-
 	this->isDead = false;
 
 	// ou seja, vai dar respawn se passar no teste  //
@@ -35,8 +34,6 @@ Obstacle::Obstacle(int speed, bool canBlock, std::string obstacleName, std::stri
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////
-
-
 }
 
 Obstacle::~Obstacle(){

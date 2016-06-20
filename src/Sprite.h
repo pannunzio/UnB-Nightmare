@@ -27,6 +27,7 @@ public:
 
 	void SetScaleX(float scale);
 	void SetScaleY(float scale);
+	void SetScale(float scale);
 
 	void Update(float dt);
 	void SetFrame(int frame);
