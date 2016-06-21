@@ -29,6 +29,8 @@ public:
 	void SetScaleY(float scale);
 	void SetScale(float scale);
 
+	void RenderFlipped(int x, int y);
+
 	void Update(float dt);
 	void SetFrame(int frame);
 	void SetFrameCount(int frameCount);

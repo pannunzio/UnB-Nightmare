@@ -15,7 +15,11 @@
 class Obstacle : public GameObject{
 public:
 	Obstacle();
-	Obstacle(int speed,bool canBlock,std::string obstacleName, std::string sprite, int frameCount, float frameTime);
+	Obstacle(float speed,bool canBlock,std::string obstacleName, std::string sprite, int frameCount, float frameTime); // normais
+
+	// que setam subalyer e later
+	Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime,
+			int layer, int subLayer);
 	~Obstacle();
 
 	bool IsDead();

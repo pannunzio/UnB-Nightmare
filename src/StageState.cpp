@@ -114,12 +114,13 @@ void StageState::Update(float dt){
         spawn = 0;
     }
 
+
     // COOLDOWN TIMER DO CAIO, acho melhor q fazer tipo o de cima
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%100 <= 50){ // 90% chance de aparecer
-        	AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+    	if(rand()%100 <= 50){ // 50% chance de aparecer
+        	AddObject(new Obstacle(-2, true,"gordinha", "img/gordinha.png", 6, 0.2));
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
@@ -177,6 +178,11 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn=0;
 	this->clock = Clock();
+
+	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
+	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
+	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
+
 
 	//esse 200 e o player position
 	//talvez seja melhor fazer por colisão mas no momento não rola

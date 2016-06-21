@@ -30,7 +30,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
 	player = this;
 
-    coffee_ammo = 0;
+    coffee_ammo = 60;
 	std::cout << "Player Construido" << std::endl;
 
 }
@@ -140,25 +140,6 @@ bool Player::Is(std::string type){
 	return (type == "Player");
 
 }
-void Player::NotifyCollision(GameObject* other){
-    //cout<< "collision with obstacle1" << endl;
-    if(other->Is("obstacle1")){
-        this->isColliding = true;
-        this->wasColliding = true;
-        this->SetTargetSpeed(0.0);
-    }
-
-    if(other->Is("COFFEE")){
-        coffee_ammo++;
-    }
-    if(other->Is("SKATE")){
-        this->SetTargetSpeed(7.5);
-    }
-
-    if(other->Is("Escada")){
-        this->isPassingMapObject = true;
-    }
-}
 
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed <=0) // se algo a levar para tras
@@ -249,9 +230,10 @@ void Player::Movement(){
 void Player::Shoot(){
 	Vec2 shootPos = box.CenterPos();
 	if(coffee_ammo>0){
-		Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "coffee");
-		Game::GetInstance().GetCurrentState().AddObject(coffee);
+		Bullet* coffee = new Bullet(shootPos.x,shootPos.y,10,"img/coffee.png", 3, 0.3,false, "Coffee");
 		coffee->SetLayers(layer,subLayer); // para renderizar corretamente
+		Game::GetInstance().GetCurrentState().AddObject(coffee);
+
 		coffee_ammo--;
 	}
 }
@@ -269,6 +251,34 @@ void Player::RenderHud(){
 }
 
 void Player::SetTargetSpeed(float targetSpeed){
-    //????????????
     this->targetSpeed = targetSpeed;
 }
+
+void Player::NotifyCollision(GameObject* other){
+    //cout<< "collision with obstacle1" << endl;
+    if(other->Is("gordinha")){
+        this->isColliding = true;
+        this->wasColliding = true;
+        this->SetTargetSpeed(0.0);
+    }
+    if(other->Is("manifestacao")){
+        this->isColliding = true;
+        this->wasColliding = true;
+        this->speed = 2;
+        // se ficar apertando vai mais rapido
+        if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY))
+        	box.x = box.x + 20;
+    }
+
+    if(other->Is("COFFEE")){
+        coffee_ammo++;
+    }
+    if(other->Is("SKATE")){
+        this->SetTargetSpeed(7.5);
+    }
+
+    if(other->Is("Escada")){
+        this->isPassingMapObject = true;
+    }
+}
+
