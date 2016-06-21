@@ -1,8 +1,8 @@
 #include "MapActions.h"
 #include "Camera.h"
 
-MapActions::MapActions(float x, float y, int layer){
-    this->sp = Sprite("img/escada.png");
+MapActions::MapActions(float x, float y, int layer): sp("img/escada.png"
+		""){
 
     this->box.x = x;
     this->box.y = y;
@@ -24,7 +24,7 @@ void MapActions::Update(float dt){
 //		this->isDead = true;
 }
 void MapActions::Render(){
-//    sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
+    sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
 }
 
 bool MapActions::IsDead(){

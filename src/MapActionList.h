@@ -11,8 +11,8 @@ public:
     MapActionList();
     ~MapActionList();
 
-	void AddMapAction(MapActions mapAction);
-	std::vector<MapActions> mapActions;
+	static void AddMapAction(MapActions mapAction);
+	static std::vector<MapActions> mapActions;
 };
 
 

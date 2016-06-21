@@ -7,6 +7,8 @@
 
 #include "TileMap.h"
 #include <cstdio>
+#include "MapActionList.h"
+#include "Defines.h"
 
 //*****************************************************************//
 //Função: TileMap::Load(std::string file)*************************//
@@ -25,15 +27,14 @@ void TileMap::Load(std::string file){
 	for(int k = 0 ; k< mapDepth; k++)
 		for(int j = 0 ; j < mapHeight; j++){
 			for(int i = 0; i< mapWidth; i++){
-				//std::cout << "entrou no for do load" << std::endl;
-				//fscanf(arq, "%i,", &tileMatrix[i + j*mapHeight + k*mapHeight*mapDepth]);
-				fscanf(arq, "%d,", &At(i,j,k)); // isso ta bugando
-				//std::cout << "TileMatrix(" << i << ", "<< j << ", " << k << ")" << At(i,j,k) << endl; // debugando
+				fscanf(arq, "%d,", &At(i,j,k));
+				if(At(i,j,k)-1 >= 4 && At(i,j,k) <=6)
+					MapActionList::AddMapAction(MapActions( TILESET_WIDTH *i, TILESET_HEIGHT*j, 3-j) );
+
 			}
-		//std::cout << std::endl;
+
 		}
 	std::cout << "Tile map succesfuly read" << std::endl;
-	//PrintMap();
 }
 
 //*****************************************************************//
@@ -43,8 +44,6 @@ void TileMap::Load(std::string file){
 //Descrição: calcular posicao na matrix************************//
 //************************************************************//
 int& TileMap::At(int x, int y, int z){
-	//std::cout << "Index:" <<(x + y*mapWidth + z*mapHeight*mapWidth) << "(" << x << ", " << y << ", " << z << ")"
-		//	<< tileMatrix[x + y*mapWidth + z*mapHeight*mapWidth] << std::endl;
 	return tileMatrix[x + y*mapWidth + z*mapHeight*mapWidth];
 }
 
@@ -67,13 +66,11 @@ void TileMap::PrintMap(){
 //Descrição: renderiza uma camada do mapa tile a tile******************************//
 //********************************************************************************//
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
-	//std::cout << "TileMap::RenderLayer" << std::endl;
 	for(int j = 0; j < mapHeight; j++)
 		for(int i = 0; i< mapWidth; i++){
 			tileSet->Render(At(i,j,layer),
 							tileSet->GetTileWidth()*i
 							- cameraX*(layer +1), tileSet->GetTileHeight()*j - cameraY*(layer+1));
-			//std::cout << "AT(i,j,layer)" << At(i,j,layer) << endl;
 
 		}
 }

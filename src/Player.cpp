@@ -111,18 +111,6 @@ void Player::Update(float dt){
     }
 
 
-//CODIGO ANTIGO JUST IN CASE
-//
-//        if(layer == LAYER_TOP)
-//            box.y=ITEM_HEIGHT_L3;
-//        if(layer == LAYER_MIDDLE)
-//            box.y=ITEM_HEIGHT_L2;
-//        if(layer == LAYER_BOTTON)
-//            box.y=ITEM_HEIGHT_L1;
-//
-//        box.y = box.y - (this->subLayer - 3)*26;
-
-
     isPassingMapObject = false;
 }
 
@@ -220,17 +208,24 @@ void Player::Movement(){
 
 	//movimento de sublayer
 	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
-		if(subLayer <=2){
+		if(subLayer <=2)
 			subLayer++;
-			box.y = box.y - 26;
-		}
+
 	}
 	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
-		if(subLayer >=2){
+		if(subLayer >=2)
 			subLayer--;
-			box.y = box.y + 26;
-		}
 	}
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
+
 
 
 //

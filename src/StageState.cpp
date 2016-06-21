@@ -94,7 +94,6 @@ void StageState::Update(float dt){
         popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
     }
-    //cout<<"TESTE"<<endl;
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
@@ -103,8 +102,6 @@ void StageState::Update(float dt){
         Game::GetInstance().Push(new EndState(stateData));
     }
     if(clock.GetSeconds1()%2 == 0){
-//        if(spawn==0)
-//            std::cout<<clock.GetSeconds1()<<std::endl;
         if(spawn == 0 && rand()%100 <= 80){
             if(rand()%2 ==1)
                  AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
@@ -185,16 +182,6 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	//talvez seja melhor fazer por colisão mas no momento não rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
-
-	//setando a lista de acoes do mapa
-	for(int i = 0; i < 3; i++){
-        //por enquanto so coloquei 1 escada no mapa
-        for(int j = 0; j < 2; j++){
-            //posicoes exclusivamente para teste
-            mapActionList.AddMapAction(MapActions( TILESET_WIDTH * 5 * (j+1), TILESET_HEIGHT*i, i+1) );
-        }
-    }
-
 
 }
 //*********************************************************************//
