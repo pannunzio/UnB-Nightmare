@@ -21,6 +21,11 @@ enum PowerUp{
 
 };
 
+enum MovementState{
+    RUNNING,
+    GOING_UP,
+    GOING_DOWN
+};
 
 class Player : public GameObject{
 public:
@@ -60,6 +65,7 @@ private:
 
 
 	PowerUp powerUp;// enumaration de powerup
+    MovementState movementState;
 
 	Text hud;
 

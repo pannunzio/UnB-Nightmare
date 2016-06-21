@@ -189,9 +189,9 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	//setando a lista de acoes do mapa
 	for(int i = 0; i < 3; i++){
         //por enquanto so coloquei 1 escada no mapa
-        for(int j = 0; j < 1; j++){
+        for(int j = 0; j < 2; j++){
             //posicoes exclusivamente para teste
-            mapActionList.AddMapAction(MapActions( TILESET_WIDTH * 5, TILESET_HEIGHT*i, i+1) );
+            mapActionList.AddMapAction(MapActions( TILESET_WIDTH * 5 * (j+1), TILESET_HEIGHT*i, i+1) );
         }
     }
 

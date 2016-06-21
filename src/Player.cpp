@@ -22,6 +22,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	acceleration = 1.5;
 	isRightPosition = false;
 	powerUp = NONE;
+	movementState = RUNNING;
     isColliding = false;
     wasColliding = false;
     isPassingMapObject = false;
@@ -75,7 +76,14 @@ void Player::Update(float dt){
 	}
 
 	//correndo
-	box.x = box.x + speed*dt*100;
+	if(movementState == MovementState::RUNNING)
+        box.x = box.x + speed*dt*100;
+
+    if(movementState == MovementState::GOING_DOWN)
+        box.y = box.y + speed*dt*150;
+
+    if(movementState == MovementState::GOING_UP)
+        box.y = box.y - speed*dt*150;
 
 
 	//cafe
@@ -84,16 +92,36 @@ void Player::Update(float dt){
 		Shoot();
 	}
 	isColliding=false;
-    ///////////////////////////////////////////////////
-    if(layer == LAYER_TOP)							//
-        box.y=ITEM_HEIGHT_L3;			    //
-    if(layer == LAYER_MIDDLE)						//
-        box.y=ITEM_HEIGHT_L2;						//
-    if(layer == LAYER_BOTTON)						//
-        box.y=ITEM_HEIGHT_L1;						//
-    												//
-    box.y = box.y - (this->subLayer - 3)*26;		//
-    ///////////////////////////////////////////////////
+
+
+    if(movementState != RUNNING){
+        if(layer == LAYER_TOP && abs(box.y - ITEM_HEIGHT_L3) < 10){							//
+            this->movementState = RUNNING;
+            box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
+        }
+        if(layer == LAYER_MIDDLE && abs(box.y - ITEM_HEIGHT_L2) < 10){
+            this->movementState = RUNNING;
+            box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
+        }
+        if(layer == LAYER_BOTTON && abs(box.y - ITEM_HEIGHT_L1) < 10){
+            this->movementState = RUNNING;
+            box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
+        }
+
+    }
+
+
+//CODIGO ANTIGO JUST IN CASE
+//
+//        if(layer == LAYER_TOP)
+//            box.y=ITEM_HEIGHT_L3;
+//        if(layer == LAYER_MIDDLE)
+//            box.y=ITEM_HEIGHT_L2;
+//        if(layer == LAYER_BOTTON)
+//            box.y=ITEM_HEIGHT_L1;
+//
+//        box.y = box.y - (this->subLayer - 3)*26;
+
 
     isPassingMapObject = false;
 }
@@ -211,11 +239,13 @@ void Player::Movement(){
 			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
 				layer++;
 				subLayer = SUBLAYER_TOP;
+				movementState = GOING_UP;
 			}
 		if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
 			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
 				layer--;
 				subLayer = SUBLAYER_TOP;
+				movementState = GOING_DOWN;
 		}
 	}
 
