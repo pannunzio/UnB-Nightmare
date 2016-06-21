@@ -120,9 +120,18 @@ void StageState::Update(float dt){
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
     	if(rand()%100 <= 50){ // 50% chance de aparecer
-        	AddObject(new Obstacle(-2, true,"gordinha", "img/gordinha.png", 6, 0.2));
+        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"gordinha", "img/gordinha.png", 6, 0.2));
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+    	}
+    	if(rand()%100 <= 50){ // 50% chance de aparecer
+    	     AddObject(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
+    	}
+    	if(rand()%100 <=2){
+    		// manifestacao
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
     	}
     }
 
@@ -179,9 +188,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
     spawn=0;
 	this->clock = Clock();
 
-	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
-	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
-	AddObject(new Obstacle(0, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
+
 
 
 	//esse 200 e o player position

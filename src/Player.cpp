@@ -256,7 +256,7 @@ void Player::SetTargetSpeed(float targetSpeed){
 
 void Player::NotifyCollision(GameObject* other){
     //cout<< "collision with obstacle1" << endl;
-    if(other->Is("gordinha")){
+    if(other->Is("gordinha") || other->Is("lixeira")){
         this->isColliding = true;
         this->wasColliding = true;
         this->SetTargetSpeed(0.0);
