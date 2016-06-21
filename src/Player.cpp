@@ -24,6 +24,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	powerUp = NONE;
     isColliding = false;
     wasColliding = false;
+    isPassingMapObject = false;
 	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
 
 	player = this;
@@ -94,10 +95,9 @@ void Player::Update(float dt){
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////
 
-
-
-
+    isPassingMapObject = false;
 }
+
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
 	this->RenderHud();
@@ -137,6 +137,10 @@ void Player::NotifyCollision(GameObject* other){
     }
     if(other->Is("SKATE")){
         this->SetTargetSpeed(7.5);
+    }
+
+    if(other->Is("Escada")){
+        this->isPassingMapObject = true;
     }
 }
 
@@ -204,12 +208,12 @@ void Player::Movement(){
 //
 	if(subLayer == SUBLAYER_TOP){
 		if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
-			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
 				layer++;
 				subLayer = SUBLAYER_TOP;
 			}
 		if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
-			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
 				layer--;
 				subLayer = SUBLAYER_TOP;
 		}

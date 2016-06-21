@@ -24,6 +24,8 @@
 
 #include "Obstacle.h"
 
+#include "MapActionList.h"
+
 using std::string;
 using std::cout;
 using std::endl;
@@ -38,6 +40,7 @@ void StageState::Update(float dt){
 
     if(!Player::player){
         cout<<"LOSER"<<endl;
+        mapActionList.mapActions.clear();
         objectArray.clear();
     	Pause();
     	stateData.playerVictory = false;
@@ -72,6 +75,16 @@ void StageState::Update(float dt){
 		}
     }
 
+    for(int i = mapActionList.mapActions.size() - 1; i >= 0; i--) {
+        if(Player::player != nullptr &&
+           Collision::IsColliding(Player::player->box,
+                                  mapActionList.mapActions[i].box,
+                                  Player::player->rotation,
+                                  mapActionList.mapActions[i].rotation)){
+
+            Player::player->NotifyCollision(&mapActionList.mapActions[i]);
+        }
+	}
 
     //testa se o tempo acabou
     if(clock.GetTime() < 0.5){
@@ -130,6 +143,10 @@ void StageState::Render(){
 	Camera::Update(Game::GetInstance().GetDeltaTime());
 	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y );
 	//tileMap.Render(0,0);
+	//removr quando tiver okay!
+	for(unsigned int i = 0 ; i < mapActionList.mapActions.size(); i++) {
+        mapActionList.mapActions[i].Render();
+	}
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		if(objectArray[i]->subLayer == 3)
             objectArray[i]->Render();
@@ -169,6 +186,15 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
 
+	//setando a lista de acoes do mapa
+	for(int i = 0; i < 3; i++){
+        //por enquanto so coloquei 1 escada no mapa
+        for(int j = 0; j < 1; j++){
+            //posicoes exclusivamente para teste
+            mapActionList.AddMapAction(MapActions( TILESET_WIDTH * 5, TILESET_HEIGHT*i, i+1) );
+        }
+    }
+
 
 }
 //*********************************************************************//
@@ -179,6 +205,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg
 //****************************************************************//
 StageState::~StageState(){
 	// limpando o vector
+	mapActionList.mapActions.clear();
 	objectArray.clear();
 	Player::player = nullptr;
 	cout << "StageState destroyed" << endl;

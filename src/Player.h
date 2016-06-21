@@ -66,7 +66,7 @@ private:
     bool isColliding;
     bool wasColliding;
 	bool isRightPosition;
-
+    bool isPassingMapObject;
 
 };
 
