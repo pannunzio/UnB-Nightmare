@@ -134,6 +134,11 @@ void StageState::Update(float dt){
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
     	}
+    	if(Player::player->layer ==  LAYER_TOP){
+            if(rand()%100 < 10){
+                AddObject(new Obstacle(4, false, "pombo", "img/pombo.png", 4, 0.09, LAYER_TOP, Player::player->subLayer));
+            }
+    	}
     }
 
 }

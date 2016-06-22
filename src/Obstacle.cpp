@@ -78,6 +78,10 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     	sp = Sprite("img/manifest.png", 6, 0.2);
 
     }
+
+    if(obstacleName == "pombo"){
+        box.y -= 200;
+    }
 }
 
 
