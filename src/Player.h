@@ -54,6 +54,8 @@ public:
 	void Shoot();
 
 	void RenderHud();
+	void SetSpriteScale();
+	bool IsIndestructible();
 
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:
@@ -63,16 +65,18 @@ private:
 	float targetSpeed;
 	Vec2 pos; // posicao atual para facilitar calculos
 
-
 	PowerUp powerUp;// enumaration de powerup
     MovementState movementState;
 
 	Text hud;
 
+	Timer itemEffect;
+
     bool isColliding;
     bool wasColliding;
 	bool isRightPosition;
     bool isPassingMapObject;
+	bool isIndestructible;
 
 };
 

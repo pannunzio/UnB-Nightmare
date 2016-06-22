@@ -26,7 +26,9 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     isColliding = false;
     wasColliding = false;
     isPassingMapObject = false;
+    isIndestructible = false;
 	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
+	itemEffect = Timer();
 
 	player = this;
 
@@ -48,6 +50,20 @@ void Player::Update(float dt){
 //	clock.Update(dt);
 	sp.Update(dt);
 	Movement(); // faz os movimentos do input
+
+    if(powerUp == SKATE){
+        itemEffect.Update(dt);
+        isPassingMapObject = false;
+        isIndestructible = true;
+        if(itemEffect.Get() > 5){
+            powerUp = NONE;
+            isIndestructible = false;
+            sp.Open("img/playerRunning.png");
+            sp.SetFrameCount(6);
+            sp.SetClip(box.x, box.y, sp.GetWidth(), sp.GetHeight());
+            SetTargetSpeed(4.5);
+        }
+    }
 
 	//colocando na posicao certa o player
 	if(box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
@@ -117,13 +133,7 @@ void Player::Update(float dt){
 void Player::Render(){
 	sp.Render((int)(box.x - Camera::pos.x), (int)(box.y - Camera::pos.y));
 	this->RenderHud();
-    if(subLayer == 3)
-    	sp.SetScale(0.95);
-    if(subLayer == 2)
-        sp.SetScale(1);
-    if(subLayer == 1)
-        sp.SetScale(1.05);
-
+	this->SetSpriteScale();
 }
 bool Player::IsDead(){
 	// camera passou player
@@ -250,6 +260,15 @@ void Player::RenderHud(){
 
 }
 
+void Player::SetSpriteScale(){
+    if(subLayer == 3)
+    	sp.SetScale(0.95);
+    if(subLayer == 2)
+        sp.SetScale(1);
+    if(subLayer == 1)
+        sp.SetScale(1.05);
+}
+
 void Player::SetTargetSpeed(float targetSpeed){
     this->targetSpeed = targetSpeed;
 }
@@ -257,9 +276,17 @@ void Player::SetTargetSpeed(float targetSpeed){
 void Player::NotifyCollision(GameObject* other){
     //cout<< "collision with obstacle1" << endl;
     if(other->Is("gordinha") || other->Is("lixeira")){
-        this->isColliding = true;
-        this->wasColliding = true;
-        this->SetTargetSpeed(0.0);
+        if(!isIndestructible){
+            this->isColliding = true;
+            this->wasColliding = true;
+            this->SetTargetSpeed(0.0);
+        } else {
+            if (subLayer == 3){
+                subLayer--;
+            } else if (subLayer == 1){
+                subLayer++;
+            }
+        }
     }
     if(other->Is("manifestacao")){
         this->isColliding = true;
@@ -273,8 +300,16 @@ void Player::NotifyCollision(GameObject* other){
     if(other->Is("COFFEE")){
         coffee_ammo++;
     }
+
     if(other->Is("SKATE")){
         this->SetTargetSpeed(7.5);
+        this->powerUp = SKATE;
+        itemEffect.Restart();
+        sp.Open("img/playerskating.png");
+        sp.SetClip(box.x, box.y, sp.GetWidth(), sp.GetHeight());
+        sp.SetFrameCount(3);
+        sp.SetFrameTime(0.09);
+
     }
 
     if(other->Is("Escada")){
@@ -282,3 +317,6 @@ void Player::NotifyCollision(GameObject* other){
     }
 }
 
+bool Player::IsIndestructible(){
+    return this->isIndestructible;
+}

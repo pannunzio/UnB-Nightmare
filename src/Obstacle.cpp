@@ -33,10 +33,13 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(layer == LAYER_BOTTON)						//
         box.y=ITEM_HEIGHT_L1;
 
+    if(obstacleName == "lixeira"){
+        subLayer = 3;
+        box.y += 15;
+    }
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////
-
 }
 
 Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime,
@@ -75,8 +78,6 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     	sp = Sprite("img/manifest.png", 6, 0.2);
 
     }
-
-
 }
 
 
