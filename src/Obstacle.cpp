@@ -81,6 +81,9 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     if(obstacleName == "pombo"){
         box.y -= 200;
+        if(rand()%10 == 1){
+            cout<<"caca de pombo"<<endl;
+        }
     }
 }
 

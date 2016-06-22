@@ -28,8 +28,8 @@ Item::Item(int layer, int subLayer, std::string item)
     if(itemType == "SKATE"){
         bg= Sprite("img/skate.png", 6, 0.09);
     }
-    if(itemType == "OUTRO"){
-        bg= Sprite("img/coffee.png");
+    if(itemType == "GGLIKO"){
+        bg= Sprite("img/ggliko.png", 6, 0.09);
     }
 
     //std::cout << "Item Construido" << std::endl;

@@ -33,6 +33,7 @@ public:
 	void Pause();
 	void Resume();
 	void AddObject(GameObject* ptr);
+	void AddObjectStatic(GameObject* ptr);
 
 private:
 	TileSet*  tileSet;

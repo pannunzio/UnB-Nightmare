@@ -103,10 +103,12 @@ void StageState::Update(float dt){
     }
     if(clock.GetSeconds1()%2 == 0){
         if(spawn == 0 && rand()%100 <= 80){
-            if(rand()%2 ==1)
+            if(rand()%3 ==1)
                  AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
-            else
+            else if(rand()%3 ==2)
                  AddObject(new Item(Player::player->layer, rand()%3+1, "SKATE"));
+            else
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "GGLIKO"));
         }
         spawn = 1;
     }
@@ -124,8 +126,8 @@ void StageState::Update(float dt){
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
-    	if(rand()%100 <= 50){ // 50% chance de aparecer
-    	     AddObject(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
+    	if(rand()%100 <= 30){ // 30% chance de aparecer
+    	     AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
     	}
     	if(rand()%100 <=2){
     		// manifestacao
@@ -220,6 +222,11 @@ StageState::~StageState(){
 void StageState::AddObject(GameObject* ptr){
 	objectArray.emplace_back(ptr);
 }
+
+void StageState::AddObjectStatic(GameObject* ptr){
+	objectArray.emplace(objectArray.begin() ,ptr);
+}
+
 void StageState::Resume(){
 	music.Play(-1);
 

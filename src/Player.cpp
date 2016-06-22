@@ -135,7 +135,7 @@ void Player::Render(){
 }
 bool Player::IsDead(){
 	// camera passou player
-	if(Camera::pos.x > pos.x + sp.GetWidth()){
+	if(Camera::pos.x+30 > pos.x + sp.GetWidth()){
 		player = nullptr;
 		cout<<"TESTE"<<endl;
 		return true;
@@ -312,6 +312,9 @@ void Player::NotifyCollision(GameObject* other){
         this->powerUp = SKATE;
         itemEffect.Restart();
         this->ChangeSpriteSheet("img/playerskating.png", 3);
+    }
+    if(other->Is("GGLIKO")){
+        this->speed = 3;
     }
 
     if(other->Is("Escada")){
