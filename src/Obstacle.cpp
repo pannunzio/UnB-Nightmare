@@ -73,7 +73,6 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     // consertar isso para pegar geral
     if(obstacleName == "manifestacao" && subLayer == SUBLAYER_BOTTON){
-    	if(layer == LAYER_MIDDLE)
     		box.y = box.y - 120;
     	sp = Sprite("img/manifest.png", 6, 0.2);
 

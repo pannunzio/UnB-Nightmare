@@ -59,7 +59,7 @@ void Player::Update(float dt){
             powerUp = NONE;
             isIndestructible = false;
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            SetTargetSpeed(4.5);
+            SetTargetSpeed(PLAYER_NORMAL_SPEED);
         }
     }
 
@@ -288,7 +288,6 @@ void Player::NotifyCollision(GameObject* other){
     }
     if(other->Is("manifestacao")){
         if(isIndestructible){
-            cout << "yooo" << endl;
             powerUp = NONE;
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
