@@ -56,6 +56,7 @@ public:
 	void RenderHud();
 	void SetSpriteScale();
 	bool IsIndestructible();
+	void ChangeSpriteSheet(string file, int frameCount);
 
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
 private:

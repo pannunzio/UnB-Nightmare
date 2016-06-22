@@ -58,9 +58,7 @@ void Player::Update(float dt){
         if(itemEffect.Get() > 5){
             powerUp = NONE;
             isIndestructible = false;
-            sp.Open("img/playerRunning.png");
-            sp.SetFrameCount(6);
-            sp.SetClip(box.x, box.y, sp.GetWidth(), sp.GetHeight());
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
             SetTargetSpeed(4.5);
         }
     }
@@ -289,9 +287,17 @@ void Player::NotifyCollision(GameObject* other){
         }
     }
     if(other->Is("manifestacao")){
+        if(isIndestructible){
+            cout << "yooo" << endl;
+            powerUp = NONE;
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+            this->isIndestructible = false;
+        }
+
         this->isColliding = true;
         this->wasColliding = true;
         this->speed = 2;
+
         // se ficar apertando vai mais rapido
         if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY))
         	box.x = box.x + 20;
@@ -305,11 +311,7 @@ void Player::NotifyCollision(GameObject* other){
         this->SetTargetSpeed(7.5);
         this->powerUp = SKATE;
         itemEffect.Restart();
-        sp.Open("img/playerskating.png");
-        sp.SetClip(box.x, box.y, sp.GetWidth(), sp.GetHeight());
-        sp.SetFrameCount(3);
-        sp.SetFrameTime(0.09);
-
+        this->ChangeSpriteSheet("img/playerskating.png", 3);
     }
 
     if(other->Is("Escada")){
@@ -319,4 +321,10 @@ void Player::NotifyCollision(GameObject* other){
 
 bool Player::IsIndestructible(){
     return this->isIndestructible;
+}
+
+void Player::ChangeSpriteSheet(string file, int frameCount){
+    sp.Open(file);
+    sp.SetFrameCount(frameCount);
+    sp.SetClip(this->box.x, this->box.y, sp.GetWidth(), sp.GetHeight());
 }
