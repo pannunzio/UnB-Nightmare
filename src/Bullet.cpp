@@ -11,11 +11,6 @@
 #include "Defines.h"
 #include "Player.h"
 
-void Bullet::NotifyCollision(GameObject* other){
-	if(other->Is("Enemy")&& !targetsPlayer)
-		distanceLeft = 0;
-
-}
 
 bool Bullet::Is(std::string type){
 	return(type == this->type);
@@ -31,6 +26,7 @@ Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,flo
 	this->targetsPlayer = targetsPlayer;
 	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	distanceLeft = BULLET_MAX_DISTANCE;
+
 }
 
 Bullet::~Bullet() {
@@ -52,7 +48,29 @@ void Bullet::Update(float dt){
 	sp.Update(dt);
 	box.x = box.x + speed*dt*100;
 	distanceLeft-= speed*dt*100;
+
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
+
+
 }
 void Bullet::Render(){
 	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y,rotation);
+}
+
+
+void Bullet::NotifyCollision(GameObject* other){
+	if(other->Is("menina")){
+		distanceLeft = 0;
+		std::cout << "colidiu com a menina" << std::endl;
+	}
+
+
 }

@@ -271,9 +271,21 @@ void Player::SetTargetSpeed(float targetSpeed){
     this->targetSpeed = targetSpeed;
 }
 
+
+
+bool Player::IsIndestructible(){
+    return this->isIndestructible;
+}
+
+void Player::ChangeSpriteSheet(string file, int frameCount){
+    sp.Open(file);
+    sp.SetFrameCount(frameCount);
+    sp.SetClip(this->box.x, this->box.y, sp.GetWidth(), sp.GetHeight());
+}
+
 void Player::NotifyCollision(GameObject* other){
     //cout<< "collision with obstacle1" << endl;
-    if(other->Is("gordinha") || other->Is("lixeira")){
+    if(other->Is("menina") || other->Is("meninaZumbi") || other->Is("lixeira")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
@@ -319,14 +331,4 @@ void Player::NotifyCollision(GameObject* other){
     if(other->Is("Escada")){
         this->isPassingMapObject = true;
     }
-}
-
-bool Player::IsIndestructible(){
-    return this->isIndestructible;
-}
-
-void Player::ChangeSpriteSheet(string file, int frameCount){
-    sp.Open(file);
-    sp.SetFrameCount(frameCount);
-    sp.SetClip(this->box.x, this->box.y, sp.GetWidth(), sp.GetHeight());
 }

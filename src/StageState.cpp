@@ -121,15 +121,15 @@ void StageState::Update(float dt){
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%100 <= 50){ // 50% chance de aparecer
-        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"gordinha", "img/gordinha.png", 6, 0.2));
+    	if(rand()%100 <= 30){ // 50% chance de aparecer
+        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
-    	if(rand()%100 <= 30){ // 30% chance de aparecer
+    	if(rand()%100 <= 20){ // 30% chance de aparecer
     	     AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
     	}
-    	if(rand()%100 <=2){
+    	if(rand()%100 <=10){
     		// manifestacao
     		cout << "create manifest" << endl;
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
@@ -185,7 +185,7 @@ void StageState::Render(){
 //Parametros: N/A***************************************************//
 //Descrição: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"), music("audio/subsoloLoop.ogg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	music.Play(-1);
