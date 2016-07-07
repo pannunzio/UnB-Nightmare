@@ -244,6 +244,9 @@ void Player::Movement(){
         if(subLayer == SUBLAYER_TOP){
             if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
                 if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
+                    if(layer == LAYER_BOTTON){
+
+                    }
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;

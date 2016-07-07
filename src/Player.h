@@ -62,6 +62,7 @@ public:
 	void ChangeSpriteSheet(string file, int frameCount);
 
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
+    MovementState movementState;
 private:
 	Sprite sp; // sprite
 	float speed; // velocidade
@@ -70,7 +71,6 @@ private:
 	Vec2 pos; // posicao atual para facilitar calculos
 
 	PowerUp powerUp;// enumaration de powerup
-    MovementState movementState;
 
 	Text hud;
 
@@ -84,7 +84,6 @@ private:
 
 	Sound powerupMusic;
 	bool isPlayingMusic;
-
 };
 
 #endif /* PLAYER_H_ */

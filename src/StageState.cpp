@@ -154,6 +154,16 @@ void StageState::Update(float dt){
     	}
     }
 
+    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
+        music.Stop();
+        music.Open("audio/subsolo_main.ogg");
+    }
+
+    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
+        music.Stop();
+        music.Open("audio/tematerreo_voltaterreo.ogg");
+    }
+
 }
 
 
