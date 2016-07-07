@@ -22,12 +22,12 @@ Music::~Music(){
 }
 
 void Music::Open(std::string file){
-    if(!this->IsOpen()){
+//    if(!this->IsOpen()){
         music = Resources::GetMusic(file);
         Mix_VolumeMusic(9);
         if(!music)
             std::cout << "error na musica. SDL_error: " << Mix_GetError() << std::endl;
-    }
+//    }
 }
 
 void Music::Play(int times){
@@ -36,7 +36,7 @@ void Music::Play(int times){
 
 void Music::Stop(){
 	//milisec
-	Mix_FadeOutMusic(500);
+	Mix_FadeOutMusic(1000);
 }
 
 bool Music::IsOpen(){
