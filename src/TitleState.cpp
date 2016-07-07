@@ -10,10 +10,11 @@
 #include "Text.h"
 
 #include "Game.h"
-TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png") {
+TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png"), menuMusic("audio/menu.ogg") {
 	popRequested = quitRequested = false;
 	option = TITLE_MIN_OPTIONS;
 
+    menuMusic.Play(-1);
 
 	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_WHITE, 0,0 );
 //	option1Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_GREEN, 0,0 );
@@ -31,6 +32,7 @@ void TitleState::Update(float dt){
 
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		quitRequested = true;
+		menuMusic.Stop();
 	}
 
 

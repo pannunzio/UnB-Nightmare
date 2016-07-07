@@ -12,6 +12,8 @@
 #include "Timer.h"
 #include "Clock.h"
 #include "Text.h"
+#include "Music.h"
+#include "Sound.h"
 
 
 enum PowerUp{
@@ -79,6 +81,9 @@ private:
 	bool isRightPosition;
     bool isPassingMapObject;
 	bool isIndestructible;
+
+	Sound powerupMusic;
+	bool isPlayingMusic;
 
 };
 

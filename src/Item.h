@@ -25,6 +25,9 @@ class Item : public GameObject
         Sprite bg;
         string itemType;
         bool isDead;
+
+        Sound captureSound;
+        bool isSoundHappening;
 };
 
 #endif // ITEM_H

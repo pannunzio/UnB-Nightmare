@@ -21,6 +21,8 @@ public:
 	void Play(int times);
 	void Stop();
 	void Open(std::string file);
+
+//	void PlayFadein(int times, int fadeinTime);
 private:
 	Mix_Chunk* sound;
 	int channel;

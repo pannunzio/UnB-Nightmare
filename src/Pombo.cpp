@@ -56,7 +56,7 @@ void Pombo::NotifyCollision(GameObject* other){
 
 void Pombo::FazCaca(){
     Vec2 shootPos = box.CenterPos();
-    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 1, 1, false);
+    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 1, 1, true);
     caquinha->SetSubLayer(subLayer);
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }

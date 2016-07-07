@@ -20,7 +20,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	this->obstacleName = obstacleName;
 	this->canBlock = canBlock;
 	this->isDead = false;
-
+    this->isSoundHappening = false;
 	layer = rand()%3 + 1;
 	subLayer = rand()%3 + 1;
 
@@ -61,6 +61,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	this->obstacleName = obstacleName;
 	this->canBlock = canBlock;
 	this->isDead = false;
+	this->isSoundHappening = false;
 
 	this->layer = layer;
 	this->subLayer = subLayer;

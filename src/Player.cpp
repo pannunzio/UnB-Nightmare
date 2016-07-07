@@ -29,6 +29,8 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     isIndestructible = false;
 	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
 	itemEffect = Timer();
+    powerupMusic = Sound();
+    isPlayingMusic = false;
 
 	player = this;
 
@@ -56,6 +58,7 @@ void Player::Update(float dt){
         isPassingMapObject = false;
         isIndestructible = true;
         if(itemEffect.Get() > 5){
+            powerupMusic.Stop();
             powerUp = NONE;
             isIndestructible = false;
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
@@ -317,6 +320,7 @@ void Player::NotifyCollision(GameObject* other){
     if(other->Is("manifestacao")){
         if(isIndestructible){
             powerUp = NONE;
+            powerupMusic.Stop();
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }
@@ -335,6 +339,10 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("SKATE")){
+        if(!isPlayingMusic && this->powerUp != SKATE){
+            powerupMusic.Open("audio/skate.ogg");
+            powerupMusic.Play(2);
+        }
         this->SetTargetSpeed(PLAYER_SKATE_SPEED);
         this->powerUp = SKATE;
         itemEffect.Restart();
@@ -344,6 +352,7 @@ void Player::NotifyCollision(GameObject* other){
 //        this->speed = 3;
         if(isIndestructible){
             powerUp = NONE;
+            powerupMusic.Stop();
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }
@@ -357,6 +366,7 @@ void Player::NotifyCollision(GameObject* other){
         cout << "ecaaa" << endl;
         if(isIndestructible){
             powerUp = NONE;
+            powerupMusic.Stop();
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }

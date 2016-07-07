@@ -11,6 +11,8 @@
 #include "State.h"
 #include "Text.h"
 #include "Timer.h"
+#include "Music.h"
+
 class TitleState : public State{
 public:
 	TitleState();
@@ -28,6 +30,8 @@ private:
 	int option;
 	Text* option1;
 	Text* option2;
+
+	Music menuMusic;
 
 };
 

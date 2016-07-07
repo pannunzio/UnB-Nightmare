@@ -28,9 +28,13 @@ void Sound::Play(int times){
 
 }
 void Sound::Stop(){
-	Mix_HaltChannel(channel);
+	Mix_FadeOutChannel(channel, 1000);
 }
 void Sound::Open(std::string file){
 	sound = Resources::GetSound(file);
 
 }
+//
+//void Sound::PlayFadein(int times, int fadeinTime){
+//    channel = Mix_FadeInChannel(-1, this->sound, times, fadeinTime);
+//}

@@ -10,7 +10,8 @@ Item::Item(int layer, int subLayer, std::string item)
     this->box = Rect(Player::player->box.x+1200,0,bg.GetWidth(),bg.GetHeight());
     this->itemType = item;
     this->isDead = false;
-
+    this->isSoundHappening = false;
+    this->captureSound = Sound();
 
 	//
     if(layer == LAYER_TOP)							//
@@ -24,12 +25,14 @@ Item::Item(int layer, int subLayer, std::string item)
     ///////////////////////////////////////////////////
     if(itemType == "COFFEE"){
         bg= Sprite("img/cafeColor.png", 6, 0.09);
+        captureSound.Open("audio/cafe_getitem.wav");
     }
     if(itemType == "SKATE"){
         bg= Sprite("img/skate.png", 6, 0.09);
     }
     if(itemType == "GGLIKO"){
         bg= Sprite("img/ggliko.png", 6, 0.09);
+        captureSound.Open("audio/comida_getitem.wav");
     }
 
     //std::cout << "Item Construido" << std::endl;
@@ -62,6 +65,7 @@ void Item::NotifyCollision(GameObject* other){
 
     if(other->Is("Player")){
         this->isDead = true;
+        captureSound.Play(1);
     }
     if(box.x<-100){
         this->isDead = true;

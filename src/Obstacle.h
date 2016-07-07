@@ -37,6 +37,8 @@ private:
 	int speed;
 	Sprite sp;
 
+    Sound captureSound;
+    bool isSoundHappening;
 };
 
 #endif /* OBSTACLE_H_ */
