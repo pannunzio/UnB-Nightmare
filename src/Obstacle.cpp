@@ -35,7 +35,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
         box.y=ITEM_HEIGHT_L1;
 
     if(obstacleName == "lixeira"){
-        subLayer = 3;
+        this->subLayer = 3;
         box.y += 15;
     }
 	if(this->obstacleName == "menina" && rand()%100 < 20){
@@ -45,6 +45,9 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
     }
+	if(this->obstacleName == "cano"){
+		this->sp = Sprite("img/cano.png",frameCount,frameTime);
+	}
 
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
@@ -86,6 +89,9 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
     }
+	if(this->obstacleName == "cano"){
+		this->sp = Sprite("img/cano.png",frameCount,frameTime);
+	}
 
 }
 
@@ -111,6 +117,9 @@ void Obstacle::Render(){
     if(this->obstacleName == "manifestacao"){
     	if(this->subLayer == SUBLAYER_BOTTON)
     		sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y - 120);
+    }
+    else if(this->obstacleName == "cano"){
+    	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y - 250);
     }
     else{
     	if(speed>=0)

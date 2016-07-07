@@ -70,12 +70,12 @@ EndState::EndState(StateData stateData){
 
 	if(stateData.playerVictory){
 		music = Music("audio/endStateWin.ogg");
-		bg = Sprite("img/win.jpg");
+		bg = Sprite("img/cerrado.jpg");
 		cout<<"VENCEUU"<<endl;
 	}
 	else{
 		music = Music("audio/endStateLose.ogg");
-		bg = Sprite("img/lose.jpg");
+		bg = Sprite("img/cerrado.jpg");
 		cout<<"PERDEUUUU"<<endl;
 	}
 	music.Play(-1);

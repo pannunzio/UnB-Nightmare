@@ -34,8 +34,10 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
 	player = this;
 
-    coffee_ammo = 60;
+    coffee_ammo = 20;
 	std::cout << "Player Construido" << std::endl;
+
+	layer = LAYER_BOTTON;
 
 }
 

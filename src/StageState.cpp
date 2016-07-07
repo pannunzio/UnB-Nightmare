@@ -27,6 +27,8 @@
 
 #include "MapActionList.h"
 
+
+
 using std::string;
 using std::cout;
 using std::endl;
@@ -118,10 +120,15 @@ void StageState::Update(float dt){
     }
 
 
-    // COOLDOWN TIMER DO CAIO, acho melhor q fazer tipo o de cima
+//	respawn das coisas
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
+    	if(rand()%100 <= 3){  //3%
+    			AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
+    	    	}
+
+
     	if(rand()%100 <= 30){ // 50% chance de aparecer
         	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
@@ -140,7 +147,7 @@ void StageState::Update(float dt){
     	}
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 10){
-                AddObject(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+               AddObject(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }
@@ -190,7 +197,7 @@ void StageState::Render(){
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"), music("audio/tematerreo_main.ogg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
-	music.Play(1);
+	//music.Play(1);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,550));

@@ -10,7 +10,7 @@
 #include "Text.h"
 
 #include "Game.h"
-TitleState::TitleState() : bg("img/title.jpg"), logo("img/logo.png"), menuMusic("audio/menu.ogg") {
+TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusic("audio/menu.ogg") {
 	popRequested = quitRequested = false;
 	option = TITLE_MIN_OPTIONS;
 
