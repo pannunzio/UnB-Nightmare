@@ -24,6 +24,7 @@
 
 #include "Obstacle.h"
 #include "Pombo.h"
+#include "Agua.h"
 
 #include "MapActionList.h"
 
@@ -121,6 +122,7 @@ void StageState::Update(float dt){
 
 
 //	respawn das coisas
+
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
@@ -205,7 +207,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
     spawn = 0;
 	this->clock = Clock();
 
-
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON,0));
 
 
 	//esse 200 e o player position

@@ -134,10 +134,11 @@ bool Obstacle::Is(std::string type){
 }
 void Obstacle::NotifyCollision(GameObject* other){
     if(other->Is("Coffee") && this->obstacleName != "manifestacao"){
-    	speed = 8;
+    	speed = -5;
     	if(this->obstacleName == "meninaZumbi"){
     		sp = Sprite("img/menina.png", 6, 0.2);
-    		obstacleName = "menina";
+    		//obstacleName = "menina";
+    		speed = 8;
     	}
 
     }

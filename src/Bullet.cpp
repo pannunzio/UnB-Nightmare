@@ -62,7 +62,7 @@ void Bullet::Update(float dt){
 
 }
 void Bullet::Render(){
-	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y,rotation);
+	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y + 30,rotation);
 }
 
 
