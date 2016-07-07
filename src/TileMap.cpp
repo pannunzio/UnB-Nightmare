@@ -29,8 +29,7 @@ void TileMap::Load(std::string file){
 			for(int i = 0; i< mapWidth; i++){
 				fscanf(arq, "%d,", &At(i,j,k));
 				if(At(i,j,k)-1 >= 3 && At(i,j,k) <=6)
-					MapActionList::AddMapAction(MapActions( TILESET_WIDTH *i, TILESET_HEIGHT*j, 3-j) );
-
+					MapActionList::AddMapAction(MapActions( TILESET_WIDTH *i + 250, TILESET_HEIGHT*j + 40, 3-j) );
 			}
 
 		}

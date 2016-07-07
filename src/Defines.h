@@ -17,6 +17,7 @@ using std::endl;
 #define COLOR_BLACK SDL_Color{0, 0, 0}
 #define COLOR_WHITE SDL_Color{255, 255, 255}
 
+#define PLAYER_SLOW_SPEED 4
 #define PLAYER_NORMAL_SPEED 5
 #define PLAYER_SKATE_SPEED 7
 #define PLAYER_NORMAL_ACCELERATION 1.5
@@ -28,6 +29,7 @@ using std::endl;
 #define CAMERA_NORMAL_SPEED 5
 
 #define BULLET_MAX_DISTANCE 1000
+#define CACAPOMBO_MAX_DISTANCE 100
 
 #define LAYER_TOP 3
 #define LAYER_MIDDLE 2

@@ -63,6 +63,21 @@ void Player::Update(float dt){
         }
     }
 
+    if (powerUp == COMIDA){
+        itemEffect.Update(dt);
+        if(itemEffect.Get() > 3){
+            powerUp = NONE;
+            SetTargetSpeed(PLAYER_NORMAL_SPEED);
+        }
+    }
+
+    if(powerUp == CACA_DE_POMBO){
+        itemEffect.Update(dt);
+        if(itemEffect.Get() > 5){
+            powerUp = NONE;
+            SetTargetSpeed(PLAYER_NORMAL_SPEED);
+        }
+    }
 	//colocando na posicao certa o player
 	if(box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
 		isRightPosition = true;
@@ -135,7 +150,7 @@ void Player::Render(){
 }
 bool Player::IsDead(){
 	// camera passou player
-	if(Camera::pos.x+30 > pos.x + sp.GetWidth()){
+	if(Camera::pos.x + 30 > pos.x + sp.GetWidth()){
 		player = nullptr;
 		cout<<"TESTE"<<endl;
 		return true;
@@ -218,21 +233,22 @@ void Player::Movement(){
 
 
 //
-	if(subLayer == SUBLAYER_TOP){
-		if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
-			if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
-				layer++;
-				subLayer = SUBLAYER_TOP;
-				movementState = GOING_UP;
-			}
-		if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
-			if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
-				layer--;
-				subLayer = SUBLAYER_TOP;
-				movementState = GOING_DOWN;
-		}
-	}
-
+    if(this->powerUp == PowerUp::NONE){
+        if(subLayer == SUBLAYER_TOP){
+            if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
+                if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
+                    layer++;
+                    subLayer = SUBLAYER_TOP;
+                    movementState = GOING_UP;
+                }
+            if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
+                if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
+                    layer--;
+                    subLayer = SUBLAYER_TOP;
+                    movementState = GOING_DOWN;
+            }
+        }
+    }
 }
 
 void Player::Shoot(){
@@ -319,13 +335,34 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("SKATE")){
-        this->SetTargetSpeed(7.5);
+        this->SetTargetSpeed(PLAYER_SKATE_SPEED);
         this->powerUp = SKATE;
         itemEffect.Restart();
         this->ChangeSpriteSheet("img/playerskating.png", 3);
     }
     if(other->Is("GGLIKO")){
-        this->speed = 3;
+//        this->speed = 3;
+        if(isIndestructible){
+            powerUp = NONE;
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+            this->isIndestructible = false;
+        }
+//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        speed = 3;
+        itemEffect.Restart();
+        this->powerUp = PowerUp::COMIDA;
+    }
+    //caca de pombo
+    if(other->Is("Caca")){
+        cout << "ecaaa" << endl;
+        if(isIndestructible){
+            powerUp = NONE;
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+            this->isIndestructible = false;
+        }
+        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        itemEffect.Restart();
+        this->powerUp = PowerUp::CACA_DE_POMBO;
     }
 
     if(other->Is("Escada")){

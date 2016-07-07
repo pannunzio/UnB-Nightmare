@@ -1,13 +1,11 @@
 #include "MapActions.h"
 #include "Camera.h"
 
-MapActions::MapActions(float x, float y, int layer): sp("img/escada.png"
-		""){
-
+MapActions::MapActions(float x, float y, int layer): sp("img/escada.png"){
+    this->box.w = this->sp.GetWidth()/3;
+    this->box.h = this->sp.GetHeight();
     this->box.x = x;
     this->box.y = y;
-    this->box.w = this->sp.GetWidth();
-    this->box.h = this->sp.GetHeight();
 
     this->subLayer = -1;
     this->layer = layer;

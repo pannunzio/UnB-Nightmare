@@ -17,8 +17,9 @@
 enum PowerUp{
 	NONE,
 	SKATE,
-	DASH
-
+	DASH,
+	COMIDA,
+	CACA_DE_POMBO
 };
 
 enum MovementState{

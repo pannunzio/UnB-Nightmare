@@ -23,6 +23,7 @@
 #include "Clock.h"
 
 #include "Obstacle.h"
+#include "Pombo.h"
 
 #include "MapActionList.h"
 
@@ -127,7 +128,8 @@ void StageState::Update(float dt){
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
     	if(rand()%100 <= 20){ // 30% chance de aparecer
-    	     AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
+
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
     	}
     	if(rand()%100 <=10){
     		// manifestacao
@@ -138,7 +140,7 @@ void StageState::Update(float dt){
     	}
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 10){
-                AddObject(new Obstacle(4, false, "pombo", "img/pombo.png", 4, 0.09, LAYER_TOP, Player::player->subLayer));
+                AddObject(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }

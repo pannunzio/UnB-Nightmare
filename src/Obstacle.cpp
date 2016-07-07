@@ -82,13 +82,6 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     // consertar isso para pegar geral
 
-
-    if(obstacleName == "pombo"){
-        box.y -= 200;
-        if(rand()%10 == 1){
-            cout<<"caca de pombo"<<endl;
-        }
-    }
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
     }
