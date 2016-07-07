@@ -217,7 +217,9 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
     spawn = 0;
 	this->clock = Clock();
 
-	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON,0));
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
 
 
 	//esse 200 e o player position

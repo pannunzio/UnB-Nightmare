@@ -15,10 +15,17 @@
 #include "Player.h"
 
 
+//VER ISSO AQUI
+//void Sprite::SetAlpha(){
+//	// colocar codigo aqui pra o sprite fazer transparente
+//	// e ai coloca o sp.SetAlpha na agua.
+//
+//}
 
-Agua::Agua(int layer, int subLayer, float speed) : sp("img/agua.png", 3,0.2){
+
+Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 3,0.2){
 	this->isDead = false;
-	this->speed = -speed;
+	speed =2;
 	this->layer=  layer;
 	this->subLayer = subLayer;
 	std::cout << "agua construida" << std::endl;

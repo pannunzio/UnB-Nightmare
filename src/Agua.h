@@ -17,7 +17,7 @@
 
 class Agua : public GameObject {
 public:
-	Agua(int layer, int subLayer, float speed);
+	Agua(int layer, int subLayer);
 	~Agua();
 
 	bool IsDead();
