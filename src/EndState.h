@@ -28,6 +28,7 @@ public:
 private:
 	Sprite bg;
 	Music music;
+	Sprite derrota;
 
 	//menu
 	int option;

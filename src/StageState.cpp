@@ -146,8 +146,7 @@ void StageState::Update(float dt){
 
     	if(rand()%100 <= 30){ // 50% chance de aparecer
         	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
-//        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
-//                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+
     	}
     	if(rand()%100 <=5){
     		// manifestacao
@@ -158,7 +157,7 @@ void StageState::Update(float dt){
     	}
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 5){
-              // AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+         AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }

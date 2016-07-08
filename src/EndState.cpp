@@ -13,6 +13,7 @@
 #include "TitleState.h"
 
 void EndState::Update(float dt){
+	derrota.Update(dt);
 	if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
 		option--;
 		if(option < END_MIN_OPTIONS)
@@ -43,10 +44,12 @@ void EndState::Update(float dt){
 		option2->SetColor(TEXT_WHITE);
 
 
+
 }
 
 void EndState::Render(){
 	bg.Render(0,0);
+	derrota.Render(300,300);
 
     option1->Render(0, 0);
     option2->Render(0, 0);
@@ -76,6 +79,7 @@ EndState::EndState(StateData stateData){
 	else{
 		music = Music("audio/menu_main.ogg");
 		bg = Sprite("img/cerrado.jpg");
+		derrota = Sprite("img/derrota.png", 12,0.2);
 		cout<<"PERDEUUUU"<<endl;
 	}
 	music.Play(-1);

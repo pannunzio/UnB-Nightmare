@@ -22,7 +22,7 @@ void MapActions::Update(float dt){
 //		this->isDead = true;
 }
 void MapActions::Render(){
-    sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
+    //sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
 }
 
 bool MapActions::IsDead(){
