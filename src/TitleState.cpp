@@ -61,8 +61,10 @@ void TitleState::Update(float dt){
 //	// start
 	if(option == 1){
 		option1->SetColor(TEXT_GREEN);
-		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
+		if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
 			Game::GetInstance().Push(new StageState());
+
+		}
 	}
 	else {
 		option1->SetColor(TEXT_WHITE);

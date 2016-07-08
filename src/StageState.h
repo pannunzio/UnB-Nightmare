@@ -34,7 +34,7 @@ public:
 	void Resume();
 	void AddObject(GameObject* ptr);
 	void AddObjectStatic(GameObject* ptr);
-
+	void ChangeMusic();
 private:
 	TileSet*  tileSet;
 	TileMap tileMap;

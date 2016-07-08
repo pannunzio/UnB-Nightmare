@@ -35,7 +35,6 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	player = this;
 
 
-	//ChangeMusic();
 
     coffee_ammo = 20;
 	std::cout << "Player Construido" << std::endl;
@@ -258,14 +257,14 @@ void Player::Movement(){
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;
-                    ChangeMusic();
+
                 }
             if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
                 if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
                     layer--;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_DOWN;
-                    ChangeMusic();
+
 
 
             }
@@ -428,14 +427,4 @@ void Player::NotifyCollision(GameObject* other){
 
 }
 
-void Player::ChangeMusic(){
 
-	//this->musica.Stop();
- //   if(layer == 3)
-  //    this->musica = Music("audio/tematerreo_main.ogg");
- //   if(layer == 2)
-  //    this->musica = Music("audio/tematerreo_main.ogg");
-  //  if(layer == 1)
-  //    this->musica = Music("audio/subsoloLoop.ogg");
-
-}

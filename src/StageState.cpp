@@ -158,16 +158,21 @@ void StageState::Update(float dt){
     	}
     }
 
-    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
-        music.Stop();
-        music.Open("audio/subsolo_main.ogg");
-    }
-
-    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
-        music.Stop();
-        music.Open("audio/tematerreo_voltaterreo.ogg");
-    }
-
+//    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
+//        music.Stop();
+//        music.Open("audio/subsolo_main.ogg");
+//    }
+//
+//    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
+//        music.Stop();
+//        music.Open("audio/tematerreo_voltaterreo.ogg");
+//    }
+      if (InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+    	ChangeMusic();
+      }
+      if (InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+          	ChangeMusic();
+      }
 }
 
 
@@ -213,7 +218,8 @@ void StageState::Render(){
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"), music("audio/tematerreo_main.ogg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
-//	music.Play(-1);
+	//ChangeMusic();
+	//music.Play(-1);
 	music.SetVolume(100);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
@@ -265,5 +271,15 @@ void StageState::Resume(){
 void StageState::Pause(){
 	music.Stop();
 }
+void StageState::ChangeMusic(){
+   // music.Stop();
+  //  if(Player::player->layer == 3)
+  //    music.Open("audio/tematerreo_main.ogg");
+//    if(Player::player->layer == 2)
+//      this->music = Music("audio/tematerreo_main.ogg");
+//    if(Player::player->layer == 1)
+//      this->music = Music("audio/subsoloLoop.ogg");
+  //  music.Play(-1);
 
+}
 
