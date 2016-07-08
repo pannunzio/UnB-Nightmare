@@ -29,10 +29,12 @@ TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusi
 
 
 void TitleState::Update(float dt){
+    if(quitRequested)
+        menuMusic.Stop();
+
 
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		quitRequested = true;
-		menuMusic.Stop();
 	}
 
 

@@ -14,7 +14,7 @@ Music::Music(){
 Music::Music(std::string file){
 	music = nullptr;
 	Open(file);
-	Mix_VolumeMusic(9);
+//	Mix_VolumeMusic(9);
 }
 Music::~Music(){
 	music = nullptr;

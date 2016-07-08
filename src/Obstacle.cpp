@@ -24,6 +24,8 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	layer = rand()%3 + 1;
 	subLayer = rand()%3 + 1;
 
+	this->spriteSound = Sound(-1);
+    this->captureSound = Sound(-1);
 
 	// ou seja, vai dar respawn se passar no teste  //
 	box.x = Player::player->box.x + 1200;			//
@@ -41,14 +43,27 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	if(this->obstacleName == "menina" && rand()%100 < 20){
 		sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
 		this->obstacleName = "meninaZumbi";
+		spriteSound.Open("audio/Zumbi9.wav");
+		spriteSound.Play(rand()%2+1);
 	}
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    	spriteSound.Open("audio/manifestacao_11s.wav");
+    	spriteSound.PlayArbitraryFadeIn(1, 2);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
+		spriteSound.Open("audio/gotas.wav");
+		spriteSound.Play(rand()%2+1);
 	}
 
+    if(Player::player->layer != this->layer){
+        spriteSound.SetDistance(100);
+    }
+//     else
+//        CalculateSoundPosition();
+
+//    spriteSound.Play(-1);
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////
@@ -69,6 +84,9 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	this->layer = layer;
 	this->subLayer = subLayer;
 
+	this->spriteSound = Sound(-1);
+    this->captureSound = Sound(-1);
+
 
 	// ou seja, vai dar respawn se passar no teste  //
 	box.x = Player::player->box.x + 1200;			//
@@ -88,10 +106,21 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    	spriteSound.Open("audio/manifestacao_11s.wav");
+    	spriteSound.PlayArbitraryFadeIn(1, 2);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
+		spriteSound.Open("audio/gotas.wav");
+		spriteSound.Play(rand()%2+1);
 	}
+	if(Player::player->layer != this->layer){
+        spriteSound.SetDistance(100);
+    }
+//     else
+//        CalculateSoundPosition();
+
+//    spriteSound.Play(-1);
 
 }
 
@@ -106,6 +135,9 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
 	this->layer = layer;
 	subLayer = rand()%3 + 1;
+
+	this->spriteSound = Sound(-1);
+    this->captureSound = Sound(-1);
 
 
 	// ou seja, vai dar respawn se passar no teste  //
@@ -127,8 +159,17 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	}
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    	spriteSound.Open("audio/manifestacao_11s.wav");
+    	spriteSound.PlayArbitraryFadeIn(1, 2);
     }
 
+    if(Player::player->layer != this->layer){
+        spriteSound.SetDistance(100);
+    }
+//    else
+//        CalculateSoundPosition();
+//
+//    spriteSound.Play(-1);
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////
@@ -141,6 +182,8 @@ Obstacle::~Obstacle(){
 }
 
 bool Obstacle::IsDead(){
+//    spriteSound.Stop();
+
 	return this->isDead;
 }
 void Obstacle::Update(float dt){

@@ -4,7 +4,7 @@
 #include "CacaDePombo.h"
 #include "Camera.h"
 
-Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), sombra("img/sombraPombo.png"){
+Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), sombra("img/sombraPombo.png"), soundPombo("audio/pombo.wav"){
     cout << "PRU PRU MOTHERFUCKERS" << endl;
     this->layer = LAYER_TOP;
     this->subLayer = subLayer;
@@ -12,7 +12,6 @@ Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), s
     this->speed = -3;
 	if(speed!=0)
 		speed -= rand()%3;
-
     fazendoCaca = false;
     sBox.Centralize(x, y - 100, pombo.GetWidth(), pombo.GetHeight());
 
@@ -24,6 +23,8 @@ Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), s
     if(layer == LAYER_BOTTON)						//
         box.y=ITEM_HEIGHT_L1;
     box.y = box.y - (this->subLayer - 3)*26;
+
+    soundPombo.Play(1);
 }
 
 Pombo::~Pombo(){
@@ -51,7 +52,11 @@ void Pombo::Render(){
 }
 
 bool Pombo::IsDead(){
-    return isDead;
+    if(isDead){
+        soundPombo.Stop(2);
+        return true;
+    }
+    return false;
 }
 
 bool Pombo::Is(std::string type){

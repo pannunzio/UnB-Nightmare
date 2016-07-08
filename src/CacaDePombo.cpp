@@ -5,7 +5,7 @@
 #include <math.h>
 
 CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s):
-        sp(sprite, frameCount, frameTime){
+        sp(sprite, frameCount, frameTime), colisaoPlayer("audio/caca_explosao.wav"){
 
     this->type = type;
 	this->targetsPlayer = targetsPlayer;
@@ -26,7 +26,12 @@ CacaDePombo::~CacaDePombo(){
 }
 
 bool CacaDePombo::IsDead(){
-    return this->distanceLeft <= distanceLimit;
+    if (this->distanceLeft <= distanceLimit){
+        if(colisaoPlayer.IsPlaying())
+            colisaoPlayer.Stop(2);
+        return true;
+    }
+    return false;
 }
 
 void CacaDePombo::Update(float dt){
@@ -54,7 +59,7 @@ void CacaDePombo::SetSubLayer(int subLayer){
 void CacaDePombo::NotifyCollision(GameObject* other){
     if (other->Is("Player")){
         distanceLimit = 160;
-        //toca o som
+        colisaoPlayer.PlayArbitraryFadeIn(1, 2);
     }
 }
 

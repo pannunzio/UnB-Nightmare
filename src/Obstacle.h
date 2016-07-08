@@ -32,6 +32,7 @@ public:
 
 
 private:
+
 	std::string obstacleName;
     bool isDead;
 
@@ -39,6 +40,7 @@ private:
 	int speed;
 	Sprite sp;
 
+    Sound spriteSound;
     Sound captureSound;
     bool isSoundHappening;
 };

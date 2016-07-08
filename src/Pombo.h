@@ -25,6 +25,7 @@ private:
     float speed;
     Rect sBox;
 
+    Sound soundPombo;
 };
 
 #endif // POMBO_H
