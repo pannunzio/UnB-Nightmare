@@ -34,6 +34,9 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
 	player = this;
 
+
+	//ChangeMusic();
+
     coffee_ammo = 20;
 	std::cout << "Player Construido" << std::endl;
 
@@ -41,6 +44,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	//TESTES
 	layer = LAYER_TOP;
 //	layer = LAYER_BOTTON;
+
 
 }
 
@@ -254,24 +258,16 @@ void Player::Movement(){
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;
-                    if(layer == 3)
-                    	ChangeMusic("audio/tematerreo_vitoria.ogg");
-                    if(layer == 2)
-                         ChangeMusic("audio/tematerreo_main.ogg");
-                    if(layer == 1)
-                    	 ChangeMusic("audio/subsolo_main.ogg");
+                    ChangeMusic();
                 }
             if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
                 if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
                     layer--;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_DOWN;
-                    if(layer == 3)
-                                 	ChangeMusic("audio/tematerreo_vitoria.ogg");
-                                 if(layer == 2)
-                                      ChangeMusic("audio/tematerreo_main.ogg");
-                                 if(layer == 1)
-                                 	 ChangeMusic("audio/subsolo_main.ogg");
+                    ChangeMusic();
+
+
             }
         }
     }
@@ -432,7 +428,14 @@ void Player::NotifyCollision(GameObject* other){
 
 }
 
-void Player::ChangeMusic(std::string musica){
-	this->musica.Stop();
-	this->musica = Music(musica);
+void Player::ChangeMusic(){
+
+	//this->musica.Stop();
+ //   if(layer == 3)
+  //    this->musica = Music("audio/tematerreo_main.ogg");
+ //   if(layer == 2)
+  //    this->musica = Music("audio/tematerreo_main.ogg");
+  //  if(layer == 1)
+  //    this->musica = Music("audio/subsoloLoop.ogg");
+
 }

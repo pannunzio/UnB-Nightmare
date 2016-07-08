@@ -36,7 +36,7 @@ void Music::Play(int times){
 
 void Music::Stop(){
 	//milisec
-	Mix_FadeOutMusic(1000);
+	Mix_FadeOutMusic(0);
 }
 
 bool Music::IsOpen(){

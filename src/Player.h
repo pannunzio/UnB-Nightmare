@@ -61,7 +61,7 @@ public:
 	bool IsIndestructible();
 	void ChangeSpriteSheet(string file, int frameCount);
 
-	void ChangeMusic(std::string musica);
+	void ChangeMusic();
 
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
     MovementState movementState;
