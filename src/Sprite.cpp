@@ -188,7 +188,7 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
 }
 
 
-void Sprite::SetAlpha(){
-	SDL_SetAlpha(SDL_Surface *surface, Uint32 flag, Uint8 alpha);
-
-}
+//void Sprite::SetAlpha(){
+//	SDL_SetAlpha(SDL_Surface *surface, Uint32 flag, Uint8 alpha);
+//
+//}
