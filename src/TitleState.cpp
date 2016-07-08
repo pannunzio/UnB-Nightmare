@@ -15,10 +15,11 @@ TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusi
 	option = TITLE_MIN_OPTIONS;
 
     menuMusic.Play(-1);
+    menuMusic.SetVolume(100);
 
-	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_WHITE, 0,0 );
+	option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_WHITE, 0,0 );
 //	option1Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_GREEN, 0,0 );
-	option2 = new Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0 );
+	option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_WHITE, 0,0 );
 //	option2Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_GREEN, 0,0);
 
 	option1->SetPos(500,350,true,false);
@@ -29,12 +30,10 @@ TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusi
 
 
 void TitleState::Update(float dt){
-    if(quitRequested)
-        menuMusic.Stop();
-
 
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		quitRequested = true;
+		menuMusic.Stop();
 	}
 
 

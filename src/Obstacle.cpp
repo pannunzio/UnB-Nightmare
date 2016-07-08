@@ -39,17 +39,26 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(obstacleName == "lixeira"){
         this->subLayer = 3;
         box.y += 15;
+        captureSound.Open("audio/lixeira.wav");
     }
+
+    if(obstacleName == "menina"){
+        this->OpenXingamentoSound(rand()%11 + 1);
+    }
+
 	if(this->obstacleName == "menina" && rand()%100 < 20){
 		sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
 		this->obstacleName = "meninaZumbi";
-		spriteSound.Open("audio/Zumbi9.wav");
+		this->OpenZombieSound(rand()%7+1);
+		captureSound = spriteSound;
+		captureSound.SetChannel(-1);
 		spriteSound.Play(rand()%2+1);
 	}
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
-    	spriteSound.Open("audio/manifestacao_11s.wav");
-    	spriteSound.PlayArbitraryFadeIn(1, 2);
+//    	spriteSound.Open("audio/manifestacao_11s.wav");
+//    	spriteSound.PlayArbitraryFadeIn(1, 1);
+//    	spriteSound.Play(1);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
@@ -58,7 +67,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	}
 
     if(Player::player->layer != this->layer){
-        spriteSound.SetDistance(100);
+        spriteSound.SetVolume(8);
     }
 //     else
 //        CalculateSoundPosition();
@@ -104,24 +113,28 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     // consertar isso para pegar geral
 
+    if(obstacleName == "menina"){
+        this->OpenXingamentoSound(rand()%11 + 1);
+    }
+
+    if(obstacleName == "lixeira"){
+        captureSound.Open("audio/lixeira.wav");
+    }
+
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
     	spriteSound.Open("audio/manifestacao_11s.wav");
-    	spriteSound.PlayArbitraryFadeIn(1, 2);
+//    	spriteSound.PlayArbitraryFadeIn(1, 2);
+    	spriteSound.Play(1);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
-		spriteSound.Open("audio/gotas.wav");
+		this->OpenGotaSound(rand()%3 + 1);
 		spriteSound.Play(rand()%2+1);
 	}
 	if(Player::player->layer != this->layer){
-        spriteSound.SetDistance(100);
+        spriteSound.SetVolume(8);
     }
-//     else
-//        CalculateSoundPosition();
-
-//    spriteSound.Play(-1);
-
 }
 
 Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime, int layer)
@@ -152,19 +165,27 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(obstacleName == "lixeira"){
         subLayer = 3;
         box.y += 15;
+        captureSound.Open("audio/lixeira.wav");
     }
-	if(this->obstacleName == "menina" && rand()%100 < 20){
-		sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
-		this->obstacleName = "meninaZumbi";
-	}
+
+
+    if(obstacleName == "menina"){
+        this->OpenXingamentoSound(rand()%11 + 1);
+        if(rand()%100 < 20){
+            sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
+            this->obstacleName = "meninaZumbi";
+        }
+    }
+
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
     	spriteSound.Open("audio/manifestacao_11s.wav");
-    	spriteSound.PlayArbitraryFadeIn(1, 2);
+//    	spriteSound.PlayArbitraryFadeIn(1, 2);
+        spriteSound.Play(1);
     }
 
     if(Player::player->layer != this->layer){
-        spriteSound.SetDistance(100);
+        spriteSound.SetVolume(8);
     }
 //    else
 //        CalculateSoundPosition();
@@ -221,5 +242,105 @@ void Obstacle::NotifyCollision(GameObject* other){
     		speed = 8;
     	}
 
+    }
+    if(other->Is("Player")){
+        captureSound.Play(1);
+    }
+}
+
+void Obstacle::OpenZombieSound(int num){
+    switch (num){
+    case 0:{
+        spriteSound.Open("audio/Zumbi0.ogg");
+        break;
+    }
+    case 1:{
+        spriteSound.Open("audio/Zumbi2.ogg");
+        break;
+    }
+    case 2:{
+        spriteSound.Open("audio/Zumbi3.ogg");
+        break;
+    }
+    case 3:{
+        spriteSound.Open("audio/Zumbi6.ogg");
+        break;
+    }
+    case 4:{
+        spriteSound.Open("audio/Zumbi7.ogg");
+        break;
+    }
+    case 5:{
+        spriteSound.Open("audio/Zumbi8.ogg");
+        break;
+    }
+    case 6:{
+        spriteSound.Open("audio/Zumbi9.ogg");
+        break;
+    }
+    }
+}
+
+void Obstacle::OpenXingamentoSound(int num){
+    switch(num){
+    case 1:{
+        captureSound.Open("audio/Oxe2.wav");
+        break;
+    }
+    case 2:{
+        captureSound.Open("audio/Odoida3.wav");
+        break;
+    }
+    case 3:{
+        captureSound.Open("audio/Oxe1.wav");
+        break;
+    }
+    case 4:{
+        captureSound.Open("audio/Odoida2.wav");
+        break;
+    }
+    case 5:{
+        captureSound.Open("audio/Odoida3.wav");
+        break;
+    }
+    case 6:{
+        captureSound.Open("audio/Ai6.wav");
+        break;
+    }
+    case 7:{
+        captureSound.Open("audio/Ai5.wav");
+        break;
+    }case 8:{
+        captureSound.Open("audio/Uh2.wav");
+        break;
+    }case 9:{
+        captureSound.Open("audio/Ai3.wav");
+        break;
+    }
+    case 10:{
+        captureSound.Open("audio/Ai2.wav");
+        break;
+    }
+    case 11:{
+        captureSound.Open("audio/Ai1.wav");
+        break;
+    }
+    }
+}
+
+void Obstacle::OpenGotaSound(int num){
+    switch(num){
+    case 1:{
+        spriteSound.Open("audio/gota1.wav");
+        break;
+    }
+    case 2:{
+        spriteSound.Open("audio/gota2.wav");
+        break;
+    }
+    case 3:{
+        spriteSound.Open("audio/gota3.wav");
+        break;
+    }
     }
 }

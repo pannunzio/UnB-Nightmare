@@ -32,6 +32,9 @@ public:
 
 
 private:
+    void OpenZombieSound(int num);
+    void OpenXingamentoSound(int num);
+    void OpenGotaSound(int num);
 
 	std::string obstacleName;
     bool isDead;

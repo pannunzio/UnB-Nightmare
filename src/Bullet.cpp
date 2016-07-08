@@ -17,7 +17,7 @@ bool Bullet::Is(std::string type){
 }
 
 Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,float frameTime, bool targetsPlayer, std::string type)
-		: sp(sprite,frameCount,frameTime)
+		: sp(sprite,frameCount,frameTime), shooterSound("audio/cafe_shoot.wav")
 {
     this->layer = 2;
     this->subLayer = 2;
@@ -26,7 +26,8 @@ Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,flo
 	this->targetsPlayer = targetsPlayer;
 	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	distanceLeft = BULLET_MAX_DISTANCE;
-
+	shooterSound.Play(1);
+	shooterSound.SetVolume(100);
 }
 
 Bullet::~Bullet() {

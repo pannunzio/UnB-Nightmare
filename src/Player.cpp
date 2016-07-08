@@ -27,7 +27,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     wasColliding = false;
     isPassingMapObject = false;
     isIndestructible = false;
-	hud = Text("font/arial.ttf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
+	hud = Text("font/ComicNeue_Bold.otf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
 	itemEffect = Timer();
     powerupMusic = Sound(1);
     isPlayingMusic = false;
