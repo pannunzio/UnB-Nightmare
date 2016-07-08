@@ -9,6 +9,7 @@
 #include "TileMap.h"
 #include <math.h>
 
+
 //*****************************************************************//
 //Função: CONSTRUTOR**********************************************//
 //Retorno: N/A***************************************************//
@@ -41,12 +42,8 @@ void TileSet::Render(unsigned index, float x, float y ) {
 	}
 
 	else {
-		//index =8;
-		index--;
 
-		//std::cout << "Index : " << index ;
-		//std::cout << "Index_X: " << (int)IndexReverse(index).x;
-		//std::cout << "Index_Y: " << (int)IndexReverse(index).y << endl;
+		index--;
 
 		tileSet.SetClip((int)IndexReverse(index).x*tileWidth,(int)IndexReverse(index).y*tileHeight,tileWidth,tileHeight);
 		tileSet.Render((int)x,(int)y);
@@ -55,8 +52,8 @@ void TileSet::Render(unsigned index, float x, float y ) {
 }
 
 Vec2 TileSet::IndexReverse(unsigned index){
-
-	return Vec2((index%columns) ,(int)(index/columns) );
+	return Vec2((int)(index/rows) ,(index%rows) );
+	//return Vec2((index%columns) ,(int)(index/columns) );
 }
 //*****************************************************************//
 //Função: GetTileWidth(), GetTileHeight()*************************//

@@ -10,6 +10,7 @@ class Item : public GameObject
 {
     public:
         Item(int layer, int subLayer, std::string item);
+        ~Item();
         bool IsDead();
         void Update(float dt);
         void Render();
@@ -20,14 +21,13 @@ class Item : public GameObject
         bool Is(std::string type);
     protected:
     private:
-        int beingUsed;
-        int layer;
-        int subLayer;
         Vec2 speed;
         Sprite bg;
-        enum ItemType{COFFEE, SKATE, OUTRO};
-        ItemType itemType;
+        string itemType;
         bool isDead;
+
+        Sound captureSound;
+        bool isSoundHappening;
 };
 
 #endif // ITEM_H

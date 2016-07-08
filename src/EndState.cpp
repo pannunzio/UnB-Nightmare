@@ -62,20 +62,21 @@ void EndState::Resume(){
 }
 EndState::EndState(StateData stateData){
 	option = 1;
-
-	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
-	option2 = new Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
+	option1 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
+	option2 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
 
 	option1->SetPos(500,350,true,false);
 	option2->SetPos(500,400,true,false);
 
 	if(stateData.playerVictory){
-		music = Music("audio/endStateWin.ogg");
-		bg = Sprite("img/win.jpg");
+		music = Music("audio/tematerreo_vitoria.ogg");
+		bg = Sprite("img/cerrado.jpg");
+		cout<<"VENCEUU"<<endl;
 	}
 	else{
-		music = Music("audio/endStateLose.ogg");
-		bg = Sprite("img/lose.jpg");
+		music = Music("audio/menu_main.ogg");
+		bg = Sprite("img/cerrado.jpg");
+		cout<<"PERDEUUUU"<<endl;
 	}
 	music.Play(-1);
 }

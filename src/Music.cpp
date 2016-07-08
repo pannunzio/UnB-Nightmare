@@ -14,7 +14,7 @@ Music::Music(){
 Music::Music(std::string file){
 	music = nullptr;
 	Open(file);
-
+//	Mix_VolumeMusic(9);
 }
 Music::~Music(){
 	music = nullptr;
@@ -22,11 +22,12 @@ Music::~Music(){
 }
 
 void Music::Open(std::string file){
-
-	music = Resources::GetMusic(file);
-	if(!music)
-		std::cout << "error na musica" << std::endl;
-
+//    if(!this->IsOpen()){
+        music = Resources::GetMusic(file);
+        Mix_VolumeMusic(9);
+        if(!music)
+            std::cout << "error na musica. SDL_error: " << Mix_GetError() << std::endl;
+//    }
 }
 
 void Music::Play(int times){
@@ -35,10 +36,13 @@ void Music::Play(int times){
 
 void Music::Stop(){
 	//milisec
-	Mix_FadeOutMusic(1*1000);
+	Mix_FadeOutMusic(1000);
 }
 
 bool Music::IsOpen(){
 	return music;
 }
 
+void Music::SetVolume(int newVolume){
+    Mix_VolumeMusic(newVolume);
+}

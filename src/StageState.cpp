@@ -23,18 +23,37 @@
 #include "Clock.h"
 
 #include "Obstacle.h"
+#include "Pombo.h"
+#include "Agua.h"
+
+#include "MapActionList.h"
+
+
 
 using std::string;
 using std::cout;
 using std::endl;
 
 //**********************************************************************//
-//Função: StageState::Update()**********************************************//
+//Funï¿½ï¿½o: StageState::Update()**********************************************//
 //Retorno: void*******************************************************//
 //Parametros: void***************************************************//
-//Descrição: atualizacao do state no game loop**********************//
+//Descriï¿½ï¿½o: atualizacao do state no game loop**********************//
 //*****************************************************************//
 void StageState::Update(float dt){
+
+    if(!Player::player){
+        cout<<"LOSER"<<endl;
+        mapActionList.mapActions.clear();
+        objectArray.clear();
+    	Pause();
+    	stateData.playerVictory = false;
+    	popRequested = true;
+
+    	Game::GetInstance().Push(new EndState(stateData));
+    	return;
+    }
+
     this->clock.Update(dt);
 	if(InputManager::GetInstance().QuitRequested())
 		quitRequested = true;
@@ -47,24 +66,30 @@ void StageState::Update(float dt){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             //std::cout << "obj1: " <<i<<" "<<objectArray[i]->box.x << "|||obj2:"<<j<<" "<<objectArray[j]->box.x << std::endl;
-			if (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
-										objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180)){
-			  objectArray[i]->NotifyCollision(objectArray[j].get());
-			  objectArray[j]->NotifyCollision(objectArray[i].get());
-			}
+            if((objectArray[i]->layer == objectArray[j]->layer) && (objectArray[i]->subLayer == objectArray[j]->subLayer)){
+                if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
+                                            objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
+                  objectArray[j]->NotifyCollision(objectArray[i].get());
+                }
+            }
 		}
+
 		if(objectArray[i]->IsDead()){
 		   objectArray.erase (objectArray.begin() + i);
 		   i--;
 		}
     }
 
-    if(!Player::player){
-    	Pause();
-    	stateData.playerVictory = false;
-    	popRequested = true;
-    	Game::GetInstance().Push(new EndState(stateData));
-    }
+    for(int i = mapActionList.mapActions.size() - 1; i >= 0; i--) {
+        if(Player::player != nullptr &&
+           Collision::IsColliding(Player::player->box,
+                                  mapActionList.mapActions[i].box,
+                                  Player::player->rotation,
+                                  mapActionList.mapActions[i].rotation)){
+
+            Player::player->NotifyCollision(&mapActionList.mapActions[i]);
+        }
+	}
 
     //testa se o tempo acabou
     if(clock.GetTime() < 0.5){
@@ -74,7 +99,6 @@ void StageState::Update(float dt){
         popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
     }
-
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
@@ -83,31 +107,75 @@ void StageState::Update(float dt){
         Game::GetInstance().Push(new EndState(stateData));
     }
     if(clock.GetSeconds1()%2 == 0){
-//        if(spawn==0)
-//            std::cout<<clock.GetSeconds1()<<std::endl;
-        if(spawn == 0 && rand()%100 <= 50)
-            AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+        if(spawn == 0 && rand()%100 <= 80){
+            if(rand()%3 ==1)
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+            else if(rand()%3 ==2)
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "SKATE"));
+            else
+                 AddObject(new Item(Player::player->layer, rand()%3+1, "GGLIKO"));
+        }
         spawn = 1;
     }
     else if(spawn!=0){
         spawn = 0;
     }
 
-    // COOLDOWN TIMER DO CAIO, acho melhor q fazer tipo o de cima
-    cooldownTimer.Update(dt);
-    if(cooldownTimer.Get() > 0.5){ // repete a cada meio segundo
-    	cooldownTimer.Restart();
-    	if(rand()%100 <= 90) // 90% chance de aparecer
-        	AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+
+//	respawn das coisas
+
+    if((1256*lixo)<Camera::pos.x){
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+            lixo++;
     }
+
+    cooldownTimer.Update(dt);
+    if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
+    	cooldownTimer.Restart();
+    	if(rand()%100 <= 3){  //3%
+    			AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
+    	    	}
+
+
+    	if(rand()%100 <= 30){ // 50% chance de aparecer
+        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
+//        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
+//                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+    	}
+    	if(rand()%100 <=10){
+    		// manifestacao
+    		cout << "create manifest" << endl;
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
+    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
+    	}
+    	if(Player::player->layer ==  LAYER_TOP){
+            if(rand()%100 < 10){
+             //  AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+            }
+    	}
+    }
+
+    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
+        music.Stop();
+        music.Open("audio/subsolo_main.ogg");
+    }
+
+    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
+        music.Stop();
+        music.Open("audio/tematerreo_voltaterreo.ogg");
+    }
+
 }
 
 
 //**********************************************************************//
-//Função: StageState::Render************************************************//
+//Funï¿½ï¿½o: StageState::Render************************************************//
 //Retorno: void*******************************************************//
 //Parametros: void***************************************************//
-//Descrição: renderiza tudo que ta no state*************************//
+//Descriï¿½ï¿½o: renderiza tudo que ta no state*************************//
 //*****************************************************************//
 void StageState::Render(){
 	//chamando o render de cada gameObject
@@ -115,12 +183,13 @@ void StageState::Render(){
 	Camera::Update(Game::GetInstance().GetDeltaTime());
 	tileMap.RenderLayer(0,Camera::pos.x,Camera::pos.y );
 	//tileMap.Render(0,0);
+	//removr quando tiver okay!
+	for(unsigned int i = 0 ; i < mapActionList.mapActions.size(); i++) {
+        mapActionList.mapActions[i].Render();
+	}
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		if(objectArray[i]->subLayer == 3)
             objectArray[i]->Render();
-        if(objectArray[i]->Is("Item")){
-            objectArray[i]->Render();
-        }
 	}
 	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
 		if(objectArray[i]->subLayer == 2)
@@ -136,37 +205,46 @@ void StageState::Render(){
 
 
 //*********************************************************************//
-//Função: CONSTRUTOR**************************************************//
+//Funï¿½ï¿½o: CONSTRUTOR**************************************************//
 //Retorno: N/A*******************************************************//
 //Parametros: N/A***************************************************//
-//Descrição: constroi o state com o background*********************//
+//Descriï¿½ï¿½o: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/ocean.jpg"), music("audio/subsoloLoop.ogg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"), music("audio/tematerreo_main.ogg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 //	music.Play(-1);
+	music.SetVolume(100);
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,550));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
-    spawn=0;
+    spawn = 0;
+    lixo=0;
 	this->clock = Clock();
 
+
+//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
+//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
+//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
+
+
 	//esse 200 e o player position
-	//talvez seja melhor fazer por colisão mas no momento não rola
+	//talvez seja melhor fazer por colisï¿½o mas no momento nï¿½o rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
 
 
 }
 //*********************************************************************//
-//Função: DESTRUTOR***************************************************//
+//Funï¿½ï¿½o: DESTRUTOR***************************************************//
 //Retorno: N/A*******************************************************//
 //Parametros: N/A***************************************************//
-//Descrição: destroi o state **************************************//
+//Descriï¿½ï¿½o: destroi o state **************************************//
 //****************************************************************//
 StageState::~StageState(){
 	// limpando o vector
+	mapActionList.mapActions.clear();
 	objectArray.clear();
 	Player::player = nullptr;
 	cout << "StageState destroyed" << endl;
@@ -175,6 +253,11 @@ StageState::~StageState(){
 void StageState::AddObject(GameObject* ptr){
 	objectArray.emplace_back(ptr);
 }
+
+void StageState::AddObjectStatic(GameObject* ptr){
+	objectArray.emplace(objectArray.begin() ,ptr);
+}
+
 void StageState::Resume(){
 	music.Play(-1);
 
@@ -182,3 +265,5 @@ void StageState::Resume(){
 void StageState::Pause(){
 	music.Stop();
 }
+
+

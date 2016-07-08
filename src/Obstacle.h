@@ -15,7 +15,13 @@
 class Obstacle : public GameObject{
 public:
 	Obstacle();
-	Obstacle(int speed,bool canBlock,std::string obstacleName, std::string sprite, int frameCount, float frameTime);
+	Obstacle(float speed,bool canBlock,std::string obstacleName, std::string sprite, int frameCount, float frameTime); // normais
+
+	// que setam subalyer e later
+	Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime,
+			int layer, int subLayer);
+
+    Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime, int layer);
 	~Obstacle();
 
 	bool IsDead();
@@ -26,6 +32,10 @@ public:
 
 
 private:
+    void OpenZombieSound(int num);
+    void OpenXingamentoSound(int num);
+    void OpenGotaSound(int num);
+
 	std::string obstacleName;
     bool isDead;
 
@@ -33,6 +43,9 @@ private:
 	int speed;
 	Sprite sp;
 
+    Sound spriteSound;
+    Sound captureSound;
+    bool isSoundHappening;
 };
 
 #endif /* OBSTACLE_H_ */

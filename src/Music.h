@@ -23,6 +23,8 @@ public:
 	void Open(std::string file);
 	bool IsOpen();
 	Mix_Music* GetMusic();
+
+	void SetVolume(int newVolume);
 private:
 	Mix_Music* music;
 

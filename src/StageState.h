@@ -19,10 +19,10 @@
 #include "StateData.h"
 #include "Clock.h"
 #include "Timer.h"
-
-
 #include "TileMap.h"
 #include "TileSet.h"
+#include "MapActionList.h"
+#include "Animation.h"
 class StageState : public State{
 public:
 	StageState();
@@ -33,18 +33,22 @@ public:
 	void Pause();
 	void Resume();
 	void AddObject(GameObject* ptr);
+	void AddObjectStatic(GameObject* ptr);
 
 private:
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
+	MapActionList mapActionList;
 	Sprite bg; // background
 	Music music;
 	StateData stateData;
 	Clock clock;
 
+
 	Timer cooldownTimer;
 	int spawn;
+	int lixo;
 	int mapLength;
 };
 

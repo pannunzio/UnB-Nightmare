@@ -127,7 +127,7 @@ Text* Resources::GetNumber(int number){
     if (indice == numbersTable.end()){
         std::stringstream numero;
         numero << number;
-        Text* text = new Text("font/Sketch College.ttf", 40, BLENDED, numero.str(), TEXT_WHITE, 980, 20);
+        Text* text = new Text("font/ComicNeue_Bold.otf", 40, BLENDED, numero.str(), TEXT_WHITE, 980, 20);
         numbersTable.emplace(number, text);
         return text;
     } else {

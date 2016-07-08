@@ -22,6 +22,8 @@ Animation::Animation(float x, float y, float rotation, std::string spr, int fram
 	this->rotation = rotation;
 	oneTimeOnly = ends;
 	timeLimit = frameTime*frameCount;
+	subLayer = 1;
+	layer = 1;
 }
 
 void Animation::Update(float dt){
@@ -31,6 +33,7 @@ void Animation::Update(float dt){
 }
 void Animation::Render(){
 	sp.Render(box.x - Camera::pos.x,box.y - Camera::pos.y);
+
 }
 bool Animation::IsDead(){
 	if(endTimer.Get()>=timeLimit)

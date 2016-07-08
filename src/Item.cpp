@@ -7,64 +7,47 @@ Item::Item(int layer, int subLayer, std::string item)
     this->layer = layer;
     this->subLayer = subLayer;
     this->speed = Vec2(CAMERA_NORMAL_SPEED,2);
-    beingUsed = 0;
     this->box = Rect(Player::player->box.x+1200,0,bg.GetWidth(),bg.GetHeight());
-
+    this->itemType = item;
     this->isDead = false;
-//    if(subLayer==SUBLAYER_BOTTON){
-//        box.Centralize(1355,305,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "BOTTON";
-//    }
-//    if(subLayer==SUBLAYER_TOP){
-//        box.Centralize(1355,265,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "  TOP";
-//    }
-//    if(subLayer==SUBLAYER_MIDDLE){
-//        box.Centralize(1355,285,bg.GetWidth(),bg.GetHeight());
-//        std::cout << "MIDDLE";
-//    }
+    this->isSoundHappening = false;
+    this->captureSound = Sound();
 
-    if(layer == LAYER_TOP){
-        box.y=ITEM_HEIGHT_L3;
+	//
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;						//
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
+    if(itemType == "COFFEE"){
+        bg= Sprite("img/cafeColor.png", 6, 0.09);
+        captureSound.Open("audio/cafe_getitem.wav");
     }
-    if(layer == LAYER_MIDDLE){
-        box.y=ITEM_HEIGHT_L2;
+    if(itemType == "SKATE"){
+        bg= Sprite("img/skate.png", 6, 0.09);
     }
-    if(layer == LAYER_BOTTON){
-        box.y=ITEM_HEIGHT_L1;
-    }
-    box.y = box.y - (this->subLayer - 3)*20;
-
-    if(item == "COFFEE"){
-        itemType = COFFEE;
-        bg= Sprite("img/cafe.png");
-    }
-    if(item == "SKATE"){
-        itemType = SKATE;
-        bg= Sprite("img/coffee.png");
-    }
-    if(item == "OUTRO"){
-        itemType = OUTRO;
-        bg= Sprite("img/coffee.png");
+    if(itemType == "GGLIKO"){
+        bg= Sprite("img/ggliko.png", 6, 0.09);
+        captureSound.Open("audio/comida_getitem.wav");
     }
 
     //std::cout << "Item Construido" << std::endl;
 
 }
 
+Item::~Item(){
+    cout<<"ITEM DESTRUIDO"<<endl;
+}
+
 void Item::Update(float dt){
-    int X, W;
-    bg.Update(dt);
-	X = Player::player->box.x;
-	W = Player::player->box.w / 2;
-    if(Player::player->layer == layer && Player::player->subLayer==subLayer){
-        if((box.x<(X+W))&&(box.x>(X-W))){
-            beingUsed = 2;
-            //caso do cafe, joao arruma isso dps
-            Player::coffee_ammo++;
-        }
+    if(Player::player){
+        bg.Update(dt);
     }
-    if(beingUsed==2||box.x<-100)
+    else
         this->isDead = true;
 }
 
@@ -79,22 +62,18 @@ bool Item::IsDead(){
 }
 
 void Item::NotifyCollision(GameObject* other){
-//    if(other->Is("Player")){
-//        if(other->subLayer==subLayer){
-//            beingUsed = 2;
-//            std::cout << "ITEM: " <<other->subLayer<< "|||"<<subLayer << std::endl;
-//        }
-//        std::cout << "ITEM: " <<other->subLayer<< "|||"<<subLayer << std::endl;
-//    }
-    if(other->Is("Player") && other->subLayer == this->subLayer){
-        Player::player->coffee_ammo++;
-        cout << "if other is player" << Player::player->coffee_ammo << endl;
+
+    if(other->Is("Player")){
+        this->isDead = true;
+        captureSound.Play(1);
+    }
+    if(box.x<-100){
         this->isDead = true;
     }
 }
 
-//void Item::SpawnRandom(GameObject* target){}
-
 bool Item::Is(std::string type){
-    return (type == "Item");
+    return (type == itemType);
 }
+
+

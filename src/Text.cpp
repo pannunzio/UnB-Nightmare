@@ -30,7 +30,6 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text
 }
 
 Text::Text(){
-//	Text("font/Call me maybe.ttf",30,SOLID,"editar",TEXT_BLACK, 0, 0); // apeans pra nao bugar
 
 }
 Text::~Text(){

@@ -11,6 +11,9 @@
 #include "State.h"
 #include "Text.h"
 #include "Timer.h"
+#include "Music.h"
+#include "Animation.h"
+
 class TitleState : public State{
 public:
 	TitleState();
@@ -20,14 +23,20 @@ public:
 
 	void Pause();
 	void Resume();
+
+
 private:
 	Sprite bg;
-	Sprite logo;
+
+	Sprite cutscene;
+
 	Timer timer;
 
 	int option;
 	Text* option1;
 	Text* option2;
+
+	Music menuMusic;
 
 };
 

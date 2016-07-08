@@ -32,6 +32,7 @@ private:
 	float speed;
 	std::string type; // Coffe, Bullet
 
+    Sound shooterSound;
 };
 
 #endif /* BULLET_H_ */
