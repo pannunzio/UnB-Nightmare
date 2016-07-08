@@ -41,7 +41,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
 
 	//TESTES
-	layer = LAYER_TOP;
+	layer = rand()%3 +1;
 //	layer = LAYER_BOTTON;
 
 

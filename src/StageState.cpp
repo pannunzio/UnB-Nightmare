@@ -134,6 +134,11 @@ void StageState::Update(float dt){
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
+    	if(rand()%1000 <= 3){
+    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
+    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
+    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
+    	}
     	if(rand()%100 <= 3){  //3%
     			AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
     	    	}
@@ -144,7 +149,7 @@ void StageState::Update(float dt){
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
-    	if(rand()%100 <=10){
+    	if(rand()%100 <=5){
     		// manifestacao
     		cout << "create manifest" << endl;
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
@@ -230,9 +235,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 	this->clock = Clock();
 
 
-//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
-//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
-//	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
+
 
 
 	//esse 200 e o player position
