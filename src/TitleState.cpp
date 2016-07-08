@@ -18,9 +18,9 @@ TitleState::TitleState() : bg("img/telainicial.png"), menuMusic("audio/menu.ogg"
     menuMusic.Play(-1);
     menuMusic.SetVolume(100);
 
-	option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_WHITE, 0,0 );
+	option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_BLACK, 0,0 );
 //	option1Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_GREEN, 0,0 );
-	option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_WHITE, 0,0 );
+	option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_BLACK, 0,0 );
 //	option2Selected = Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_GREEN, 0,0);
 
 	option1->SetPos(500,350,true,false);
@@ -60,24 +60,28 @@ void TitleState::Update(float dt){
 
 //	// start
 	if(option == 1){
-		option1->SetColor(TEXT_GREEN);
+		option1->SetColor(TEXT_WHITE);
+		option1->SetStyle(SHADED);
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
 			Game::GetInstance().Push(new StageState());
 
 		}
 	}
 	else {
-		option1->SetColor(TEXT_WHITE);
+		option1->SetColor(TEXT_BLACK);
+		option1->SetStyle(BLENDED);
 	}
 
     // quit
 	if(option == 2){
-		option2->SetColor(TEXT_GREEN);
+		option2->SetColor(TEXT_WHITE);
+		option2->SetStyle(SHADED);
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
 			quitRequested = true;
 	}
     else
-		option2->SetColor(TEXT_WHITE);
+		option2->SetColor(TEXT_BLACK);
+		option2->SetStyle(BLENDED);
 
 	cutscene.Update(dt);
 
