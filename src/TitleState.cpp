@@ -11,11 +11,7 @@
 #include "Animation.h"
 
 #include "Game.h"
-<<<<<<< HEAD
 TitleState::TitleState() : bg("img/telainicial.png"), menuMusic("audio/menu.ogg"), cutscene("img/cutscene.png", 8,2) {
-=======
-TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusic("audio/menu.ogg") {
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
 	popRequested = quitRequested = false;
 	option = TITLE_MIN_OPTIONS;
 

@@ -22,11 +22,7 @@
 #include "TileMap.h"
 #include "TileSet.h"
 #include "MapActionList.h"
-<<<<<<< HEAD
 #include "Animation.h"
-=======
-
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
 class StageState : public State{
 public:
 	StageState();

@@ -228,10 +228,7 @@ void Player::Movement(){
 		if(subLayer <=2)
 			subLayer++;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
 	}
 	if(InputManager::GetInstance().KeyPress(SDLK_s)){
 		if(subLayer >=2)
@@ -257,30 +254,24 @@ void Player::Movement(){
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;
-<<<<<<< HEAD
                     if(layer == 3)
                     	ChangeMusic("audio/tematerreo_vitoria.ogg");
                     if(layer == 2)
                          ChangeMusic("audio/tematerreo_main.ogg");
                     if(layer == 1)
                     	 ChangeMusic("audio/subsolo_main.ogg");
-=======
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
                 }
             if(layer == LAYER_TOP|| layer == LAYER_MIDDLE)
                 if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
                     layer--;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_DOWN;
-<<<<<<< HEAD
                     if(layer == 3)
                                  	ChangeMusic("audio/tematerreo_vitoria.ogg");
                                  if(layer == 2)
                                       ChangeMusic("audio/tematerreo_main.ogg");
                                  if(layer == 1)
                                  	 ChangeMusic("audio/subsolo_main.ogg");
-=======
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
             }
         }
     }
@@ -440,11 +431,8 @@ void Player::NotifyCollision(GameObject* other){
         }
 
 }
-<<<<<<< HEAD
 
 void Player::ChangeMusic(std::string musica){
 	this->musica.Stop();
 	this->musica = Music(musica);
 }
-=======
->>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
