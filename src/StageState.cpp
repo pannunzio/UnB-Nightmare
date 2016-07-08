@@ -153,7 +153,11 @@ void StageState::Update(float dt){
     	}
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 10){
+<<<<<<< HEAD
              //  AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+=======
+               AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+>>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
             }
     	}
     }
@@ -161,6 +165,7 @@ void StageState::Update(float dt){
     if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
         music.Stop();
         music.Open("audio/subsolo_main.ogg");
+<<<<<<< HEAD
     }
 
     if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
@@ -168,6 +173,15 @@ void StageState::Update(float dt){
         music.Open("audio/tematerreo_voltaterreo.ogg");
     }
 
+=======
+    }
+
+    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
+        music.Stop();
+        music.Open("audio/tematerreo_voltaterreo.ogg");
+    }
+
+>>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
 }
 
 
@@ -223,7 +237,10 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
     lixo=0;
 	this->clock = Clock();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 928b9815c55b70c15331b0bffb7f570355c91044
 //	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
 //	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
 //	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
@@ -233,7 +250,6 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 	//talvez seja melhor fazer por colis�o mas no momento n�o rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
 	//objetors
-
 
 }
 //*********************************************************************//
