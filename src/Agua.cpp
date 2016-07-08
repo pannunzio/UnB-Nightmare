@@ -23,9 +23,9 @@
 //}
 
 
-Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 3,0.2){
+Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 4,0.2){
 	this->isDead = false;
-	speed =2;
+	speed =1;
 	this->layer=  layer;
 	this->subLayer = subLayer;
 	std::cout << "agua construida" << std::endl;

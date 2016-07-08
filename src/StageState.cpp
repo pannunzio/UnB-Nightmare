@@ -134,7 +134,7 @@ void StageState::Update(float dt){
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%1000 <= 3){
+    	if(rand()%1000 <= 8){
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
@@ -157,8 +157,8 @@ void StageState::Update(float dt){
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
     	}
     	if(Player::player->layer ==  LAYER_TOP){
-            if(rand()%100 < 10){
-             //  AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+            if(rand()%100 < 5){
+              // AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }
