@@ -14,8 +14,16 @@ Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), s
 		speed -= rand()%3;
 
     fazendoCaca = false;
-    box.Centralize(x, y - 100, pombo.GetWidth(), pombo.GetHeight());
+    sBox.Centralize(x, y - 100, pombo.GetWidth(), pombo.GetHeight());
 
+    box.x = sBox.x;			//
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;
+    box.y = box.y - (this->subLayer - 3)*26;
 }
 
 Pombo::~Pombo(){
@@ -27,19 +35,19 @@ void Pombo::Update(float dt){
     sombra.Update(dt);
 
 	box.x = box.x + speed*dt*100;
-
-    if(!fazendoCaca && this->box.x - Player::player->box.x < 150){
+    sBox.x = sBox.x + speed*dt*100;
+    if(!fazendoCaca && this->sBox.x - Player::player->box.x < 150){
         this->FazCaca();
         fazendoCaca = true;
     }
 
-    if(box.x - Camera::pos.x + pombo.GetWidth()< 0)
+    if(sBox.x - Camera::pos.x + pombo.GetWidth()< 0)
 		this->isDead = true;
 }
 
 void Pombo::Render(){
-    pombo.RenderFlipped(box.x - Camera::pos.x, box.y - Camera::pos.y);
-    sombra.RenderFlipped(box.x - Camera::pos.y, box.y + 100 - Camera::pos.y);
+    pombo.RenderFlipped(sBox.x - Camera::pos.x, sBox.y - Camera::pos.y);
+    sombra.RenderFlipped(box.x - Camera::pos.x, box.y + 100 - Camera::pos.y);
 }
 
 bool Pombo::IsDead(){
@@ -47,7 +55,7 @@ bool Pombo::IsDead(){
 }
 
 bool Pombo::Is(std::string type){
-    return type == "Pombo";
+    return (type == "Pombo");
 }
 
 void Pombo::NotifyCollision(GameObject* other){
@@ -55,8 +63,8 @@ void Pombo::NotifyCollision(GameObject* other){
 }
 
 void Pombo::FazCaca(){
-    Vec2 shootPos = box.CenterPos();
-    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 1, 1, true);
+    Vec2 shootPos = sBox.CenterPos();
+    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
     caquinha->SetSubLayer(subLayer);
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }

@@ -39,7 +39,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
 
 	//TESTES
-	layer = LAYER_BOTTON;
+	layer = LAYER_TOP;
 
 }
 
@@ -364,20 +364,20 @@ void Player::NotifyCollision(GameObject* other){
             this->isIndestructible = false;
         }
 //        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
-        speed = 3;
+        speed = 3.5;
         itemEffect.Restart();
         this->powerUp = PowerUp::COMIDA;
     }
     //caca de pombo
     if(other->Is("Caca")){
-        cout << "ecaaa" << endl;
         if(isIndestructible){
             powerUp = NONE;
             powerupMusic.Stop();
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }
-        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        speed = 4;
         itemEffect.Restart();
         this->powerUp = PowerUp::CACA_DE_POMBO;
     }

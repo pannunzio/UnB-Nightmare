@@ -4,17 +4,21 @@
 #include "Camera.h"
 #include <math.h>
 
-CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer):
+CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s):
         sp(sprite, frameCount, frameTime){
 
     this->type = type;
 	this->targetsPlayer = targetsPlayer;
-	box.Centralize(x, y, sp.GetWidth(), sp.GetHeight());
-	distanceLeft = 150;
-
+	Sbox.Centralize(x, y, sp.GetWidth(), sp.GetHeight());
+	distanceLeft = 300;
+	distanceLimit = 3;
+    this->layer = LAYER_TOP;
     this->gravidade = 9.8;
     this->speed.x = 100;
     this->speed.y = 0;
+    this->box.x = x2;
+    this->box.y = y2;
+    this->speedP = s;
 }
 
 CacaDePombo::~CacaDePombo(){
@@ -22,7 +26,7 @@ CacaDePombo::~CacaDePombo(){
 }
 
 bool CacaDePombo::IsDead(){
-    return this->distanceLeft <= 3;
+    return this->distanceLeft <= distanceLimit;
 }
 
 void CacaDePombo::Update(float dt){
@@ -30,16 +34,17 @@ void CacaDePombo::Update(float dt){
 
         //    this->distanceLeft -= sqrtf((speed.x*speed.x) + (speed.y+speed.y));
     distanceLeft --;
-    this->box.x += speed.x * dt;
-    this->box.y += speed.y * dt;
+    this->Sbox.x += speed.x * dt;
+    this->Sbox.y += speed.y * dt;
+    box.x = box.x + speedP*dt*100;
 }
 
 void CacaDePombo::Render(){
-    sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
+    sp.Render(Sbox.x - Camera::pos.x, Sbox.y - Camera::pos.y);
 }
 
 bool CacaDePombo::Is(std::string type){
-    return type == "Caca";
+    return (type == "Caca");
 }
 
 void CacaDePombo::SetSubLayer(int subLayer){
@@ -48,7 +53,7 @@ void CacaDePombo::SetSubLayer(int subLayer){
 
 void CacaDePombo::NotifyCollision(GameObject* other){
     if (other->Is("Player")){
-        distanceLeft = 0;
+        distanceLimit = 160;
         //toca o som
     }
 }

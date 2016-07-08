@@ -23,6 +23,8 @@ private:
     bool fazendoCaca;
     bool isDead;
     float speed;
+    Rect sBox;
+
 };
 
 #endif // POMBO_H
