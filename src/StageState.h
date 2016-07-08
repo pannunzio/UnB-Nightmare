@@ -47,6 +47,7 @@ private:
 
 	Timer cooldownTimer;
 	int spawn;
+	int lixo;
 	int mapLength;
 };
 

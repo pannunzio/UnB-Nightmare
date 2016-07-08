@@ -123,6 +123,13 @@ void StageState::Update(float dt){
 
 //	respawn das coisas
 
+    if((1256*lixo)<Camera::pos.x){
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+            lixo++;
+    }
+
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
@@ -131,15 +138,11 @@ void StageState::Update(float dt){
     	    	}
 
 
-    	if(rand()%100 <= 30){ // 50% chance de aparecer
-        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
-//        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
-//                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
-    	}
-    	if(rand()%100 <= 20){ // 30% chance de aparecer
-
-            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
-    	}
+//    	if(rand()%100 <= 30){ // 50% chance de aparecer
+//        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
+////        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
+////                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
+//    	}
     	if(rand()%100 <=10){
     		// manifestacao
     		cout << "create manifest" << endl;
@@ -215,6 +218,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 	AddObject(new Player(200,550));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn = 0;
+    lixo=0;
 	this->clock = Clock();
 
 	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
