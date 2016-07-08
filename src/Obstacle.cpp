@@ -44,6 +44,8 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	}
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    	this->spriteSound.Open("audio/manifestacao_11s");
+    	this->spriteSound.Play(3);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
@@ -88,6 +90,8 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    	this->spriteSound.Open("audio/manifestacao_11s");
+    	this->spriteSound.Play(3);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);

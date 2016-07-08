@@ -39,6 +39,8 @@ private:
 
     Sound captureSound;
     bool isSoundHappening;
+
+    Sound spriteSound;
 };
 
 #endif /* OBSTACLE_H_ */

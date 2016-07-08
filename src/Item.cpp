@@ -65,7 +65,10 @@ void Item::NotifyCollision(GameObject* other){
 
     if(other->Is("Player")){
         this->isDead = true;
-        captureSound.Play(1);
+        if(!isSoundHappening){
+            captureSound.Play(1);
+            this->isSoundHappening = true;
+        }
     }
     if(box.x<-100){
         this->isDead = true;

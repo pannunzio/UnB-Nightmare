@@ -36,13 +36,13 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
     coffee_ammo = 20;
 	std::cout << "Player Construido" << std::endl;
-
-	layer = LAYER_BOTTON;
-
 }
 
 Player::~Player() {
+    this->powerupMusic.Stop();
+    cout << "enter playe~~ 1" << endl;
 	player = nullptr;
+    cout << "enter playe~~ 2" << endl;
 }
 
 
@@ -156,8 +156,11 @@ void Player::Render(){
 bool Player::IsDead(){
 	// camera passou player
 	if(Camera::pos.x + 30 > pos.x + sp.GetWidth()){
+		cout<<"TESTE 1"<<endl;
+        this->powerupMusic.Stop();
+		cout<<"TESTE 2"<<endl;
 		player = nullptr;
-		cout<<"TESTE"<<endl;
+		cout<<"TESTE 3"<<endl;
 		return true;
 	}
 	return false; // retornar true se tiver camera passou, ou se o tempo acabou
@@ -242,9 +245,6 @@ void Player::Movement(){
         if(subLayer == SUBLAYER_TOP){
             if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
                 if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
-                    if(layer == LAYER_BOTTON){
-
-                    }
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;

@@ -16,13 +16,16 @@ class Sound {
 public:
 	Sound();
 	Sound(std::string file);
+	Sound(std::string file, int channel);
 	~Sound();
 
 	void Play(int times);
 	void Stop();
 	void Open(std::string file);
 
-//	void PlayFadein(int times, int fadeinTime);
+    bool IsPlaying();
+
+	void PlayFadein(int times, int fadeinTime);
 private:
 	Mix_Chunk* sound;
 	int channel;
