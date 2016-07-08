@@ -49,6 +49,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	if(this->obstacleName == "menina" && rand()%100 < 20){
 		sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
 		this->obstacleName = "meninaZumbi";
+		this->speed = 3.5;
 		this->OpenZombieSound(rand()%7+1);
 		captureSound = spriteSound;
 		captureSound.SetChannel(-1);
@@ -72,17 +73,16 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     }
     if(this->obstacleName == "menina" && this->speed == 0){
     	this->sp = Sprite("img/parado1.png", 1, 1);
+    	this->obstacleName = "parado";
     	this->OpenXingamentoSound(rand()%11+1);
 
     }
 	if(this->obstacleName == "menina" && rand()%100 < 50){
-			sp = Sprite("img/menino.png",frameCount,frameTime);
-			this->obstacleName = "menino";
-			this->OpenZombieSound(rand()%7+1);
-			captureSound = spriteSound;
-			captureSound.SetChannel(-1);
-			spriteSound.Play(rand()%2+1);
-		}
+        sp = Sprite("img/menino.png",frameCount,frameTime);
+        this->obstacleName = "menino";
+        this->OpenXingamentoSound(rand()%11 + 1);
+        captureSound.SetChannel(-1);
+    }
 
 
 //     else
@@ -237,6 +237,18 @@ void Obstacle::Render(){
     }
     else if(this->obstacleName == "cano"){
     	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y - 250);
+    }
+    else if(this->obstacleName == "menino"){
+        if(speed>=0)
+    	 	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y - 30);
+		else
+			sp.RenderFlipped(box.x - Camera::pos.x, box.y - Camera::pos.y - 30);
+    }
+    else if(this->obstacleName == "parado"){
+        if(speed>=0)
+    	 	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y - 20);
+		else
+			sp.RenderFlipped(box.x - Camera::pos.x, box.y - Camera::pos.y - 20);
     }
     else{
     	if(speed>=0)

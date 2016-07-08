@@ -322,7 +322,7 @@ void Player::ChangeSpriteSheet(string file, int frameCount){
 
 void Player::NotifyCollision(GameObject* other){
     //cout<< "collision with obstacle1" << endl;
-    if(other->Is("menina") || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("pelado") || other->Is("menino")){
+    if(other->Is("menina") || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("parado") || other->Is("menino")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
