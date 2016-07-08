@@ -54,6 +54,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 		captureSound.SetChannel(-1);
 		spriteSound.Play(rand()%2+1);
 	}
+
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
 //    	spriteSound.Open("audio/manifestacao_11s.wav");
@@ -69,6 +70,21 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     if(Player::player->layer != this->layer){
         spriteSound.SetVolume(8);
     }
+    if(this->obstacleName == "menina" && this->speed == 0){
+    	this->sp = Sprite("img/parado1.png", 1, 1);
+    	this->OpenXingamentoSound(rand()%11+1);
+
+    }
+	if(this->obstacleName == "menina" && rand()%100 < 50){
+			sp = Sprite("img/menino.png",frameCount,frameTime);
+			this->obstacleName = "menino";
+			this->OpenZombieSound(rand()%7+1);
+			captureSound = spriteSound;
+			captureSound.SetChannel(-1);
+			spriteSound.Play(rand()%2+1);
+		}
+
+
 //     else
 //        CalculateSoundPosition();
 
@@ -243,7 +259,7 @@ void Obstacle::NotifyCollision(GameObject* other){
     	}
 
     }
-    if(other->Is("Player")){
+    if(other->Is("Player") || other->Is("Coffee")){
         captureSound.Play(1);
     }
 }

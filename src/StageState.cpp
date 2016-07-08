@@ -148,6 +148,10 @@ void StageState::Update(float dt){
         	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
 
     	}
+    	if(rand()%100 <= 5){ // 50% chance de aparecer
+    	        	AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
+
+    	    	}
     	if(rand()%100 <=5){
     		// manifestacao
     		cout << "create manifest" << endl;
@@ -275,8 +279,11 @@ void StageState::Pause(){
 }
 void StageState::ChangeMusic(){
    // music.Stop();
-  //  if(Player::player->layer == 3)
-  //    music.Open("audio/tematerreo_main.ogg");
+    if(Player::player->layer == 3){
+    	music.Stop();
+    	music.Open("audio/tematerreo_main.ogg");
+    	//music.Play();
+    }
 //    if(Player::player->layer == 2)
 //      this->music = Music("audio/tematerreo_main.ogg");
 //    if(Player::player->layer == 1)
