@@ -44,8 +44,6 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	}
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
-    	this->spriteSound.Open("audio/manifestacao_11s");
-    	this->spriteSound.Play(3);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
@@ -90,8 +88,6 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
     	this->sp = Sprite("img/manifest.png", 6, 0.2);
-    	this->spriteSound.Open("audio/manifestacao_11s");
-    	this->spriteSound.Play(3);
     }
 	if(this->obstacleName == "cano"){
 		this->sp = Sprite("img/cano.png",frameCount,frameTime);
@@ -99,7 +95,44 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
 }
 
+Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime, int layer)
+{
+	sp = Sprite(sprite,frameCount,frameTime);
+	this->speed = speed;
+	speed = speed + rand()%10/10;
+	this->obstacleName = obstacleName;
+	this->canBlock = canBlock;
+	this->isDead = false;
 
+	this->layer = layer;
+	subLayer = rand()%3 + 1;
+
+
+	// ou seja, vai dar respawn se passar no teste  //
+	box.x = Player::player->box.x + 1200;			//
+    if(layer == LAYER_TOP)							//
+        box.y=ITEM_HEIGHT_L3;						//
+    if(layer == LAYER_MIDDLE)						//
+        box.y=ITEM_HEIGHT_L2;						//
+    if(layer == LAYER_BOTTON)						//
+        box.y=ITEM_HEIGHT_L1;
+
+    if(obstacleName == "lixeira"){
+        subLayer = 3;
+        box.y += 15;
+    }
+	if(this->obstacleName == "menina" && rand()%100 < 20){
+		sp = Sprite("img/meninazumbi.png",frameCount,frameTime);
+		this->obstacleName = "meninaZumbi";
+	}
+    if(this->obstacleName == "manifestacao" && this->subLayer == SUBLAYER_BOTTON){
+    	this->sp = Sprite("img/manifest.png", 6, 0.2);
+    }
+
+    												//
+    box.y = box.y - (this->subLayer - 3)*26;		//
+    ///////////////////////////////////////////////////
+}
 
 
 
@@ -138,10 +171,11 @@ bool Obstacle::Is(std::string type){
 }
 void Obstacle::NotifyCollision(GameObject* other){
     if(other->Is("Coffee") && this->obstacleName != "manifestacao"){
-    	speed = 8;
+    	speed = -5;
     	if(this->obstacleName == "meninaZumbi"){
     		sp = Sprite("img/menina.png", 6, 0.2);
-    		obstacleName = "menina";
+    		//obstacleName = "menina";
+    		speed = 8;
     	}
 
     }

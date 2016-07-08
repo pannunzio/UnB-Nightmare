@@ -24,6 +24,7 @@
 
 #include "Obstacle.h"
 #include "Pombo.h"
+#include "Agua.h"
 
 #include "MapActionList.h"
 
@@ -43,7 +44,6 @@ void StageState::Update(float dt){
 
     if(!Player::player){
         cout<<"LOSER"<<endl;
-        music.Stop();
         mapActionList.mapActions.clear();
         objectArray.clear();
     	Pause();
@@ -73,6 +73,7 @@ void StageState::Update(float dt){
                 }
             }
 		}
+
 		if(objectArray[i]->IsDead()){
 		   objectArray.erase (objectArray.begin() + i);
 		   i--;
@@ -122,6 +123,14 @@ void StageState::Update(float dt){
 
 
 //	respawn das coisas
+
+    if((1256*lixo)<Camera::pos.x){
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
+            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+            lixo++;
+    }
+
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
@@ -135,11 +144,7 @@ void StageState::Update(float dt){
 //        	if(rand()%100 <= 50) // 90% chance de aparecer DOIS OBSTACULOS
 //                AddObject(new Obstacle(0, true,"obstacle1", "img/obstacle1.png", 1, 1));
     	}
-    	if(rand()%100 <= 20){ // 30% chance de aparecer
-
-            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
-    	}
-    	if(rand()%100 <=5){
+    	if(rand()%100 <=10){
     		// manifestacao
     		cout << "create manifest" << endl;
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
@@ -148,35 +153,20 @@ void StageState::Update(float dt){
     	}
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 10){
-               AddObject(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+               AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }
 
-    if(isSwapTrack){
-        cooldownTimer.Update(dt);
-        if(cooldownTimer.Get() > 3){
-            music.Play(-1);
-        }
-        if(cooldownTimer.Get() > 6){
-            isSwapTrack = false;
-            transition.Stop();
-        }
+    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
+        music.Stop();
+        music.Open("audio/subsolo_main.ogg");
     }
 
-//    if(Player::player->layer != LAYER_TOP && Player::player->movementState != RUNNING){
-//        music.Stop();
-//        if(!transition.IsPlaying()){
-//            transition.Play(1);
-//        }
-//
-//        if(music.GetCurrentTrack().find("tematerreo") != string::npos)
-//            music.Open("audio/subsoloLoop.ogg");
-//        else
-//            music.Open("audio/tematerreo_main.ogg");
-//
-//        isSwapTrack = true;
-//    }
+    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
+        music.Stop();
+        music.Open("audio/tematerreo_voltaterreo.ogg");
+    }
 
 }
 
@@ -224,21 +214,19 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	//music.Play(1);
-
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,550));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn = 0;
+    lixo=0;
 	this->clock = Clock();
-    this->cooldownTimer = Timer();
-    isSwapTrack = true;
 
-    transition = Sound("audio/tematerreo_voltaterreo.wav", 1);
-    transition.Play(1);
-    if(transition.IsPlaying()){
-        cout << "FUCK YOU" << endl;
-    }
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
+	 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
+
+
 	//esse 200 e o player position
 	//talvez seja melhor fazer por colisão mas no momento não rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
@@ -253,7 +241,6 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 //****************************************************************//
 StageState::~StageState(){
 	// limpando o vector
-	cout << "enter ~~statge" << endl;
 	mapActionList.mapActions.clear();
 	objectArray.clear();
 	Player::player = nullptr;

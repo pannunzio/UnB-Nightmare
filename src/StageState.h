@@ -42,13 +42,12 @@ private:
 	MapActionList mapActionList;
 	Sprite bg; // background
 	Music music;
-	Sound transition;
-	bool isSwapTrack;
 	StateData stateData;
 	Clock clock;
 
 	Timer cooldownTimer;
 	int spawn;
+	int lixo;
 	int mapLength;
 };
 

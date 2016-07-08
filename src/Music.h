@@ -11,9 +11,7 @@
 #include "SDL_mixer.h"
 #include <iostream>
 #include <unordered_map>
-#include <string>
 
-using std::string;
 
 class Music {
 public:
@@ -26,12 +24,10 @@ public:
 	bool IsOpen();
 	Mix_Music* GetMusic();
 
-    string GetCurrentTrack();
-
 	void SetVolume(int newVolume);
 private:
 	Mix_Music* music;
-    string currentTrack;
+
 };
 
 #endif /* MUSIC_H_ */

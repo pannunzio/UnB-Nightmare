@@ -13,10 +13,7 @@
 TitleState::TitleState() : bg("img/cerrado.jpg"), logo("img/logo.png"), menuMusic("audio/menu.ogg") {
 	popRequested = quitRequested = false;
 	option = TITLE_MIN_OPTIONS;
-    if(menuMusic.IsOpen()){
-        menuMusic.Stop();
-        menuMusic.Open("audio/menu.ogg");
-    }
+
     menuMusic.Play(-1);
 
 	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Start", TEXT_WHITE, 0,0 );

@@ -6,7 +6,7 @@
 
 class CacaDePombo: public GameObject{
 public:
-	CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer);
+	CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s);
 	~CacaDePombo();
 
 	bool IsDead();
@@ -22,10 +22,12 @@ public:
 private:
 	Sprite sp;
 	float distanceLeft;
+	float distanceLimit;
     Vec2 speed;
     float gravidade;
 	std::string type;
-
+    Rect Sbox;
+    float speedP;
     Sound colisaoPlayer;
 };
 

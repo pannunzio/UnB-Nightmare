@@ -23,12 +23,6 @@ Sound::Sound(std::string file){
 	channel = 0;
 }
 
-Sound::Sound(std::string file, int channel){
-    sound = nullptr;
-    Open(file);
-    channel = channel;
-}
-
 void Sound::Play(int times){
 	channel = Mix_PlayChannel(-1,sound,times);
 
@@ -40,11 +34,7 @@ void Sound::Open(std::string file){
 	sound = Resources::GetSound(file);
 
 }
-
-void Sound::PlayFadein(int times, int fadeinTime){
-    channel = Mix_FadeInChannelTimed(-1, sound, times, fadeinTime, 1);
-}
-
-bool Sound::IsPlaying(){
-    return Mix_Playing(this->channel);
-}
+//
+//void Sound::PlayFadein(int times, int fadeinTime){
+//    channel = Mix_FadeInChannel(-1, this->sound, times, fadeinTime);
+//}

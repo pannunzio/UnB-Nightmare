@@ -61,7 +61,6 @@ void EndState::Resume(){
 
 }
 EndState::EndState(StateData stateData){
-    cout << "enter endstate " << endl;
 	option = 1;
 	option1 = new Text("font/Call me maybe.ttf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
 	option2 = new Text("font/Call me maybe.ttf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);

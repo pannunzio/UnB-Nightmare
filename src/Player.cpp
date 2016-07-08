@@ -36,13 +36,15 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 
     coffee_ammo = 20;
 	std::cout << "Player Construido" << std::endl;
+
+
+	//TESTES
+	layer = LAYER_TOP;
+
 }
 
 Player::~Player() {
-    this->powerupMusic.Stop();
-    cout << "enter playe~~ 1" << endl;
 	player = nullptr;
-    cout << "enter playe~~ 2" << endl;
 }
 
 
@@ -156,11 +158,8 @@ void Player::Render(){
 bool Player::IsDead(){
 	// camera passou player
 	if(Camera::pos.x + 30 > pos.x + sp.GetWidth()){
-		cout<<"TESTE 1"<<endl;
-        this->powerupMusic.Stop();
-		cout<<"TESTE 2"<<endl;
 		player = nullptr;
-		cout<<"TESTE 3"<<endl;
+		cout<<"TESTE"<<endl;
 		return true;
 	}
 	return false; // retornar true se tiver camera passou, ou se o tempo acabou
@@ -199,32 +198,32 @@ void Player::Movement(){
 	if(subLayer < 1)
 		subLayer = 1;
 
-	if(InputManager::GetInstance().KeyPress(SDLK_w)){
-		std::cout << "DEBUG\n" << std::endl;
-		std::cout << "-------------PLayer---------------------"  << std::endl;
-		std::cout << "Layer: " << layer  << std::endl;
-		std::cout << "suLayer: " << subLayer << std::endl;
-		std::cout << "camera: "<< Camera::pos.x <<std::endl;
-		std::cout << "player: "<<pos.x + sp.GetWidth() <<std::endl;
-	}
-
-	if(InputManager::GetInstance().KeyPress(SDLK_l))
-		targetSpeed = 7.5;
-	// exemplo de diminuir velocidade
-	if(InputManager::GetInstance().KeyPress(SDLK_j))
-		targetSpeed =4.5;
-	// exemplo de velocidade voltou ao normal
-	if(InputManager::GetInstance().KeyPress(SDLK_k))
-		targetSpeed =5;
+//	if(InputManager::GetInstance().KeyPress(SDLK_a)){
+//		std::cout << "DEBUG\n" << std::endl;
+//		std::cout << "-------------PLayer---------------------"  << std::endl;
+//		std::cout << "Layer: " << layer  << std::endl;
+//		std::cout << "suLayer: " << subLayer << std::endl;
+//		std::cout << "camera: "<< Camera::pos.x <<std::endl;
+//		std::cout << "player: "<<pos.x + sp.GetWidth() <<std::endl;
+//	}
+//
+//	if(InputManager::GetInstance().KeyPress(SDLK_l))
+//		targetSpeed = 7.5;
+//	// exemplo de diminuir velocidade
+//	if(InputManager::GetInstance().KeyPress(SDLK_j))
+//		targetSpeed =4.5;
+//	// exemplo de velocidade voltou ao normal
+//	if(InputManager::GetInstance().KeyPress(SDLK_k))
+//		targetSpeed =5;
 
 
 	//movimento de sublayer
-	if(InputManager::GetInstance().KeyPress(LEFT_ARROW_KEY)){
+	if(InputManager::GetInstance().KeyPress(SDLK_w)){
 		if(subLayer <=2)
 			subLayer++;
 
 	}
-	if(InputManager::GetInstance().KeyPress(RIGHT_ARROW_KEY)){
+	if(InputManager::GetInstance().KeyPress(SDLK_s)){
 		if(subLayer >=2)
 			subLayer--;
 	}
@@ -245,6 +244,9 @@ void Player::Movement(){
         if(subLayer == SUBLAYER_TOP){
             if(layer == LAYER_MIDDLE || layer == LAYER_BOTTON)
                 if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && isPassingMapObject){
+                    if(layer == LAYER_BOTTON){
+
+                    }
                     layer++;
                     subLayer = SUBLAYER_TOP;
                     movementState = GOING_UP;
@@ -335,7 +337,7 @@ void Player::NotifyCollision(GameObject* other){
         this->speed = 2;
 
         // se ficar apertando vai mais rapido
-        if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY))
+        if(InputManager::GetInstance().KeyPress(SDLK_d))
         	box.x = box.x + 20;
     }
 
@@ -362,20 +364,20 @@ void Player::NotifyCollision(GameObject* other){
             this->isIndestructible = false;
         }
 //        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
-        speed = 3;
+        speed = 3.5;
         itemEffect.Restart();
         this->powerUp = PowerUp::COMIDA;
     }
     //caca de pombo
     if(other->Is("Caca")){
-        cout << "ecaaa" << endl;
         if(isIndestructible){
             powerUp = NONE;
             powerupMusic.Stop();
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }
-        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        speed = 4;
         itemEffect.Restart();
         this->powerUp = PowerUp::CACA_DE_POMBO;
     }
@@ -383,4 +385,19 @@ void Player::NotifyCollision(GameObject* other){
     if(other->Is("Escada")){
         this->isPassingMapObject = true;
     }
+
+    if(other->Is("Agua")){
+//        this->speed = 3;
+        if(isIndestructible){
+            powerUp = NONE;
+            powerupMusic.Stop();
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+            this->isIndestructible = false;
+        }
+//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        speed = 3.5;
+        itemEffect.Restart();
+    }
+
+
 }

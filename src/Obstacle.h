@@ -20,6 +20,8 @@ public:
 	// que setam subalyer e later
 	Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime,
 			int layer, int subLayer);
+
+    Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime, int layer);
 	~Obstacle();
 
 	bool IsDead();
@@ -39,8 +41,6 @@ private:
 
     Sound captureSound;
     bool isSoundHappening;
-
-    Sound spriteSound;
 };
 
 #endif /* OBSTACLE_H_ */

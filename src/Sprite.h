@@ -35,6 +35,7 @@ public:
 	void SetFrame(int frame);
 	void SetFrameCount(int frameCount);
 	void SetFrameTime(float frameTime);
+//	void SetAlpha()
 	Sprite(string file, int frameCount, float frameTime);
 
 private:
