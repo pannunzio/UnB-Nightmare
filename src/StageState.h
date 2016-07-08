@@ -42,6 +42,8 @@ private:
 	MapActionList mapActionList;
 	Sprite bg; // background
 	Music music;
+	Sound transition;
+	bool isSwapTrack;
 	StateData stateData;
 	Clock clock;
 

@@ -43,6 +43,7 @@ void StageState::Update(float dt){
 
     if(!Player::player){
         cout<<"LOSER"<<endl;
+        music.Stop();
         mapActionList.mapActions.clear();
         objectArray.clear();
     	Pause();
@@ -138,7 +139,7 @@ void StageState::Update(float dt){
 
             AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1));
     	}
-    	if(rand()%100 <=10){
+    	if(rand()%100 <=5){
     		// manifestacao
     		cout << "create manifest" << endl;
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
@@ -152,15 +153,30 @@ void StageState::Update(float dt){
     	}
     }
 
-    if(Player::player->movementState == GOING_DOWN && Player::player->layer == LAYER_BOTTON){
-        music.Stop();
-        music.Open("audio/subsolo_main.ogg");
+    if(isSwapTrack){
+        cooldownTimer.Update(dt);
+        if(cooldownTimer.Get() > 3){
+            music.Play(-1);
+        }
+        if(cooldownTimer.Get() > 6){
+            isSwapTrack = false;
+            transition.Stop();
+        }
     }
 
-    if(Player::player->movementState == GOING_UP && Player::player->layer == LAYER_MIDDLE){
-        music.Stop();
-        music.Open("audio/tematerreo_voltaterreo.ogg");
-    }
+//    if(Player::player->layer != LAYER_TOP && Player::player->movementState != RUNNING){
+//        music.Stop();
+//        if(!transition.IsPlaying()){
+//            transition.Play(1);
+//        }
+//
+//        if(music.GetCurrentTrack().find("tematerreo") != string::npos)
+//            music.Open("audio/subsoloLoop.ogg");
+//        else
+//            music.Open("audio/tematerreo_main.ogg");
+//
+//        isSwapTrack = true;
+//    }
 
 }
 
@@ -208,16 +224,21 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	//music.Play(1);
+
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,550));
 	//AddObject(new Item(LAYER_MIDDLE, SUBLAYER_TOP, "COFFEE"));
     spawn = 0;
 	this->clock = Clock();
+    this->cooldownTimer = Timer();
+    isSwapTrack = true;
 
-
-
-
+    transition = Sound("audio/tematerreo_voltaterreo.wav", 1);
+    transition.Play(1);
+    if(transition.IsPlaying()){
+        cout << "FUCK YOU" << endl;
+    }
 	//esse 200 e o player position
 	//talvez seja melhor fazer por colisão mas no momento não rola
 	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
@@ -232,6 +253,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 //****************************************************************//
 StageState::~StageState(){
 	// limpando o vector
+	cout << "enter ~~statge" << endl;
 	mapActionList.mapActions.clear();
 	objectArray.clear();
 	Player::player = nullptr;
