@@ -71,15 +71,18 @@ EndState::EndState(StateData stateData){
 	option1->SetPos(500,350,true,false);
 	option2->SetPos(500,400,true,false);
 
+    sound.SetVolume(0);
+
 	if(stateData.playerVictory){
 		music = Music("audio/tematerreo_vitoria.ogg");
-		bg = Sprite("img/cerrado.jpg");
+        bg = Sprite("img/cerrado.jpg");
+
 		cout<<"VENCEUU"<<endl;
 	}
 	else{
 		music = Music("audio/menu_main.ogg");
-		bg = Sprite("img/cerrado.jpg");
-		derrota = Sprite("img/derrota.png", 12,0.2);
+        derrota = Sprite("img/derrota.png", 12,0.2);
+        bg = Sprite("img/cerrado.jpg");
 		cout<<"PERDEUUUU"<<endl;
 	}
 	music.Play(-1);

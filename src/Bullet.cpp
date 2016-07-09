@@ -27,7 +27,7 @@ Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,flo
 	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	distanceLeft = BULLET_MAX_DISTANCE;
 	shooterSound.Play(1);
-	shooterSound.SetVolume(100);
+//	shooterSound.SetVolume(100);
 }
 
 Bullet::~Bullet() {
@@ -75,3 +75,5 @@ void Bullet::NotifyCollision(GameObject* other){
 
 
 }
+
+void Bullet::StopSound(){}

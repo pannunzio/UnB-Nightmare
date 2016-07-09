@@ -38,3 +38,5 @@ void MapActions::NotifyCollision(GameObject* other){
         cout << "map action colliding with player" << endl;
     }
 }
+
+void MapActions::StopSound(){}

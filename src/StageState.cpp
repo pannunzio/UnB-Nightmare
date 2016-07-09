@@ -45,6 +45,9 @@ void StageState::Update(float dt){
     if(!Player::player){
         cout<<"LOSER"<<endl;
         mapActionList.mapActions.clear();
+        for(int i = objectArray.size() - 1; i <=0; i++){
+            objectArray[i]->StopSound();
+        }
         objectArray.clear();
     	Pause();
     	stateData.playerVictory = false;
@@ -95,6 +98,9 @@ void StageState::Update(float dt){
     if(clock.GetTime() < 0.5){
         Pause();
         stateData.playerVictory = false;
+        for(int i = objectArray.size() - 1; i <=0; i++){
+            objectArray[i]->StopSound();
+        }
         stateData.timeleft = 0;
         popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
@@ -102,6 +108,9 @@ void StageState::Update(float dt){
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
+        for(int i = objectArray.size() - 1; i <=0; i++){
+            objectArray[i]->StopSound();
+        }
         stateData.timeleft = clock.GetTime();
         popRequested =  true;
         Game::GetInstance().Push(new EndState(stateData));
@@ -134,7 +143,7 @@ void StageState::Update(float dt){
     cooldownTimer.Update(dt);
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
-    	if(rand()%1000 <= 8){
+    	if(rand()%1000 <= 43){
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
@@ -243,7 +252,7 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.j
 
 	//esse 200 e o player position
 	//talvez seja melhor fazer por colis�o mas no momento n�o rola
-	this->mapLength = (tileMap.GetWidth()*TILESET_WIDTH) - 200;
+	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 	//objetors
 
 

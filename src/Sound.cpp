@@ -52,7 +52,6 @@ void Sound::Open(std::string file){
 }
 
 void Sound::SetVolume(int volume){
-    std::cout << "set volume" << std::endl;
     Mix_Volume(channel, volume);
 }
 

@@ -29,6 +29,7 @@ private:
 	Sprite bg;
 	Music music;
 	Sprite derrota;
+	Sound sound;
 
 	//menu
 	int option;

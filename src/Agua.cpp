@@ -23,7 +23,7 @@
 //}
 
 
-Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 4,0.2){
+Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 2,0.2){
 	this->isDead = false;
 	speed =1;
 	this->layer=  layer;
@@ -38,7 +38,7 @@ Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 4,0.2){
 	    if(layer == LAYER_BOTTON)
 	        box.y=ITEM_HEIGHT_L1;
     box.y = box.y + sp.GetHeight();
-	box.y = box.y - (this->subLayer - 3)*26;
+	box.y = box.y - (this->subLayer - 3)*26-200;
 
 }
 Agua::~Agua(){
@@ -69,7 +69,7 @@ void Agua::Update(float dt){
 }
 void Agua::Render(){
 	//sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
-	sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
+	sp.Render(box.x, box.y - Camera::pos.y);
 }
 bool Agua::Is(std::string type){
 	return (type == "Agua");
@@ -77,3 +77,5 @@ bool Agua::Is(std::string type){
 void Agua::NotifyCollision(GameObject* other){
 
 }
+
+void Agua::StopSound(){}

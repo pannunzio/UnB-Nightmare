@@ -26,6 +26,7 @@ public:
 	void SetLayers(int layer, int subLayer);
 	void NotifyCollision(GameObject* other);
 	bool targetsPlayer;
+	void StopSound();
 private:
 	Sprite sp;
 	float distanceLeft;

@@ -29,7 +29,7 @@ public:
 	void Render();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject* other);
-
+	void StopSound();
 
 private:
     void OpenZombieSound(int num);

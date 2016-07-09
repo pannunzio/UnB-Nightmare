@@ -41,7 +41,7 @@ public:
 	void NotifyCollision(GameObject* other);
 	bool IsTargetSpeed(float targetSpeed);
 	void SetTargetSpeed(float targetSpeed);
-
+    void StopSound();
     Player& GetInstance();
 
 	static Player* player;

@@ -63,3 +63,4 @@ void CacaDePombo::NotifyCollision(GameObject* other){
     }
 }
 
+void CacaDePombo::StopSound(){}

@@ -61,10 +61,6 @@ void Player::Update(float dt){
 	sp.Update(dt);
 	Movement(); // faz os movimentos do input
 
-    if(powerupMusic.IsPlaying()){
-        cout << "playing"<< endl;
-    }
-
     if(powerUp == SKATE){
         itemEffect.Update(dt);
         isPassingMapObject = false;
@@ -427,4 +423,4 @@ void Player::NotifyCollision(GameObject* other){
 
 }
 
-
+void Player::StopSound(){}

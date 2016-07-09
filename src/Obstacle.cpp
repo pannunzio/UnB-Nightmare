@@ -69,14 +69,17 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 	}
 
     if(Player::player->layer != this->layer){
-        spriteSound.SetVolume(8);
+//        spriteSound.SetVolume(8);
     }
     if(this->obstacleName == "menina" && this->speed == 0){
-    	this->sp = Sprite("img/parado1.png", 1, 1);
+    	if(rand()%100 > 50)
+            this->sp = Sprite("img/parado1.png", 1, 1);
+        else
+            this->sp = Sprite("img/parada.png", 6, 0.2);
     	this->obstacleName = "parado";
     	this->OpenXingamentoSound(rand()%11+1);
-
     }
+
 	if(this->obstacleName == "menina" && rand()%100 < 50){
         sp = Sprite("img/menino.png",frameCount,frameTime);
         this->obstacleName = "menino";
@@ -149,7 +152,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 		spriteSound.Play(rand()%2+1);
 	}
 	if(Player::player->layer != this->layer){
-        spriteSound.SetVolume(8);
+//        spriteSound.SetVolume(8);
     }
 }
 
@@ -201,7 +204,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
     }
 
     if(Player::player->layer != this->layer){
-        spriteSound.SetVolume(8);
+//        spriteSound.SetVolume(8);
     }
 //    else
 //        CalculateSoundPosition();
@@ -219,16 +222,20 @@ Obstacle::~Obstacle(){
 }
 
 bool Obstacle::IsDead(){
-//    spriteSound.Stop();
-
-	return this->isDead;
+    return this->isDead;
 }
 void Obstacle::Update(float dt){
 	sp.Update(dt);
 	box.x = box.x + speed*dt*100;
 
-    if(box.x - Camera::pos.x +sp.GetWidth()< 0)
+    if(box.x - Camera::pos.x +sp.GetWidth()< 0){
 		this->isDead = true;
+
+
+        spriteSound.Stop();
+        captureSound.Stop();
+
+    }
 }
 void Obstacle::Render(){
     if(this->obstacleName == "manifestacao"){
@@ -371,4 +378,12 @@ void Obstacle::OpenGotaSound(int num){
         break;
     }
     }
+}
+
+void Obstacle::StopSound(){
+    cout << "stop sound" << endl;
+    spriteSound.SetVolume(0);
+    captureSound.SetVolume(0);
+    spriteSound.Stop();
+    captureSound.Stop();
 }

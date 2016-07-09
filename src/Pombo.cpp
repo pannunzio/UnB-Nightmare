@@ -73,3 +73,5 @@ void Pombo::FazCaca(){
     caquinha->SetSubLayer(subLayer);
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }
+
+void Pombo::StopSound(){}

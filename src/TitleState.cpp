@@ -94,7 +94,7 @@ void TitleState::Render(){
 	bg.Render(0,0);
     option1->Render(0, 0);
     option2->Render(0, 0);
-    if(timer.Get()<16)
+    if(timer.Get()<32)
     	cutscene.Render(0,0);
 }
 void TitleState::Pause(){

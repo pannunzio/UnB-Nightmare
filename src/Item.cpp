@@ -39,6 +39,7 @@ Item::Item(int layer, int subLayer, std::string item)
 
 }
 
+
 Item::~Item(){
     cout<<"ITEM DESTRUIDO"<<endl;
 }
@@ -76,4 +77,6 @@ bool Item::Is(std::string type){
     return (type == itemType);
 }
 
-
+void Item::StopSound(){
+    captureSound.Stop();
+}

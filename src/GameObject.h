@@ -22,6 +22,9 @@ public:
 	virtual bool IsDead() = 0;
 	virtual bool Is(std::string type) = 0;
 	virtual void NotifyCollision(GameObject* other) = 0;
+
+	virtual void StopSound() = 0;
+
 	int layer; // 1 = subsolo , 2 = terreo , 3 = mesaniggno
 	int subLayer; // 0 = nao colide com nada, 1 = baixo, 2 = meio ,3 = topo, 4 = todos
 	Rect box;

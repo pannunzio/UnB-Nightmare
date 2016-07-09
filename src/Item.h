@@ -18,6 +18,7 @@ class Item : public GameObject
         //void SpawnRandom(GameObject* target, ItemType itemType);
         //void SpawnRandom(GameObject* target);
         void NotifyCollision(GameObject* other);
+        void StopSound();
         bool Is(std::string type);
     protected:
     private:
