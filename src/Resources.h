@@ -1,46 +1,37 @@
-/*
- * Resources.h
- *
- *  Created on: 23 de mar de 2016
- *      Author: Caio
- */
+#ifndef RESOURCES_H
+#define RESOURCES_H
 
-#ifndef RESOURCES_H_
-#define RESOURCES_H_
-#include<unordered_map>
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
+#include <iostream>
+#include <unordered_map>
+#include <memory>
+#include <string>
 
-#include <SDL_mixer.h>
-#include "Text.h"
+//using std::shared_ptr;
+using std::pair;
+using std::string;
 
-class Resources {
-
+class Resources{
 public:
-	Resources();
-	static SDL_Texture* GetImage(std::string file);
-	static void ClearImages();
+    static SDL_Texture* GetImage(string file);
+    static Mix_Music* GetMusic(string file);
+    static Mix_Chunk* GetSound(string file);
+    static TTF_Font* GetFont(string file, int fontSize);
+//    static shared_ptr<SDL_Texture> GetImage(string file);
+    static void ClearImages();
+    static void ClearMusic();
+    static void ClearSound();
+    static void ClearFonts();
 
-	static Mix_Music* GetMusic(std::string file);
-	static void ClearMusic();
-
-	static Mix_Chunk* GetSound(std::string file);
-	static void ClearSound();
-
-	static TTF_Font* GetFont(std::string file, int fontSize);
-	static void ClearFont();
-
-	static Text* GetNumber(int number);
-	static void ClearNumber();
-
-	~Resources();
 private:
-	static std::unordered_map<std::string, SDL_Texture*> imageTable;
-	static std::unordered_map<std::string, Mix_Music*> musicTable;
-	static std::unordered_map<std::string, Mix_Chunk*> soundTable;
-	static std::unordered_map<std::string, TTF_Font*> fontTable;
-	static std::unordered_map<int, Text*> numbersTable;
+    static std::unordered_map<string, SDL_Texture*> imageTable;
+    static std::unordered_map<string, Mix_Music*> musicTable;
+    static std::unordered_map<string, Mix_Chunk*> soundTable;
+    static std::unordered_map<string, TTF_Font*> fontTable;
+//    static std::unordered_map<string, shared_ptr<SDL_Texture>> imageTable;
 };
 
-#endif /* RESOURCES_H_ */
+#endif

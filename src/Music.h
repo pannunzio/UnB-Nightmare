@@ -1,33 +1,69 @@
-/*
- * Music.h
- *
- *  Created on: 13 de mai de 2016
- *      Author: Caio
- */
+#ifndef MUSIC_H
+#define MUSIC_H
 
-#ifndef MUSIC_H_
-#define MUSIC_H_
-
-#include "SDL_mixer.h"
 #include <iostream>
+#include <string>
 #include <unordered_map>
 
+#include <SDL_mixer.h>
 
-class Music {
-public:
-	Music();
-	~Music();
-	Music(std::string music);
-	void Play(int times);
-	void Stop();
-	void Open(std::string file);
-	bool IsOpen();
-	Mix_Music* GetMusic();
+using std::string;
+using std::unordered_map;
+using std::iterator;
+using std::cout;
+using std::endl;
 
-	void SetVolume(int newVolume);
-private:
-	Mix_Music* music;
+class Music
+{
+    public:
+        Music ();
+        Music (string file);
+        void Play (int times);
+        void Stop ();
+        void Open (string file);
+        bool IsOpen ();
+        static void Clear ();
 
+        void SetVolume (int volume);
+        void VolumeUpdate (int increment);
+
+    protected:
+        /* vazio */
+    private:
+        int volume;
+        string file;
+        Mix_Music* music;
+        static unordered_map<string, Mix_Music*> assetTable;
 };
 
-#endif /* MUSIC_H_ */
+#endif
+
+
+
+//#ifndef MUSIC_H_
+//#define MUSIC_H_
+//
+//#include "SDL_mixer.h"
+//#include <iostream>
+//#include <unordered_map>
+//
+//class Music {
+//public:
+//	Music();
+//	Music(std::string music);
+//	~Music();
+//
+//	void Open(std::string file);
+//	bool IsOpen();
+//
+//	void Play(int times);
+//	void Stop();
+//
+//	void SetVolume(int newVolume);
+//
+//private:
+//	Mix_Music* music;
+//
+//};
+//
+//#endif

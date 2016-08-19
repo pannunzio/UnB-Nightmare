@@ -1,10 +1,3 @@
-/*
- * TitleState.h
- *
- *  Created on: 13 de mai de 2016
- *      Author: Caio
- */
-
 #ifndef TITLESTATE_H_
 #define TITLESTATE_H_
 
@@ -17,17 +10,15 @@
 class TitleState : public State{
 public:
 	TitleState();
+	~TitleState();
+
 	void Update(float dt);
 	void Render();
-
-
 	void Pause();
 	void Resume();
 
-
 private:
 	Sprite bg;
-
 	Sprite cutscene;
 
 	Timer timer;
@@ -37,7 +28,6 @@ private:
 	Text* option2;
 
 	Music menuMusic;
-
 };
 
 #endif /* TITLESTATE_H_ */

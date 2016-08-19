@@ -1,12 +1,4 @@
-// * State.cpp
-// *
-// *  Created on: 12 de mar de 2016
-// *      Author: Caio
-// */
-
 #include<iostream>
-
-
 #include "StageState.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -28,18 +20,10 @@
 
 #include "MapActionList.h"
 
-
-
 using std::string;
 using std::cout;
 using std::endl;
 
-//**********************************************************************//
-//Fun��o: StageState::Update()**********************************************//
-//Retorno: void*******************************************************//
-//Parametros: void***************************************************//
-//Descri��o: atualizacao do state no game loop**********************//
-//*****************************************************************//
 void StageState::Update(float dt){
 
     if(!Player::player){
@@ -58,12 +42,15 @@ void StageState::Update(float dt){
     }
 
     this->clock.Update(dt);
+
 	if(InputManager::GetInstance().QuitRequested())
 		quitRequested = true;
+
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		popRequested = true;
 		Pause();
 	}
+
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	objectArray[i]->Update(dt);
     	//checando colisisao
@@ -105,6 +92,7 @@ void StageState::Update(float dt){
         popRequested = true;
         Game::GetInstance().Push(new EndState(stateData));
     }
+
     if(Camera::pos.x > this->mapLength){
         Pause();
         stateData.playerVictory = true;
@@ -115,6 +103,7 @@ void StageState::Update(float dt){
         popRequested =  true;
         Game::GetInstance().Push(new EndState(stateData));
     }
+
     if(clock.GetSeconds1()%2 == 0){
         if(spawn == 0 && rand()%100 <= 80){
             if(rand()%3 ==1)
@@ -141,6 +130,7 @@ void StageState::Update(float dt){
     }
 
     cooldownTimer.Update(dt);
+
     if(cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	cooldownTimer.Restart();
     	if(rand()%1000 <= 43){
@@ -149,18 +139,18 @@ void StageState::Update(float dt){
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
     	}
     	if(rand()%100 <= 3){  //3%
-    			AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
-    	    	}
+            AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
+        }
 
 
     	if(rand()%100 <= 30){ // 50% chance de aparecer
         	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
-
     	}
-    	if(rand()%100 <= 5){ // 50% chance de aparecer
-    	        	AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
 
-    	    	}
+    	if(rand()%100 <= 5){ // 50% chance de aparecer
+            AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
+        }
+
     	if(rand()%100 <=5){
     		// manifestacao
     		cout << "create manifest" << endl;
@@ -168,9 +158,10 @@ void StageState::Update(float dt){
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
     		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
     	}
+
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 5){
-         AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+                AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }
@@ -232,12 +223,18 @@ void StageState::Render(){
 //Parametros: N/A***************************************************//
 //Descri��o: constroi o state com o background*********************//
 //****************************************************************//
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"), music("audio/tematerreo_main.ogg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"){
 	Camera::pos = Vec2(0,280);
 	popRequested = quitRequested = false; // iniciando o valor como falso
 	//ChangeMusic();
-	//music.Play(-1);
+	if (music.IsOpen()){
+        music.Stop();
+	}
+	music.Open("audio/tematerreo_main.ogg");
+	music.Play(-1);
+
 	music.SetVolume(100);
+
 	tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
 	tileMap.SetTileSet(tileSet);
 	AddObject(new Player(200,550));
