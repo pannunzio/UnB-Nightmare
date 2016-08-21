@@ -2,30 +2,22 @@
 #include "Game.h"
 #include <sstream>
 
-//using std::make_shared;
-
 std::unordered_map<string, SDL_Texture*> Resources::imageTable;
 std::unordered_map<string, Mix_Music*> Resources::musicTable;
 std::unordered_map<string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<string, TTF_Font*> Resources::fontTable;
-//std::unordered_map<string, shared_ptr<SDL_Texture*>> Resources::imageTable;
 
 SDL_Texture* Resources::GetImage(string file){
     std::unordered_map<string, SDL_Texture*>::const_iterator indice = imageTable.find(file);
-//    std::unordered_map<string, shared_ptr<SDL_Texture*>>::const_iterator indice = imageTable.find(file);
+
     if (indice == imageTable.end()){
         SDL_Texture* texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
-//        shared_ptr<SDL_Texture*> texture = make_shared<SDL_Texture*> (IMG_LoadTexture(Game::GetInstance().GetRenderer(), file));
         imageTable.emplace(file, texture);
         return texture;
     } else {
         return indice->second;
     }
     return nullptr;
-};
-
-void Resources::ClearImages(){
-    imageTable.clear();
 };
 
 Mix_Music* Resources::GetMusic(string file){
@@ -40,13 +32,6 @@ Mix_Music* Resources::GetMusic(string file){
     return nullptr;
 }
 
-void Resources::ClearMusic(){
-    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
-            Mix_FreeMusic(index->second);
-    }
-    musicTable.clear();
-}
-
 Mix_Chunk* Resources::GetSound(string file){
     std::unordered_map<string, Mix_Chunk*>::const_iterator indice = soundTable.find(file);
     if (indice == soundTable.end()){
@@ -57,13 +42,6 @@ Mix_Chunk* Resources::GetSound(string file){
         return indice->second;
     }
     return nullptr;
-}
-
-void Resources::ClearSound(){
-    for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
-            Mix_FreeChunk(index->second);
-    }
-    soundTable.clear();
 }
 
 TTF_Font* Resources::GetFont(string file, int fontSize){
@@ -79,6 +57,24 @@ TTF_Font* Resources::GetFont(string file, int fontSize){
         return indice->second;
     }
     return nullptr;
+}
+
+void Resources::ClearImages(){
+    imageTable.clear();
+}
+
+void Resources::ClearMusic(){
+    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
+            Mix_FreeMusic(index->second);
+    }
+    musicTable.clear();
+}
+
+void Resources::ClearSound(){
+    for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
+            Mix_FreeChunk(index->second);
+    }
+    soundTable.clear();
 }
 
 void Resources::ClearFonts(){

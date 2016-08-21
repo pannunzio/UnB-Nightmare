@@ -30,4 +30,4 @@ private:
 	Music menuMusic;
 };
 
-#endif /* TITLESTATE_H_ */
+#endif

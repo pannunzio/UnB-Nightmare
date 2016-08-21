@@ -1,10 +1,3 @@
-/*
- * Agua.cpp
- *
- *  Created on: 7 de jul de 2016
- *      Author: Caio
- */
-
 #include "Agua.h"
 
 #include "Obstacle.h"
@@ -22,60 +15,67 @@
 //
 //}
 
-
 Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 2,0.2){
 	this->isDead = false;
-	speed =1;
-	this->layer=  layer;
+	this->speed = 1;
+	this->layer = layer;
 	this->subLayer = subLayer;
-	std::cout << "agua construida" << std::endl;
 
-	box.x = Player::player->box.x + 1200;
-	if(layer == LAYER_TOP)
-	        box.y=ITEM_HEIGHT_L3;
-	    if(layer == LAYER_MIDDLE)
-	        box.y=ITEM_HEIGHT_L2;
-	    if(layer == LAYER_BOTTON)
-	        box.y=ITEM_HEIGHT_L1;
-    box.y = box.y + sp.GetHeight();
-	box.y = box.y - (this->subLayer - 3)*26-200;
+	this->box.x = Player::player->box.x + 1200;
+
+	if(this->layer == LAYER_TOP)
+        this->box.y = ITEM_HEIGHT_L3;
+
+    if(this->layer == LAYER_MIDDLE)
+        this->box.y = ITEM_HEIGHT_L2;
+
+    if(this->layer == LAYER_BOTTON)
+        this->box.y = ITEM_HEIGHT_L1;
+
+    this->box.y += sp.GetHeight();
+	this->box.y -= (this->subLayer - 3) * 26 - 200;
 
 }
-Agua::~Agua(){
 
+Agua::~Agua(){
+}
+
+void Agua::Update(float dt){
+
+	this->timer.Update(dt);
+
+	this->sp.Update(dt);
+	this->box.x += this->speed * dt * 100;
+
+	if(this->speed == PLAYER_NORMAL_SPEED){
+		this->deadTimer.Update(dt);
+		this->box.y += 1 * dt * 100;
+		this->deadTimer.Update(dt);
+	}
+    if(this->box.x - Camera::pos.x <= 0){
+    	this->speed = PLAYER_NORMAL_SPEED;
+    }
+
+	if(this->deadTimer.Get() > 5)
+		this->isDead = true;
+}
+
+void Agua::Render(){
+	//sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
+	this->sp.Render(this->box.x, this->box.y - Camera::pos.y);
 }
 
 bool Agua::IsDead(){
-	return isDead;
+	return this->isDead;
 }
-void Agua::Update(float dt){
-	timer.Update(dt);
 
-	sp.Update(dt);
-	box.x = box.x + speed*dt*100;
-
-	if(speed == PLAYER_NORMAL_SPEED){
-		deadTimer.Update(dt);
-		box.y = box.y + 1*dt*100;
-		deadTimer.Update(dt);
-	}
-    if(box.x - Camera::pos.x <= 0){
-    	speed = PLAYER_NORMAL_SPEED;
-
-
-    }
-	if(deadTimer.Get() > 5)
-		this->isDead = true;
-}
-void Agua::Render(){
-	//sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
-	sp.Render(box.x, box.y - Camera::pos.y);
-}
-bool Agua::Is(std::string type){
-	return (type == "Agua");
-}
 void Agua::NotifyCollision(GameObject* other){
 
 }
 
-void Agua::StopSound(){}
+bool Agua::Is(std::string type){
+	return (type == "Agua");
+}
+
+void Agua::StopSound(){
+}

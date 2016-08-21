@@ -3,13 +3,12 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "Camera.h"
-
 #include<iostream>
 
 //Construtor
 State::State(){
-	quitRequested = false;
-	popRequested = false;
+	this->quitRequested = false;
+	this->popRequested = false;
 }
 
 State::~State(){
@@ -31,16 +30,6 @@ void State::Render(){
 
 //void State::Resume(){}
 
-void State::UpdateArray(float dt){
-	for(unsigned int i = 0; i < objectArray.size(); i++)
-		objectArray[i]->Update(dt);
-}
-
-void State::RenderArray(){
-	for(unsigned int i = 0; i < objectArray.size(); i++)
-			objectArray[i]->Render();
-}
-
 bool State::QuitRequested(){
 	return quitRequested;
 }
@@ -52,4 +41,14 @@ bool State::PopRequested(){
 //Add game object
 void State::AddObject(GameObject* ptr){
 	objectArray.emplace_back(ptr);
+}
+
+void State::UpdateArray(float dt){
+	for(unsigned int i = 0; i < objectArray.size(); i++)
+		objectArray[i]->Update(dt);
+}
+
+void State::RenderArray(){
+	for(unsigned int i = 0; i < objectArray.size(); i++)
+        objectArray[i]->Render();
 }
