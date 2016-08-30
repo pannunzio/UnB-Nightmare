@@ -12,7 +12,6 @@
 #include "Timer.h"
 #include "Clock.h"
 #include "Text.h"
-#include "Music.h"
 #include "Sound.h"
 
 
@@ -84,7 +83,6 @@ private:
     bool isPassingMapObject;
 	bool isIndestructible;
 
-	Music musica;
 
 	Sound powerupMusic;
 	bool isPlayingMusic;

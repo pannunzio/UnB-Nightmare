@@ -4,14 +4,11 @@
 #include "Animation.h"
 #include "Game.h"
 
-TitleState::TitleState(): bg("img/telainicial.png"), menuMusic("audio/menu.ogg"), cutscene("img/cutscene.png", 8,2) {
+TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8,2) {
 	this->popRequested = false;
 	this->quitRequested = false;
 
 	option = TITLE_MIN_OPTIONS;
-	if(menuMusic.IsOpen())
-        cout << "teste musica" << endl;
-    menuMusic.Play(-1);
 
 	option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_BLACK, 0,0 );
 	option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_BLACK, 0,0 );
@@ -25,9 +22,13 @@ TitleState::~TitleState(){
 }
 
 void TitleState::Update(float dt){
+
+    cutscene.Update(dt);
+    timer.Update(dt);
+
+
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		quitRequested = true;
-		menuMusic.Stop();
 	}
 
 
@@ -69,11 +70,6 @@ void TitleState::Update(float dt){
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
 			quitRequested = true;
 	}
-
-	cutscene.Update(dt);
-
-	timer.Update(dt);
-
 }
 
 void TitleState::Render(){
@@ -82,7 +78,8 @@ void TitleState::Render(){
 	bg.Render(0,0);
     option1->Render(0, 0);
     option2->Render(0, 0);
-    if(timer.Get()<32)
+
+    if(timer.Get() < 32)
     	cutscene.Render(0,0);
 }
 

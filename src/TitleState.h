@@ -4,7 +4,6 @@
 #include "State.h"
 #include "Text.h"
 #include "Timer.h"
-#include "Music.h"
 #include "Animation.h"
 
 class TitleState : public State{
@@ -26,8 +25,6 @@ private:
 	int option;
 	Text* option1;
 	Text* option2;
-
-	Music menuMusic;
 };
 
 #endif

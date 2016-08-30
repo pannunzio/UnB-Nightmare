@@ -3,7 +3,6 @@
 #include <sstream>
 
 std::unordered_map<string, SDL_Texture*> Resources::imageTable;
-std::unordered_map<string, Mix_Music*> Resources::musicTable;
 std::unordered_map<string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<string, TTF_Font*> Resources::fontTable;
 
@@ -19,18 +18,6 @@ SDL_Texture* Resources::GetImage(string file){
     }
     return nullptr;
 };
-
-Mix_Music* Resources::GetMusic(string file){
-    std::unordered_map<string, Mix_Music*>::const_iterator indice = musicTable.find(file);
-    if (indice == musicTable.end()){
-        Mix_Music* music = Mix_LoadMUS(file.c_str());
-        musicTable.emplace(file, music);
-        return music;
-    } else {
-        return indice->second;
-    }
-    return nullptr;
-}
 
 Mix_Chunk* Resources::GetSound(string file){
     std::unordered_map<string, Mix_Chunk*>::const_iterator indice = soundTable.find(file);
@@ -61,13 +48,6 @@ TTF_Font* Resources::GetFont(string file, int fontSize){
 
 void Resources::ClearImages(){
     imageTable.clear();
-}
-
-void Resources::ClearMusic(){
-    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
-            Mix_FreeMusic(index->second);
-    }
-    musicTable.clear();
 }
 
 void Resources::ClearSound(){

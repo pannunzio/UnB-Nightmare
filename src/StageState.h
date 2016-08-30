@@ -15,7 +15,6 @@
 #include <vector>
 #include <memory>
 #include "InputManager.h"
-#include "Music.h"
 #include "StateData.h"
 #include "Clock.h"
 #include "Timer.h"
@@ -34,15 +33,13 @@ public:
 	void Resume();
 	void AddObject(GameObject* ptr);
 	void AddObjectStatic(GameObject* ptr);
-	void ChangeMusic();
 private:
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
 	MapActionList mapActionList;
 	Sprite bg; // background
-	Music music;
-	StateData stateData;
+    StateData stateData;
 	Clock clock;
 
 

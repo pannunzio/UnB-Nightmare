@@ -10,7 +10,6 @@
 
 #include "State.h"
 #include "Sprite.h"
-#include "Music.h"
 #include "Text.h"
 #include "StateData.h"
 
@@ -27,7 +26,6 @@ public:
 	~EndState();
 private:
 	Sprite bg;
-	Music music;
 	Sprite derrota;
 	Sound sound;
 
