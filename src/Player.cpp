@@ -117,8 +117,12 @@ void Player::Update(float dt){
 	}
 
 	//correndo
-	if(movementState == MovementState::RUNNING)
+	if(movementState == MovementState::RUNNING){
         box.x = box.x + speed*dt*100;
+        if(isColliding == false && (box.x - Camera::pos.x) < START_POSITION_X){ //corrige a posição do player para a posicao inicial após colisao
+                box.x += CORRECTION_POSITION_SPEED;
+        }
+	}
 
     if(movementState == MovementState::GOING_DOWN)
         box.y = box.y + speed*dt*150;
