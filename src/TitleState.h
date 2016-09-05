@@ -23,6 +23,12 @@ private:
 	Timer timer;
 
 	int option;
+	enum{
+	    MENU_MIN,
+        MENU_START,
+        MENU_QUIT,
+        MENU_MAX
+	};
 	Text* option1;
 	Text* option2;
 };

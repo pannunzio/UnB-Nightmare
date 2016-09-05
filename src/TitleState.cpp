@@ -8,7 +8,7 @@ TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png"
 	this->popRequested = false;
 	this->quitRequested = false;
 
-	this->option = TITLE_MIN_OPTIONS;
+	this->option = MENU_START;
 
 	this->option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_BLACK, 0,0 );
 	this->option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_BLACK, 0,0 );
@@ -29,44 +29,44 @@ void TitleState::Update(float dt){
 		this->quitRequested = true;
 	}
 
-	// Menu
+	// Menu Input
 	if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
 		this->option--;
-		cout << option << endl;
-		if(this->option < TITLE_MIN_OPTIONS)
-			this->option = TITLE_MAX_OPTIONS;
+		//cout << option << endl;
+		if(this->option < MENU_MIN || this->option == MENU_MIN)
+			this->option = MENU_MAX - 1;
 	}
 
 	if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
 		this->option++;
-		cout << this->option << endl;
-		if(this->option > TITLE_MAX_OPTIONS)
-			this->option = TITLE_MIN_OPTIONS;
+		//cout << this->option << endl;
+		if(this->option > MENU_MAX || this->option == MENU_MAX)
+			this->option = MENU_MIN + 1;
 	}
 
-	// start
-	if(this->option == 1){
-		this->option1->SetColor(TEXT_WHITE);
-		this->option1->SetStyle(SHADED);
-		this->option2->SetColor(TEXT_BLACK);
-		this->option2->SetStyle(BLENDED);
+	// Menu Select
+	switch(option){
+	    case MENU_START:
+            this->option1->SetColor(TEXT_WHITE);
+            this->option1->SetStyle(SHADED);
+            this->option2->SetColor(TEXT_BLACK);
+            this->option2->SetStyle(BLENDED);
 
-		if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
-			Game::GetInstance().Push(new StageState());
+            if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+                Game::GetInstance().Push(new StageState());
+            }
+            break;
+        case MENU_QUIT:
+            this->option2->SetColor(TEXT_WHITE);
+            this->option2->SetStyle(SHADED);
+            this->option1->SetColor(TEXT_BLACK);
+            this->option1->SetStyle(BLENDED);
 
-		}
-	}
-
-    // quit
-	if(this->option == 2){
-		this->option2->SetColor(TEXT_WHITE);
-		this->option2->SetStyle(SHADED);
-		this->option1->SetColor(TEXT_BLACK);
-		this->option1->SetStyle(BLENDED);
-
-		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
-			this->quitRequested = true;
-	}
+            if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+                this->quitRequested = true;
+            }
+            break;
+    }
 }
 
 void TitleState::Render(){
