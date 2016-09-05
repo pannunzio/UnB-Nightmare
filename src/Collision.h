@@ -69,5 +69,3 @@ class Collision {
             return Vec2 ( p.x * cs - p.y * sn, p.x * sn + p.y * cs );
         }
 };
-
-

@@ -1,22 +1,19 @@
-/*
- * Sprite.h
- *
- *  Created on: 12 de mar de 2016
- *      Author: Caio
- */
-
 #ifndef SPRITE_H_
 #define SPRITE_H_
 
 #include <SDL.h>
 #include <iostream>
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::string;
+
 class Sprite {
 public:
 	Sprite();
 	Sprite(string file);
 	~Sprite();
+
 	void Open(string file);
 	void SetClip(int x, int y, int w, int h);
 	void Render(int x, int y);
@@ -54,4 +51,4 @@ private:
 	float frameTime;
 };
 
-#endif /* SPRITE_H_ */
+#endif

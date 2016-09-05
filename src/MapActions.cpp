@@ -17,10 +17,10 @@ MapActions::~MapActions(){
 }
 
 void MapActions::Update(float dt){
-
 //    if(box.x - Camera::pos.x +100< 0)
 //		this->isDead = true;
 }
+
 void MapActions::Render(){
     //sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
 }
@@ -29,14 +29,15 @@ bool MapActions::IsDead(){
     return this->isDead;
 }
 
-bool MapActions::Is(std::string type){
-    return (type == "Escada");
-}
-
 void MapActions::NotifyCollision(GameObject* other){
     if(other->Is("Player")){
         cout << "map action colliding with player" << endl;
     }
 }
 
-void MapActions::StopSound(){}
+bool MapActions::Is(std::string type){
+    return (type == "Escada");
+}
+
+void MapActions::StopSound(){
+}

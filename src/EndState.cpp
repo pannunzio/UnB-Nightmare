@@ -1,10 +1,3 @@
-/*
- * EndState.cpp
- *
- *  Created on: 13 de mai de 2016
- *      Author: Caio
- */
-
 #include "EndState.h"
 #include "InputManager.h"
 #include "Game.h"
@@ -12,78 +5,80 @@
 #include "Text.h"
 #include "TitleState.h"
 
+EndState::EndState(StateData stateData){
+	this->option = 1;
+	this->option1 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
+	this->option2 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
+
+	this->option1->SetPos(500,350,true,false);
+	this->option2->SetPos(500,400,true,false);
+
+    this->sound.SetVolume(0);
+
+	if(stateData.playerVictory){
+        this->bg = Sprite("img/cerrado.jpg");
+	}
+
+	else {
+        this->derrota = Sprite("img/derrota.png", 12,0.2);
+        this->bg = Sprite("img/cerrado.jpg");
+	}
+}
+
+EndState::~EndState(){
+
+}
+
 void EndState::Update(float dt){
-	derrota.Update(dt);
+	this->derrota.Update(dt);
+
 	if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
-		option--;
-		if(option < END_MIN_OPTIONS)
-			option = END_MAX_OPTIONS;
+		this->option--;
+
+		if(this->option < END_MIN_OPTIONS)
+			this->option = END_MAX_OPTIONS;
 	}
+
 	if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
-		option++;
-		if(option > END_MAX_OPTIONS)
-			option = END_MIN_OPTIONS;
+		this->option++;
+
+		if(this->option > END_MAX_OPTIONS)
+			this->option = END_MIN_OPTIONS;
 	}
-//	// start
-	if(option == 1){
-		option1->SetColor(TEXT_GREEN);
+
+	// start
+	if(this->option == 1){
+		this->option1->SetColor(TEXT_GREEN);
+
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
 			Game::GetInstance().Push(new StageState());
 	}
 	else {
-		option1->SetColor(TEXT_WHITE);
+		this->option1->SetColor(TEXT_WHITE);
 	}
 
     // quit
-	if(option == 2){
-		option2->SetColor(TEXT_GREEN);
+	if(this->option == 2){
+		this->option2->SetColor(TEXT_GREEN);
+
 		if(InputManager::GetInstance().KeyPress(SDLK_RETURN))
-			quitRequested = true;
+			this->quitRequested = true;
 	}
-    else
-		option2->SetColor(TEXT_WHITE);
-
-
-
+    else {
+		this->option2->SetColor(TEXT_WHITE);
+    }
 }
 
 void EndState::Render(){
-	bg.Render(0,0);
-	derrota.Render(300,300);
+	this->bg.Render(0,0);
+	this->derrota.Render(300,300);
 
-    option1->Render(0, 0);
-    option2->Render(0, 0);
+    this->option1->Render(0, 0);
+    this->option2->Render(0, 0);
 }
 
 void EndState::Pause(){
-
-
 }
 
 void EndState::Resume(){
-
-}
-EndState::EndState(StateData stateData){
-	option = 1;
-	option1 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Restart", TEXT_WHITE, 0,0 );
-	option2 = new Text("font/ComicNeue_Bold.otf", 35, SOLID, "Quit Game", TEXT_WHITE, 0,0);
-
-	option1->SetPos(500,350,true,false);
-	option2->SetPos(500,400,true,false);
-
-    sound.SetVolume(0);
-
-	if(stateData.playerVictory){
-        bg = Sprite("img/cerrado.jpg");
-
-		cout<<"VENCEUU"<<endl;
-	}
-	else{
-        derrota = Sprite("img/derrota.png", 12,0.2);
-        bg = Sprite("img/cerrado.jpg");
-		cout<<"PERDEUUUU"<<endl;
-	}
-}
-EndState::~EndState(){
-
 }

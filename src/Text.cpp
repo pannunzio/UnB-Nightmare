@@ -1,70 +1,55 @@
-/*
- * Text.cpp
- *
- *  Created on: 13 de mai de 2016
- *      Author: Caio
- */
-
 #include "Text.h"
 #include "Resources.h"
 #include "Game.h"
 #include <iostream>
 #include <string>
-//Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+
+Text::Text(){
+
+}
+
 Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
-	box.x = x;
-	box.y = y;
+	this->box.x = x;
+	this->box.y = y;
 
 	this->fontSize = fontSize;
 	this->style = style;
 	this->text = text;
 	this->color = color;
-	texture = nullptr;
+	this->texture = nullptr;
 //	fontFile = std::to_string(fontSize) + fontFile;
-	font = Resources::GetFont(fontFile, fontSize);
+	this->font = Resources::GetFont(fontFile, fontSize);
 	this->fontFile = fontFile;
 
 	RemakeTexture();
-
-
 }
 
-Text::Text(){
-
-}
 Text::~Text(){
-	if(texture)
-		SDL_DestroyTexture(texture);
+	if(this->texture)
+		SDL_DestroyTexture(this->texture);
 }
-
 
 void Text::Render(int cameraX, int cameraY){
-
 	SDL_Rect dstRect;
-	dstRect.x = box.x - cameraX;
-	dstRect.y = box.y - cameraY;
-	dstRect.w = box.w;
-	dstRect.h = box.h;
+	dstRect.x = this->box.x - cameraX;
+	dstRect.y = this->box.y - cameraY;
+	dstRect.w = this->box.w;
+	dstRect.h = this->box.h;
 
-
-
-
-	if(texture)
-		SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, NULL, &dstRect);
-
-
+	if(this->texture)
+		SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, NULL, &dstRect);
 }
 
 void Text::SetPos(int x, int y, bool centerX, bool centerY){
-
 	if(centerX)
-		box.x = x - box.w/2.0; // arrumar calculo do centro
+		this->box.x = x - this->box.w/2.0; // arrumar calculo do centro
 	else
-		box.x = x;
+		this->box.x = x;
 	if(centerY)
-		box.y = y - box.h/2.0;
+		this->box.y = y - this->box.h/2.0;
 	else
-		box.y = y;
+		this->box.y = y;
+
 	RemakeTexture();
 }
 
@@ -92,22 +77,23 @@ void Text::SetText(std::string text){
 }
 
 void Text::RemakeTexture(){
+	this->font = Resources::GetFont(fontFile, fontSize);
 
-	font = Resources::GetFont(fontFile, fontSize);
-	SDL_DestroyTexture(texture);
+	SDL_DestroyTexture(this->texture);
 	SDL_Surface* surface;
-	if(style == SOLID)
-		surface = TTF_RenderText_Solid(font,text.c_str(),color);
-	if(style == SHADED)
-		surface = TTF_RenderText_Shaded(font,text.c_str(),color, TEXT_BLACK);
-	if(style == BLENDED)
-		surface = TTF_RenderText_Blended(font,text.c_str(),color);
 
-	texture = SDL_CreateTextureFromSurface(Game::GetInstance().GetRenderer(), surface);
+	if(this->style == SOLID)
+		surface = TTF_RenderText_Solid(this->font, this->text.c_str(), this->color);
+	if(this->style == SHADED)
+		surface = TTF_RenderText_Shaded(this->font, this->text.c_str(), this->color, TEXT_BLACK);
+	if(this->style == BLENDED)
+		surface = TTF_RenderText_Blended(this->font, this->text.c_str(), this->color);
+
+	this->texture = SDL_CreateTextureFromSurface(Game::GetInstance().GetRenderer(), surface);
 	SDL_QueryTexture(this->texture, nullptr, nullptr, &surface->w, &surface->h);
+
     this->box.w = surface->w;
     this->box.h = surface->h;
-	SDL_FreeSurface(surface);
 
-//	box.Print();
+	SDL_FreeSurface(surface);
 }

@@ -16,6 +16,7 @@ public:
 	void NotifyCollision(GameObject* other);
     void StopSound();
     void FazCaca();
+
 private:
     Sprite pombo;
     Sprite sombra;

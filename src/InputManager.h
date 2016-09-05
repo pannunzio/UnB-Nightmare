@@ -1,68 +1,60 @@
-/*
- * InputManager.h
- *
- *  Created on: 24 de mar de 2016
- *      Author: Caio
- */
+#ifndef INPUTMANAGER_H
+#define INPUTMANAGER_H
 
-#ifndef INPUTMANAGER_H_
-#define INPUTMANAGER_H_
+#include "SDL.h"
+#include <iostream>
+#include <vector>
+#include <unordered_map>
 
-#define W_KEY SDLK_w
-#define S_KEY SDLK_s
-#define A_KEY SDLK_a
-#define D_KEY SDLK_d
-
-#define SPACE_BAR_KEY SDLK_SPACE
-#define DOWN_ARROW_KEY SDLK_DOWN
 #define LEFT_ARROW_KEY SDLK_LEFT
-#define UP_ARROW_KEY SDLK_UP
 #define RIGHT_ARROW_KEY SDLK_RIGHT
-#define LEFT_MOUSE_BUTTON SDL_BUTTON_LEFT
-#define RIGHT_MOUSE_BUTTON SDL_BUTTON_RIGHT
+#define UP_ARROW_KEY SDLK_UP
+#define DOWN_ARROW_KEY SDLK_DOWN
 #define ESCAPE_KEY SDLK_ESCAPE
+#define LEFT_MOUSE_BUTTON SDLK_BUTTON_LEFT
 
+#define MOUSE_STATE_SIZE 6;
 
-
-#include <map>
+using std::vector;
 
 class InputManager {
 public:
-	void Update();
+    void Update();
 
-	bool KeyPress(int key);
-	bool KeyRelease(int key);
-	bool IsKeyDown(int key);
-	bool IsKeyUp(int key);
+    bool KeyPress(int key);
+    bool KeyRelease(int key);
+    bool IsKeyDown(int key);
 
-	bool MousePress(int button);
-	bool MouseRelease(int button);
-	bool IsMouseDown(int button);
-	bool IsMouseUp(int button);
+    bool MousePress(int button);
+    bool MouseRelease(int button);
+    bool IsMouseDown(int button);
 
-	int GetMouseX();
-	int GetMouseY();
+    bool QuitRequested();
 
-	bool QuitRequested();
+    int GetMouseX();
+    int GetMouseY();
 
-	static InputManager& GetInstance();
-	~InputManager();
-
+    static InputManager& GetInstance();
 
 private:
-	InputManager();
-	bool keyState[416];
-	int keyUpdate[416];
+    InputManager();
+    ~InputManager();
 
-	bool mouseState[6];
-	int mouseUpdate[6];
+    vector<bool> mouseState;
+    vector<int> mouseUpdate;
 
-	int updateCounter;
+//    bool* keyState[416];
+//    int* keyUpdate[416];
+    std::unordered_map<int, bool> keyState;
+    std::unordered_map<int, int> keyUpdate;
 
-	bool quitRequested;
+    bool quitRequested;
 
-	int mouseX;
-	int mouseY;
+    int updateCounter;
+
+    int mouseX;
+    int mouseY;
 };
 
-#endif /* INPUTMANAGER_H_ */
+
+#endif

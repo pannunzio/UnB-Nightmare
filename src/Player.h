@@ -1,10 +1,3 @@
-/*
- * Player.h
- *
- *  Created on: 18 de mai de 2016
- *      Author: apoio
- */
-
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
@@ -13,7 +6,6 @@
 #include "Clock.h"
 #include "Text.h"
 #include "Sound.h"
-
 
 enum PowerUp{
 	NONE,
@@ -33,26 +25,26 @@ class Player : public GameObject{
 public:
 	Player(float x,float y);
 	virtual ~Player();
+
 	void Update(float dt);
 	void Render();
 	bool IsDead();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject* other);
-	bool IsTargetSpeed(float targetSpeed);
-	void SetTargetSpeed(float targetSpeed);
-    void StopSound();
+
     Player& GetInstance();
 
-	static Player* player;
-
-	float GetSpeed();
+	bool IsTargetSpeed(float targetSpeed);
+	void SetTargetSpeed(float targetSpeed);
+    float GetSpeed();
 	float GetAcceleration();
-
 	void SetAcceleration(float acceleration);
 
-	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
+    void StopSound();
 
+	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 	void Movement();
+
 	void Shoot();
 
 	void RenderHud();
@@ -60,10 +52,10 @@ public:
 	bool IsIndestructible();
 	void ChangeSpriteSheet(string file, int frameCount);
 
-
-
+	static Player* player;
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
     MovementState movementState;
+
 private:
 	Sprite sp; // sprite
 	float speed; // velocidade

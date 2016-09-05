@@ -1,73 +1,42 @@
-/*
- * TileSet.cpp
- *
- *  Created on: 21 de mar de 2016
- *      Author: Caio
- */
-
 #include "TileSet.h"
 #include "TileMap.h"
 #include <math.h>
 
-
-//*****************************************************************//
-//Função: CONSTRUTOR**********************************************//
-//Retorno: N/A***************************************************//
-//Parametros: N/A***********************************************//
-//Descrição: constroi o tileSet********************************//
-//************************************************************//
-
 TileSet::TileSet(int ttileWidth, int ttileHeight, string file) : tileSet(file){
-	tileWidth = ttileWidth;
-	tileHeight = ttileHeight;
-	if(tileSet.IsOpen()){
+	this->tileWidth = ttileWidth;
+	this->tileHeight = ttileHeight;
+
+	if(this->tileSet.IsOpen()){
 		std::cout << "Abertura bem sucedida" << std::endl;
-		rows = tileSet.GetHeight()/tileHeight;
-		columns = tileSet.GetWidth()/tileWidth;
-		std::cout << "Rows x Columns" << std::endl << rows << " " << columns << std::endl;
+		this->rows = this->tileSet.GetHeight()/this->tileHeight;
+		this->columns = this->tileSet.GetWidth()/this->tileWidth;
+		std::cout << "Rows x Columns" << std::endl << this->rows << " " << this->columns << std::endl;
 	}
 }
 
-//**********************************************************************//
-//Função: TileSet::Render(unsigned index, float x , float y)***********//
-//Retorno: void*******************************************************//
-//Parametros: unsigned index, float x , float y**********************//
-//Descrição: checa de o indice eh valido, e seta o clip*************//
-//*****************************************************************//
-void TileSet::Render(unsigned index, float x, float y ) {
-
-	if(index > (unsigned)rows*columns || index == 0){
-		//std::cout << "Index invalido" << std::endl;
-		return;
-	}
-
-	else {
-
-		index--;
-
-		tileSet.SetClip((int)IndexReverse(index).x*tileWidth,(int)IndexReverse(index).y*tileHeight,tileWidth,tileHeight);
-		tileSet.Render((int)x,(int)y);
-	}
-
-}
-
-Vec2 TileSet::IndexReverse(unsigned index){
-	return Vec2((int)(index/rows) ,(index%rows) );
-	//return Vec2((index%columns) ,(int)(index/columns) );
-}
-//*****************************************************************//
-//Função: GetTileWidth(), GetTileHeight()*************************//
-//Retorno: int dos gets******************************************//
-//Parametros: void**********************************************//
-//Descrição: getters*******************************************//
-//************************************************************//
-int TileSet::GetTileWidth(){
-	return tileWidth;
-}
-int TileSet::GetTileHeight(){
-		return tileHeight;
-}
 TileSet::~TileSet() {
 
 }
 
+void TileSet::Render(unsigned index, float x, float y ) {
+	if(index > (unsigned)rows * columns || index == 0){
+		//std::cout << "Index invalido" << std::endl;
+		return;
+	} else {
+		index--;
+		this->tileSet.SetClip((int)IndexReverse(index).x * this->tileWidth, (int)IndexReverse(index).y * this->tileHeight, this->tileWidth, this->tileHeight);
+		this->tileSet.Render((int)x,(int)y);
+	}
+}
+
+int TileSet::GetTileWidth(){
+	return this->tileWidth;
+}
+
+int TileSet::GetTileHeight(){
+		return this->tileHeight;
+}
+
+Vec2 TileSet::IndexReverse(unsigned index){
+	return Vec2((int)(index/this->rows), (index%this->rows) );
+}

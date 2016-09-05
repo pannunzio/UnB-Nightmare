@@ -1,23 +1,15 @@
-/*
- * game.h
- *
- *  Created on: 12 de mar de 2016
- *      Author: Caio
- */
-
 #ifndef GAME_H_
 #define GAME_H_
-
 
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "State.h"
 
 #include <stack>
-
 #include <ctime>
 #include <cstdlib>
+
+#include "State.h"
 
 using std::string;
 using std::cout;
@@ -31,14 +23,11 @@ public:
 	static Game& GetInstance();
 	SDL_Renderer* GetRenderer();
 	SDL_Window* GetWindow();
-
 	State& GetCurrentState();
-
 	void Push(State* state);
-
 	void Run();
-
 	float GetDeltaTime();
+
 private:
 	void CalculateDeltaTime();
 
@@ -46,7 +35,6 @@ private:
 	float dt;
 
 	static Game* instance;
-
 	State* storedState;
 	SDL_Window* window;
 	SDL_Renderer* renderer;

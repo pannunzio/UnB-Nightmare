@@ -15,15 +15,14 @@
 
 class EndState : public State{
 public:
-
+	EndState(StateData stateData);
+	~EndState();
 	void Update(float dt);
 	void Render();
 
 	void Pause();
 	void Resume();
-	EndState();
-	EndState(StateData stateData);
-	~EndState();
+
 private:
 	Sprite bg;
 	Sprite derrota;

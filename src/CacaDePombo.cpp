@@ -9,9 +9,9 @@ CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float f
 
     this->type = type;
 	this->targetsPlayer = targetsPlayer;
-	Sbox.Centralize(x, y, sp.GetWidth(), sp.GetHeight());
-	distanceLeft = 300;
-	distanceLimit = 3;
+	this->Sbox.Centralize(x, y, this->sp.GetWidth(), this->sp.GetHeight());
+	this->distanceLeft = 300;
+	this->distanceLimit = 3;
     this->layer = LAYER_TOP;
     this->gravidade = 9.8;
     this->speed.x = 100;
@@ -25,29 +25,35 @@ CacaDePombo::~CacaDePombo(){
 
 }
 
+void CacaDePombo::Update(float dt){
+    this->speed.y += this->gravidade;
+
+        //    this->distanceLeft -= sqrtf((speed.x*speed.x) + (speed.y+speed.y));
+    this->distanceLeft --;
+    this->Sbox.x += this->speed.x * dt;
+    this->Sbox.y += this->speed.y * dt;
+    this->box.x += this->speedP * dt * 100;
+}
+
+void CacaDePombo::Render(){
+    this->sp.Render(this->Sbox.x - Camera::pos.x, this->Sbox.y - Camera::pos.y);
+}
+
 bool CacaDePombo::IsDead(){
     if (this->distanceLeft <= distanceLimit){
-        if(colisaoPlayer.IsPlaying())
-            colisaoPlayer.Stop(2);
+        if(this->colisaoPlayer.IsPlaying())
+            this->colisaoPlayer.Stop(2);
         return true;
     }
     return false;
 }
 
-void CacaDePombo::Update(float dt){
-    this->speed.y += gravidade;
-
-        //    this->distanceLeft -= sqrtf((speed.x*speed.x) + (speed.y+speed.y));
-    distanceLeft --;
-    this->Sbox.x += speed.x * dt;
-    this->Sbox.y += speed.y * dt;
-    box.x = box.x + speedP*dt*100;
+void CacaDePombo::NotifyCollision(GameObject* other){
+    if (other->Is("Player")){
+        this->distanceLimit = 160;
+        this->colisaoPlayer.PlayArbitraryFadeIn(1, 2);
+    }
 }
-
-void CacaDePombo::Render(){
-    sp.Render(Sbox.x - Camera::pos.x, Sbox.y - Camera::pos.y);
-}
-
 bool CacaDePombo::Is(std::string type){
     return (type == "Caca");
 }
@@ -56,11 +62,5 @@ void CacaDePombo::SetSubLayer(int subLayer){
     this->subLayer = subLayer;
 }
 
-void CacaDePombo::NotifyCollision(GameObject* other){
-    if (other->Is("Player")){
-        distanceLimit = 160;
-        colisaoPlayer.PlayArbitraryFadeIn(1, 2);
-    }
+void CacaDePombo::StopSound(){
 }
-
-void CacaDePombo::StopSound(){}

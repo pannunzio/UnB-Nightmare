@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "MapActions.h"
+
 #include <vector>
 #include <memory>
 
@@ -14,6 +15,5 @@ public:
 	static void AddMapAction(MapActions mapAction);
 	static std::vector<MapActions> mapActions;
 };
-
 
 #endif

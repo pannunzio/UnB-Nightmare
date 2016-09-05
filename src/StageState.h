@@ -1,10 +1,3 @@
-/*
- * State.h
- *
- *  Created on: 12 de mar de 2016
- *      Author: Caio
- */
-
 #ifndef STAGESTATE_H_
 #define STAGESTATE_H_
 
@@ -22,6 +15,11 @@
 #include "TileSet.h"
 #include "MapActionList.h"
 #include "Animation.h"
+
+using std::string;
+using std::cout;
+using std::endl;
+
 class StageState : public State{
 public:
 	StageState();
@@ -31,8 +29,10 @@ public:
 
 	void Pause();
 	void Resume();
+
 	void AddObject(GameObject* ptr);
 	void AddObjectStatic(GameObject* ptr);
+
 private:
 	TileSet*  tileSet;
 	TileMap tileMap;
@@ -41,7 +41,6 @@ private:
 	Sprite bg; // background
     StateData stateData;
 	Clock clock;
-
 
 	Timer cooldownTimer;
 	int spawn;

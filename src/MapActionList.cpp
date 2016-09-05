@@ -1,8 +1,8 @@
 #include "MapActionList.h"
 
 std::vector<MapActions> MapActionList::mapActions;
-MapActionList::MapActionList() {
 
+MapActionList::MapActionList() {
 }
 
 MapActionList::~MapActionList(){
