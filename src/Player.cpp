@@ -45,39 +45,11 @@ Player::~Player() {
 }
 
 void Player::Update(float dt){
-//	clock.Update(dt);
+	//atualiza o sprite
 	this->sp.Update(dt);
+
 	Movement(); // faz os movimentos do input
-
-    if(this->powerUp == SKATE){
-        this->itemEffect.Update(dt);
-        this->isPassingMapObject = false;
-        this->isIndestructible = true;
-        if(this->itemEffect.Get() > 5){
-            this->powerupMusic.Stop();
-            cout << "proper stop" << endl;
-            this->powerUp = NONE;
-            this->isIndestructible = false;
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
-        }
-    }
-
-    if (this->powerUp == COMIDA){
-        this->itemEffect.Update(dt);
-        if(this->itemEffect.Get() > 3){
-            this->powerUp = NONE;
-            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
-        }
-    }
-
-    if(this->powerUp == CACA_DE_POMBO){
-        this->itemEffect.Update(dt);
-        if(this->itemEffect.Get() > 5){
-            this->powerUp = NONE;
-            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
-        }
-    }
+    CheckEndPowerupEffects(dt);
 
 	//colocando na posicao certa o player
 	if(this->box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
@@ -85,70 +57,19 @@ void Player::Update(float dt){
 	else
 		this->isRightPosition = false;
 
-    if(!this->isColliding){
-        if(this->wasColliding){
-            this->speed = PLAYER_NORMAL_SPEED;
-            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
-            this->wasColliding = false;
-        }
-    }
+    //Volta a velocidade para o padrão após colisão
+    CheckCollisionToResetSpeed();
+    AdjustSpeed(dt);
+    SetPositionToMovementState(dt);
 
-	//ir acelerando at� a velocidade
-	if(!this->IsTargetSpeed(targetSpeed)){
-		if(this->targetSpeed > this->speed)
-			this->speed += this->acceleration * dt;
-
-		if(this->targetSpeed < this->speed)
-			this->speed -= this->acceleration * dt;
-
-		if(this->targetSpeed == 0){
-			this->speed = 0;
-			std::cout << " entrou aki no targer speed" << std::endl;
-		}
-	}
-
-	//correndo
-	if(this->movementState == MovementState::RUNNING){
-        this->box.x += this->speed * dt * 100;
-
-        if(this->isColliding == false && (this->box.x - Camera::pos.x) < START_POSITION_X){ //corrige a posição do player para a posicao inicial após colisao
-                this->box.x += CORRECTION_POSITION_SPEED;
-        }
-	}
-
-    if(this->movementState == MovementState::GOING_DOWN)
-        this->box.y += this->speed * dt * 150;
-
-    if(this->movementState == MovementState::GOING_UP)
-        this->box.y -= this->speed * dt * 150;
-
-	//cafe
-
+	//atira cafe
 	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
 		Shoot();
 	}
 
+    AdjustGoingUpOrDown();
+
 	this->isColliding = false;
-
-
-    if(this->movementState != RUNNING){
-
-        if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
-            this->movementState = RUNNING;
-            this->box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
-        }
-
-        if(this->layer == LAYER_MIDDLE && abs(this->box.y - ITEM_HEIGHT_L2) < 10){
-            this->movementState = RUNNING;
-            this->box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
-        }
-
-        if(this->layer == LAYER_BOTTON && abs(this->box.y - ITEM_HEIGHT_L1) < 10){
-            this->movementState = RUNNING;
-            this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
-        }
-    }
-
     this->isPassingMapObject = false;
 }
 
@@ -236,7 +157,7 @@ void Player::NotifyCollision(GameObject* other){
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
             this->isIndestructible = false;
         }
-//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
+        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
         this->speed = 3.5;
         this->itemEffect.Restart();
         this->powerUp = PowerUp::COMIDA;
@@ -420,4 +341,106 @@ void Player::ChangeSpriteSheet(string file, int frameCount){
     this->sp.Open(file);
     this->sp.SetFrameCount(frameCount);
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
+}
+
+//retorna true se encerrar o powerup
+bool Player::EndPowerupEffect(int maxTime){
+    if(this->itemEffect.Get() > maxTime){
+        this->powerUp = NONE;
+        this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
+
+        if(this->powerupMusic.IsPlaying())
+            this->powerupMusic.Stop();
+
+        if(this->IsIndestructible())
+            this->isIndestructible = false;
+
+        return true;
+    }
+    return false;
+}
+
+void Player::CheckEndPowerupEffects(float dt){
+    if(this->powerUp == SKATE){
+        this->itemEffect.Update(dt);
+        this->isPassingMapObject = false;
+        this->isIndestructible = true;
+        if (this->EndPowerupEffect(5))
+            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+    }
+    if (this->powerUp == COMIDA){
+        this->itemEffect.Update(dt);
+        this->EndPowerupEffect(3);
+    }
+    if(this->powerUp == CACA_DE_POMBO){
+        this->itemEffect.Update(dt);
+        this->EndPowerupEffect(5);
+    }
+}
+
+void Player::CheckCollisionToResetSpeed(){
+    if(!this->isColliding){
+        if(this->wasColliding){
+            this->speed = PLAYER_NORMAL_SPEED;
+            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
+            this->wasColliding = false;
+        }
+    }
+}
+
+void Player::AdjustSpeed(float dt){
+	//ir acelerando at� a velocidade
+	if(!this->IsTargetSpeed(targetSpeed)){
+		if(this->targetSpeed > this->speed)
+			this->speed += this->acceleration * dt;
+
+		if(this->targetSpeed < this->speed)
+			this->speed -= this->acceleration * dt;
+
+		if(this->targetSpeed == 0){
+			this->speed = 0;
+		}
+	}
+}
+
+//ajusta a posição do Player de acordo com o tipo do movimento
+//(se ele se desloca de um lado para o outro ou de cima para baixo)
+void Player::SetPositionToMovementState(float dt){
+
+    //correndo
+    if(this->movementState == MovementState::RUNNING){
+        this->box.x += this->speed * dt * 100;
+
+        if(this->isColliding == false && (this->box.x - Camera::pos.x) < START_POSITION_X){ //corrige a posição do player para a posicao inicial após colisao
+                this->box.x += CORRECTION_POSITION_SPEED;
+        }
+    }
+
+    if(this->movementState == MovementState::GOING_DOWN)
+        this->box.y += this->speed * dt * 150;
+
+    if(this->movementState == MovementState::GOING_UP)
+        this->box.y -= this->speed * dt * 150;
+}
+
+//ajusta a posição do player quando troca de andar
+void Player::AdjustGoingUpOrDown(){
+
+    if(this->movementState != RUNNING){
+
+        if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
+            this->movementState = RUNNING;
+            this->box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
+        }
+
+        if(this->layer == LAYER_MIDDLE && abs(this->box.y - ITEM_HEIGHT_L2) < 10){
+            this->movementState = RUNNING;
+            this->box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
+        }
+
+        if(this->layer == LAYER_BOTTON && abs(this->box.y - ITEM_HEIGHT_L1) < 10){
+            this->movementState = RUNNING;
+            this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
+        }
+    }
 }

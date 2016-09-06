@@ -57,6 +57,20 @@ public:
     MovementState movementState;
 
 private:
+    //retorna true se encerrar o powerup
+    bool EndPowerupEffect(int maxTime);
+
+    void CheckEndPowerupEffects(float dt);
+    void CheckCollisionToResetSpeed();
+    void AdjustSpeed(float dt);
+
+    //ajusta a posição do Player de acordo com o tipo do movimento
+    //(se ele se desloca de um lado para o outro ou de cima para baixo)
+    void SetPositionToMovementState(float dt);
+
+    //ajusta a posição do player quando troca de andar
+    void AdjustGoingUpOrDown();
+
 	Sprite sp; // sprite
 	float speed; // velocidade
 	float acceleration; // acceleratcao
