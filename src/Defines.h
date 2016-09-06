@@ -67,6 +67,9 @@ using std::endl;
 #define CORRECTION_POSITION_SPEED 0.5
 
 
+#define DELTA_ACCEPT 20
+
+
 //acrescentar mais aa medida q for usando
 
 #endif

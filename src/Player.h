@@ -56,6 +56,9 @@ public:
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
     MovementState movementState;
 
+    //temporario
+    int getBaseX();
+	int getX();
 private:
     //retorna true se encerrar o powerup
     bool EndPowerupEffect(int maxTime);
@@ -92,6 +95,10 @@ private:
 
 	Sound powerupMusic;
 	bool isPlayingMusic;
+
+	//temporario
+
+	int baseX;
 };
 
 #endif /* PLAYER_H_ */

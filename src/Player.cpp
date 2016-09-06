@@ -12,13 +12,15 @@ Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
 
 Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
+	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	this->targetSpeed = speed = PLAYER_NORMAL_SPEED;
 	this->acceleration = 1.5;
-	this->isRightPosition = false;
+	this->isRightPosition = true;
 	this->powerUp = NONE;
+
 	this->movementState = RUNNING;
     this->isColliding = false;
     this->wasColliding = false;
@@ -51,11 +53,20 @@ void Player::Update(float dt){
 	Movement(); // faz os movimentos do input
     CheckEndPowerupEffects(dt);
 
+    cout << "player box relativo: " << box.x - Camera::pos.x << endl;
+    cout << "player.x: " << box.x << endl;
+    cout << "Camera::pos.x: " << Camera::pos.x << endl;
+    cout << "basex: " << baseX << endl;
 	//colocando na posicao certa o player
-	if(this->box.x - Camera::pos.x > PLAYER_DISTANCE_TO_CAMERA)
-		this->isRightPosition = true;
-	else
+	float diff = this->box.x - Camera::pos.x;
+	if(diff > baseX + DELTA_ACCEPT &&
+       baseX - DELTA_ACCEPT > diff ){
+       cout << "player alinhado!" << endl;
+       this->isRightPosition = true;
+       box.x += abs(diff - baseX);//alinha para o valor correto o player
+    }else{
 		this->isRightPosition = false;
+    }
 
     //Volta a velocidade para o padrão após colisão
     CheckCollisionToResetSpeed();
@@ -443,4 +454,12 @@ void Player::AdjustGoingUpOrDown(){
             this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
         }
     }
+}
+
+int Player::getX(){
+    return pos.x;
+}
+
+int Player::getBaseX(){
+    return baseX;
 }
