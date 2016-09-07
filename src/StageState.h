@@ -34,6 +34,19 @@ public:
 	void AddObjectStatic(GameObject* ptr);
 
 private:
+    //Verifica se o jogo acabou
+    void CheckEndOfGame();
+    void SetEndOfGame(bool playerVictory);
+    //Atualiza o array de Objectos e confere quais objectos 'morreram'
+    void UpdateObjectArray(float dt);
+    //Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo
+    void CheckMapActionsPosition(float dt);
+    void SpawnNewItem();
+    void SpawnNewStaticObstacle();
+    void SpawnNewDynamicObstacle();
+
+    void RenderSubLayer(int sublayer);
+
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
@@ -48,4 +61,4 @@ private:
 	int mapLength;
 };
 
-#endif /* STATE_H_ */
+#endif

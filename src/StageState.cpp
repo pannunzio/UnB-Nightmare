@@ -15,24 +15,23 @@
 #include "Agua.h"
 #include "MapActionList.h"
 
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet),bg("img/cerrado.jpg"){
+StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
 	Camera::pos = Vec2(0,280);
 
 	this->popRequested = false;
 	this->quitRequested = false; // iniciando o valor como falso
 
-	this->tileSet = new TileSet(TILESET_WIDTH,TILESET_HEIGHT,"img/tileset.png");
+	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, "img/tileset.png");
 	this->tileMap.SetTileSet(tileSet);
 
-	AddObject(new Player(200,550));
+	AddObject(new Player(200, 550));
 
     this->spawn = 0;
-    this->lixo=0;
+    this->lixo = 0;
 	this->clock = Clock();
 
 	//esse 200 e o player position
-	//talvez seja melhor fazer por colis�o mas no momento n�o rola
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 	//objetors
 }
@@ -46,37 +45,89 @@ StageState::~StageState(){
 }
 
 void StageState::Update(float dt){
-
-    if(!Player::player){
-        cout<<"LOSER"<<endl;
-        this->mapActionList.mapActions.clear();
-        for(int i = objectArray.size() - 1; i <=0; i++){
-            objectArray[i]->StopSound();
-        }
-        objectArray.clear();
-    	Pause();
-    	this->stateData.playerVictory = false;
-    	this->popRequested = true;
-
-    	Game::GetInstance().Push(new EndState(stateData));
-    	return;
-    }
+    CheckEndOfGame();
 
     this->clock.Update(dt);
 
-	if(InputManager::GetInstance().QuitRequested())
+    UpdateObjectArray(dt);
+    CheckMapActionsPosition(dt);
+
+    this->cooldownTimer.Update(dt);
+    SpawnNewItem();
+    SpawnNewStaticObstacle();
+    SpawnNewDynamicObstacle();
+}
+
+void StageState::Render(){
+    Camera::Update(Game::GetInstance().GetDeltaTime());
+
+	//chamando o render de cada gameObject
+	this->bg.Render(0, 0);
+	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
+
+    RenderSubLayer(3);
+    RenderSubLayer(2);
+    RenderSubLayer(1);
+
+	this->clock.Render();
+}
+
+void StageState::Pause(){
+}
+
+void StageState::Resume(){
+}
+
+//Add game object
+void StageState::AddObject(GameObject* ptr){
+	objectArray.emplace_back(ptr);
+}
+
+void StageState::AddObjectStatic(GameObject* ptr){
+	objectArray.emplace(objectArray.begin() ,ptr);
+}
+
+//verifica se o jogo acabou
+void StageState::CheckEndOfGame(){
+    //Se o player não existir, encerra o jogo
+    if(!Player::player){
+        this->mapActionList.mapActions.clear();
+        objectArray.clear();
+    	SetEndOfGame(false);
+    	return;
+    }
+
+    //se o usuario solicitar o fim do jogo ele encerra também
+    if(InputManager::GetInstance().QuitRequested())
 		this->quitRequested = true;
 
-	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
-		this->popRequested = true;
-		Pause();
-	}
+	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY))
+		SetEndOfGame(false);
 
+	//testa se o tempo acabou
+    if(this->clock.GetTime() < 0.5){
+        SetEndOfGame(false);
+    }
+
+    if(Camera::pos.x > this->mapLength){
+        SetEndOfGame(true);
+    }
+}
+
+void StageState::SetEndOfGame(bool playerVictory){
+    this->stateData.timeleft = clock.GetTime();
+    this->stateData.playerVictory = playerVictory;
+    this->popRequested =  true;
+    Game::GetInstance().Push(new EndState(stateData));
+}
+
+//Atualiza o array de Objectos e confere quais objectos 'morreram'
+void StageState::UpdateObjectArray(float dt){
+    //obs: NAO USAR O UPDATE ARRAY DO STATE!!!!
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	objectArray[i]->Update(dt);
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
-            //std::cout << "obj1: " <<i<<" "<<objectArray[i]->box.x << "|||obj2:"<<j<<" "<<objectArray[j]->box.x << std::endl;
             if((objectArray[i]->layer == objectArray[j]->layer) && (objectArray[i]->subLayer == objectArray[j]->subLayer)){
                 if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
                                             objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
@@ -90,7 +141,10 @@ void StageState::Update(float dt){
 		   i--;
 		}
     }
+}
 
+//Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo
+void StageState::CheckMapActionsPosition(float dt){
     for(int i = mapActionList.mapActions.size() - 1; i >= 0; i--) {
         if(Player::player != nullptr &&
            Collision::IsColliding(Player::player->box,
@@ -101,30 +155,9 @@ void StageState::Update(float dt){
             Player::player->NotifyCollision(&mapActionList.mapActions[i]);
         }
 	}
+}
 
-    //testa se o tempo acabou
-    if(this->clock.GetTime() < 0.5){
-        Pause();
-        this->stateData.playerVictory = false;
-        for(int i = objectArray.size() - 1; i <=0; i++){
-            objectArray[i]->StopSound();
-        }
-        this->stateData.timeleft = 0;
-        this->popRequested = true;
-        Game::GetInstance().Push(new EndState(stateData));
-    }
-
-    if(Camera::pos.x > this->mapLength){
-        Pause();
-        this->stateData.playerVictory = true;
-        for(int i = objectArray.size() - 1; i <=0; i++){
-            objectArray[i]->StopSound();
-        }
-        this->stateData.timeleft = clock.GetTime();
-        this->popRequested =  true;
-        Game::GetInstance().Push(new EndState(stateData));
-    }
-
+void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%2 == 0){
         if(this->spawn == 0 && rand()%100 <= 80){
             if(rand()%3 ==1)
@@ -139,19 +172,24 @@ void StageState::Update(float dt){
     else if(this->spawn != 0){
         this->spawn = 0;
     }
+}
 
-
+void StageState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
     if((1256 * this->lixo) < Camera::pos.x){
-            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
-            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
-            AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
-            this->lixo++;
+        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
+        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
+        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+        this->lixo++;
     }
 
-    this->cooldownTimer.Update(dt);
+    if(rand()%5000 <= 3){  //3%
+        AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
+    }
+}
 
+void StageState::SpawnNewDynamicObstacle(){
     if(this->cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	this->cooldownTimer.Restart();
     	if(rand()%1000 <= 43){
@@ -160,16 +198,11 @@ void StageState::Update(float dt){
     		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
     	}
 
-    	if(rand()%100 <= 3){  //3%
-            AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
-        }
-
-
-    	if(rand()%100 <= 30){ // 50% chance de aparecer
+    	if(rand()%100 <= 30){
         	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
     	}
 
-    	if(rand()%100 <= 5){ // 50% chance de aparecer
+    	if(rand()%100 <= 5){
             AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
         }
 
@@ -189,49 +222,9 @@ void StageState::Update(float dt){
     }
 }
 
-void StageState::Render(){
-	//chamando o render de cada gameObject
-	this->bg.Render(0, 0);
-	Camera::Update(Game::GetInstance().GetDeltaTime());
-	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
-
-	//tileMap.Render(0,0);
-	//removr quando tiver okay!
-
-	for(unsigned int i = 0 ; i < this->mapActionList.mapActions.size(); i++) {
-        this->mapActionList.mapActions[i].Render();
-	}
-
-	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == 3)
+void StageState::RenderSubLayer(int sublayer){
+    for(unsigned int i = 0 ; i < objectArray.size(); i++) {
+		if(objectArray[i]->subLayer == sublayer)
             objectArray[i]->Render();
 	}
-
-	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == 2)
-            objectArray[i]->Render();
-	}
-
-	for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == 1)
-            objectArray[i]->Render();
-	}
-
-	//tileMap.RenderLayer(1,Camera::pos.x,Camera::pos.y);
-	this->clock.Render();
-}
-
-void StageState::Pause(){
-}
-
-void StageState::Resume(){
-}
-
-//Add game object
-void StageState::AddObject(GameObject* ptr){
-	objectArray.emplace_back(ptr);
-}
-
-void StageState::AddObjectStatic(GameObject* ptr){
-	objectArray.emplace(objectArray.begin() ,ptr);
 }
