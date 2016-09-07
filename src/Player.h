@@ -43,14 +43,8 @@ public:
     void StopSound();
 
 	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
-	void Movement();
 
 	void Shoot();
-
-	void RenderHud();
-	void SetSpriteScale();
-	bool IsIndestructible();
-	void ChangeSpriteSheet(string file, int frameCount);
 
 	static Player* player;
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
@@ -62,6 +56,20 @@ public:
 	bool isPlayerColliding();
 	bool isInPosition();
 private:
+	void RenderHud();
+	void SetSpriteScale();
+	bool IsIndestructible();
+	void ChangeSpriteSheet(string file, int frameCount);
+
+    void Movement();
+    //cuida para a sub layer ficar dentro de 1 e 3
+    void CheckSublayerBoudaries();
+    //confere os comandos inseridos pelo usuario
+    void CheckUserSublayerInput();
+    //Confere se o player pode ou nao subir/descer escada
+    void CheckUserLayerInput();
+    void SetPositionInY();
+
     //retorna true se encerrar o powerup
     bool EndPowerupEffect(int maxTime);
 
@@ -75,6 +83,9 @@ private:
 
     //ajusta a posição do player quando troca de andar
     void AdjustGoingUpOrDown();
+
+    void StopIndestructiblePowerup();
+    void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float targetSpeed);
 
 	Sprite sp; // sprite
 	float speed; // velocidade

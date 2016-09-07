@@ -31,7 +31,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
 
-    this->coffee_ammo = 20;
+    this->coffee_ammo = 0;
 	std::cout << "Player Construido" << std::endl;
 
 
@@ -99,13 +99,13 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
-    //cout<< "collision with obstacle1" << endl;
     if(other->Is("menina") || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("parado") || other->Is("menino")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
             this->SetTargetSpeed(0.0);
         } else {
+            //se estiver com um powerup que dá indestrutibilidade, desvia dos obstaculos principais
             if (this->subLayer == 3){
                 this->subLayer--;
             } else if (this->subLayer == 1){
@@ -113,16 +113,9 @@ void Player::NotifyCollision(GameObject* other){
             }
         }
     }
+
     if(other->Is("manifestacao")){
-        if(this->isIndestructible){
-            this->powerUp = NONE;
-            cout << "manifest STOP" << endl;
-            if(this->powerupMusic.IsPlaying())
-                cout << "manifest STOP 222" << endl;
-            this->powerupMusic.Stop();
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            this->isIndestructible = false;
-        }
+        StopIndestructiblePowerup();
 
         this->isColliding = true;
         this->wasColliding = true;
@@ -142,47 +135,21 @@ void Player::NotifyCollision(GameObject* other){
             this->powerupMusic.Open("audio/skate.ogg");
             this->powerupMusic.Play(1);
             this->powerupMusic.SetVolume(180);
-            cout << "PLAY SKATE AUDIO" << endl;
         }
 
-        if(this->powerupMusic.IsPlaying()){
-            cout << "is playing SKATE" << endl;
-        }
-
-        this->SetTargetSpeed(PLAYER_SKATE_SPEED);
-        this->powerUp = SKATE;
-        this->itemEffect.Restart();
+        SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, PLAYER_SKATE_SPEED);
         this->ChangeSpriteSheet("img/playerskating.png", 3);
     }
 
     if(other->Is("GGLIKO")){
-//        this->speed = 3;
-        if(this->isIndestructible){
-            this->powerUp = NONE;
-            this->powerupMusic.Stop();
-            cout << "ggliks stop" << endl;
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            this->isIndestructible = false;
-        }
-        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
-        this->speed = 3.5;
-        this->itemEffect.Restart();
-        this->powerUp = PowerUp::COMIDA;
+        StopIndestructiblePowerup();
+        SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, PLAYER_SLOW_SPEED);
     }
 
     //caca de pombo
     if(other->Is("Caca")){
-        if(this->isIndestructible){
-            this->powerUp = NONE;
-            this->powerupMusic.Stop();
-            cout << "caca stop" << endl;
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            this->isIndestructible = false;
-        }
-//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
-        this->speed = 4;
-        this->itemEffect.Restart();
-        this->powerUp = PowerUp::CACA_DE_POMBO;
+        StopIndestructiblePowerup();
+        SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, PLAYER_SLOW_SPEED);
     }
 
     if(other->Is("Escada")){
@@ -190,21 +157,9 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Agua")){
-//        this->speed = 3;
-        if(this->isIndestructible){
-            this->powerUp = NONE;
-            this->powerupMusic.Stop();
-            cout << "water stop" << endl;
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
-            this->isIndestructible = false;
-        }
-//        this->SetTargetSpeed(PLAYER_SLOW_SPEED);
-        this->speed = 3.5;
-        this->itemEffect.Restart();
+        StopIndestructiblePowerup();
+        SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, PLAYER_SLOW_SPEED);
     }
-        if(this->powerupMusic.IsPlaying()){
-            cout << "is SURVIVED" << endl;
-        }
 }
 
 bool Player::Is(std::string type){
@@ -240,76 +195,6 @@ void Player::StopSound(){
 
 bool Player::IsRightPosition(){
 	return this->isRightPosition;
-}
-
-void Player::Movement(){
-	this->pos = this->box.CenterPos();
-
-	if(this->subLayer > 3)
-		this->subLayer = 3;
-	if(this->subLayer < 1)
-		this->subLayer = 1;
-
-//	if(InputManager::GetInstance().KeyPress(SDLK_a)){
-//		std::cout << "DEBUG\n" << std::endl;
-//		std::cout << "-------------PLayer---------------------"  << std::endl;
-//		std::cout << "Layer: " << layer  << std::endl;
-//		std::cout << "suLayer: " << subLayer << std::endl;
-//		std::cout << "camera: "<< Camera::pos.x <<std::endl;
-//		std::cout << "player: "<<pos.x + sp.GetWidth() <<std::endl;
-//	}
-//
-//	if(InputManager::GetInstance().KeyPress(SDLK_l))
-//		targetSpeed = 7.5;
-//	// exemplo de diminuir velocidade
-//	if(InputManager::GetInstance().KeyPress(SDLK_j))
-//		targetSpeed =4.5;
-//	// exemplo de velocidade voltou ao normal
-//	if(InputManager::GetInstance().KeyPress(SDLK_k))
-//		targetSpeed =5;
-
-
-	//movimento de sublayer
-	if(InputManager::GetInstance().KeyPress(SDLK_w)){
-		if(this->subLayer <= 2)
-			this->subLayer++;
-    }
-
-	if(InputManager::GetInstance().KeyPress(SDLK_s)){
-		if(this->subLayer >= 2)
-			this->subLayer--;
-	}
-
-    if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
-
-    this->box.y = this->box.y - (this->subLayer - 3) * 26;
-
-    if(this->powerUp == PowerUp::NONE){
-
-        if(this->subLayer == SUBLAYER_TOP){
-
-            if(this->layer == LAYER_MIDDLE || this->layer == LAYER_BOTTON)
-                if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && this->isPassingMapObject){
-                    this->layer++;
-                    this->subLayer = SUBLAYER_TOP;
-                    this->movementState = GOING_UP;
-                }
-
-            if(this->layer == LAYER_TOP|| this->layer == LAYER_MIDDLE)
-                if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
-                    this->layer--;
-                    this->subLayer = SUBLAYER_TOP;
-                    this->movementState = GOING_DOWN;
-                }
-        }
-    }
 }
 
 void Player::Shoot(){
@@ -348,6 +233,76 @@ void Player::ChangeSpriteSheet(string file, int frameCount){
     this->sp.Open(file);
     this->sp.SetFrameCount(frameCount);
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
+}
+
+
+void Player::Movement(){
+	this->pos = this->box.CenterPos();
+
+    CheckSublayerBoudaries();
+    CheckUserSublayerInput();
+    SetPositionInY();
+    CheckUserLayerInput();
+}
+
+//cuida para a sub layer ficar dentro de 1 e 3
+void Player::CheckSublayerBoudaries(){
+    if(this->subLayer > 3)
+		this->subLayer = 3;
+	if(this->subLayer < 1)
+		this->subLayer = 1;
+}
+
+//confere os comandos inseridos pelo usuario
+void Player::CheckUserSublayerInput(){
+    //movimento de sublayer
+	if(InputManager::GetInstance().KeyPress(SDLK_w)){
+		if(this->subLayer <= 2)
+			this->subLayer++;
+    }
+
+	if(InputManager::GetInstance().KeyPress(SDLK_s)){
+		if(this->subLayer >= 2)
+			this->subLayer--;
+	}
+}
+
+//Confere se o player pode ou nao subir/descer escada
+void Player::CheckUserLayerInput(){
+    if(this->powerUp != PowerUp::SKATE){
+        //verifica se esta ao lado da escada
+        if(this->subLayer == SUBLAYER_TOP){
+
+            //verifica se nao esta no topo para poder subir
+            if(this->layer == LAYER_MIDDLE || this->layer == LAYER_BOTTON)
+                if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && this->isPassingMapObject){
+                    this->layer++;
+                    this->subLayer = SUBLAYER_TOP;
+                    this->movementState = GOING_UP;
+                }
+
+            //verifica se nao esta em baixo para poder descer
+            if(this->layer == LAYER_TOP|| this->layer == LAYER_MIDDLE)
+                if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
+                    this->layer--;
+                    this->subLayer = SUBLAYER_TOP;
+                    this->movementState = GOING_DOWN;
+                }
+        }
+    }
+}
+
+void Player::SetPositionInY(){
+    if(this->layer == LAYER_TOP)
+        this->box.y = ITEM_HEIGHT_L3;
+
+    if(this->layer == LAYER_MIDDLE)
+        this->box.y = ITEM_HEIGHT_L2;
+
+    if(this->layer == LAYER_BOTTON)
+        this->box.y = ITEM_HEIGHT_L1;
+
+    this->box.y = this->box.y - (this->subLayer - 3) * 26;
 }
 
 //retorna true se encerrar o powerup
@@ -450,6 +405,22 @@ void Player::AdjustGoingUpOrDown(){
             this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
         }
     }
+}
+
+void Player::StopIndestructiblePowerup(){
+    if(this->isIndestructible){
+        this->powerUp = NONE;
+        this->powerupMusic.Stop();
+        this->ChangeSpriteSheet("img/playerRunning.png", 6);
+        this->isIndestructible = false;
+    }
+}
+
+void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float targetSpeed){
+        this->itemEffect.Restart();
+        this->SetTargetSpeed(targetSpeed);
+        this->speed = newSpeed;
+        this->powerUp = powerup;
 }
 
 int Player::getX(){
