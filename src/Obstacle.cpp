@@ -182,7 +182,7 @@ Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::st
 
     if(this->obstacleName == "lixeira"){
         this->subLayer = 3;
-        this->box.y += 15;
+        this->box.y += 20;
         this->captureSound.Open("audio/lixeira.wav");
     }
 
