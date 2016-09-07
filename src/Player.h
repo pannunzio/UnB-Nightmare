@@ -55,6 +55,7 @@ public:
 	int getX();
 	bool isPlayerColliding();
 	bool isInPosition();
+	float getPositionIncrement();
 private:
 	void RenderHud();
 	void SetSpriteScale();
@@ -112,6 +113,8 @@ private:
 	//temporario
 
 	int baseX;
+	float positionIncrement;
+	void setPositionIncrement(float dt);
 };
 
 #endif /* PLAYER_H_ */

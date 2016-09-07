@@ -55,11 +55,9 @@ void Player::Update(float dt){
 
     //colocando na posicao certa o player
 	float diff = this->box.x - Camera::pos.x;
-	//cout << "baseX + DELTA_ACCEPT > diff > baseX - DELTA_ACCEPT " << endl;
-	//cout << baseX + DELTA_ACCEPT << " > " << diff << " > " << baseX - DELTA_ACCEPT << endl;
 	if(diff > baseX - DELTA_ACCEPT &&
         baseX + DELTA_ACCEPT > diff ){
-        cout << "posicao certa!" << endl;
+        //cout << "posicao certa!: " << box.x << endl;
         this->isRightPosition = true;
     }else{
         this->isRightPosition = false;
@@ -89,7 +87,7 @@ void Player::Render(){
 
 bool Player::IsDead(){
 	// camera passou player
-	if(Camera::pos.x + 30 > pos.x + sp.GetWidth()){
+	if(Camera::pos.x + 30 > box.x + sp.GetWidth()){
 		this->player = nullptr;
 		cout<<"TESTE"<<endl;
 		return true;
@@ -370,12 +368,9 @@ void Player::AdjustSpeed(float dt){
 void Player::SetPositionToMovementState(float dt){
 
     //correndo
+    setPositionIncrement(dt);
     if(this->movementState == MovementState::RUNNING){
-        this->box.x += this->speed * dt * 100;
-        float diff = this->box.x - Camera::pos.x;
-        if(this->isColliding == false && diff < baseX){ //corrige a posição do player para a posicao inicial após colisao
-                this->box.x += 100*CORRECTION_POSITION_SPEED*dt;
-        }
+        this->box.x += this->speed*getPositionIncrement();
     }
 
     if(this->movementState == MovementState::GOING_DOWN)
@@ -424,11 +419,12 @@ void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float target
 }
 
 int Player::getX(){
-    return pos.x;
+    return box.x;
 }
 
 int Player::getBaseX(){
-    return baseX;
+    if(powerUp == SKATE) return baseX + 100;
+    else return baseX;
 }
 
 bool Player::isPlayerColliding(){
@@ -439,4 +435,12 @@ bool Player::isPlayerColliding(){
 bool Player::isInPosition(){
     if(isRightPosition) return true;
     else return false;
+}
+
+float Player::getPositionIncrement(){
+    return positionIncrement;
+}
+
+void Player::setPositionIncrement(float dt){
+    positionIncrement = 100 * dt;
 }

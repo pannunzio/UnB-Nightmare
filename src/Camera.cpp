@@ -21,15 +21,18 @@ void Camera::Update(float dt){
         if(Player::player){
             //cout << "incremento: " << (speed.x*dt*100) << endl;
             float diff = Player::player->getX() - pos.x;
+            //cout << "diff em camera: " << diff << endl;
+            //cout << "posPlayer: " << Player::player->getX() << " ; posCamera: " << pos.x << endl;
             if(Player::player->isInPosition()){
-                pos.x += (speed.x*dt*100);
-            }else if(diff < Player::player->getBaseX()){
-                pos.x += (speed.x*dt*100)/3;
-            }else if(diff > Player::player->getBaseX()){
-                pos.x += (speed.x*dt*100)*5/2;
+                pos.x += speed.x*Player::player->getPositionIncrement();
+            }else if(diff < Player::player->getBaseX() - DELTA_ACCEPT){
+                pos.x += (speed.x*dt*100)/2;
+            }else if(diff > Player::player->getBaseX() + DELTA_ACCEPT){
+                pos.x += (speed.x*dt*100)*3/2;
             }
             layer = Player::player->layer;
         }
+        //cout << "depois de atualizar em camera: " << pos.x << endl << endl;
 
 		// mudança de local
 		// camera
