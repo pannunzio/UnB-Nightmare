@@ -53,19 +53,16 @@ void Player::Update(float dt){
 	Movement(); // faz os movimentos do input
     CheckEndPowerupEffects(dt);
 
-    cout << "player box relativo: " << box.x - Camera::pos.x << endl;
-    cout << "player.x: " << box.x << endl;
-    cout << "Camera::pos.x: " << Camera::pos.x << endl;
-    cout << "basex: " << baseX << endl;
-	//colocando na posicao certa o player
+    //colocando na posicao certa o player
 	float diff = this->box.x - Camera::pos.x;
-	if(diff > baseX + DELTA_ACCEPT &&
-       baseX - DELTA_ACCEPT > diff ){
-       cout << "player alinhado!" << endl;
-       this->isRightPosition = true;
-       box.x += abs(diff - baseX);//alinha para o valor correto o player
+	//cout << "baseX + DELTA_ACCEPT > diff > baseX - DELTA_ACCEPT " << endl;
+	//cout << baseX + DELTA_ACCEPT << " > " << diff << " > " << baseX - DELTA_ACCEPT << endl;
+	if(diff > baseX - DELTA_ACCEPT &&
+        baseX + DELTA_ACCEPT > diff ){
+        cout << "posicao certa!" << endl;
+        this->isRightPosition = true;
     }else{
-		this->isRightPosition = false;
+        this->isRightPosition = false;
     }
 
     //Volta a velocidade para o padrão após colisão
@@ -156,7 +153,6 @@ void Player::NotifyCollision(GameObject* other){
         this->powerUp = SKATE;
         this->itemEffect.Restart();
         this->ChangeSpriteSheet("img/playerskating.png", 3);
-
     }
 
     if(other->Is("GGLIKO")){
@@ -216,7 +212,7 @@ bool Player::Is(std::string type){
 }
 
 bool Player::IsTargetSpeed(float targetSpeed){
-	if(targetSpeed <=0) // se algo a levar para tras
+	if(targetSpeed <0) // se algo a levar para tras
 		this->speed = targetSpeed;
 	if(abs(this->speed - targetSpeed) <= 0.005)
 		return true;
@@ -421,9 +417,9 @@ void Player::SetPositionToMovementState(float dt){
     //correndo
     if(this->movementState == MovementState::RUNNING){
         this->box.x += this->speed * dt * 100;
-
-        if(this->isColliding == false && (this->box.x - Camera::pos.x) < START_POSITION_X){ //corrige a posição do player para a posicao inicial após colisao
-                this->box.x += CORRECTION_POSITION_SPEED;
+        float diff = this->box.x - Camera::pos.x;
+        if(this->isColliding == false && diff < baseX){ //corrige a posição do player para a posicao inicial após colisao
+                this->box.x += 100*CORRECTION_POSITION_SPEED*dt;
         }
     }
 
@@ -462,4 +458,14 @@ int Player::getX(){
 
 int Player::getBaseX(){
     return baseX;
+}
+
+bool Player::isPlayerColliding(){
+    if(isColliding) return true;
+    else return false;
+}
+
+bool Player::isInPosition(){
+    if(isRightPosition) return true;
+    else return false;
 }

@@ -64,10 +64,10 @@ using std::endl;
 
 #define START_POSITION_X 200
 #define START_POSITION_Y 550
-#define CORRECTION_POSITION_SPEED 0.5
+#define CORRECTION_POSITION_SPEED 0.2
 
 
-#define DELTA_ACCEPT 20
+#define DELTA_ACCEPT 5
 
 
 //acrescentar mais aa medida q for usando

@@ -59,6 +59,8 @@ public:
     //temporario
     int getBaseX();
 	int getX();
+	bool isPlayerColliding();
+	bool isInPosition();
 private:
     //retorna true se encerrar o powerup
     bool EndPowerupEffect(int maxTime);
