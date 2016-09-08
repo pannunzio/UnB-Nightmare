@@ -58,9 +58,14 @@ bool CacaDePombo::Is(std::string type){
     return (type == "Caca");
 }
 
-void CacaDePombo::SetSubLayer(int subLayer){
-    this->subLayer = subLayer;
+int CacaDePombo::GetLayer(){
+    return this->layer;
 }
 
-void CacaDePombo::StopSound(){
+int CacaDePombo::GetSublayer(){
+    return this->subLayer;
+}
+
+void CacaDePombo::SetSubLayer(int subLayer){
+    this->subLayer = subLayer;
 }

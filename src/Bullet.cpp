@@ -62,10 +62,17 @@ bool Bullet::Is(std::string type){
 	return(type == this->type);
 }
 
+
+int Bullet::GetLayer(){
+    return this->layer;
+}
+
+int Bullet::GetSublayer(){
+    return this->subLayer;
+}
+
+
 void Bullet::SetLayers(int layer, int subLayer){
     this->layer = layer;
     this->subLayer = subLayer;
-}
-
-void Bullet::StopSound(){
 }

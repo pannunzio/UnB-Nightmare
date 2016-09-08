@@ -17,8 +17,8 @@ public:
 	virtual void NotifyCollision(GameObject* other) = 0;
 	virtual bool Is(std::string type) = 0;
 
-	virtual void StopSound() = 0;
-
+	virtual int GetLayer() = 0;
+	virtual int GetSublayer() = 0;
     // 1 = subsolo , 2 = terreo , 3 = mesaniggno
 	int layer;
 	 // 0 = nao colide com nada, 1 = baixo, 2 = meio ,3 = topo, 4 = todos

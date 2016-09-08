@@ -15,8 +15,8 @@ public:
 	bool IsDead();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject* other);
-
-	void StopSound();
+    int GetLayer();
+	int GetSublayer();
 
     Rect box;
 

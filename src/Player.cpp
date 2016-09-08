@@ -32,7 +32,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     this->isPlayingMusic = false;
 
     this->coffee_ammo = 0;
-	std::cout << "Player Construido" << std::endl;
+//	std::cout << "Player Construido" << std::endl;
 
 
 	//TESTES
@@ -89,7 +89,7 @@ bool Player::IsDead(){
 	// camera passou player
 	if(Camera::pos.x + 30 > box.x + sp.GetWidth()){
 		this->player = nullptr;
-		cout<<"TESTE"<<endl;
+//		cout<<"TESTE"<<endl;
 		return true;
 	}
 	return false; // retornar true se tiver camera passou, ou se o tempo acabou
@@ -112,7 +112,7 @@ void Player::NotifyCollision(GameObject* other){
         }
     }
 
-    if(other->Is("manifestacao")){
+    if(other->Is("Manifestacao")){
         StopIndestructiblePowerup();
 
         this->isColliding = true;
@@ -164,6 +164,14 @@ bool Player::Is(std::string type){
 	return (type == "Player");
 }
 
+int Player::GetLayer(){
+    return this->layer;
+}
+
+int Player::GetSublayer(){
+    return this->subLayer;
+}
+
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed <0) // se algo a levar para tras
 		this->speed = targetSpeed;
@@ -186,9 +194,6 @@ float Player::GetAcceleration(){
 
 void Player::SetAcceleration(float acceleration){
 	this->acceleration = acceleration;
-}
-
-void Player::StopSound(){
 }
 
 bool Player::IsRightPosition(){

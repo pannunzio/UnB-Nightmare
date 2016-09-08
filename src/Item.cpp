@@ -9,7 +9,7 @@ Item::Item(int layer, int subLayer, std::string item) {
     this->box = Rect(Player::player->box.x + 1200, 0, bg.GetWidth(), bg.GetHeight());
     this->itemType = item;
     this->isDead = false;
-    this->isSoundHappening = false;
+//    this->isSoundHappening = false;
     this->captureSound = Sound();
 
 	if(this->layer == LAYER_TOP)
@@ -37,7 +37,7 @@ Item::Item(int layer, int subLayer, std::string item) {
 }
 
 Item::~Item(){
-    cout<<"ITEM DESTRUIDO"<<endl;
+//    cout<<"ITEM DESTRUIDO"<<endl;
 }
 
 void Item::Update(float dt){
@@ -73,6 +73,10 @@ bool Item::Is(std::string type){
 void Item::Use(){
 }
 
-void Item::StopSound(){
-    this->captureSound.Stop();
+int Item::GetLayer(){
+    return this->layer;
+}
+
+int Item::GetSublayer(){
+    return this->subLayer;
 }

@@ -31,6 +31,8 @@ public:
 	bool IsDead();
 	bool Is(std::string type);
 	void NotifyCollision(GameObject* other);
+	int GetLayer();
+	int GetSublayer();
 
     Player& GetInstance();
 
@@ -39,8 +41,6 @@ public:
     float GetSpeed();
 	float GetAcceleration();
 	void SetAcceleration(float acceleration);
-
-    void StopSound();
 
 	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 

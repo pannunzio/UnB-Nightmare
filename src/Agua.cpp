@@ -77,5 +77,10 @@ bool Agua::Is(std::string type){
 	return (type == "Agua");
 }
 
-void Agua::StopSound(){
+int Agua::GetLayer(){
+    return this->layer;
+}
+
+int Agua::GetSublayer(){
+    return this->subLayer;
 }

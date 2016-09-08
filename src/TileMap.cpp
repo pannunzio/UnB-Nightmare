@@ -14,16 +14,16 @@ TileMap::~TileMap() {
 }
 
 void TileMap::PrintMap(){
-	for(int k = 0; k < this->mapDepth; k++){
-		for(int j = 0; j < this->mapHeight; j++){
-			for(int i =0 ; i < this->mapWidth; i++){
-				if(At(i, j, k) < 10)
-					std::cout << "0";
-				std::cout << At(i,j,k) << ",";
-			}
-			std::cout << std::endl;
-		}
-	}
+//	for(int k = 0; k < this->mapDepth; k++){
+//		for(int j = 0; j < this->mapHeight; j++){
+//			for(int i =0 ; i < this->mapWidth; i++){
+//				if(At(i, j, k) < 10)
+//					std::cout << "0";
+//				std::cout << At(i,j,k) << ",";
+//			}
+//			std::cout << std::endl;
+//		}
+//	}
 }
 
 void TileMap::Render(int cameraX, int cameraY){

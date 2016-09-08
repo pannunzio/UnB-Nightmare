@@ -14,6 +14,7 @@
 #include "Pombo.h"
 #include "Agua.h"
 #include "MapActionList.h"
+#include "Manifestacao.h"
 
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
@@ -128,7 +129,7 @@ void StageState::UpdateObjectArray(float dt){
     	objectArray[i]->Update(dt);
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
-            if((objectArray[i]->layer == objectArray[j]->layer) && (objectArray[i]->subLayer == objectArray[j]->subLayer)){
+            if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
                 if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
                                             objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
                   objectArray[j]->NotifyCollision(objectArray[i].get());
@@ -178,14 +179,14 @@ void StageState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
     if((1256 * this->lixo) < Camera::pos.x){
-        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
-        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
-        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
+//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
+//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
         this->lixo++;
     }
 
     if(rand()%5000 <= 3){  //3%
-        AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
+//        AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
     }
 }
 
@@ -193,30 +194,27 @@ void StageState::SpawnNewDynamicObstacle(){
     if(this->cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	this->cooldownTimer.Restart();
     	if(rand()%1000 <= 43){
-    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
-    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
-    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
+//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
+//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
+//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
     	}
 
     	if(rand()%100 <= 30){
-        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
+//        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
     	}
 
     	if(rand()%100 <= 5){
-            AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
+//            AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
         }
 
     	if(rand()%100 <=5){
     		// manifestacao
-    		cout << "create manifest" << endl;
-    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_TOP));
-    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_MIDDLE));
-    		AddObject(new Obstacle(2, true,"manifestacao", "img/manifest-block.png", 1,1,LAYER_MIDDLE, SUBLAYER_BOTTON));
+    		AddObject(new Manifestacao());
     	}
 
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 5){
-                AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
+//                AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }
@@ -224,7 +222,7 @@ void StageState::SpawnNewDynamicObstacle(){
 
 void StageState::RenderSubLayer(int sublayer){
     for(unsigned int i = 0 ; i < objectArray.size(); i++) {
-		if(objectArray[i]->subLayer == sublayer)
+		if(objectArray[i]->GetSublayer() == sublayer)
             objectArray[i]->Render();
 	}
 }

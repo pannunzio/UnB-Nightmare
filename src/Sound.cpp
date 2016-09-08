@@ -67,7 +67,7 @@ void Sound::SetChannel(int channel){
 }
 
 void Sound::PlayArbitraryFadeIn(int times, int numSeconds){
-    std::cout << "arb fadein" << std::endl;
+//    std::cout << "arb fadein" << std::endl;
     if(this->channel != 0 && !this->IsPlaying(this->channel))
        Mix_FadeInChannelTimed(this->channel, this->sound, times, 1000 * numSeconds, 10000);
     else

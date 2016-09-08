@@ -31,7 +31,7 @@ bool MapActions::IsDead(){
 
 void MapActions::NotifyCollision(GameObject* other){
     if(other->Is("Player")){
-        cout << "map action colliding with player" << endl;
+//        cout << "map action colliding with player" << endl;
     }
 }
 
@@ -39,5 +39,11 @@ bool MapActions::Is(std::string type){
     return (type == "Escada");
 }
 
-void MapActions::StopSound(){
+
+int MapActions::GetLayer(){
+    return this->layer;
+}
+
+int MapActions::GetSublayer(){
+    return this->subLayer;
 }

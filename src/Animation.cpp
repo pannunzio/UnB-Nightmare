@@ -33,3 +33,11 @@ void Animation::NotifyCollision(GameObject* other){
 bool Animation::Is(std::string type){
 	return (type == "Animation");
 }
+
+int Animation::GetLayer(){
+    return this->layer;
+}
+
+int Animation::GetSublayer(){
+    return this->subLayer;
+}

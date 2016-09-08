@@ -18,10 +18,12 @@ public:
     void NotifyCollision(GameObject* other);
     bool Is(std::string type);
 
+    int GetLayer();
+	int GetSublayer();
+
     void Use();
     //void SpawnRandom(GameObject* target, ItemType itemType);
     //void SpawnRandom(GameObject* target);
-    void StopSound();
 
 protected:
 
@@ -32,7 +34,7 @@ private:
     bool isDead;
 
     Sound captureSound;
-    bool isSoundHappening;
+//    bool isSoundHappening;
 };
 
 #endif

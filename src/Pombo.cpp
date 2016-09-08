@@ -73,12 +73,19 @@ bool Pombo::Is(std::string type){
     return (type == "Pombo");
 }
 
+
+int Pombo::GetLayer(){
+    return this->layer;
+}
+
+int Pombo::GetSublayer(){
+    return this->subLayer;
+}
+
+
 void Pombo::FazCaca(){
     Vec2 shootPos = sBox.CenterPos();
     CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
     caquinha->SetSubLayer(subLayer);
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
-}
-
-void Pombo::StopSound(){
 }
