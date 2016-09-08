@@ -97,7 +97,7 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
-    if(other->Is("menina") || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("parado") || other->Is("menino")){
+    if(other->Is("Pessoa")){ // || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("parado") || other->Is("menino")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;

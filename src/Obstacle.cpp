@@ -3,16 +3,15 @@
 #include "Defines.h"
 #include "Camera.h"
 
-//#include "StageState.h"
-//#include "Game.h"
-//#include "Player.h"
+void Obstacle::Update(float dt){
+	this->sp.Update(dt);
+	this->box.x += this->speed * dt * 100;
 
-//Obstacle::Obstacle(){
-//    this->isDead = false;
-//}
-//
-//Obstacle::~Obstacle(){
-//}
+    if(this->box.x - Camera::pos.x + this->sp.GetWidth()< 0){
+		this->isDead = true;
+        this->spriteSound.Stop();
+    }
+}
 
 bool Obstacle::IsDead(){
     return this->isDead;
@@ -181,21 +180,7 @@ void Obstacle::ChangeSpritesheet(string fileName, int frameCount, float frameTim
 //    if(this->obstacleName == "cano"){
 //    	this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 250);
 //
-//    } else if(this->obstacleName == "menino"){
-//
-//        if(this->speed >= 0)
-//    	 	this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 30);
-//		else
-//			this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 30);
-//
-//    } else if(this->obstacleName == "parado"){
-//
-//        if(this->speed >= 0)
-//    	 	this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 20);
-//		else
-//			this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 20);
 //    }
-//
 //    else {
 //    	if(this->speed >= 0)
 //    		this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);

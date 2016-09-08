@@ -54,6 +54,7 @@ public:
 //	Obstacle();
 //	~Obstacle();
 
+    void Update(float dt);
 	bool IsDead();
     void OpenSound(string fileName);
     void ChangeSpritesheet(string fileName, int frameCount, float frameTime);

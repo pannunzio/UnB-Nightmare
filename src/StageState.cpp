@@ -15,6 +15,7 @@
 #include "Agua.h"
 #include "MapActionList.h"
 #include "Manifestacao.h"
+#include "Pessoa.h"
 
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
@@ -87,6 +88,13 @@ void StageState::AddObject(GameObject* ptr){
 void StageState::AddObjectStatic(GameObject* ptr){
 	objectArray.emplace(objectArray.begin() ,ptr);
 }
+
+/*
+    FUNCOES AUXILIARES AO JOGO !!!
+
+    |  |  |
+    V  V  V
+*/
 
 //verifica se o jogo acabou
 void StageState::CheckEndOfGame(){
@@ -200,7 +208,7 @@ void StageState::SpawnNewDynamicObstacle(){
     	}
 
     	if(rand()%100 <= 30){
-//        	AddObject(new Obstacle(rand()%3 - rand()%3, true,"menina", "img/menina.png", 6, 0.2));
+            AddObject(new Pessoa());
     	}
 
     	if(rand()%100 <= 5){
