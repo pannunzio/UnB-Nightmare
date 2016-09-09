@@ -221,11 +221,11 @@ void Player::RenderHud(){
 
 void Player::SetSpriteScale(){
     if(this->subLayer == 3)
-    	this->sp.SetScale(0.95);
+    	this->sp.SetScale(0.92);
     if(this->subLayer == 2)
         this->sp.SetScale(1);
     if(this->subLayer == 1)
-        this->sp.SetScale(1.05);
+        this->sp.SetScale(1.08);
 }
 
 bool Player::IsIndestructible(){
@@ -297,7 +297,7 @@ void Player::CheckUserLayerInput(){
 
 void Player::SetPositionInY(){
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = ITEM_HEIGHT_L3 + 2;
 
     if(this->layer == LAYER_MIDDLE)
         this->box.y = ITEM_HEIGHT_L2;
@@ -305,7 +305,7 @@ void Player::SetPositionInY(){
     if(this->layer == LAYER_BOTTON)
         this->box.y = ITEM_HEIGHT_L1;
 
-    this->box.y = this->box.y - (this->subLayer - 3) * 26;
+    this->box.y = this->box.y - (this->subLayer - 3) * 24;
 }
 
 //retorna true se encerrar o powerup

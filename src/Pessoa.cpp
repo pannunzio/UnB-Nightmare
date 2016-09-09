@@ -19,19 +19,19 @@ Pessoa::Pessoa(){
 	this->box.x = Player::player->box.x + 1200;
 
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = ITEM_HEIGHT_L3 + 3;
 
     if(this->layer == LAYER_MIDDLE)
-        box.y = ITEM_HEIGHT_L2;
+        this->box.y = ITEM_HEIGHT_L2 + 10;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = ITEM_HEIGHT_L1 + 5;
 
-    this->box.y -= (this->subLayer - 3) * 26;
+    this->box.y -= (this->subLayer - 3) * 25;
 }
 
 Pessoa::~Pessoa(){
-
+    spriteSound.Stop();
 }
 
 void Pessoa::Render(){

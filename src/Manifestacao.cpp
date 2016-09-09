@@ -23,7 +23,7 @@ Manifestacao::Manifestacao(){
 }
 
 Manifestacao::~Manifestacao(){
-
+    spriteSound.Stop(2);
 }
 
 void Manifestacao::Render(){
@@ -51,5 +51,5 @@ int Manifestacao::GetSublayer(){
     if(Player::player != nullptr)
         return Player::player->GetSublayer();
     else
-        return this->subLayer;
+        return SUBLAYER_BOTTON;
 }
