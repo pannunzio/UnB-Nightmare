@@ -51,8 +51,6 @@ using std::string;
 
 class Obstacle : public GameObject{
 public:
-//	Obstacle();
-//	~Obstacle();
 
     void Update(float dt);
 	bool IsDead();
