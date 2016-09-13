@@ -115,6 +115,7 @@ private:
 	int baseX;
 	float positionIncrement;
 	void setPositionIncrement(float dt);
+	void checkPosition(float diff);
 };
 
 #endif /* PLAYER_H_ */

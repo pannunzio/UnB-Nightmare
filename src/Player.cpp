@@ -54,15 +54,7 @@ void Player::Update(float dt){
     CheckEndPowerupEffects(dt);
 
     //colocando na posicao certa o player
-	float diff = this->box.x - Camera::pos.x;
-	if(diff > baseX - DELTA_ACCEPT &&
-        baseX + DELTA_ACCEPT > diff ){
-        //cout << "posicao certa!: " << box.x << endl;
-        this->isRightPosition = true;
-    }else{
-        this->isRightPosition = false;
-    }
-
+    checkPosition(this->box.x - Camera::pos.x);
     //Volta a velocidade para o padrão após colisão
     CheckCollisionToResetSpeed();
     AdjustSpeed(dt);
@@ -448,4 +440,15 @@ float Player::getPositionIncrement(){
 
 void Player::setPositionIncrement(float dt){
     positionIncrement = 100 * dt;
+}
+
+void Player::checkPosition(float diff){
+	if(diff > baseX - DELTA_ACCEPT &&
+        baseX + DELTA_ACCEPT > diff ){
+        //cout << "posicao certa!: " << box.x << endl;
+        this->isRightPosition = true;
+    }else{
+        this->isRightPosition = false;
+    }
+
 }
