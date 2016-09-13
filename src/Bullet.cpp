@@ -50,12 +50,10 @@ bool Bullet::IsDead(){
 }
 
 void Bullet::NotifyCollision(GameObject* other){
-	if(other->Is("menina")){
+	if(other->Is("Zumbi") || other->Is("Pessoa")){
 		distanceLeft = 0;
 		std::cout << "colidiu com a menina" << std::endl;
 	}
-
-
 }
 
 bool Bullet::Is(std::string type){
