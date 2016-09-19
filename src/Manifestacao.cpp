@@ -27,7 +27,6 @@ Manifestacao::~Manifestacao(){
 }
 
 void Manifestacao::Render(){
-    cout<< "manifest render" << endl;
     this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 120);
 }
 

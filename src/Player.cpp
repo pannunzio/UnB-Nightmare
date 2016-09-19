@@ -89,7 +89,7 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
-    if(other->Is("Pessoa")){ // || other->Is("meninaZumbi") || other->Is("lixeira") || other->Is("parado") || other->Is("menino")){
+    if(other->Is("Pessoa") || other ->Is("PessoaZumbi") || other->Is("Lixeira")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
@@ -165,7 +165,7 @@ int Player::GetSublayer(){
 }
 
 bool Player::IsTargetSpeed(float targetSpeed){
-	if(targetSpeed <0) // se algo a levar para tras
+	if(targetSpeed < 0) // se algo a levar para tras
 		this->speed = targetSpeed;
 	if(abs(this->speed - targetSpeed) <= 0.005)
 		return true;

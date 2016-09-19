@@ -16,6 +16,8 @@
 #include "MapActionList.h"
 #include "Manifestacao.h"
 #include "Pessoa.h"
+#include "PessoaZumbi.h"
+#include "Lixeira.h"
 
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
@@ -138,9 +140,11 @@ void StageState::UpdateObjectArray(float dt){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
-                if(j!=i && (Collision::IsColliding(objectArray[i]->box,objectArray[j]->box,
-                                            objectArray[i]->rotation*M_PI/180,objectArray[j]->rotation*M_PI/180))){
-                  objectArray[j]->NotifyCollision(objectArray[i].get());
+                if(j!=i && (Collision::IsColliding( objectArray[i]->box,
+                                                    objectArray[j]->box,
+                                                    objectArray[i]->rotation*M_PI/180,
+                                                    objectArray[j]->rotation*M_PI/180))){
+                    objectArray[j]->NotifyCollision(objectArray[i].get());
                 }
             }
 		}
@@ -187,9 +191,9 @@ void StageState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
     if((1256 * this->lixo) < Camera::pos.x){
-//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_TOP));
-//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_MIDDLE));
-//        AddObjectStatic(new Obstacle(0, true,"lixeira", "img/lixeira.png", 1, 1, LAYER_BOTTON));
+        AddObjectStatic(new Lixeira(LAYER_TOP));
+        AddObjectStatic(new Lixeira(LAYER_MIDDLE));
+        AddObjectStatic(new Lixeira(LAYER_BOTTON));
         this->lixo++;
     }
 
@@ -208,7 +212,10 @@ void StageState::SpawnNewDynamicObstacle(){
     	}
 
     	if(rand()%100 <= 30){
-            AddObject(new Pessoa());
+            if(rand()%100 + 1 > 50 )
+                AddObject(new Pessoa());
+            else
+                AddObject(new PessoaZumbi());
     	}
 
     	if(rand()%100 <= 5){
