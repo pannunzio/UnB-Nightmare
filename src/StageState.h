@@ -15,6 +15,7 @@
 #include "TileSet.h"
 #include "MapActionList.h"
 #include "Animation.h"
+#include "Sound.h"
 
 using std::string;
 using std::cout;
@@ -59,6 +60,8 @@ private:
 	int spawn;
 	int lixo;
 	int mapLength;
+
+	Sound music;
 };
 
 #endif

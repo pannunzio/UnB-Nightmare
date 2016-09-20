@@ -30,6 +30,10 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, "img/tileset.png");
 	this->tileMap.SetTileSet(tileSet);
 
+    this->music = Sound(-1);
+    this->music.Open("audio/tematerreo_main.ogg");
+    this->music.Play(10);
+
 	AddObject(new Player(200, 550));
 
     this->spawn = 0;
@@ -38,13 +42,13 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.
 
 	//esse 200 e o player position
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
-	//objetors
 }
 
 StageState::~StageState(){
 	// limpando o vector
 	this->mapActionList.mapActions.clear();
 	objectArray.clear();
+	this->music.Stop();
 	Player::player = nullptr;
 	cout << "StageState destroyed" << endl;
 }

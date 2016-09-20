@@ -13,20 +13,24 @@ EndState::EndState(StateData stateData){
 	this->option1->SetPos(500,350,true,false);
 	this->option2->SetPos(500,400,true,false);
 
-    this->sound.SetVolume(0);
+    this->sound = Sound(-1);
 
 	if(stateData.playerVictory){
         this->bg = Sprite("img/cerrado.jpg");
+        this->sound.Open("audio/tematerreo_vitoria.ogg");
 	}
 
 	else {
         this->derrota = Sprite("img/derrota.png", 12,0.2);
         this->bg = Sprite("img/cerrado.jpg");
+        this->sound.Open("audio/tematerreo_desespero.ogg");
 	}
+
+	this->sound.Play(-1);
 }
 
 EndState::~EndState(){
-
+    this->sound.Stop();
 }
 
 void EndState::Update(float dt){

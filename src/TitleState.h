@@ -5,6 +5,7 @@
 #include "Text.h"
 #include "Timer.h"
 #include "Animation.h"
+#include "Sound.h"
 
 class TitleState : public State{
 public:
@@ -21,6 +22,8 @@ private:
 	Sprite cutscene;
 
 	Timer timer;
+
+    Sound music;
 
 	int option;
 	enum{

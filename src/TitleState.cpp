@@ -15,10 +15,16 @@ TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png"
 
 	this->option1->SetPos(500,350,true,false);
 	this->option2->SetPos(500,400,true,false);
+
+    this->music = Sound(-1);
+    this->music.Open("audio/tematerreo_main.ogg");
+    this->music.Open("audio/menu.ogg");
+    this->music.Play(-1);
 }
 
 TitleState::~TitleState(){
-
+    std::cout << "titlestate destroyed"<< endl;
+    this->music.Stop();
 }
 
 void TitleState::Update(float dt){
@@ -26,6 +32,7 @@ void TitleState::Update(float dt){
     this->timer.Update(dt);
 
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
+        this->popRequested = true;
 		this->quitRequested = true;
 	}
 
@@ -53,6 +60,7 @@ void TitleState::Update(float dt){
             this->option2->SetStyle(BLENDED);
 
             if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+                this->popRequested = true;
                 Game::GetInstance().Push(new StageState());
             }
             break;
@@ -63,6 +71,7 @@ void TitleState::Update(float dt){
             this->option1->SetStyle(BLENDED);
 
             if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+                this->popRequested = true;
                 this->quitRequested = true;
             }
             break;
