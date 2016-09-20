@@ -3,76 +3,55 @@
 #include "Game.h"
 #include "CacaDePombo.h"
 #include "Camera.h"
+#include "Obstacle.h"
 
-Pombo::Pombo(float x, float y, int subLayer): pombo("img/pombo.png", 4, 0.09), sombra("img/sombraPombo.png"), soundPombo("audio/pombo.wav"){
+Pombo::Pombo(){
+    this->sp = Sprite("img/pombo.png", 4, 0.09);
     this->layer = LAYER_TOP;
-    this->subLayer = subLayer;
+    this->subLayer = 3;
     this->isDead = false;
     this->speed = -3;
 
-	if(this->speed != 0)
-		this->speed -= rand()%3;
+//	if(this->speed != 0)
+//		this->speed -= rand()%3;
 
     this->fazendoCaca = false;
-    this->sBox.Centralize(x, y - 100, this->pombo.GetWidth(), this->pombo.GetHeight());
+    this->box.Centralize(Player::player->box.x + 1000, ITEM_HEIGHT_L3 - 100, this->sp.GetWidth(), this->sp.GetHeight());
 
-    this->box.x = this->sBox.x;
-
-    if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
-
-    this->box.y -= (this->subLayer - 3) * 26;
-    this->soundPombo.Play(1);
+    OpenSound("audio/pombo.wav");
+    this->spriteSound.Play(1);
 }
 
 Pombo::~Pombo(){
-
+    this->spriteSound.Stop();
 }
 
 void Pombo::Update(float dt){
-    this->pombo.Update(dt);
-    this->sombra.Update(dt);
+    this->sp.Update(dt);
 
 	this->box.x += this->speed * dt * 100;
-    this->sBox.x += this->speed * dt * 100;
 
-    if(!this->fazendoCaca && this->sBox.x - Player::player->box.x < 150){
+    if(!this->fazendoCaca && this->box.x - Player::player->box.x < 120){
+        cout << "FAENDO CAQUINHA!!" << endl;
         this->FazCaca();
         this->fazendoCaca = true;
     }
 
-    if(this->sBox.x - Camera::pos.x + this->pombo.GetWidth()< 0)
+    if(this->box.x - Camera::pos.x + this->sp.GetWidth() < 0)
 		this->isDead = true;
 }
 
 void Pombo::Render(){
-    this->pombo.RenderFlipped(this->sBox.x - Camera::pos.x, this->sBox.y - Camera::pos.y);
-    this->sombra.RenderFlipped(this->box.x - Camera::pos.x, this->box.y + 100 - Camera::pos.y);
-}
-
-bool Pombo::IsDead(){
-    if(this->isDead){
-        this->soundPombo.Stop(2);
-
-        return true;
-    }
-    return false;
+    this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);
 }
 
 void Pombo::NotifyCollision(GameObject* other){
-
+    //pombo não collide com nada
 }
 
 bool Pombo::Is(std::string type){
     return (type == "Pombo");
 }
-
 
 int Pombo::GetLayer(){
     return this->layer;
@@ -82,10 +61,9 @@ int Pombo::GetSublayer(){
     return this->subLayer;
 }
 
-
 void Pombo::FazCaca(){
-    Vec2 shootPos = sBox.CenterPos();
+    Vec2 shootPos = box.CenterPos();
     CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
-    caquinha->SetSubLayer(subLayer);
+    caquinha->SetSubLayer(Player::player->GetSublayer());
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }

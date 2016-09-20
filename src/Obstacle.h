@@ -15,6 +15,9 @@ public:
     void OpenSound(string fileName);
     void ChangeSpritesheet(string fileName, int frameCount, float frameTime);
 
+    int layer;
+    int subLayer;
+
     Sprite sp;
 	bool canBlock;
 	int speed;

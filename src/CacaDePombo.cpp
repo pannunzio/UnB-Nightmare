@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Defines.h"
 #include "Camera.h"
+#include "Player.h"
 #include <math.h>
 
 CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s):
@@ -50,7 +51,8 @@ bool CacaDePombo::IsDead(){
 
 void CacaDePombo::NotifyCollision(GameObject* other){
     if (other->Is("Player")){
-        this->distanceLimit = 160;
+        cout << "atingiu player" << endl;
+        this->distanceLeft = 0;
         this->colisaoPlayer.PlayArbitraryFadeIn(1, 2);
     }
 }
@@ -63,7 +65,7 @@ int CacaDePombo::GetLayer(){
 }
 
 int CacaDePombo::GetSublayer(){
-    return this->subLayer;
+    return Player::player->GetSublayer();
 }
 
 void CacaDePombo::SetSubLayer(int subLayer){

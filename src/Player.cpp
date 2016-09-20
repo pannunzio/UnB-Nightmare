@@ -89,7 +89,7 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
-    if(other->Is("Pessoa") || other ->Is("PessoaZumbi") || other->Is("Lixeira")){
+    if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
@@ -138,6 +138,7 @@ void Player::NotifyCollision(GameObject* other){
 
     //caca de pombo
     if(other->Is("Caca")){
+        cout << "opa, caca!" << endl;
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, PLAYER_SLOW_SPEED);
     }

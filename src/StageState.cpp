@@ -229,6 +229,7 @@ void StageState::SpawnNewDynamicObstacle(){
 
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 5){
+                AddObjectStatic(new Pombo());
 //                AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}

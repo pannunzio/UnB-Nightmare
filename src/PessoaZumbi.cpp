@@ -5,7 +5,7 @@
 
 PessoaZumbi::PessoaZumbi(){
     GetSprite();
-	this->speed = 2.5 + rand()%10/10;
+	this->speed = 1;
 	this->canBlock = true;
 	this->isDead = false;
 	this->layer = rand()%3 + 1;
@@ -27,7 +27,7 @@ PessoaZumbi::PessoaZumbi(){
     if(this->layer == LAYER_BOTTON)
         this->box.y = ITEM_HEIGHT_L1 + 7;
 
-    this->box.y -= (this->subLayer - 3) * 25;
+    this->box.y -= (this->subLayer - 3) * 26;
 }
 
 PessoaZumbi::~PessoaZumbi(){

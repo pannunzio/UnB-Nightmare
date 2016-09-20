@@ -3,32 +3,25 @@
 
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Obstacle.h"
 
-class Pombo: public GameObject{
+class Pombo: public Obstacle{
 public:
-    Pombo(float x, float y, int subLayer);
+    Pombo();
     ~Pombo();
 
     void Update(float dt);
-	void Render();
-	bool IsDead();
-	bool Is(std::string type);
+    void Render();
 	void NotifyCollision(GameObject* other);
-	int GetLayer();
-	int GetSublayer();
+	bool Is(string type);
+    int GetLayer();
+    int GetSublayer();
 
-    void FazCaca();
-
+    int layer;
+    int subLayer;
 private:
-    Sprite pombo;
-    Sprite sombra;
-
+    void FazCaca();
     bool fazendoCaca;
-    bool isDead;
-    float speed;
-    Rect sBox;
-
-    Sound soundPombo;
 };
 
-#endif // POMBO_H
+#endif

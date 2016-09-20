@@ -27,6 +27,7 @@ void Obstacle::ChangeSpritesheet(string fileName, int frameCount, float frameTim
     this->sp.SetFrameTime(frameTime);
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
 }
+
 //
 //Obstacle::Obstacle(float speed, bool canBlock, std::string obstacleName, std::string sprite, int frameCount, float frameTime) {
 //	this->sp = Sprite(sprite,frameCount,frameTime);
