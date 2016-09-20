@@ -18,6 +18,7 @@
 #include "Pessoa.h"
 #include "PessoaZumbi.h"
 #include "Lixeira.h"
+#include "NonCollidingPerson.h"
 
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
@@ -72,6 +73,7 @@ void StageState::Render(){
     RenderSubLayer(3);
     RenderSubLayer(2);
     RenderSubLayer(1);
+    RenderSubLayer(0);
 
 	this->clock.Render();
 }
@@ -197,9 +199,10 @@ void StageState::SpawnNewStaticObstacle(){
         this->lixo++;
     }
 
-    if(rand()%5000 <= 3){  //3%
+    //reformular goteira!!
+//    if(rand()%5000 <= 3){  //3%
 //        AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
-    }
+//    }
 }
 
 void StageState::SpawnNewDynamicObstacle(){
@@ -211,14 +214,17 @@ void StageState::SpawnNewDynamicObstacle(){
 //    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
     	}
 
-    	if(rand()%100 <= 30){
-            if(rand()%100 + 1 > 50 )
+        int random = rand()%100;
+    	if(random > 30){
+            if(random > 50 )
                 AddObject(new Pessoa());
             else
                 AddObject(new PessoaZumbi());
     	}
 
     	if(rand()%100 <= 5){
+            cout << "new NON COLLLIDER" << endl;
+            AddObject(new NonCollidingPerson());
 //            AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
         }
 
