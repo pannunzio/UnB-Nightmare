@@ -8,6 +8,7 @@
 using std::cout;
 using std::endl;
 
+//PARA FUURAS IMPLEMENTAÇÕES
 enum Type{
     PELADO
 };

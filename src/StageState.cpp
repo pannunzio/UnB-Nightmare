@@ -199,20 +199,14 @@ void StageState::SpawnNewStaticObstacle(){
         this->lixo++;
     }
 
-    //reformular goteira!!
-//    if(rand()%5000 <= 3){  //3%
-//        AddObjectStatic(new Obstacle(0, false,"cano", "img/cano.png", 6,0.2,LAYER_BOTTON, SUBLAYER_TOP));
-//    }
+    if(rand()%1000 <= 43){
+        //INUNDACAO!
+    }
 }
 
 void StageState::SpawnNewDynamicObstacle(){
     if(this->cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
     	this->cooldownTimer.Restart();
-    	if(rand()%1000 <= 43){
-//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_BOTTON));
-//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_MIDDLE));
-//    		 AddObject(new Agua(LAYER_BOTTON,SUBLAYER_TOP));
-    	}
 
         int random = rand()%100;
     	if(random > 30){
@@ -223,20 +217,16 @@ void StageState::SpawnNewDynamicObstacle(){
     	}
 
     	if(rand()%100 <= 5){
-            cout << "new NON COLLLIDER" << endl;
             AddObject(new NonCollidingPerson());
-//            AddObject(new Obstacle(-5, false,"pelado", "img/pelado.png", 6, 0.2));
         }
 
     	if(rand()%100 <=5){
-    		// manifestacao
     		AddObject(new Manifestacao());
     	}
 
     	if(Player::player->layer ==  LAYER_TOP){
             if(rand()%100 < 5){
                 AddObjectStatic(new Pombo());
-//                AddObjectStatic(new Pombo(Player::player->box.x + 1000, ITEM_HEIGHT_L3, Player::player->subLayer));
             }
     	}
     }

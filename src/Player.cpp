@@ -214,11 +214,11 @@ void Player::RenderHud(){
 
 void Player::SetSpriteScale(){
     if(this->subLayer == 3)
-    	this->sp.SetScale(0.92);
+    	this->sp.SetScale(0.95);
     if(this->subLayer == 2)
         this->sp.SetScale(1);
     if(this->subLayer == 1)
-        this->sp.SetScale(1.08);
+        this->sp.SetScale(1.05);
 }
 
 bool Player::IsIndestructible(){

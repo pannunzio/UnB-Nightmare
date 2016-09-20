@@ -25,7 +25,7 @@ NonCollidingPerson::NonCollidingPerson(){
     if(this->layer == LAYER_BOTTON)
         this->box.y = ITEM_HEIGHT_L1;
 
-    this->box.y -= (this->subLayer - 3) * 26;
+    this->box.y += 65;
 }
 
 NonCollidingPerson::~NonCollidingPerson(){

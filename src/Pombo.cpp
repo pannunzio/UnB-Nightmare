@@ -8,15 +8,12 @@
 Pombo::Pombo(){
     this->sp = Sprite("img/pombo.png", 4, 0.09);
     this->layer = LAYER_TOP;
-    this->subLayer = 3;
+    this->subLayer = 0;
     this->isDead = false;
     this->speed = -3;
 
-//	if(this->speed != 0)
-//		this->speed -= rand()%3;
-
     this->fazendoCaca = false;
-    this->box.Centralize(Player::player->box.x + 1000, ITEM_HEIGHT_L3 - 100, this->sp.GetWidth(), this->sp.GetHeight());
+    this->box.Centralize(Player::player->box.x + 1000, ITEM_HEIGHT_L3 - 150, this->sp.GetWidth(), this->sp.GetHeight());
 
     OpenSound("audio/pombo.wav");
     this->spriteSound.Play(1);
