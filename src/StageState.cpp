@@ -20,6 +20,9 @@
 #include "Lixeira.h"
 #include "NonCollidingPerson.h"
 
+#define STAGE_DURATION 3
+#define WAIT_END_DURATION 5
+
 StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
 
 	Camera::pos = Vec2(0,280);
@@ -38,10 +41,13 @@ StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.
 
     this->spawn = 0;
     this->lixo = 0;
-	this->clock = Clock();
+	this->clock.SetTime(STAGE_DURATION);
+	this->waitEnd = WAIT_END_DURATION;
 
 	//esse 200 e o player position
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
+	this->pause = false;
+	Camera::Resume();
 }
 
 StageState::~StageState(){
@@ -53,18 +59,34 @@ StageState::~StageState(){
 	cout << "StageState destroyed" << endl;
 }
 
+bool StageState::GetPause(){
+    return pause;
+}
+
 void StageState::Update(float dt){
-    CheckEndOfGame();
+    if(pause == false){
+        if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+            pause = true;
+            Camera::Pause();
+        }
+        CheckEndOfGame();
 
-    this->clock.Update(dt);
+        this->clock.Update(dt);
+        if(this->clock.GetTime() == 0) waitEnd -= dt;
 
-    UpdateObjectArray(dt);
-    CheckMapActionsPosition(dt);
+        UpdateObjectArray(dt);
+        CheckMapActionsPosition(dt);
 
-    this->cooldownTimer.Update(dt);
-    SpawnNewItem();
-    SpawnNewStaticObstacle();
-    SpawnNewDynamicObstacle();
+        this->cooldownTimer.Update(dt);
+        SpawnNewItem();
+        SpawnNewStaticObstacle();
+        SpawnNewDynamicObstacle();
+    }else{
+        if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+            pause = false;
+            Camera::Resume();
+        }
+    }
 }
 
 void StageState::Render(){
@@ -110,6 +132,7 @@ void StageState::CheckEndOfGame(){
     if(!Player::player){
         this->mapActionList.mapActions.clear();
         objectArray.clear();
+        cout << "not player" << endl;
     	SetEndOfGame(false);
     	return;
     }
@@ -123,7 +146,12 @@ void StageState::CheckEndOfGame(){
 
 	//testa se o tempo acabou
     if(this->clock.GetTime() < 0.5){
-        SetEndOfGame(false);
+        this->clock.SetTime(0);
+        this->clock.StopClock();
+        Player::player->TimeOver();
+        if(waitEnd < 0){
+            SetEndOfGame(false);
+        }
     }
 
     if(Camera::pos.x > this->mapLength){

@@ -18,7 +18,8 @@ enum PowerUp{
 enum MovementState{
     RUNNING,
     GOING_UP,
-    GOING_DOWN
+    GOING_DOWN,
+    STOPPING
 };
 
 class Player : public GameObject{
@@ -56,17 +57,19 @@ public:
 	bool isPlayerColliding();
 	bool isInPosition();
 	float getPositionIncrement();
+	void TimeOver();
+
 private:
 	void RenderHud();
 	void SetSpriteScale();
 	bool IsIndestructible();
-	void ChangeSpriteSheet(string file, int frameCount);
+	void ChangeSpriteSheet(string file, int frameCount, int times = 0);
 
     void Movement();
     //cuida para a sub layer ficar dentro de 1 e 3
     void CheckSublayerBoudaries();
-    //confere os comandos inseridos pelo usuario
-    void CheckUserSublayerInput();
+    //executa o mmovimento
+    void MovementInput();
     //Confere se o player pode ou nao subir/descer escada
     void CheckUserLayerInput();
     void SetPositionInY();
@@ -105,6 +108,7 @@ private:
 	bool isRightPosition;
     bool isPassingMapObject;
 	bool isIndestructible;
+	bool timeOver;
 
 
 	Sound powerupMusic;

@@ -38,6 +38,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
 	//TESTES
 	this->layer = rand()%3 +1;
 //	layer = LAYER_BOTTON;
+    this->timeOver = false;
 
 	this->player = this;
 }
@@ -49,8 +50,11 @@ Player::~Player() {
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
-
-	Movement(); // faz os movimentos do input
+    if(timeOver == true && movementState != STOPPING){
+        this->ChangeSpriteSheet("img/derrota.png", 12, 1);
+        movementState = STOPPING;
+    }
+    Movement(); // faz os movimentos do input
     CheckEndPowerupEffects(dt);
 
     //colocando na posicao certa o player
@@ -60,14 +64,9 @@ void Player::Update(float dt){
     AdjustSpeed(dt);
     SetPositionToMovementState(dt);
 
-	//atira cafe
-	if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-		Shoot();
-	}
-
     AdjustGoingUpOrDown();
 
-	this->isColliding = false;
+    this->isColliding = false;
     this->isPassingMapObject = false;
 }
 
@@ -225,9 +224,10 @@ bool Player::IsIndestructible(){
     return this->isIndestructible;
 }
 
-void Player::ChangeSpriteSheet(string file, int frameCount){
+void Player::ChangeSpriteSheet(string file, int frameCount, int times){
     this->sp.Open(file);
     this->sp.SetFrameCount(frameCount);
+    this->sp.SetAnimationTimes(times);
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
 }
 
@@ -236,9 +236,13 @@ void Player::Movement(){
 	this->pos = this->box.CenterPos();
 
     CheckSublayerBoudaries();
-    CheckUserSublayerInput();
+    MovementInput();
     SetPositionInY();
     CheckUserLayerInput();
+    //atira cafe
+    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
+        Shoot();
+    }
 }
 
 //cuida para a sub layer ficar dentro de 1 e 3
@@ -250,7 +254,7 @@ void Player::CheckSublayerBoudaries(){
 }
 
 //confere os comandos inseridos pelo usuario
-void Player::CheckUserSublayerInput(){
+void Player::MovementInput(){
     //movimento de sublayer
 	if(InputManager::GetInstance().KeyPress(SDLK_w)){
 		if(this->subLayer <= 2)
@@ -319,20 +323,22 @@ bool Player::EndPowerupEffect(int maxTime){
 }
 
 void Player::CheckEndPowerupEffects(float dt){
-    if(this->powerUp == SKATE){
+    switch(this->powerUp){
+    case SKATE:
         this->itemEffect.Update(dt);
         this->isPassingMapObject = false;
         this->isIndestructible = true;
         if (this->EndPowerupEffect(5))
             this->ChangeSpriteSheet("img/playerRunning.png", 6);
-    }
-    if (this->powerUp == COMIDA){
+        break;
+    case COMIDA:
         this->itemEffect.Update(dt);
         this->EndPowerupEffect(3);
-    }
-    if(this->powerUp == CACA_DE_POMBO){
+        break;
+    case CACA_DE_POMBO:
         this->itemEffect.Update(dt);
         this->EndPowerupEffect(5);
+        break;
     }
 }
 
@@ -452,4 +458,8 @@ void Player::checkPosition(float diff){
         this->isRightPosition = false;
     }
 
+}
+
+void Player::TimeOver(){
+    this->timeOver = true;
 }

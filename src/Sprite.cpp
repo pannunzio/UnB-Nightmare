@@ -14,7 +14,7 @@ Sprite::Sprite(){
 	this->frameTime = 0;
 	this->currentFrame = 1;
 	this->timeElapsed = 0;
-	//cout << "Sprite created" << endl;
+	this->times = 0;
 }
 
 Sprite::Sprite(string file){
@@ -27,6 +27,20 @@ Sprite::Sprite(string file){
 	this->frameTime = 0;
 	this->currentFrame = 1;
 	this->timeElapsed = 0;
+	this->times = 0;
+	Open(file);
+}
+
+Sprite::Sprite(string file, int frameCount, float frameTime){
+	this->scaleX = this->scaleY = 1;
+	this->texture = nullptr;
+	this->frameCount = frameCount;
+	this->frameTime = frameTime;
+	this->currentFrame = 1;
+	this->height = 0;
+	this->width = 0; // tem q ser baseado no tamanho da imagem
+	this->times = 0;
+
 	Open(file);
 }
 
@@ -112,13 +126,25 @@ void Sprite::Update(float dt){
 	this->timeElapsed += dt;
 
 	if(this->timeElapsed > this->frameTime){
-		this->currentFrame++;
+		 this->currentFrame++;
 		this->timeElapsed = 0;
 	}
-
-	if(this->currentFrame > this->frameCount)
-		this->currentFrame = 1;
-
+	if(this->times == 0){
+        if(this->currentFrame > this->frameCount){
+            this->currentFrame = 1;
+        }
+    }else{
+        if(this->timesCounter < this->times){
+                timesCounter++;
+                if(this->currentFrame > this->frameCount){
+                    this->currentFrame = 1;
+                }
+        }else{
+            if(this->currentFrame > this->frameCount){
+                    this->currentFrame = this->frameCount;
+            }
+        }
+    }
 	SetFrame(this->currentFrame);
 }
 
@@ -131,18 +157,11 @@ void Sprite::SetFrameCount(int frameCount){
 	this->frameCount = frameCount;
 }
 
-void Sprite::SetFrameTime(float frameTime){
-	this->frameTime = frameTime;
+void Sprite::SetAnimationTimes(int times){
+    this->times = times;
+    this->timesCounter = 0;
 }
 
-Sprite::Sprite(string file, int frameCount, float frameTime){
-	this->scaleX = this->scaleY = 1;
-	this->texture = nullptr;
-	this->frameCount = frameCount;
+void Sprite::SetFrameTime(float frameTime){
 	this->frameTime = frameTime;
-	this->currentFrame = 1;
-	this->height = 0;
-	this->width = 0; // tem q ser baseado no tamanho da imagem
-
-	Open(file);
 }

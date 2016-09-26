@@ -30,6 +30,7 @@ public:
 
 	void Pause();
 	void Resume();
+	bool GetPause();
 
 	void AddObject(GameObject* ptr);
 	void AddObjectStatic(GameObject* ptr);
@@ -55,11 +56,13 @@ private:
 	Sprite bg; // background
     StateData stateData;
 	Clock clock;
+	float waitEnd;
 
 	Timer cooldownTimer;
 	int spawn;
 	int lixo;
 	int mapLength;
+	bool pause;
 
 	Sound music;
 };

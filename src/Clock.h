@@ -12,9 +12,12 @@ public:
     void Render();
 
 	float GetTime();
+	void SetTime(float);
 	int GetMinutes();
 	int GetSeconds1();
 	int GetSeconds2();
+	void StopClock();
+	void StartClock();
 
 	int GetSecondsTotal();
 
@@ -26,6 +29,7 @@ public:
 private:
 	float time;
 	Text text;
+	bool running;
 };
 
 #endif /* CLOCK_H_ */

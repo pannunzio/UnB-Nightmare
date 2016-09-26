@@ -7,17 +7,22 @@
 
 //lembrar de mudar o starting value da text
 Clock::Clock(): text("font/ComicNeue_Bold.otf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){
-    //VALOR ARBITRARIO COLOCAR NO DEFINES DEPOIS
-    this->time = 50;
+    running = true;
+}
+
+void Clock::SetTime(float time){
+    this->time = time;
 }
 
 void Clock::Update(float dt){
-	this->time -= dt;
+    if(running){
+        this->time -= dt;
 
-	std::stringstream novoTempo;
-    novoTempo << GetMinutes() << " : " << GetSeconds2() << GetSeconds1();
+        std::stringstream novoTempo;
+        novoTempo << GetMinutes() << " : " << GetSeconds2() << GetSeconds1();
 
-	this->text.SetText(novoTempo.str());
+        this->text.SetText(novoTempo.str());
+    }
 }
 
 void Clock::Render(){
@@ -52,4 +57,12 @@ void Clock::AddTimeToTime(int peso){
 
 void Clock::SubtractTimeFromTime(int peso){
     this->time -= CONSTANTE*peso;
+}
+
+void Clock::StopClock(){
+    this->running = false;
+}
+
+void Clock::StartClock(){
+    this->running = true;
 }

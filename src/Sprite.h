@@ -9,6 +9,7 @@ using std::endl;
 using std::string;
 
 class Sprite {
+
 public:
 	Sprite();
 	Sprite(string file);
@@ -31,7 +32,9 @@ public:
 	void Update(float dt);
 	void SetFrame(int frame);
 	void SetFrameCount(int frameCount);
+	void SetAnimationTimes(int times);
 	void SetFrameTime(float frameTime);
+	bool IsAnimationFinished();
 //	void SetAlpha()
 	Sprite(string file, int frameCount, float frameTime);
 
@@ -49,6 +52,8 @@ private:
 	int currentFrame;
 	float timeElapsed;
 	float frameTime;
+	int times;
+	int timesCounter;
 };
 
 #endif

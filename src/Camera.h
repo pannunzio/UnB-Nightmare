@@ -9,6 +9,8 @@ public:
 	Camera();
 	~Camera();
 	static void Update(float dt);
+	static void Pause(){pause = true;};
+	static void Resume(){pause = false;};
 
 	void Is(std::string type);
 
@@ -17,6 +19,7 @@ public:
 
 private:
 	static int layer;
+	static bool pause;
 
 };
 

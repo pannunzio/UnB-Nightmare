@@ -29,7 +29,7 @@ void Pombo::Update(float dt){
 	this->box.x += this->speed * dt * 100;
 
     if(!this->fazendoCaca && this->box.x - Player::player->box.x < 120){
-        cout << "FAENDO CAQUINHA!!" << endl;
+        cout << "FAZENDO CAQUINHA!!" << endl;
         this->FazCaca();
         this->fazendoCaca = true;
     }
