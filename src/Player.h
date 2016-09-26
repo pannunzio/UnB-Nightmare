@@ -1,11 +1,42 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include <cstdlib>
+#include <sstream>
+
 #include "GameObject.h"
 #include "Timer.h"
 #include "Clock.h"
 #include "Text.h"
 #include "Sound.h"
+
+#include "Game.h"
+#include "Player.h"
+#include "InputManager.h"
+#include "Camera.h"
+#include "Bullet.h"
+#include "Defines.h"
+
+/******
+    Player Defines
+******/
+#define RUNNING_FILE     "img/playerRunning.png"
+#define RUNNING_FRAMES   6
+#define RUNNING_FTIME    0.09
+#define RUNNING_ACC      1.5
+
+#define STOPPING_FILE    "img/derrota.png"
+#define STOPPING_FRAMES  12
+#define STOPPING_TIMES   1
+
+#define SKATING_FILE    "img/playerskating.png"
+#define SKATING_FRAMES  3
+#define SKATING_MUS     "audio/skate.ogg"
+
+#define COFFEE_FILE     "img/coffee.png"
+
+#define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
+#define TEXT_INIT       "Coffee: 0"
 
 enum PowerUp{
 	NONE,
@@ -19,6 +50,8 @@ enum MovementState{
     RUNNING,
     GOING_UP,
     GOING_DOWN,
+    GOING_UPSTAIRS,
+    GOING_DOWNSTAIRS,
     STOPPING
 };
 

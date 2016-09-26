@@ -62,13 +62,7 @@ using std::endl;
 #define ITEM_HEIGHT_L2 495
 #define ITEM_HEIGHT_L1 772
 
-#define START_POSITION_X 200
-#define START_POSITION_Y 550
 #define CORRECTION_POSITION_SPEED 0.2
-
-
-#define DELTA_ACCEPT 10
-
 
 //acrescentar mais aa medida q for usando
 

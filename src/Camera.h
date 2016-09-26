@@ -4,6 +4,13 @@
 #include "Vec2.h"
 #include "GameObject.h"
 
+
+/******
+    Camera Defines
+******/
+#define DELTA_ACCEPT 10
+
+
 class Camera {
 public:
 	Camera();

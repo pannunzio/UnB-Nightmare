@@ -1,12 +1,13 @@
 #ifndef STAGESTATE_H_
 #define STAGESTATE_H_
 
-#include "Sprite.h"
-#include "GameObject.h"
-#include "State.h"
 #include <iostream>
 #include <vector>
 #include <memory>
+
+#include "Sprite.h"
+#include "GameObject.h"
+#include "State.h"
 #include "InputManager.h"
 #include "StateData.h"
 #include "Clock.h"
@@ -17,9 +18,48 @@
 #include "Animation.h"
 #include "Sound.h"
 
+#include "Game.h"
+#include "GameObject.h"
+#include "Camera.h"
+#include "EndState.h"
+#include "Player.h"
+#include "Item.h"
+#include "Collision.h"
+#include "Defines.h"
+#include "Obstacle.h"
+#include "Pombo.h"
+#include "Agua.h"
+#include "MapActionList.h"
+#include "Manifestacao.h"
+#include "Pessoa.h"
+#include "PessoaZumbi.h"
+#include "Lixeira.h"
+#include "NonCollidingPerson.h"
+
+
 using std::string;
 using std::cout;
 using std::endl;
+
+/******
+    StageState Defines
+******/
+#define TILE_MAP_FILE   "map/tileMap.txt"
+#define TILE_SET_FILE   "img/tileset.png"
+#define BG_FILE         "img/cerrado.jpg"
+
+#define INIT_CAMERA_X   0
+#define INIT_CAMERA_Y   280
+
+#define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
+
+#define INIT_PLAYER_X   200
+#define INIT_PLAYER_Y   550
+
+#define STAGE_DURATION      20 //em segundos
+#define WAIT_END_DURATION   5
+
+
 
 class StageState : public State{
 public:
@@ -46,6 +86,7 @@ private:
     void SpawnNewItem();
     void SpawnNewStaticObstacle();
     void SpawnNewDynamicObstacle();
+    void RegisterInputs();//registra os inputs de interesse ao StageState
 
     void RenderSubLayer(int sublayer);
 

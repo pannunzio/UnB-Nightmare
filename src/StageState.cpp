@@ -1,43 +1,21 @@
 #include <iostream>
 #include "StageState.h"
-#include "Game.h"
-#include "GameObject.h"
-#include "InputManager.h"
-#include "Camera.h"
-#include "EndState.h"
-#include "Player.h"
-#include "Item.h"
-#include "Collision.h"
-#include "Defines.h"
-#include "Clock.h"
-#include "Obstacle.h"
-#include "Pombo.h"
-#include "Agua.h"
-#include "MapActionList.h"
-#include "Manifestacao.h"
-#include "Pessoa.h"
-#include "PessoaZumbi.h"
-#include "Lixeira.h"
-#include "NonCollidingPerson.h"
 
-#define STAGE_DURATION 3
-#define WAIT_END_DURATION 5
+StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE){
 
-StageState::StageState() : tileMap("map/tileMap.txt", tileSet), bg("img/cerrado.jpg"){
-
-	Camera::pos = Vec2(0,280);
+	Camera::pos = Vec2(INIT_CAMERA_X,INIT_CAMERA_Y);
 
 	this->popRequested = false;
 	this->quitRequested = false; // iniciando o valor como falso
 
-	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, "img/tileset.png");
+	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
 	this->tileMap.SetTileSet(tileSet);
 
     this->music = Sound(-1);
-    this->music.Open("audio/tematerreo_main.ogg");
+    this->music.Open(INIT_MUSIC_FILE);
     this->music.Play(10);
 
-	AddObject(new Player(200, 550));
+	AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
 
     this->spawn = 0;
     this->lixo = 0;
@@ -65,11 +43,11 @@ bool StageState::GetPause(){
 
 void StageState::Update(float dt){
     if(pause == false){
+        CheckEndOfGame();
         if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
             pause = true;
             Camera::Pause();
         }
-        CheckEndOfGame();
 
         this->clock.Update(dt);
         if(this->clock.GetTime() == 0) waitEnd -= dt;
@@ -82,10 +60,16 @@ void StageState::Update(float dt){
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
     }else{
-        if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
-            pause = false;
-            Camera::Resume();
-        }
+        Resume();
+    }
+}
+void StageState::Pause(){
+}
+
+void StageState::Resume(){
+    if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+        pause = false;
+        Camera::Resume();
     }
 }
 
@@ -102,12 +86,6 @@ void StageState::Render(){
     RenderSubLayer(0);
 
 	this->clock.Render();
-}
-
-void StageState::Pause(){
-}
-
-void StageState::Resume(){
 }
 
 //Add game object

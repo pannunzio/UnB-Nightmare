@@ -1,23 +1,15 @@
-#include <cstdlib>
-#include <sstream>
-#include "Game.h"
 #include "Player.h"
-#include "InputManager.h"
-#include "Camera.h"
-#include "Text.h"
-#include "Bullet.h"
-#include "Defines.h"
 
 Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
 
-Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
+Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME){
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	this->targetSpeed = speed = PLAYER_NORMAL_SPEED;
-	this->acceleration = 1.5;
+	this->acceleration = RUNNING_ACC;
 	this->isRightPosition = true;
 	this->powerUp = NONE;
 
@@ -26,7 +18,7 @@ Player::Player(float x, float y) : sp("img/playerRunning.png", 6, 0.09){
     this->wasColliding = false;
     this->isPassingMapObject = false;
     this->isIndestructible = false;
-	this->hud = Text("font/ComicNeue_Bold.otf", 28, SOLID, "Coffee: 0", TEXT_WHITE, 40,50);
+	this->hud = Text(TEXT_FONT_FILE, 28, SOLID, TEXT_INIT, TEXT_WHITE, 40,50);
 	this->itemEffect = Timer();
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
@@ -51,7 +43,7 @@ void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
     if(timeOver == true && movementState != STOPPING){
-        this->ChangeSpriteSheet("img/derrota.png", 12, 1);
+        this->ChangeSpriteSheet(STOPPING_FILE, STOPPING_FRAMES, STOPPING_TIMES);
         movementState = STOPPING;
     }
     Movement(); // faz os movimentos do input
@@ -121,13 +113,13 @@ void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("SKATE")){
         if(!this->isPlayingMusic && this->powerUp != SKATE){
-            this->powerupMusic.Open("audio/skate.ogg");
+            this->powerupMusic.Open(SKATING_MUS);
             this->powerupMusic.Play(1);
             this->powerupMusic.SetVolume(180);
         }
 
         SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, PLAYER_SKATE_SPEED);
-        this->ChangeSpriteSheet("img/playerskating.png", 3);
+        this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
     }
 
     if(other->Is("GGLIKO")){
@@ -196,7 +188,7 @@ void Player::Shoot(){
 	Vec2 shootPos = box.CenterPos();
 
 	if(this->coffee_ammo > 0){
-		Bullet* coffee = new Bullet(shootPos.x, shootPos.y, 10, "img/coffee.png", 3, 0.3, false, "Coffee");
+		Bullet* coffee = new Bullet(shootPos.x, shootPos.y, 10, COFFEE_FILE, 3, 0.3, false, "Coffee");
 		coffee->SetLayers(this->layer, this->subLayer); // para renderizar corretamente
 		Game::GetInstance().GetCurrentState().AddObject(coffee);
 		coffee_ammo--;
@@ -329,7 +321,7 @@ void Player::CheckEndPowerupEffects(float dt){
         this->isPassingMapObject = false;
         this->isIndestructible = true;
         if (this->EndPowerupEffect(5))
-            this->ChangeSpriteSheet("img/playerRunning.png", 6);
+            this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
         break;
     case COMIDA:
         this->itemEffect.Update(dt);
@@ -410,7 +402,7 @@ void Player::StopIndestructiblePowerup(){
     if(this->isIndestructible){
         this->powerUp = NONE;
         this->powerupMusic.Stop();
-        this->ChangeSpriteSheet("img/playerRunning.png", 6);
+        this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
         this->isIndestructible = false;
     }
 }
