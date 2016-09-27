@@ -106,18 +106,43 @@ public:
 	void TimeOver();
 
 private:
-	void RenderHud();
+    Sprite sp;
+
+    //Atributos de posição
+	Vec2 pos;               //Posicao atual
+	int baseX;              //Posicao padrao
+	bool isRightPosition;   //Flag de corretude da posição
+	float speed;            //velocidade atual
+	float acceleration;     //aceleracao
+	float targetSpeed;      //velocidade a alcançar
+    float positionIncrement;//Incremento calculado para Player no eixo X
+
+    //Atributos de PowerUp
+	PowerUp powerUp;        //Possiveis estados
+	Timer itemEffect;       //Cronômetro
+    bool isIndestructible;  //Flag especial atribuida por um estado
+    Sound powerupMusic;
+	bool isPlayingMusic;
+
+    //Atributos de Colisão
+    bool isColliding;
+    bool wasColliding;
+    bool isPassingMapObject;
+
+    //Indicador de fim de tempo
+    bool timeOver;
+
+	void setPositionIncrement(float dt);
+	void checkPosition(float diff);
 	void SetSpriteScale();
 	bool IsIndestructible();
 	void ChangeSpriteSheet(string file, int frameCount, int times = 0);
 
-    void Movement();
-    //cuida para a sub layer ficar dentro de 1 e 3
-    void CheckSublayerBoudaries();
-    //executa o mmovimento
-    void MovementInput();
-    //Confere se o player pode ou nao subir/descer escada
-    void CheckUserLayerInput();
+    void PlayerStops();
+    void MoveGirl();
+    void MoveSameFloor();       //executa o mmovimentos principais de input
+    void MoveThroughFloors();   //Confere se o player pode ou nao subir/descer escada
+
     void SetPositionInY();
 
     //retorna true se encerrar o powerup
@@ -137,35 +162,9 @@ private:
     void StopIndestructiblePowerup();
     void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float targetSpeed);
 
-	Sprite sp; // sprite
-	float speed; // velocidade
-	float acceleration; // acceleratcao
-	float targetSpeed;
-	Vec2 pos; // posicao atual para facilitar calculos
-
-	PowerUp powerUp;// enumaration de powerup
-
-	Text hud;
-
-	Timer itemEffect;
-
-    bool isColliding;
-    bool wasColliding;
-	bool isRightPosition;
-    bool isPassingMapObject;
-	bool isIndestructible;
-	bool timeOver;
-
-
-	Sound powerupMusic;
-	bool isPlayingMusic;
-
-	//temporario
-
-	int baseX;
-	float positionIncrement;
-	void setPositionIncrement(float dt);
-	void checkPosition(float diff);
+    //Não deveria estar aqui
+    Text hud;
+	void RenderHud();
 };
 
 #endif /* PLAYER_H_ */

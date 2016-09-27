@@ -37,19 +37,16 @@ void Camera::Update(float dt){
                 }
                 layer = Player::player->layer;
             }
-            //cout << "depois de atualizar em camera: " << pos.x << endl << endl;
-
-            // mudança de local
-            // camera
-            if(layer == 3)
-                if(pos.y > 0)
-                    pos.y = pos.y - speed.y*dt*100;
+            //move a camera no eixo Y
+            if(layer == 3)//se esta na layer 3
+                if(pos.y > 0)//e a camera ainda nao está na origem
+                    pos.y = pos.y - speed.y*dt*100;//continua descendo a camera
             if(layer == 2 )
                 if(pos.y > 220)
-                pos.y = pos.y - speed.y*dt*100;
+                    pos.y = pos.y - speed.y*dt*100;
             if(layer == 2 )
                 if(pos.y < 220)
-                pos.y = pos.y + speed.y*dt*100;
+                    pos.y = pos.y + speed.y*dt*100;
             if(layer == 1)
                 if(pos.y < 480)
                     pos.y = pos.y + speed.y*dt*100;

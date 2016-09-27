@@ -46,11 +46,8 @@ Player::~Player() {
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
-    if(timeOver == true && movementState != STOPPING){
-        this->ChangeSpriteSheet(STOPPING_FILE, STOPPING_FRAMES, STOPPING_TIMES);
-        movementState = STOPPING;
-    }
-    Movement(); // faz os movimentos do input
+    if(timeOver == true) PlayerStops();
+    MoveGirl(); // faz os movimentos do input
     CheckEndPowerupEffects(dt);
 
     //colocando na posicao certa o player
@@ -64,6 +61,15 @@ void Player::Update(float dt){
 
     this->isColliding = false;
     this->isPassingMapObject = false;
+}
+
+void Player::PlayerStops(){
+    switch(movementState){
+        case RUNNING:
+            this->ChangeSpriteSheet(STOPPING_FILE, STOPPING_FRAMES, STOPPING_TIMES);
+            movementState = STOPPING;
+            break;
+    }
 }
 
 void Player::Render(){
@@ -126,7 +132,7 @@ void Player::NotifyCollision(GameObject* other){
         this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
     }
 
-    if(other->Is("GGLIKO")){
+    if(other->Is("GGLIKO")){//DEBUG aperte G para ficar no estado EATING
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
@@ -230,29 +236,14 @@ void Player::ChangeSpriteSheet(string file, int frameCount, int times){
 }
 
 
-void Player::Movement(){
-	this->pos = this->box.CenterPos();
-
-    CheckSublayerBoudaries();
-    MovementInput();
+void Player::MoveGirl(){
+    MoveSameFloor();
     SetPositionInY();
-    CheckUserLayerInput();
-    //atira cafe
-    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-        Shoot();
-    }
-}
-
-//cuida para a sub layer ficar dentro de 1 e 3
-void Player::CheckSublayerBoudaries(){
-    if(this->subLayer > 3)
-		this->subLayer = 3;
-	if(this->subLayer < 1)
-		this->subLayer = 1;
+    MoveThroughFloors();
 }
 
 //confere os comandos inseridos pelo usuario
-void Player::MovementInput(){
+void Player::MoveSameFloor(){
     //movimento de sublayer
 	if(InputManager::GetInstance().KeyPress(SDLK_w)){
 		if(this->subLayer <= 2)
@@ -263,10 +254,40 @@ void Player::MovementInput(){
 		if(this->subLayer >= 2)
 			this->subLayer--;
 	}
+	//atira cafe
+    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
+        Shoot();
+    }
+
+    /***
+        BOTOES DE DEBUG
+    ***/
+    if(InputManager::GetInstance().KeyPress(SDLK_o)){
+        this->layer++;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_l)){
+        this->layer--;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_g)){
+        this->movementState = EATING;
+    }
+}
+
+void Player::SetPositionInY(){
+    if(this->layer == LAYER_TOP)
+        this->box.y = ITEM_HEIGHT_L3 + 2;
+
+    if(this->layer == LAYER_MIDDLE)
+        this->box.y = ITEM_HEIGHT_L2;
+
+    if(this->layer == LAYER_BOTTON)
+        this->box.y = ITEM_HEIGHT_L1;
+
+    this->box.y -= (this->subLayer - 3) * 24;
 }
 
 //Confere se o player pode ou nao subir/descer escada
-void Player::CheckUserLayerInput(){
+void Player::MoveThroughFloors(){
     if(this->powerUp != PowerUp::SKATE){
         //verifica se esta ao lado da escada
         if(this->subLayer == SUBLAYER_TOP){
@@ -288,19 +309,6 @@ void Player::CheckUserLayerInput(){
                 }
         }
     }
-}
-
-void Player::SetPositionInY(){
-    if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 2;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
-
-    this->box.y = this->box.y - (this->subLayer - 3) * 24;
 }
 
 //retorna true se encerrar o powerup
@@ -397,7 +405,7 @@ void Player::SetPositionToMovementState(float dt){
 //ajusta a posição do player quando troca de andar
 void Player::AdjustGoingUpOrDown(){
 
-    if(this->movementState != RUNNING){
+    if(this->inputState != NO_INPUT){
 
         if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
             this->inputState = NO_INPUT;
