@@ -47,13 +47,13 @@ void Agua::Update(float dt){
 	this->sp.Update(dt);
 	this->box.x += this->speed * dt * 100;
 
-	if(this->speed == PLAYER_NORMAL_SPEED){
+	if(this->speed == NORMAL_GAME_SPEED){
 		this->deadTimer.Update(dt);
 		this->box.y += 1 * dt * 100;
 		this->deadTimer.Update(dt);
 	}
     if(this->box.x - Camera::pos.x <= 0){
-    	this->speed = PLAYER_NORMAL_SPEED;
+    	this->speed = NORMAL_GAME_SPEED;
     }
 
 	if(this->deadTimer.Get() > 5)

@@ -20,10 +20,13 @@
 /******
     Player Defines
 ******/
-#define RUNNING_FILE     "img/playerRunning.png"
-#define RUNNING_FRAMES   6
-#define RUNNING_FTIME    0.09
-#define RUNNING_ACC      1.5
+#define RUNNING_FILE        "img/playerRunning.png"
+#define RUNNING_FRAMES       6
+#define RUNNING_FTIME        0.09
+#define RUNNING_ACC          1.5
+#define RUNNING_SLOW_SPEED   4
+#define RUNNING_SPEED 5
+
 
 #define STOPPING_FILE    "img/derrota.png"
 #define STOPPING_FRAMES  12
@@ -31,7 +34,12 @@
 
 #define SKATING_FILE    "img/playerskating.png"
 #define SKATING_FRAMES  3
+#define SKATING_SPEED   7
 #define SKATING_MUS     "audio/skate.ogg"
+
+#define EATING_FILE     "img/comendoAcai.png"
+#define EATING_FRAMES   6
+#define EATING_SPEED
 
 #define COFFEE_FILE     "img/coffee.png"
 
@@ -52,6 +60,7 @@ enum MovementState{
     GOING_DOWN,
     GOING_UPSTAIRS,
     GOING_DOWNSTAIRS,
+    EATING,
     STOPPING
 };
 

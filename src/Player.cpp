@@ -8,7 +8,7 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
-	this->targetSpeed = speed = PLAYER_NORMAL_SPEED;
+	this->targetSpeed = speed = RUNNING_SPEED;
 	this->acceleration = RUNNING_ACC;
 	this->isRightPosition = true;
 	this->powerUp = NONE;
@@ -118,20 +118,22 @@ void Player::NotifyCollision(GameObject* other){
             this->powerupMusic.SetVolume(180);
         }
 
-        SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, PLAYER_SKATE_SPEED);
+        SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, SKATING_SPEED);
         this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
     }
 
     if(other->Is("GGLIKO")){
         StopIndestructiblePowerup();
-        SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, PLAYER_SLOW_SPEED);
+        SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
+        ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
+        movementState = EATING;
     }
 
     //caca de pombo
     if(other->Is("Caca")){
         cout << "opa, caca!" << endl;
         StopIndestructiblePowerup();
-        SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, PLAYER_SLOW_SPEED);
+        SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, RUNNING_SLOW_SPEED);
     }
 
     if(other->Is("Escada")){
@@ -140,7 +142,7 @@ void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("Agua")){
         StopIndestructiblePowerup();
-        SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, PLAYER_SLOW_SPEED);
+        SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, RUNNING_SLOW_SPEED);
     }
 }
 
@@ -301,7 +303,7 @@ void Player::SetPositionInY(){
 bool Player::EndPowerupEffect(int maxTime){
     if(this->itemEffect.Get() > maxTime){
         this->powerUp = NONE;
-        this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
+        this->SetTargetSpeed(RUNNING_SPEED);
 
         if(this->powerupMusic.IsPlaying())
             this->powerupMusic.Stop();
@@ -325,7 +327,8 @@ void Player::CheckEndPowerupEffects(float dt){
         break;
     case COMIDA:
         this->itemEffect.Update(dt);
-        this->EndPowerupEffect(3);
+        if (this->EndPowerupEffect(3))
+            this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
         break;
     case CACA_DE_POMBO:
         this->itemEffect.Update(dt);
@@ -337,8 +340,8 @@ void Player::CheckEndPowerupEffects(float dt){
 void Player::CheckCollisionToResetSpeed(){
     if(!this->isColliding){
         if(this->wasColliding){
-            this->speed = PLAYER_NORMAL_SPEED;
-            this->SetTargetSpeed(PLAYER_NORMAL_SPEED);
+            this->speed = RUNNING_SPEED;
+            this->SetTargetSpeed(RUNNING_SPEED);
             this->wasColliding = false;
         }
     }
