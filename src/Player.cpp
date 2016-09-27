@@ -322,13 +322,17 @@ void Player::CheckEndPowerupEffects(float dt){
         this->itemEffect.Update(dt);
         this->isPassingMapObject = false;
         this->isIndestructible = true;
-        if (this->EndPowerupEffect(5))
+        if (this->EndPowerupEffect(5)){
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
+            this->movementState = RUNNING;
+        }
         break;
     case COMIDA:
         this->itemEffect.Update(dt);
-        if (this->EndPowerupEffect(3))
+        if (this->EndPowerupEffect(3)){
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
+            this->movementState = RUNNING;
+        }
         break;
     case CACA_DE_POMBO:
         this->itemEffect.Update(dt);
@@ -368,15 +372,20 @@ void Player::SetPositionToMovementState(float dt){
 
     //correndo
     setPositionIncrement(dt);
-    if(this->movementState == MovementState::RUNNING){
-        this->box.x += this->speed*getPositionIncrement();
+    switch(this->movementState){
+        case RUNNING:
+            this->box.x += this->speed*getPositionIncrement();
+            break;
+        case EATING:
+            this->box.x += this->speed*getPositionIncrement()/3;
+            break;
+        case GOING_DOWN:
+            this->box.y += this->speed * dt * 150;
+            break;
+        case GOING_UP:
+            this->box.y -= this->speed * dt * 150;
+            break;
     }
-
-    if(this->movementState == MovementState::GOING_DOWN)
-        this->box.y += this->speed * dt * 150;
-
-    if(this->movementState == MovementState::GOING_UP)
-        this->box.y -= this->speed * dt * 150;
 }
 
 //ajusta a posição do player quando troca de andar

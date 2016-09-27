@@ -32,7 +32,7 @@ void Camera::Update(float dt){
                         }
                         break;
                     case EATING:
-                        pos.x += speed.x*Player::player->getPositionIncrement();
+                        pos.x += speed.x*Player::player->getPositionIncrement()/3;
                         break;
                 }
                 layer = Player::player->layer;
