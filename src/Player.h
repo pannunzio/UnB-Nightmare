@@ -56,12 +56,16 @@ enum PowerUp{
 
 enum MovementState{
     RUNNING,
+    EATING,
+    STOPPING
+};
+
+enum InputState{
+    NO_INPUT,
     GOING_UP,
     GOING_DOWN,
     GOING_UPSTAIRS,
     GOING_DOWNSTAIRS,
-    EATING,
-    STOPPING
 };
 
 class Player : public GameObject{
@@ -92,7 +96,7 @@ public:
 	static Player* player;
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
     MovementState movementState;
-
+    InputState inputState;
     //temporario
     int getBaseX();
 	int getX();

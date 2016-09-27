@@ -4,35 +4,39 @@ Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
 
 Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME){
+	//Inicialização da referencia a Player
+	this->player = this;
+
+	//Inicialização de posição
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
-	this->targetSpeed = speed = RUNNING_SPEED;
-	this->acceleration = RUNNING_ACC;
 	this->isRightPosition = true;
-	this->powerUp = NONE;
+    this->layer = rand()%3 +1;
 
+	//inicialização de estado
 	this->movementState = RUNNING;
-    this->isColliding = false;
-    this->wasColliding = false;
-    this->isPassingMapObject = false;
+    this->targetSpeed = speed = RUNNING_SPEED;
+	this->acceleration = RUNNING_ACC;
+	this->inputState = NO_INPUT;
+	//Inicialização de estado referente a itens
+	this->powerUp = NONE;
     this->isIndestructible = false;
-	this->hud = Text(TEXT_FONT_FILE, 28, SOLID, TEXT_INIT, TEXT_WHITE, 40,50);
-	this->itemEffect = Timer();
+    this->itemEffect = Timer();
+    this->coffee_ammo = 0;
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
 
-    this->coffee_ammo = 0;
-//	std::cout << "Player Construido" << std::endl;
-
-
-	//TESTES
-	this->layer = rand()%3 +1;
-//	layer = LAYER_BOTTON;
+    //Inicialização de conhecimentos externos
     this->timeOver = false;
+    //Inicialização referente a colisão
+    this->isColliding = false;
+    this->wasColliding = false;
+    this->isPassingMapObject = false;
 
-	this->player = this;
+    //Coisas que não fazem muito sentido estar aqui
+	this->hud = Text(TEXT_FONT_FILE, 28, SOLID, TEXT_INIT, TEXT_WHITE, 40,50);
 }
 
 Player::~Player() {
@@ -272,7 +276,7 @@ void Player::CheckUserLayerInput(){
                 if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && this->isPassingMapObject){
                     this->layer++;
                     this->subLayer = SUBLAYER_TOP;
-                    this->movementState = GOING_UP;
+                    this->inputState = GOING_UP;
                 }
 
             //verifica se nao esta em baixo para poder descer
@@ -280,7 +284,7 @@ void Player::CheckUserLayerInput(){
                 if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
                     this->layer--;
                     this->subLayer = SUBLAYER_TOP;
-                    this->movementState = GOING_DOWN;
+                    this->inputState = GOING_DOWN;
                 }
         }
     }
@@ -379,6 +383,8 @@ void Player::SetPositionToMovementState(float dt){
         case EATING:
             this->box.x += this->speed*getPositionIncrement()/3;
             break;
+    }
+    switch(this->inputState){
         case GOING_DOWN:
             this->box.y += this->speed * dt * 150;
             break;
@@ -394,17 +400,17 @@ void Player::AdjustGoingUpOrDown(){
     if(this->movementState != RUNNING){
 
         if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
-            this->movementState = RUNNING;
+            this->inputState = NO_INPUT;
             this->box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
         }
 
         if(this->layer == LAYER_MIDDLE && abs(this->box.y - ITEM_HEIGHT_L2) < 10){
-            this->movementState = RUNNING;
+            this->inputState = NO_INPUT;
             this->box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
         }
 
         if(this->layer == LAYER_BOTTON && abs(this->box.y - ITEM_HEIGHT_L1) < 10){
-            this->movementState = RUNNING;
+            this->inputState = NO_INPUT;
             this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
         }
     }
