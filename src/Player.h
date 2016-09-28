@@ -121,7 +121,7 @@ private:
 
     //Atributos de PowerUp
 	PowerUp powerUp;        //Possiveis estados
-	Timer itemEffect;       //Cronômetro
+	Timer itemTimer;       //Cronômetro
     bool isIndestructible;  //Flag especial atribuida por um estado
     Sound powerupMusic;
 	bool isPlayingMusic;
@@ -151,7 +151,7 @@ private:
     //retorna true se encerrar o powerup
     void EndPowerUp();
 
-    void UpdatePowerupEffects(float dt);
+    void UpdatePowerUp(float dt);
     void CheckCollisionToResetSpeed();
     void AdjustSpeed(float dt);
 

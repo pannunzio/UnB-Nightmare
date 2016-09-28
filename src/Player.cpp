@@ -26,7 +26,7 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 	//Inicialização de estado referente a itens
 	this->powerUp = NONE;
     this->isIndestructible = false;
-    this->itemEffect = Timer();
+    this->itemTimer = Timer();
     this->coffee_ammo = 0;
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
@@ -58,7 +58,7 @@ void Player::Update(float dt){
 	this->sp.Update(dt);
     if(timeOver == true) PlayerStops();
     MoveGirl(); // faz os movimentos do input
-    UpdatePowerupEffects(dt);
+    UpdatePowerUp(dt);
 
     //colocando na posicao certa o player
     checkPosition(this->box.x - Camera::pos.x);
@@ -290,28 +290,28 @@ void Player::MoveThroughFloors(){
     }
 }
 
-void Player::UpdatePowerupEffects(float dt){
+void Player::UpdatePowerUp(float dt){
     switch(this->powerUp){
     case SKATE:
-        this->itemEffect.Update(dt);
+        this->itemTimer.Update(dt);
         this->isPassingMapObject = false;
         this->isIndestructible = true;
-        if (this->itemEffect.Get() > SKATING_TIME){
+        if (this->itemTimer.GetCurrentTime() > SKATING_TIME){
             EndPowerUp();
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
     case COMIDA:
-        this->itemEffect.Update(dt);
-        if (this->itemEffect.Get() > EATING_TIME){
+        this->itemTimer.Update(dt);
+        if (this->itemTimer.GetCurrentTime() > EATING_TIME){
             EndPowerUp();
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
     case CACA_DE_POMBO:
-        this->itemEffect.Update(dt);
+        this->itemTimer.Update(dt);
         this->EndPowerUp();
         break;
     }
@@ -409,7 +409,7 @@ void Player::StopIndestructiblePowerup(){
 }
 
 void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float targetSpeed){
-        this->itemEffect.Restart();
+        this->itemTimer.Restart();
         this->SetTargetSpeed(targetSpeed);
         this->speed = newSpeed;
         this->powerUp = powerup;

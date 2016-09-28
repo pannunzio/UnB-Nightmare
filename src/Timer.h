@@ -6,10 +6,13 @@ public:
 	Timer();
 	void Update(float dt);
 	void Restart();
-	float Get();
+	float GetCurrentTime();
+	void SetTimer(float time);
+	bool isFinished();
 
 private:
-	float time;
+	float currentTime;
+	float timer;
 };
 
 #endif

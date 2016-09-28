@@ -215,7 +215,7 @@ void StageState::SpawnNewStaticObstacle(){
 }
 
 void StageState::SpawnNewDynamicObstacle(){
-    if(this->cooldownTimer.Get() > 0.3){ // repete a cada meio segundo
+    if(this->cooldownTimer.GetCurrentTime() > 0.3){ // repete a cada meio segundo
     	this->cooldownTimer.Restart();
 
         int random = rand()%100;

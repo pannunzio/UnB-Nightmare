@@ -85,7 +85,7 @@ void TitleState::Render(){
     this->option1->Render(0, 0);
     this->option2->Render(0, 0);
 
-    if(this->timer.Get() < 32)
+    if(this->timer.GetCurrentTime() < 32)
     	this->cutscene.Render(0,0);
 }
 

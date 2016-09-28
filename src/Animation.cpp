@@ -24,7 +24,7 @@ void Animation::Render(){
 }
 
 bool Animation::IsDead(){
-	return this->endTimer.Get() >= this->timeLimit;
+	return this->endTimer.GetCurrentTime() >= this->timeLimit;
 }
 
 void Animation::NotifyCollision(GameObject* other){

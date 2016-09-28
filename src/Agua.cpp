@@ -56,7 +56,7 @@ void Agua::Update(float dt){
     	this->speed = NORMAL_GAME_SPEED;
     }
 
-	if(this->deadTimer.Get() > 5)
+	if(this->deadTimer.GetCurrentTime() > 5)
 		this->isDead = true;
 }
 
