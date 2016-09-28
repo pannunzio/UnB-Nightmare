@@ -3,6 +3,9 @@
 Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
 
+/***
+        CONSTRUTOR
+***/
 Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME){
 	//Inicialização da referencia a Player
 	this->player = this;
@@ -30,6 +33,7 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 
     //Inicialização de conhecimentos externos
     this->timeOver = false;
+    this->playerControl = true;//modificar para criar o inicio de jogo
     //Inicialização referente a colisão
     this->isColliding = false;
     this->wasColliding = false;
@@ -39,16 +43,22 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 	this->hud = Text(TEXT_FONT_FILE, 28, SOLID, TEXT_INIT, TEXT_WHITE, 40,50);
 }
 
+/***
+        DESTRUTOR
+***/
 Player::~Player() {
 	this->player = nullptr;
 }
 
+/***
+        UPDATE
+***/
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
     if(timeOver == true) PlayerStops();
     MoveGirl(); // faz os movimentos do input
-    CheckEndPowerupEffects(dt);
+    UpdatePowerupEffects(dt);
 
     //colocando na posicao certa o player
     checkPosition(this->box.x - Camera::pos.x);
@@ -69,7 +79,10 @@ void Player::PlayerStops(){
             this->ChangeSpriteSheet(STOPPING_FILE, STOPPING_FRAMES, STOPPING_TIMES);
             movementState = STOPPING;
             break;
+        default:
+            break;
     }
+    playerControl = false;
 }
 
 void Player::Render(){
@@ -156,44 +169,12 @@ void Player::NotifyCollision(GameObject* other){
     }
 }
 
-bool Player::Is(std::string type){
-	return (type == "Player");
-}
-
-int Player::GetLayer(){
-    return this->layer;
-}
-
-int Player::GetSublayer(){
-    return this->subLayer;
-}
-
 bool Player::IsTargetSpeed(float targetSpeed){
 	if(targetSpeed < 0) // se algo a levar para tras
 		this->speed = targetSpeed;
 	if(abs(this->speed - targetSpeed) <= 0.005)
 		return true;
 	return false;
-}
-
-void Player::SetTargetSpeed(float targetSpeed){
-    this->targetSpeed = targetSpeed;
-}
-
-float Player::GetSpeed(){
-	return this->speed;
-}
-
-float Player::GetAcceleration(){
-	return this->acceleration;
-}
-
-void Player::SetAcceleration(float acceleration){
-	this->acceleration = acceleration;
-}
-
-bool Player::IsRightPosition(){
-	return this->isRightPosition;
 }
 
 void Player::Shoot(){
@@ -224,10 +205,6 @@ void Player::SetSpriteScale(){
         this->sp.SetScale(1.05);
 }
 
-bool Player::IsIndestructible(){
-    return this->isIndestructible;
-}
-
 void Player::ChangeSpriteSheet(string file, int frameCount, int times){
     this->sp.Open(file);
     this->sp.SetFrameCount(frameCount);
@@ -237,9 +214,11 @@ void Player::ChangeSpriteSheet(string file, int frameCount, int times){
 
 
 void Player::MoveGirl(){
-    MoveSameFloor();
+    if(playerControl == true){
+        MoveSameFloor();
+        MoveThroughFloors();
+    }
     SetPositionInY();
-    MoveThroughFloors();
 }
 
 //confere os comandos inseridos pelo usuario
@@ -260,7 +239,7 @@ void Player::MoveSameFloor(){
     }
 
     /***
-        BOTOES DE DEBUG
+    BOTOES DE DEBUG
     ***/
     if(InputManager::GetInstance().KeyPress(SDLK_o)){
         this->layer++;
@@ -311,46 +290,42 @@ void Player::MoveThroughFloors(){
     }
 }
 
-//retorna true se encerrar o powerup
-bool Player::EndPowerupEffect(int maxTime){
-    if(this->itemEffect.Get() > maxTime){
-        this->powerUp = NONE;
-        this->SetTargetSpeed(RUNNING_SPEED);
-
-        if(this->powerupMusic.IsPlaying())
-            this->powerupMusic.Stop();
-
-        if(this->IsIndestructible())
-            this->isIndestructible = false;
-
-        return true;
-    }
-    return false;
-}
-
-void Player::CheckEndPowerupEffects(float dt){
+void Player::UpdatePowerupEffects(float dt){
     switch(this->powerUp){
     case SKATE:
         this->itemEffect.Update(dt);
         this->isPassingMapObject = false;
         this->isIndestructible = true;
-        if (this->EndPowerupEffect(5)){
+        if (this->itemEffect.Get() > SKATING_TIME){
+            EndPowerUp();
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
     case COMIDA:
         this->itemEffect.Update(dt);
-        if (this->EndPowerupEffect(3)){
+        if (this->itemEffect.Get() > EATING_TIME){
+            EndPowerUp();
             this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
     case CACA_DE_POMBO:
         this->itemEffect.Update(dt);
-        this->EndPowerupEffect(5);
+        this->EndPowerUp();
         break;
     }
+}
+
+void Player::EndPowerUp(){
+    this->powerUp = NONE;
+    this->SetTargetSpeed(RUNNING_SPEED);
+
+    if(this->powerupMusic.IsPlaying())
+        this->powerupMusic.Stop();
+
+    if(this->IsIndestructible())
+        this->isIndestructible = false;
 }
 
 void Player::CheckCollisionToResetSpeed(){
@@ -383,13 +358,13 @@ void Player::AdjustSpeed(float dt){
 void Player::SetPositionToMovementState(float dt){
 
     //correndo
-    setPositionIncrement(dt);
+    SetPositionIncrement(dt);
     switch(this->movementState){
         case RUNNING:
-            this->box.x += this->speed*getPositionIncrement();
+            this->box.x += this->speed*GetPositionIncrement();
             break;
         case EATING:
-            this->box.x += this->speed*getPositionIncrement()/3;
+            this->box.x += this->speed*GetPositionIncrement()/3;
             break;
     }
     switch(this->inputState){
@@ -440,13 +415,72 @@ void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float target
         this->powerUp = powerup;
 }
 
-int Player::getX(){
+void Player::checkPosition(float diff){
+	if(diff > baseX - DELTA_ACCEPT &&
+        baseX + DELTA_ACCEPT > diff ){
+        //cout << "posicao certa!: " << box.x << endl;
+        this->isRightPosition = true;
+    }else{
+        this->isRightPosition = false;
+    }
+
+}
+
+/***
+        SETS/GETS/BOOLEANS
+***/
+
+void Player::SetTargetSpeed(float targetSpeed){
+    this->targetSpeed = targetSpeed;
+}
+
+void Player::SetAcceleration(float acceleration){
+	this->acceleration = acceleration;
+}
+
+void Player::SetPositionIncrement(float dt){
+    positionIncrement = 100 * dt;
+}
+
+void Player::TimeOver(){
+    this->timeOver = true;
+}
+
+float Player::GetSpeed(){
+	return this->speed;
+}
+
+float Player::GetAcceleration(){
+	return this->acceleration;
+}
+
+int Player::GetX(){
     return box.x;
 }
 
-int Player::getBaseX(){
+int Player::GetBaseX(){
     if(powerUp == SKATE) return baseX + 100;
     else return baseX;
+}
+
+float Player::GetPositionIncrement(){
+    return positionIncrement;
+}
+
+int Player::GetLayer(){
+    return this->layer;
+}
+
+int Player::GetSublayer(){
+    return this->subLayer;
+}
+
+bool Player::IsRightPosition(){
+	return this->isRightPosition;
+}
+
+bool Player::IsIndestructible(){
+    return this->isIndestructible;
 }
 
 bool Player::isPlayerColliding(){
@@ -459,25 +493,6 @@ bool Player::isInPosition(){
     else return false;
 }
 
-float Player::getPositionIncrement(){
-    return positionIncrement;
-}
-
-void Player::setPositionIncrement(float dt){
-    positionIncrement = 100 * dt;
-}
-
-void Player::checkPosition(float diff){
-	if(diff > baseX - DELTA_ACCEPT &&
-        baseX + DELTA_ACCEPT > diff ){
-        //cout << "posicao certa!: " << box.x << endl;
-        this->isRightPosition = true;
-    }else{
-        this->isRightPosition = false;
-    }
-
-}
-
-void Player::TimeOver(){
-    this->timeOver = true;
+bool Player::Is(std::string type){
+	return (type == "Player");
 }

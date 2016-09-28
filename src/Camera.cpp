@@ -20,19 +20,19 @@ Camera::~Camera() {
 void Camera::Update(float dt){
         if(pause == false){
             if(Player::player){//Se o player for destruido, não tem como fazer as chamadas abaixo: SEGFAULT
-                float diff = Player::player->getX() - pos.x;
+                float diff = Player::player->GetX() - pos.x;
                 switch(Player::player->movementState){
                     case RUNNING:
                         if(Player::player->isInPosition()){
-                            pos.x += speed.x*Player::player->getPositionIncrement();
-                        }else if(diff < Player::player->getBaseX() - DELTA_ACCEPT){
+                            pos.x += speed.x*Player::player->GetPositionIncrement();
+                        }else if(diff < Player::player->GetBaseX() - DELTA_ACCEPT){
                             pos.x += (speed.x*dt*100)/2;
-                        }else if(diff > Player::player->getBaseX() + DELTA_ACCEPT){
+                        }else if(diff > Player::player->GetBaseX() + DELTA_ACCEPT){
                             pos.x += (speed.x*dt*100)*3/2;
                         }
                         break;
                     case EATING:
-                        pos.x += speed.x*Player::player->getPositionIncrement()/3;
+                        pos.x += speed.x*Player::player->GetPositionIncrement()/3;
                         break;
                 }
                 layer = Player::player->layer;

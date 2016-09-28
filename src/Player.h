@@ -35,11 +35,13 @@
 #define SKATING_FILE    "img/playerskating.png"
 #define SKATING_FRAMES  3
 #define SKATING_SPEED   7
+#define SKATING_TIME    5
 #define SKATING_MUS     "audio/skate.ogg"
 
 #define EATING_FILE     "img/comendoAcai.png"
 #define EATING_FRAMES   6
 #define EATING_SPEED
+#define EATING_TIME     3
 
 #define COFFEE_FILE     "img/coffee.png"
 
@@ -98,11 +100,11 @@ public:
     MovementState movementState;
     InputState inputState;
     //temporario
-    int getBaseX();
-	int getX();
+    int GetBaseX();
+	int GetX();
 	bool isPlayerColliding();
 	bool isInPosition();
-	float getPositionIncrement();
+	float GetPositionIncrement();
 	void TimeOver();
 
 private:
@@ -131,8 +133,9 @@ private:
 
     //Indicador de fim de tempo
     bool timeOver;
+    bool playerControl;
 
-	void setPositionIncrement(float dt);
+	void SetPositionIncrement(float dt);
 	void checkPosition(float diff);
 	void SetSpriteScale();
 	bool IsIndestructible();
@@ -146,9 +149,9 @@ private:
     void SetPositionInY();
 
     //retorna true se encerrar o powerup
-    bool EndPowerupEffect(int maxTime);
+    void EndPowerUp();
 
-    void CheckEndPowerupEffects(float dt);
+    void UpdatePowerupEffects(float dt);
     void CheckCollisionToResetSpeed();
     void AdjustSpeed(float dt);
 

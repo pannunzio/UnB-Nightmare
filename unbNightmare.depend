@@ -488,7 +488,7 @@
 	"Text.h"
 	"StateData.h"
 
-1474996042 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1475071446 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -570,7 +570,7 @@
 	"GameObject.h"
 	"Sprite.h"
 
-1474994462 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
+1475071404 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
 	"Defines.h"
 	"Camera.h"
 	"InputManager.h"
@@ -678,7 +678,7 @@
 	"Player.h"
 	"Defines.h"
 
-1474994866 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1474995108 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 
 1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
