@@ -9,6 +9,8 @@ public:
 	float GetCurrentTime();
 	void SetTimer(float time);
 	bool isFinished();
+	void IncToTime(int);
+	void DecFromTime(int);
 
 private:
 	float currentTime;

@@ -27,13 +27,10 @@ private:
 	Timer timer;
 
     Sound music;
-//	int option;
 	enum{
         MENU_START,
         MENU_QUIT,
 	};
-//	Text* option1;
-//	Text* option2;
 };
 
 #endif

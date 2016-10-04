@@ -29,10 +29,6 @@ private:
 	Sprite derrota;
 	Sound sound;
     Menu menu;
-	//menu
-//	int option;
-//	Text* option1;
-//	Text* option2;
     enum{
         MENU_RESTART,
         MENU_QUIT

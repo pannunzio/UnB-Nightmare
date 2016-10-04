@@ -2,9 +2,6 @@
 #include "Resources.h"
 #include <sstream>
 
-//TIRAR ESSA CONSTANTE DAQUI
-#define CONSTANTE 5
-
 //lembrar de mudar o starting value da text
 Clock::Clock(): text("font/ComicNeue_Bold.otf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){
     running = true;
@@ -52,11 +49,11 @@ int Clock::GetSecondsTotal(){
 }
 
 void Clock::AddTimeToTime(int peso){
-    this->time += CONSTANTE*peso;
+    this->time += peso;
 }
 
 void Clock::SubtractTimeFromTime(int peso){
-    this->time -= CONSTANTE*peso;
+    this->time -= peso;
 }
 
 void Clock::StopClock(){

@@ -15,6 +15,13 @@ float Timer::GetCurrentTime(){
 void Timer::SetTimer(float time){
     this->timer = time;
 }
+void Timer::IncToTime(int time){
+    this->timer += time;
+}
+void Timer::DecFromTime(int time){
+    this->timer -= time;
+}
+
 bool Timer::isFinished(){
     if(this->currentTime > this->timer) return true;
     else return false;

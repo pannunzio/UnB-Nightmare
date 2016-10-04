@@ -44,6 +44,7 @@ bool StageState::GetPause(){
 void StageState::Update(float dt){
     if(pause == false){
         CheckEndOfGame();
+        HandleInputs();
         if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
             pause = true;
             Camera::Pause();
@@ -250,4 +251,7 @@ void StageState::RenderSubLayer(int sublayer){
 }
 
 void StageState::HandleInputs(){
+    if(InputManager::GetInstance().KeyPress(SDLK_1)){
+        this->clock.AddTimeToTime(10);
+    }
 }

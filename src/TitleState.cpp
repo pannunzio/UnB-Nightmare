@@ -45,40 +45,12 @@ void TitleState::Update(float dt){
                     break;
             }
     }
-	// Menu Select
-//	switch(option){
-//	    case MENU_START:
-//            this->option1->SetColor(TEXT_WHITE);
-//            this->option1->SetStyle(SHADED);
-//            this->option2->SetColor(TEXT_BLACK);
-//            this->option2->SetStyle(BLENDED);
-//
-//            if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
-//                this->popRequested = true;
-//                Game::GetInstance().Push(new StageState());
-//            }
-//            break;
-//        case MENU_QUIT:
-//            this->option2->SetColor(TEXT_WHITE);
-//            this->option2->SetStyle(SHADED);
-//            this->option1->SetColor(TEXT_BLACK);
-//            this->option1->SetStyle(BLENDED);
-//
-//            if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
-//                this->popRequested = true;
-//                this->quitRequested = true;
-//            }
-//            break;
-//    }
 }
 
 void TitleState::Render(){
 	this->timer.Update(Game::GetInstance().GetDeltaTime());
 	this->bg.Render(0,0);
 	this->menu.Render();
-//    this->option1->Render(0, 0);
-//    this->option2->Render(0, 0);
-
     if(this->timer.GetCurrentTime() < 32)
     	this->cutscene.Render(0,0);
 }
@@ -94,25 +66,13 @@ void TitleState::HandleInputs(){
         this->popRequested = true;
 		this->quitRequested = true;
 	}
+	if(InputManager::GetInstance().KeyPress(SDLK_p)){
+        this->bg.Open("img/telainicialPB.jpg");
+	}
+	if(InputManager::GetInstance().KeyPress(SDLK_c)){
+        this->bg.Open("img/telainicialC.jpg");
+	}
+	if(InputManager::GetInstance().KeyPress(SDLK_s)){
+        this->bg.Open("img/telainicial.png");
+	}
 }
-//	// Menu Input
-//	if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
-//		this->option--;
-//		//cout << option << endl;
-//		if(this->option < MENU_MIN || this->option == MENU_MIN)
-//			this->option = MENU_MAX - 1;
-//	}
-//
-//	if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
-//		this->option++;
-//		//cout << this->option << endl;
-//		if(this->option > MENU_MAX || this->option == MENU_MAX)
-//			this->option = MENU_MIN + 1;
-//	}
-//	if(InputManager::GetInstance().KeyPress(SDLK_p)){
-//        this->bg.Open("img/telainicialPB.jpg");
-//	}
-//	if(InputManager::GetInstance().KeyPress(SDLK_c)){
-//        this->bg.Open("img/telainicialC.jpg");
-//	}
-//}

@@ -361,7 +361,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1475104688 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
+1475621615 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
 
 1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
 	"GameObject.h"
@@ -482,7 +482,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1475620374 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
+1475620992 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
 	"State.h"
 	"Sprite.h"
 	"Text.h"
@@ -577,7 +577,7 @@
 	"InputManager.h"
 	"Player.h"
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
+1475622184 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
 	"Clock.h"
 	"Resources.h"
 	<sstream>
@@ -592,7 +592,7 @@
 	<memory>
 	<string>
 
-1475619700 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
+1475620983 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
 	"EndState.h"
 	"InputManager.h"
 	"Game.h"
@@ -600,7 +600,7 @@
 	"Text.h"
 	"TitleState.h"
 
-1475618156 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
+1475621098 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
 	"State.h"
 	"Text.h"
 	"Timer.h"
@@ -712,7 +712,7 @@
 	"Game.h"
 	"Resources.h"
 
-1475620062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1475622263 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	<iostream>
 	"StageState.h"
 
@@ -745,10 +745,10 @@
 	"TileMap.h"
 	<math.h>
 
-1475104609 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
+1475621593 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
 	"Timer.h"
 
-1475618434 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
+1475621189 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
 	"TitleState.h"
 	"StageState.h"
 	"Text.h"
