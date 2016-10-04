@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Animation.h"
 #include "Sound.h"
+#include "Menu.h"
 
 class TitleState : public State{
 public:
@@ -20,20 +21,19 @@ public:
 private:
 	Sprite bg;
 	Sprite cutscene;
+	Menu menu;
+	void HandleInputs();
 
 	Timer timer;
 
     Sound music;
-
-	int option;
+//	int option;
 	enum{
-	    MENU_MIN,
         MENU_START,
         MENU_QUIT,
-        MENU_MAX
 	};
-	Text* option1;
-	Text* option2;
+//	Text* option1;
+//	Text* option2;
 };
 
 #endif

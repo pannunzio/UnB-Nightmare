@@ -86,7 +86,7 @@ private:
     void SpawnNewItem();
     void SpawnNewStaticObstacle();
     void SpawnNewDynamicObstacle();
-    void RegisterInputs();//registra os inputs de interesse ao StageState
+    void HandleInputs();//registra os inputs de interesse ao StageState
 
     void RenderSubLayer(int sublayer);
 

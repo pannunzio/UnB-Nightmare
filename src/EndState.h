@@ -12,6 +12,7 @@
 #include "Sprite.h"
 #include "Text.h"
 #include "StateData.h"
+#include "Menu.h"
 
 class EndState : public State{
 public:
@@ -27,11 +28,16 @@ private:
 	Sprite bg;
 	Sprite derrota;
 	Sound sound;
-
+    Menu menu;
 	//menu
-	int option;
-	Text* option1;
-	Text* option2;
+//	int option;
+//	Text* option1;
+//	Text* option2;
+    enum{
+        MENU_RESTART,
+        MENU_QUIT
+    };
+    void HandleInputs();
 
 };
 

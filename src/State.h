@@ -10,6 +10,7 @@
 
 #include "TileMap.h"
 #include "TileSet.h"
+//#include "Menu.h"
 
 using std::string;
 using std::cout;
@@ -35,6 +36,8 @@ protected:
 
 	void virtual UpdateArray(float dt);
 	void virtual RenderArray();
+	void virtual HandleInputs() = 0;
+	//Menu menu;
 
 	bool popRequested;
 	bool quitRequested;

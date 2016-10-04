@@ -377,7 +377,7 @@
 	<iostream>
 	"SDL.h"
 
-1474991982 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1475620029 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -411,7 +411,7 @@
 	"Lixeira.h"
 	"NonCollidingPerson.h"
 
-1474934891 c:\users\thiag\documents\githubrep\unb-nightmare\src\state.h
+1475619928 c:\users\thiag\documents\githubrep\unb-nightmare\src\state.h
 	"Sprite.h"
 	"GameObject.h"
 	<iostream>
@@ -482,11 +482,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
+1475620374 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
 	"State.h"
 	"Sprite.h"
 	"Text.h"
 	"StateData.h"
+	"Menu.h"
 
 1475103728 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
@@ -591,7 +592,7 @@
 	<memory>
 	<string>
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
+1475619700 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
 	"EndState.h"
 	"InputManager.h"
 	"Game.h"
@@ -599,12 +600,13 @@
 	"Text.h"
 	"TitleState.h"
 
-1474934891 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
+1475618156 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
 	"State.h"
 	"Text.h"
 	"Timer.h"
 	"Animation.h"
 	"Sound.h"
+	"Menu.h"
 
 1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\game.cpp
 	<SDL.h>
@@ -710,11 +712,11 @@
 	"Game.h"
 	"Resources.h"
 
-1475104598 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1475620062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	<iostream>
 	"StageState.h"
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
+1475619805 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
 	"State.h"
 	"Game.h"
 	"GameObject.h"
@@ -746,7 +748,7 @@
 1475104609 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
 	"Timer.h"
 
-1474934891 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
+1475618434 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
 	"TitleState.h"
 	"StageState.h"
 	"Text.h"
@@ -757,4 +759,23 @@
 	<math.h>
 	"Vec2.h"
 	<iostream>
+
+1475618393 c:\users\thiag\documents\githubrep\unb-nightmare\include\menu.h
+	<vector>
+	<string>
+	"../src/Sprite.h"
+	"../src/Text.h"
+	"../src/Camera.h"
+	"../src/InputManager.h"
+
+1475618561 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
+	"Menu.h"
+
+1475618393 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
+	<vector>
+	<string>
+	"../src/Sprite.h"
+	"../src/Text.h"
+	"../src/Camera.h"
+	"../src/InputManager.h"
 

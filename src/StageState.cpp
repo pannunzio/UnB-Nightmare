@@ -248,3 +248,6 @@ void StageState::RenderSubLayer(int sublayer){
             objectArray[i]->Render();
 	}
 }
+
+void StageState::HandleInputs(){
+}
