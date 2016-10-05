@@ -33,7 +33,7 @@ void EndState::Update(float dt){
 	this->derrota.Update(dt);
 	this->HandleInputs();
 	this->menu.Update(dt);
-	if(menu.GetSelectedOption() != -1){
+	if(menu.GetSelection()){
             switch(menu.GetSelectedOption()){
                 case MENU_RESTART:
                     this->popRequested = true;

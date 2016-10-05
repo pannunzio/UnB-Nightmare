@@ -89,7 +89,12 @@ private:
     void HandleInputs();//registra os inputs de interesse ao StageState
 
     void RenderSubLayer(int sublayer);
-
+    Menu menu;
+    enum{
+        RESUME,
+        RESTART,
+        QUIT_GAME
+    };
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;

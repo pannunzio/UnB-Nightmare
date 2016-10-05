@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="unbNightmare" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/unbNightmare" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/unbNightmare" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../../../../SDL2/SDL2_image-2.0.1/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../../../../../SDL2/SDL2_mixer-2.0.1/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../../../../../SDL2/SDL2_ttf-2.0.14/i686-w64-mingw32/include/SDL2" />
+			<Add directory="../../../../../SDL2/SDL2-2.0.4/i686-w64-mingw32/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+			<Add option="-lSDL2_mixer -lSDL2_ttf" />
+			<Add directory="../../../../../SDL2/SDL2_image-2.0.1/i686-w64-mingw32/lib" />
+			<Add directory="../../../../../SDL2/SDL2_mixer-2.0.1/i686-w64-mingw32/lib" />
+			<Add directory="../../../../../SDL2/SDL2_ttf-2.0.14/i686-w64-mingw32/lib" />
+			<Add directory="../../../../../SDL2/SDL2-2.0.4/i686-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="src/Agua.cpp" />
+		<Unit filename="src/Agua.h" />
+		<Unit filename="src/Animation.cpp" />
+		<Unit filename="src/Animation.h" />
+		<Unit filename="src/Bullet.cpp" />
+		<Unit filename="src/Bullet.h" />
+		<Unit filename="src/CacaDePombo.cpp" />
+		<Unit filename="src/CacaDePombo.h" />
+		<Unit filename="src/Camera.cpp" />
+		<Unit filename="src/Camera.h" />
+		<Unit filename="src/Clock.cpp" />
+		<Unit filename="src/Clock.h" />
+		<Unit filename="src/Collision.h" />
+		<Unit filename="src/Defines.h" />
+		<Unit filename="src/EndState.cpp" />
+		<Unit filename="src/EndState.h" />
+		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/Game.h" />
+		<Unit filename="src/GameObject.cpp" />
+		<Unit filename="src/GameObject.h" />
+		<Unit filename="src/InputManager.cpp" />
+		<Unit filename="src/InputManager.h" />
+		<Unit filename="src/Item.cpp" />
+		<Unit filename="src/Item.h" />
+		<Unit filename="src/Lixeira.cpp" />
+		<Unit filename="src/Lixeira.h" />
+		<Unit filename="src/Main.cpp" />
+		<Unit filename="src/Manifestacao.cpp" />
+		<Unit filename="src/Manifestacao.h" />
+		<Unit filename="src/MapActionList.cpp" />
+		<Unit filename="src/MapActionList.h" />
+		<Unit filename="src/MapActions.cpp" />
+		<Unit filename="src/MapActions.h" />
+		<Unit filename="src/Menu.cpp" />
+		<Unit filename="src/Menu.h" />
+		<Unit filename="src/NonCollidingPerson.cpp" />
+		<Unit filename="src/NonCollidingPerson.h" />
+		<Unit filename="src/Obstacle.cpp" />
+		<Unit filename="src/Obstacle.h" />
+		<Unit filename="src/Pessoa.cpp" />
+		<Unit filename="src/Pessoa.h" />
+		<Unit filename="src/PessoaZumbi.cpp" />
+		<Unit filename="src/PessoaZumbi.h" />
+		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/Player.h" />
+		<Unit filename="src/Pombo.cpp" />
+		<Unit filename="src/Pombo.h" />
+		<Unit filename="src/Rect.cpp" />
+		<Unit filename="src/Rect.h" />
+		<Unit filename="src/Resources.cpp" />
+		<Unit filename="src/Resources.h" />
+		<Unit filename="src/Sound.cpp" />
+		<Unit filename="src/Sound.h" />
+		<Unit filename="src/Sprite.cpp" />
+		<Unit filename="src/Sprite.h" />
+		<Unit filename="src/StageState.cpp" />
+		<Unit filename="src/StageState.h" />
+		<Unit filename="src/State.cpp" />
+		<Unit filename="src/State.h" />
+		<Unit filename="src/StateData.cpp" />
+		<Unit filename="src/StateData.h" />
+		<Unit filename="src/Text.cpp" />
+		<Unit filename="src/Text.h" />
+		<Unit filename="src/TileMap.cpp" />
+		<Unit filename="src/TileMap.h" />
+		<Unit filename="src/TileSet.cpp" />
+		<Unit filename="src/TileSet.h" />
+		<Unit filename="src/Timer.cpp" />
+		<Unit filename="src/Timer.h" />
+		<Unit filename="src/TitleState.cpp" />
+		<Unit filename="src/TitleState.h" />
+		<Unit filename="src/Vec2.cpp" />
+		<Unit filename="src/Vec2.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

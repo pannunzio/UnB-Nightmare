@@ -78,9 +78,15 @@ int Menu::GetLayer(){
 
 int Menu::GetSublayer(){
 }
+bool Menu::GetSelection(){
+    if(selectedOption != -1) return true;
+    else return false;
+}
 
 int Menu::GetSelectedOption(){
-    return selectedOption;
+    int selected = selectedOption;
+    selectedOption = -1;
+    return selected;
 }
 
 void Menu::AddMenuOption(string newOpt){
@@ -90,5 +96,11 @@ void Menu::AddMenuOption(string newOpt){
         options[currentOption]->SetColor(TEXT_WHITE);
         options[currentOption]->SetStyle(SHADED);
     }
+}
+
+void Menu::SetPosition(float posX, float posY, int newLineSpace){
+    this->box.x = posX;
+    this->box.y = posY;
+    this->newLineSpace = newLineSpace;
 }
 

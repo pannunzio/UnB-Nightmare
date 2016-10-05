@@ -1,7 +1,7 @@
 #include <iostream>
 #include "StageState.h"
 
-StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE){
+StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(500, 350, 50){
 
 	Camera::pos = Vec2(INIT_CAMERA_X,INIT_CAMERA_Y);
 
@@ -25,6 +25,9 @@ StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE){
 	//esse 200 e o player position
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 	this->pause = false;
+	this->menu.AddMenuOption("Resume Game");
+    this->menu.AddMenuOption("Restart");
+    this->menu.AddMenuOption("Quit Game");
 	Camera::Resume();
 }
 
@@ -45,10 +48,6 @@ void StageState::Update(float dt){
     if(pause == false){
         CheckEndOfGame();
         HandleInputs();
-        if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
-            pause = true;
-            Camera::Pause();
-        }
 
         this->clock.Update(dt);
         if(this->clock.GetTime() == 0) waitEnd -= dt;
@@ -61,7 +60,21 @@ void StageState::Update(float dt){
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
     }else{
-        Resume();
+        this->menu.Update(dt);
+        if(this->menu.GetSelection()){
+            switch(menu.GetSelectedOption()){
+                case RESUME:
+                    pause = false;
+                    Camera::Resume();
+                    break;
+                case RESTART:
+                    //RestartStage();
+                    break;
+                case QUIT_GAME:
+                    this->popRequested = true;
+                    break;
+            }
+        }
     }
 }
 void StageState::Pause(){
@@ -76,10 +89,10 @@ void StageState::Resume(){
 
 void StageState::Render(){
     Camera::Update(Game::GetInstance().GetDeltaTime());
-
 	//chamando o render de cada gameObject
 	this->bg.Render(0, 0);
 	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
+	if(pause == true) this->menu.Render();
 
     RenderSubLayer(3);
     RenderSubLayer(2);
@@ -251,6 +264,11 @@ void StageState::RenderSubLayer(int sublayer){
 }
 
 void StageState::HandleInputs(){
+    if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+        pause = true;
+        Camera::Pause();
+    }
+
     if(InputManager::GetInstance().KeyPress(SDLK_1)){
         this->clock.AddTimeToTime(10);
     }

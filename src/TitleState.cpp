@@ -33,16 +33,18 @@ void TitleState::Update(float dt){
     this->timer.Update(dt);
     this->menu.Update(dt);
     HandleInputs();
-    if(menu.GetSelectedOption() != -1){
+    if(menu.GetSelection()){
             switch(menu.GetSelectedOption()){
                 case MENU_START:
-                    this->popRequested = true;
+                    //this->popRequested = true;
                     Game::GetInstance().Push(new StageState());
                     break;
                 case MENU_QUIT:
                     this->popRequested = true;
                     this->quitRequested = true;
                     break;
+                default:
+                    cout << "selectedOption: " << menu.GetSelectedOption() << endl;
             }
     }
 }

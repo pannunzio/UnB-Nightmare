@@ -377,7 +377,7 @@
 	<iostream>
 	"SDL.h"
 
-1475620029 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1475679033 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -577,7 +577,7 @@
 	"InputManager.h"
 	"Player.h"
 
-1475622184 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
+1475622516 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
 	"Clock.h"
 	"Resources.h"
 	<sstream>
@@ -712,7 +712,7 @@
 	"Game.h"
 	"Resources.h"
 
-1475622263 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1475680749 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	<iostream>
 	"StageState.h"
 
@@ -748,7 +748,7 @@
 1475621593 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
 	"Timer.h"
 
-1475621189 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
+1475680598 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
 	"TitleState.h"
 	"StageState.h"
 	"Text.h"
@@ -768,10 +768,10 @@
 	"../src/Camera.h"
 	"../src/InputManager.h"
 
-1475618561 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
+1475680556 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
 	"Menu.h"
 
-1475618393 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
+1475680586 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
 	<vector>
 	<string>
 	"../src/Sprite.h"
