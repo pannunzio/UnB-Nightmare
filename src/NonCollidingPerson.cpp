@@ -17,13 +17,13 @@ NonCollidingPerson::NonCollidingPerson(){
 	this->box.x = Player::player->box.x + 1200;
 
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = OBST_HEIGHT_L3;
 
     if(this->layer == LAYER_MIDDLE)
-        box.y = ITEM_HEIGHT_L2;
+        this->box.y = OBST_HEIGHT_L2;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = OBST_HEIGHT_L1;
 
     this->box.y += 65;
 }

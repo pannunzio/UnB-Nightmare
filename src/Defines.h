@@ -56,6 +56,14 @@ using std::endl;
 #define END_MAX_OPTIONS 2
 #define END_MIN_OPTIONS 1
 
+#define PLAYER_HEIGHT_L3 230
+#define PLAYER_HEIGHT_L2 495
+#define PLAYER_HEIGHT_L1 772
+
+#define OBST_HEIGHT_L3 230
+#define OBST_HEIGHT_L2 495
+#define OBST_HEIGHT_L1 772
+
 #define ITEM_HEIGHT_L3 230
 #define ITEM_HEIGHT_L2 495
 #define ITEM_HEIGHT_L1 772
