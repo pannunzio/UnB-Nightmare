@@ -19,13 +19,13 @@ PessoaZumbi::PessoaZumbi(){
 	this->box.x = Player::player->box.x + 1200;
 
    if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 3;
+        this->box.y = OBST_HEIGHT_L3 + 3;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2 + 10;
+        this->box.y = OBST_HEIGHT_L2 + 10;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1 + 7;
+        this->box.y = OBST_HEIGHT_L1 + 7;
 
     this->box.y -= (this->subLayer - 3) * 26;
 }

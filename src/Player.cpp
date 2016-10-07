@@ -145,7 +145,8 @@ void Player::NotifyCollision(GameObject* other){
         this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
     }
 
-    if(other->Is("GGLIKO")){//DEBUG aperte G para ficar no estado EATING
+    if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
+        cout<< "eita um acai" << endl;
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
@@ -254,13 +255,13 @@ void Player::MoveSameFloor(){
 
 void Player::SetPositionInY(){
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 2;
+        this->box.y = PLAYER_HEIGHT_L3 + 2;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
+        this->box.y = PLAYER_HEIGHT_L2;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = PLAYER_HEIGHT_L1;
 
     this->box.y -= (this->subLayer - 3) * 24;
 }
@@ -382,19 +383,19 @@ void Player::AdjustGoingUpOrDown(){
 
     if(this->inputState != NO_INPUT){
 
-        if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
+        if(this->layer == LAYER_TOP && abs(this->box.y - PLAYER_HEIGHT_L3) < 10){							//
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
+            this->box.y = PLAYER_HEIGHT_L3 - (this->subLayer - 3)*26;
         }
 
-        if(this->layer == LAYER_MIDDLE && abs(this->box.y - ITEM_HEIGHT_L2) < 10){
+        if(this->layer == LAYER_MIDDLE && abs(this->box.y - PLAYER_HEIGHT_L2) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
+            this->box.y = PLAYER_HEIGHT_L2 - (this->subLayer - 3)*26;
         }
 
-        if(this->layer == LAYER_BOTTON && abs(this->box.y - ITEM_HEIGHT_L1) < 10){
+        if(this->layer == LAYER_BOTTON && abs(this->box.y - PLAYER_HEIGHT_L1) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
+            this->box.y = PLAYER_HEIGHT_L1 - (this->subLayer - 3)*26;
         }
     }
 }
