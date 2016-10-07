@@ -19,18 +19,18 @@ Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 2,0.2){
 	this->isDead = false;
 	this->speed = 1;
 	this->layer = layer;
-	this->subLayer = subLayer;
+ 	this->subLayer = subLayer;
 
 	this->box.x = Player::player->box.x + 1200;
 
 	if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = OBST_HEIGHT_L3;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
+        this->box.y = OBST_HEIGHT_L2;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = OBST_HEIGHT_L1;
 
     this->box.y += sp.GetHeight();
 	this->box.y -= (this->subLayer - 3) * 26 - 200;

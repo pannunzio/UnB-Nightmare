@@ -43,7 +43,7 @@ private:
 	SDL_Rect clipRect;
 	SDL_Rect dstRect;
 	int width;
-	int height;
+ 	int height;
 
 	float scaleY;
 	float scaleX;

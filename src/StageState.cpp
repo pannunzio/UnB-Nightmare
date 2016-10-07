@@ -1,5 +1,6 @@
 #include <iostream>
 #include "StageState.h"
+#include "Acai.h"
 
 StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(500, 350, 50){
 
@@ -197,14 +198,17 @@ void StageState::CheckMapActionsPosition(float dt){
 }
 
 void StageState::SpawnNewItem(){
-    if(this->clock.GetSeconds1()%2 == 0){
+    if(this->clock.GetSeconds1()%3 == 0){
         if(this->spawn == 0 && rand()%100 <= 80){
-            if(rand()%3 ==1)
-                 AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
-            else if(rand()%3 ==2)
-                 AddObject(new Item(Player::player->layer, rand()%3+1, "SKATE"));
-            else
-                 AddObject(new Item(Player::player->layer, rand()%3+1, "GGLIKO"));
+            AddObject(new Acai(Player::player->layer, rand()%3 + 1));
+
+//            if(rand()%3 ==1)
+//                 AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
+//            else if(rand()%3 ==2)
+//                 AddObject(new Item(Player::player->layer, rand()%3+1, "SKATE"));
+//            else
+//                 AddObject(new Item(Player::player->layer, rand()%3+1, "GGLIKO"));
+
         }
         this->spawn = 1;
     }

@@ -4,16 +4,19 @@
 #include "Animation.h"
 #include "Game.h"
 
-TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8, 2), menu(500, 350, 50) {
-	//Inicializaçao de metadados
+TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8, 2), menu(250, 350, 50) {
 	this->popRequested = false;
 	this->quitRequested = false;
-
-    //Inicializaçao do menu
     this->menu.AddMenuOption("Start");
     this->menu.AddMenuOption("Quit Game");
+//	this->option = MENU_START;
 
-    //Inicialização da musica
+//	this->option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_BLACK, 0,0 );
+//	this->option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_BLACK, 0,0 );
+
+//	this->option1->SetPos(500,350,true,false);
+//	this->option2->SetPos(500,400,true,false);
+
     this->music = Sound(-1);
     this->music.Open("audio/tematerreo_main.ogg", 1);
     this->music.Open("audio/menu.ogg", 1);
@@ -33,7 +36,7 @@ void TitleState::Update(float dt){
     if(menu.GetSelection()){
             switch(menu.GetSelectedOption()){
                 case MENU_START:
-                    //this->popRequested = true;//o TitleState fica na base da pilha para o jogo ter para onde voltar
+                    //this->popRequested = true;
                     Game::GetInstance().Push(new StageState());
                     break;
                 case MENU_QUIT:
@@ -65,10 +68,6 @@ void TitleState::HandleInputs(){
         this->popRequested = true;
 		this->quitRequested = true;
 	}
-
-	/***
-        Botões Magicos de Debug
-    ***/
 	if(InputManager::GetInstance().KeyPress(SDLK_p)){
         this->bg.Open("img/telainicialPB.jpg");
 	}

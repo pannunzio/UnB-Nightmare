@@ -7,6 +7,7 @@ Menu::Menu(float posX, float posY, int newLineSpace):bg(BG_MENU){
     //ctor
     this->box.x = posX;
     this->box.y = posY;
+
     this->newLineSpace = newLineSpace;
     this->currentOption = 0;
     this->lastOption = -1;
@@ -58,7 +59,7 @@ void Menu::HandleInputs(){
 }
 
 void Menu::Render(){
-    this->bg.Render((int)Camera::pos.x + box.x, (int)Camera::pos.y + this->box.y);
+    this->bg.Render((int)Camera::pos.x + box.x - (this->bg.GetWidth()/2), (int)Camera::pos.y + this->box.y + 50 - (this->bg.GetHeight()/2));
     for(int i = 0; i < options.size(); i++){
         this->options[i]->Render(0, 0);
     }
