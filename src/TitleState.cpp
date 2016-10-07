@@ -4,7 +4,7 @@
 #include "Animation.h"
 #include "Game.h"
 
-TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8, 2), menu(500, 350, 50) {
+TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8, 2), menu(250, 350, 50) {
 	this->popRequested = false;
 	this->quitRequested = false;
     this->menu.AddMenuOption("Start");
