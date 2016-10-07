@@ -12,6 +12,8 @@ public:
 //    Item(int layer, int subLayer, std::string item);
     ~Item();
 
+    void Update(float dt);
+    void Render();
     bool IsDead();
     void NotifyCollision(GameObject* other);
 //    bool Is(std::string type);
@@ -19,6 +21,7 @@ public:
     int GetLayer();
 	int GetSublayer();
 
+    Sprite sp;
     bool isDead;
     Sound captureSound;
 //    bool isSoundHappening;

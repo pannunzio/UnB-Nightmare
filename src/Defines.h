@@ -68,6 +68,8 @@ using std::endl;
 #define ITEM_HEIGHT_L2 495
 #define ITEM_HEIGHT_L1 772
 
+#define SUBLAYER_DISTANCE 26
+
 #define CORRECTION_POSITION_SPEED 0.2
 
 //acrescentar mais aa medida q for usando

@@ -12,15 +12,10 @@ class Acai: public Item{
 public:
     Acai(int layer, int sublayer);
 
-    void Update(float dt);
-    void Render();
-
     bool Is(string type);
 
 private:
-    Sprite sp;
 
-//    ~Acai();
 };
 
 #endif // ACAI_H

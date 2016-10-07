@@ -40,13 +40,25 @@ Item::~Item(){
     this->captureSound.Stop();
 }
 
+void Item::Update(float dt){
+    if(Player::player){
+        this->sp.Update(dt);
+    } else
+        this->isDead = true;
+}
+
+void Item::Render(){
+    this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);
+}
+
+
 bool Item::IsDead(){
     return this->isDead;
 }
 
 void Item::NotifyCollision(GameObject* other){
     if(other->Is("Player")){
-        cout << "BATI NO PLAYERRR SL: " << this->GetSublayer() << endl;
+        cout << "BATI NO PLAYERRR SL: " << this->GetSublayer() << " SUB:: " << this->subLayer << endl;
         this->isDead = true;
         this->captureSound.Play(1);
     }

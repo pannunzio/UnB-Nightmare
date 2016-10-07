@@ -58,8 +58,8 @@ void StageState::Update(float dt){
 
         this->cooldownTimer.Update(dt);
         SpawnNewItem();
-//        SpawnNewStaticObstacle();
-//        SpawnNewDynamicObstacle();
+        SpawnNewStaticObstacle();
+        SpawnNewDynamicObstacle();
     }else{
         this->menu.Update(dt);
         if(this->menu.GetSelection()){
@@ -198,10 +198,10 @@ void StageState::CheckMapActionsPosition(float dt){
 }
 
 void StageState::SpawnNewItem(){
-//    if(this->clock.GetSeconds1()%3 == 0){
-    if(rand()%5 > 3){
-        AddObject(new Acai(3, 2));
-//        if(this->spawn == 0 && rand()%100 <= 80){
+    if(this->clock.GetSeconds1()%3 == 0){
+        if(this->spawn == 0 && rand()%100 <= 80){
+            AddObject(new Acai(Player::player->layer, rand()%3 + 1));
+
 //            if(rand()%3 ==1)
 //                 AddObject(new Item(Player::player->layer, rand()%3+1, "COFFEE"));
 //            else if(rand()%3 ==2)
@@ -209,11 +209,11 @@ void StageState::SpawnNewItem(){
 //            else
 //                 AddObject(new Item(Player::player->layer, rand()%3+1, "GGLIKO"));
 
-//        }
-//        this->spawn = 1;
-//    }
-//    else if(this->spawn != 0){
-//        this->spawn = 0;
+        }
+        this->spawn = 1;
+    }
+    else if(this->spawn != 0){
+        this->spawn = 0;
     }
 }
 
