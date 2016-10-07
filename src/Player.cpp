@@ -130,7 +130,7 @@ void Player::NotifyCollision(GameObject* other){
         	this->box.x += 20;
     }
 
-    if(other->Is("COFFEE")){
+    if(other->Is("Cafe")){
         this->coffee_ammo++;
     }
 
@@ -145,7 +145,7 @@ void Player::NotifyCollision(GameObject* other){
         this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
     }
 
-    if(other->Is("GGLIKO")){//DEBUG aperte G para ficar no estado EATING
+    if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
