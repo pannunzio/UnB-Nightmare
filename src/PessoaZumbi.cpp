@@ -11,7 +11,7 @@ PessoaZumbi::PessoaZumbi(){
 	this->layer = rand()%3 + 1;
 	this->subLayer = rand()%3 + 1;
 
-	this->spriteSound = Sound(-1);
+	this->spriteSound = Sound(3);
 
     GetZombieSound();
     this->spriteSound.Play(1);
@@ -89,7 +89,8 @@ void PessoaZumbi::GetZombieSound(){
         fileName = "audio/Zumbi9.ogg";
     }
     }
-    OpenSound(fileName);
+
+    this->spriteSound.Open(fileName, 3);
 }
 
 void PessoaZumbi::ChangeSprite(){

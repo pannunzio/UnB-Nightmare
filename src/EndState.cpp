@@ -9,17 +9,18 @@ EndState::EndState(StateData stateData):menu(500, 350, 50){
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
 
-    this->sound = Sound(-1);
+    if(sound.IsPlaying(1))
+        sound.Stop();
 
 	if(stateData.playerVictory){
         this->bg = Sprite("img/cerrado.jpg");
-        this->sound.Open("audio/tematerreo_vitoria.ogg");
+        this->sound.Open("audio/tematerreo_vitoria.ogg", 1);
 	}
 
 	else {
         this->derrota = Sprite("img/derrota.png", 12,0.2);
         this->bg = Sprite("img/cerrado.jpg");
-        this->sound.Open("audio/tematerreo_desespero.ogg");
+        this->sound.Open("audio/tematerreo_desespero.ogg", 1);
 	}
 
 	this->sound.Play(-1);

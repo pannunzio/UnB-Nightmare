@@ -12,7 +12,7 @@ StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(50
 	this->tileMap.SetTileSet(tileSet);
 
     this->music = Sound(-1);
-    this->music.Open(INIT_MUSIC_FILE);
+    this->music.Open(INIT_MUSIC_FILE, 1);
     this->music.Play(10);
 
 	AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));

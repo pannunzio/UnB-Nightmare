@@ -3,24 +3,24 @@
 
 Sound::Sound(){
 	this->sound = nullptr;
-	this->channel = 0;
+	this->channel = -5;
 }
 
 Sound::Sound(int channel){
-	sound = nullptr;
-	channel = channel;
+	this->sound = nullptr;
+	this->channel = channel;
 }
 
-Sound::Sound(std::string file){
-	this->sound = nullptr;
-	Open(file);
-	this->channel = 0;
-}
+//Sound::Sound(std::string file){
+//	this->sound = nullptr;
+//	Open(file);
+//	this->channel = 0;
+//}
 
 Sound::Sound(std::string file, int channel){
 	this->sound = nullptr;
-	Open(file);
 	this->channel = channel;
+	Open(file, this->channel);
 }
 
 Sound::~Sound(){
@@ -28,22 +28,20 @@ Sound::~Sound(){
 }
 
 void Sound::Play(int times){
-//    if(channel != 0)
-//        Mix_PlayChannel(channel, sound, times);
-//    else
-        this->channel = Mix_PlayChannel(-1, this->sound, times);
+    this->channel = Mix_PlayChannel(this->channel, this->sound, times);
 }
 
 void Sound::Stop(){
-	Mix_FadeOutChannel(this->channel, 1000);
+	Mix_FadeOutChannel(this->channel, 500);
 }
 
 void Sound::Stop(int numSeconds){
 	Mix_FadeOutChannel(this->channel, numSeconds * 1000);
 }
 
-void Sound::Open(std::string file){
+void Sound::Open(std::string file, int channel){
 	this->sound = Resources::GetSound(file);
+	this->channel = channel;
 }
 
 void Sound::SetVolume(int volume){

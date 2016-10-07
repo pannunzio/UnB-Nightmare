@@ -18,7 +18,7 @@ bool Obstacle::IsDead(){
 }
 
 void Obstacle::OpenSound(string fileName){
-    this->spriteSound.Open(fileName);
+    this->spriteSound.Open(fileName, 4);
 }
 
 void Obstacle::ChangeSpritesheet(string fileName, int frameCount, float frameTime){

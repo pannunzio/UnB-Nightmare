@@ -136,7 +136,7 @@ void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("SKATE")){
         if(!this->isPlayingMusic && this->powerUp != SKATE){
-            this->powerupMusic.Open(SKATING_MUS);
+            this->powerupMusic.Open(SKATING_MUS, 5);
             this->powerupMusic.Play(1);
             this->powerupMusic.SetVolume(180);
         }

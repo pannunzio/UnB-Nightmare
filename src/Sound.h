@@ -8,14 +8,14 @@ class Sound {
 public:
 	Sound();
 	Sound(int channel);
-	Sound(std::string file);
+//	Sound(std::string file);
 	Sound(std::string file, int channel);
 	~Sound();
 
 	void Play(int times);
 	void Stop();
 	void Stop(int numSeconds);
-	void Open(std::string file);
+	void Open(std::string file, int channel);
 
 	void SetVolume(int volume);
 	void StereoPanning(int left, int right);

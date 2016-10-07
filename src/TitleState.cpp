@@ -15,8 +15,8 @@ TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png"
 
     //Inicialização da musica
     this->music = Sound(-1);
-    this->music.Open("audio/tematerreo_main.ogg");
-    this->music.Open("audio/menu.ogg");
+    this->music.Open("audio/tematerreo_main.ogg", 1);
+    this->music.Open("audio/menu.ogg", 1);
     this->music.Play(-1);
 }
 
