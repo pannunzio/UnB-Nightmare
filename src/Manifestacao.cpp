@@ -18,12 +18,24 @@ Manifestacao::Manifestacao(){
     this->box.y = ITEM_HEIGHT_L2 + 30;
     this->box.y -= (this->subLayer - 3) * 26;
 
-    spriteSound.Open("audio/manifestacao_11s.wav");
-    spriteSound.Play(1);
+    spriteSound.Open("audio/manifestacao_11s.wav", 2);
+
+    if(!spriteSound.IsPlaying(2))
+        spriteSound.Play(-1);
+    else {
+        if(!spriteSound.IsPlaying(7)){
+            spriteSound.SetChannel(7);
+            spriteSound.Play(-1);
+        }
+        else if(!spriteSound.IsPlaying(8)){
+            spriteSound.SetChannel(8);
+            spriteSound.Play(-1);
+        }
+    }
 }
 
 Manifestacao::~Manifestacao(){
-    spriteSound.Stop(2);
+    spriteSound.Stop(1);
 }
 
 void Manifestacao::Render(){

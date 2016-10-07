@@ -10,7 +10,8 @@ Item::Item(int layer, int subLayer, std::string item) {
     this->itemType = item;
     this->isDead = false;
 //    this->isSoundHappening = false;
-    this->captureSound = Sound();
+
+    this->captureSound.SetChannel(5);
 
 	if(this->layer == LAYER_TOP)
         this->box.y = ITEM_HEIGHT_L3;
@@ -23,7 +24,7 @@ Item::Item(int layer, int subLayer, std::string item) {
 
     if(this->itemType == "COFFEE"){
         this->bg = Sprite("img/cafeColor.png", 6, 0.09);
-        this->captureSound.Open("audio/cafe_getitem.wav");
+        this->captureSound.Open("audio/cafe_getitem.wav", 5);
     }
 
     if(this->itemType == "SKATE"){
@@ -32,7 +33,7 @@ Item::Item(int layer, int subLayer, std::string item) {
 
     if(this->itemType == "GGLIKO"){
         this->bg = Sprite("img/ggliko.png", 6, 0.09);
-        this->captureSound.Open("audio/comida_getitem.wav");
+        this->captureSound.Open("audio/comida_getitem.wav", 5);
     }
 }
 

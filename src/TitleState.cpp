@@ -18,8 +18,8 @@ TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png"
 //	this->option2->SetPos(500,400,true,false);
 
     this->music = Sound(-1);
-    this->music.Open("audio/tematerreo_main.ogg");
-    this->music.Open("audio/menu.ogg");
+    this->music.Open("audio/tematerreo_main.ogg", 1);
+    this->music.Open("audio/menu.ogg", 1);
     this->music.Play(-1);
 }
 

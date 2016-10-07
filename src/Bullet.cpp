@@ -5,7 +5,7 @@
 #include "Player.h"
 
 Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,float frameTime, bool targetsPlayer, std::string type)
-		: sp(sprite,frameCount,frameTime), shooterSound("audio/cafe_shoot.wav")
+		: sp(sprite,frameCount,frameTime), shooterSound("audio/cafe_shoot.wav", 6)
 {
     this->layer = 2;
     this->subLayer = 2;

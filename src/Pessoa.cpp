@@ -13,7 +13,7 @@ Pessoa::Pessoa(){
 	this->layer = rand()%3 + 1;
 	this->subLayer = rand()%3 + 1;
 
-	this->spriteSound = Sound(-1);
+	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
 
 	this->box.x = Player::player->box.x + 1200;
