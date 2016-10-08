@@ -1,26 +1,18 @@
 #include "TitleState.h"
-#include "StageState.h"
-#include "Text.h"
-#include "Animation.h"
-#include "Game.h"
 
-TitleState::TitleState(): bg("img/telainicial.png"), cutscene("img/cutscene.png", 8, 2), menu(250, 350, 50) {
+TitleState::TitleState(): bg(BG_IMAGE),
+                          cutscene(CUTSCENE_IMAGE, CUTSCENE_FRAMES, CUTSCENE_FTIME),
+                          menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT)
+{
 	this->popRequested = false;
 	this->quitRequested = false;
-    this->menu.AddMenuOption("Start");
-    this->menu.AddMenuOption("Quit Game");
-//	this->option = MENU_START;
+    this->menu.AddMenuOption(MENU_TEXT_START);
+    this->menu.AddMenuOption(MENU_TEXT_QUIT);
 
-//	this->option1 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Start", TEXT_BLACK, 0,0 );
-//	this->option2 = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, "Quit Game", TEXT_BLACK, 0,0 );
-
-//	this->option1->SetPos(500,350,true,false);
-//	this->option2->SetPos(500,400,true,false);
-
-    this->music = Sound(-1);
-    this->music.Open("audio/tematerreo_main.ogg", 1);
-    this->music.Open("audio/menu.ogg", 1);
-    this->music.Play(-1);
+    this->music = Sound(SOUND_ALL_CHANNELS);
+    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
+    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+    this->music.Play(SOUND_PLAY_INFINITY);
 }
 
 TitleState::~TitleState(){
@@ -68,6 +60,10 @@ void TitleState::HandleInputs(){
         this->popRequested = true;
 		this->quitRequested = true;
 	}
+
+	/***
+        Botões Mágicos
+    ***/
 	if(InputManager::GetInstance().KeyPress(SDLK_p)){
         this->bg.Open("img/telainicialPB.jpg");
 	}

@@ -4,6 +4,14 @@
 #include "GameObject.h"
 #include "Obstacle.h"
 
+#define MENINA_FILE     "img/menina.png"
+#define MENINA_FRAMES   6
+#define MENINA_FTIME    0.2
+
+#define MENINO_FILE     "img/menino.png"
+#define MENINO_FRAMES   6
+#define MENINO_FTIME    0.2
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -27,6 +35,10 @@ private:
     void GetXingamentoSound();
     void GetSprite();
     bool isParada;
+    enum{
+        MENINA,
+        MENINO
+    };
 };
 
 #endif // PESSOA_H

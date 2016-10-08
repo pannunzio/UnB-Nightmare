@@ -25,7 +25,7 @@
 #define RUNNING_FTIME        0.09
 #define RUNNING_ACC          1.5
 #define RUNNING_SLOW_SPEED   4
-#define RUNNING_SPEED 5
+#define RUNNING_SPEED        5
 
 
 #define STOPPING_FILE    "img/derrota.png"

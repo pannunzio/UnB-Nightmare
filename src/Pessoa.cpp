@@ -131,18 +131,14 @@ void Pessoa::GetSprite(){
             return;
         }
     } else {
-        int aux = rand()%2 + 1;
-        cout << "teste manooo ++ " << aux << endl;
-
+        int aux = rand()%2; //0 ou 1
         switch(aux){
-        case 1:{
-            cout << "minaa case 1" << endl;
-            this->sp = Sprite("img/menina.png", 6, 0.2);
+        case MENINA:{
+            this->sp = Sprite(MENINA_FILE, MENINA_FRAMES, MENINA_FTIME);
             return;
         }
-        case 2:{
-            cout << "OIA OS MINO case 2" << endl;
-            this->sp = Sprite("img/menino.png", 6, 0.2);
+        case MENINO:{
+            this->sp = Sprite(MENINO_FILE, MENINO_FRAMES, MENINO_FTIME);
             return;
         }
         default:

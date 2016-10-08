@@ -1,21 +1,14 @@
 #include "Sound.h"
-#include "Resources.h"
 
 Sound::Sound(){
 	this->sound = nullptr;
-	this->channel = -5;
+	this->channel = SOUND_NO_CHANNEL;
 }
 
 Sound::Sound(int channel){
 	this->sound = nullptr;
 	this->channel = channel;
 }
-
-//Sound::Sound(std::string file){
-//	this->sound = nullptr;
-//	Open(file);
-//	this->channel = 0;
-//}
 
 Sound::Sound(std::string file, int channel){
 	this->sound = nullptr;
@@ -31,11 +24,8 @@ void Sound::Play(int times){
     this->channel = Mix_PlayChannel(this->channel, this->sound, times);
 }
 
-void Sound::Stop(){
-	Mix_FadeOutChannel(this->channel, 500);
-}
-
 void Sound::Stop(int numSeconds){
+    //canal a fazer fadeOut, tempo em milisegundos
 	Mix_FadeOutChannel(this->channel, numSeconds * 1000);
 }
 
@@ -65,11 +55,12 @@ void Sound::SetChannel(int channel){
 }
 
 void Sound::PlayArbitraryFadeIn(int times, int numSeconds){
-//    std::cout << "arb fadein" << std::endl;
     if(this->channel != 0 && !this->IsPlaying(this->channel))
        Mix_FadeInChannelTimed(this->channel, this->sound, times, 1000 * numSeconds, 10000);
     else
-        this->channel = Mix_FadeInChannelTimed(-1, this->sound, times, 1000 * numSeconds, 10000);
+        this->channel = Mix_FadeInChannelTimed(SOUND_FIRST_FREE_CHANNEL,
+                                               this->sound, times,
+                                               1000 * numSeconds, 10000);
 }
 
 bool Sound::IsPlaying(){
