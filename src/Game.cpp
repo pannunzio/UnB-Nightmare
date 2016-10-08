@@ -15,6 +15,7 @@
 #include "TitleState.h"
 #include "Defines.h"
 #include <cstdlib>
+#include <stdio.h>
 #include <ctime>
 
 Game* Game::instance = nullptr;
@@ -51,6 +52,15 @@ Game::Game(string title, int width, int height){
 	this->storedState = nullptr;
 	this->instance = this;
 	std::cout << "Game built" << std::endl;
+
+	SDL_version compiled;
+    const SDL_version *linked;
+
+    SDL_TTF_VERSION(&compiled);
+    linked = TTF_Linked_Version();
+    printf("We compiled against SDL version %d.%d.%d ...\n", compiled.major, compiled.minor, compiled.patch);
+    printf("But we are linking against SDL version %d.%d.%d.\n", linked->major, linked->minor, linked->patch);
+
 }
 
 Game::~Game(){
@@ -100,6 +110,11 @@ void Game::Run(){
 		this->frameStart = SDL_GetTicks();
 		InputManager::GetInstance().Update();
 
+
+		this->stateStack.top()->Update(dt);
+		this->stateStack.top()->Render();
+
+
 		if(this->stateStack.top()->QuitRequested())
 			break;
 		if(this->stateStack.top()->PopRequested())
@@ -108,9 +123,6 @@ void Game::Run(){
 			this->stateStack.emplace(storedState);
 			this->storedState = nullptr;
 		}
-
-		this->stateStack.top()->Update(dt);
-		this->stateStack.top()->Render();
 
 		//Clear screen
 		SDL_RenderPresent(this->renderer); // força renderer tudo dnv

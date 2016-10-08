@@ -2,6 +2,7 @@
 #include "StageState.h"
 #include "Acai.h"
 #include "Cafe.h"
+#include "Skate.h"
 
 StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(500, 350, 50){
 
@@ -35,11 +36,11 @@ StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(50
 
 StageState::~StageState(){
 	// limpando o vector
-	this->mapActionList.mapActions.clear();
-	objectArray.clear();
-	this->music.Stop();
-	Player::player = nullptr;
-	cout << "StageState destroyed" << endl;
+//	this->mapActionList.mapActions.clear();
+//	objectArray.clear();
+//	this->music.Stop();
+//	Player::player = nullptr;
+//	cout << "StageState destroyed" << endl;
 }
 
 bool StageState::GetPause(){
@@ -201,10 +202,12 @@ void StageState::CheckMapActionsPosition(float dt){
 void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%3 == 0){
         if(this->spawn == 0 && rand()%100 <= 80){
-            if(rand()%3 ==1)
+            if(rand()%3 == 1)
                 AddObject(new Acai(Player::player->layer, rand()%3 + 1));
+            else if(rand()%3 == 2)
+                AddObject(new Skate(Player::player->layer, rand()%3 + 1));
             else
-                AddObject(new Cafe(Player::player->layer, rand()%3+1));
+                AddObject(new Cafe(Player::player->layer, rand()%3 + 1));
         }
         this->spawn = 1;
     }

@@ -13,6 +13,8 @@ public:
     Cafe(int layer, int subLayer);
 
     bool Is(string type);
+
+//    void SetAssets();
 };
 
 #endif

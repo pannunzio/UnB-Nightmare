@@ -115,7 +115,8 @@ void Pessoa::GetXingamentoSound(){
 }
 
 void Pessoa::GetSprite(){
-    if(rand()%2 + 1){
+    if(rand()%2 + 1 > 1){
+
         this->speed = 0;
         switch(rand()%2 + 1){
         case 1:{
@@ -130,12 +131,17 @@ void Pessoa::GetSprite(){
             return;
         }
     } else {
-        switch(rand()%2 + 1){
+        int aux = rand()%2 + 1;
+        cout << "teste manooo ++ " << aux << endl;
+
+        switch(aux){
         case 1:{
+            cout << "minaa case 1" << endl;
             this->sp = Sprite("img/menina.png", 6, 0.2);
             return;
         }
         case 2:{
+            cout << "OIA OS MINO case 2" << endl;
             this->sp = Sprite("img/menino.png", 6, 0.2);
             return;
         }

@@ -1,41 +1,6 @@
 #include "Item.h"
 #include "Player.h"
 
-//Item::Item(int layer, int subLayer, std::string item) {
-//    //ctor
-//    this->layer = layer;
-//    this->subLayer = subLayer;
-//    this->box = Rect(Player::player->box.x + 1200, 0, sp.GetWidth(), sp.GetHeight());
-//    this->itemType = item;
-//    this->isDead = false;
-////    this->isSoundHappening = false;
-//
-//    this->captureSound.SetChannel(5);
-//
-//	if(this->layer == LAYER_TOP)
-//        this->box.y = ITEM_HEIGHT_L3;
-//    if(this->layer == LAYER_MIDDLE)
-//        this->box.y = ITEM_HEIGHT_L2;
-//    if(this->layer == LAYER_BOTTON)
-//        this->box.y = ITEM_HEIGHT_L1;
-//
-//    this->box.y -= (this->subLayer - 3) * 26;
-//
-//    if(this->itemType == "COFFEE"){
-//        this->sp = Sprite("img/cafeColor.png", 6, 0.09);
-//        this->captureSound.Open("audio/cafe_getitem.wav", 5);
-//    }
-//
-//    if(this->itemType == "SKATE"){
-//        this->sp = Sprite("img/skate.png", 6, 0.09);
-//    }
-//
-//    if(this->itemType == "GGLIKO"){
-//        this->sp = Sprite("img/ggliko.png", 6, 0.09);
-//        this->captureSound.Open("audio/comida_getitem.wav", 5);
-//    }
-//}
-
 Item::~Item(){
     this->captureSound.Stop();
 }
@@ -74,4 +39,33 @@ int Item::GetLayer(){
 
 int Item::GetSublayer(){
     return this->subLayer;
+}
+
+void Item::SetAssets(int layer, int subLayer){
+    this->layer = layer;
+    this->subLayer = subLayer;
+
+    this->box.x = Player::player->box.x + 1200;
+    this->box.y = 0;
+    this->box.w = this->sp.GetWidth();
+    this->box.h = this->sp.GetHeight();
+
+    this->isDead = false;
+
+    this->captureSound.SetChannel(5);
+
+	if(this->layer == LAYER_TOP)
+        this->box.y = ITEM_HEIGHT_L3;
+
+    if(this->layer == LAYER_MIDDLE)
+        this->box.y = ITEM_HEIGHT_L2;
+
+    if(this->layer == LAYER_BOTTON)
+        this->box.y = ITEM_HEIGHT_L1;
+
+    if (this->subLayer < SUBLAYER_TOP)
+        this->box.y += SUBLAYER_DISTANCE;
+
+    if(this->subLayer == SUBLAYER_BOTTON)
+        this->box.y += SUBLAYER_DISTANCE;
 }

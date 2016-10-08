@@ -9,7 +9,7 @@
 
 class Item : public GameObject{
 public:
-//    Item(int layer, int subLayer, std::string item);
+//    Item(int layer, int subLayer);
     ~Item();
 
     void Update(float dt);
@@ -20,6 +20,8 @@ public:
 
     int GetLayer();
 	int GetSublayer();
+
+	void SetAssets(int layer, int subLayer);
 
     Sprite sp;
     bool isDead;

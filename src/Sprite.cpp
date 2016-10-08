@@ -64,7 +64,7 @@ void Sprite::Render(int x, int y){
 	this->dstRect.h = this->clipRect.h * this->scaleY;
 
 	if(SDL_RenderCopy(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &this->dstRect) != 0)
-		std::cout<< "[TESTE 2]Error ao renderizar ( Sprite::Render(int x, int y))" << std::endl;
+		std::cout<< "[TESTE 2]Error ao renderizar" << __PRETTY_FUNCTION__ << SDL_GetError() << std::endl;
 
 }
 void Sprite::RenderFlipped(int x,int y){
@@ -74,7 +74,7 @@ void Sprite::RenderFlipped(int x,int y){
 	this->dstRect.h = this->clipRect.h * this->scaleY;
 
 	if(SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), this->texture, &this->clipRect, &this->dstRect, 0, nullptr, SDL_FLIP_HORIZONTAL) != 0)
-			cout<< "[TESTE]Error ao renderizar ( Sprite::Render(int x, int y))" << endl;
+			cout<< "[TESTE]Error ao renderizar " << __PRETTY_FUNCTION__ << SDL_GetError() << endl;
 }
 
 void Sprite::Render(int x, int y, float angle){

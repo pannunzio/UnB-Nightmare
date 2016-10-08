@@ -1,23 +1,21 @@
-#ifndef ACAI_H
-#define ACAI_H
+#ifndef SKATE_H
+#define SKATE_H
 
 #include "Item.h"
 #include <string>
 
 using std::string;
-using std::endl;
 using std::cout;
+using std::endl;
 
-class Acai: public Item{
+class Skate: public Item{
 public:
-    Acai(int layer, int sublayer);
+    Skate(int layer, int subLayer);
 
     bool Is(string type);
 
 //    void SetAssets();
-
-private:
-
 };
 
-#endif // ACAI_H
+#endif
+

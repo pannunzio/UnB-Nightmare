@@ -56,7 +56,10 @@ Player::~Player() {
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
-    if(timeOver == true) PlayerStops();
+
+    if(timeOver == true)
+        PlayerStops();
+
     MoveGirl(); // faz os movimentos do input
     UpdatePowerUp(dt);
 
@@ -134,7 +137,7 @@ void Player::NotifyCollision(GameObject* other){
         this->coffee_ammo++;
     }
 
-    if(other->Is("SKATE")){
+    if(other->Is("Skate")){
         if(!this->isPlayingMusic && this->powerUp != SKATE){
             this->powerupMusic.Open(SKATING_MUS, 5);
             this->powerupMusic.Play(1);
@@ -236,6 +239,7 @@ void Player::MoveSameFloor(){
 	//atira cafe
     if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
         Shoot();
+
     }
 
     /***
