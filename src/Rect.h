@@ -1,8 +1,10 @@
 #ifndef RECT_H_
 #define RECT_H_
 
-#include "Vec2.h"
 #include <cmath>
+#include <iostream>
+
+#include "Vec2.h"
 
 class Rect {
 public:

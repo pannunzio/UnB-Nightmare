@@ -13,6 +13,10 @@
 #include "Text.h"
 #include "StateData.h"
 #include "Menu.h"
+#include "InputManager.h"
+#include "Game.h"
+#include "StageState.h"
+#include "TitleState.h"
 
 class EndState : public State{
 public:

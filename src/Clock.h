@@ -1,8 +1,11 @@
 #ifndef CLOCK_H_
 #define CLOCK_H_
 
+#include <sstream>
+
 #include "Defines.h"
 #include "Text.h"
+#include "Resources.h"
 
 class Clock {
 public:

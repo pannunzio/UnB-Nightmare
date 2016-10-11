@@ -48,6 +48,9 @@
 #define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
 #define TEXT_INIT       "Coffee: 0"
 
+
+#define DELTA_ACCEPT 10
+
 enum PowerUp{
 	NONE,
 	SKATE,

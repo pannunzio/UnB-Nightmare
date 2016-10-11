@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 #include "Defines.h"
+#include "Player.h"
 
 class Item : public GameObject{
 public:

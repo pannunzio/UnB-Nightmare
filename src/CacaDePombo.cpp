@@ -1,9 +1,4 @@
 #include "CacaDePombo.h"
-#include "Game.h"
-#include "Defines.h"
-#include "Camera.h"
-#include "Player.h"
-#include <math.h>
 
 CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s):
         sp(sprite, frameCount, frameTime), colisaoPlayer("audio/caca_explosao.wav", 6){

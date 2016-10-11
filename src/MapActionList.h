@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "MapActions.h"
+#include "Camera.h"
 
 #include <vector>
 #include <memory>

@@ -35,6 +35,9 @@
 #include "PessoaZumbi.h"
 #include "Lixeira.h"
 #include "NonCollidingPerson.h"
+#include "Acai.h"
+#include "Cafe.h"
+#include "Skate.h"
 
 
 using std::string;
@@ -48,8 +51,8 @@ using std::endl;
 #define TILE_SET_FILE   "img/tileset.png"
 #define BG_FILE         "img/cerrado.jpg"
 
-#define INIT_CAMERA_X   0
-#define INIT_CAMERA_Y   280
+#define INIT_STAGE_X   0
+#define INIT_STAGE_Y   280
 
 #define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
 
@@ -58,6 +61,13 @@ using std::endl;
 
 #define STAGE_DURATION      5 //em segundos
 #define WAIT_END_DURATION   5
+
+#define STAGE_STATE_MENU_POSITION_X     500
+#define STAGE_STATE_MENU_POSITION_Y     350
+#define STAGE_STATE_MENU_SPACEMENT      50
+
+
+#define DELTA_ACCEPT 10
 
 
 
@@ -79,6 +89,7 @@ private:
     //Verifica se o jogo acabou
     void CheckEndOfGame();
     void SetEndOfGame(bool playerVictory);
+    void UpdateStagePosition(float dt);
     //Atualiza o array de Objectos e confere quais objectos 'morreram'
     void UpdateObjectArray(float dt);
     //Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo
@@ -109,6 +120,9 @@ private:
 	int lixo;
 	int mapLength;
 	bool pause;
+	float stagePositionX;
+	float stagePositionY;
+	int layer;
 
 	Sound music;
 };

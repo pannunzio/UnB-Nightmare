@@ -1,7 +1,4 @@
 #include "Pessoa.h"
-#include "Player.h"
-#include "Camera.h"
-#include <iostream>
 
 Pessoa::Pessoa(){
     this->speed = (rand()%3 + 1) * (rand()%2 - rand()%4);

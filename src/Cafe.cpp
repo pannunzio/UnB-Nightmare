@@ -1,6 +1,4 @@
 #include "Cafe.h"
-#include "Camera.h"
-#include "Player.h"
 
 Cafe::Cafe(int layer, int subLayer){
     this->sp = Sprite("img/cafeColor.png", 6, 0.09);

@@ -8,6 +8,12 @@
 #ifndef VEC2_H_
 #define VEC2_H_
 
+
+
+#include <iostream>
+#include <math.h>
+#define My_PI 3.14159265
+
 class Vec2 {
 public:
 

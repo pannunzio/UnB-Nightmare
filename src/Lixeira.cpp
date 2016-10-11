@@ -1,6 +1,4 @@
 #include "Lixeira.h"
-#include "Camera.h"
-#include "Player.h"
 
 Lixeira::Lixeira(int layer){
     sp = Sprite("img/lixeira.png", 1, 1);

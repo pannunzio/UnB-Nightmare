@@ -1,8 +1,12 @@
 #ifndef PESSOA_H
 #define PESSOA_H
 
+#include <iostream>
+
 #include "GameObject.h"
 #include "Obstacle.h"
+#include "Player.h"
+#include "Camera.h"
 
 #define MENINA_FILE     "img/menina.png"
 #define MENINA_FRAMES   6

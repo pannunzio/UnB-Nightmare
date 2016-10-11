@@ -4,6 +4,9 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Timer.h"
+#include "Player.h"
+#include "Defines.h"
+#include "Camera.h"
 
 using std::string;
 

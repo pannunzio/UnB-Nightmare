@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Vec2.h"
 
+
 class TileSet {
 public:
 	TileSet(int tileWidth, int tileHeight, std::string file);

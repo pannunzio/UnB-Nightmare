@@ -1,9 +1,4 @@
 #include "EndState.h"
-#include "InputManager.h"
-#include "Game.h"
-#include "StageState.h"
-#include "Text.h"
-#include "TitleState.h"
 
 EndState::EndState(StateData stateData):menu(500, 350, 50){
     this->menu.AddMenuOption("Restart");

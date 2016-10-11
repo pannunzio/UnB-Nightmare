@@ -1,8 +1,12 @@
 #ifndef SKATE_H
 #define SKATE_H
 
-#include "Item.h"
 #include <string>
+
+#include "Item.h"
+#include "Camera.h"
+#include "Player.h"
+
 
 using std::string;
 using std::cout;

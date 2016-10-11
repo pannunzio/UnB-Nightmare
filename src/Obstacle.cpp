@@ -1,7 +1,4 @@
 #include "Obstacle.h"
-#include "Player.h"
-#include "Defines.h"
-#include "Camera.h"
 
 void Obstacle::Update(float dt){
 	this->sp.Update(dt);

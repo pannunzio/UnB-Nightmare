@@ -1,8 +1,4 @@
 #include "Bullet.h"
-#include "Camera.h"
-#include "Game.h"
-#include "Defines.h"
-#include "Player.h"
 
 Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,float frameTime, bool targetsPlayer, std::string type)
 		: sp(sprite,frameCount,frameTime), shooterSound("audio/cafe_shoot.wav", 6)

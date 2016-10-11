@@ -1,5 +1,4 @@
 #include "Rect.h"
-#include <iostream>
 
 Rect::Rect() {
 	x = y = w = h = 0;

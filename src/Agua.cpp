@@ -1,13 +1,5 @@
 #include "Agua.h"
 
-#include "Obstacle.h"
-#include "Camera.h"
-#include "Defines.h"
-#include "StageState.h"
-#include "Game.h"
-#include "Player.h"
-
-
 //VER ISSO AQUI
 //void Sprite::SetAlpha(){
 //	// colocar codigo aqui pra o sprite fazer transparente

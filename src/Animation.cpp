@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include "Camera.h"
 
 Animation::Animation(float x, float y, float rotation, std::string spr, int frameCount, float frameTime, bool ends){
 	this->sp = Sprite(spr,frameCount,frameTime);

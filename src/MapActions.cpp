@@ -1,5 +1,4 @@
 #include "MapActions.h"
-#include "Camera.h"
 
 MapActions::MapActions(float x, float y, int layer): sp("img/escada.png"){
     this->box.w = this->sp.GetWidth()/3;

@@ -4,6 +4,8 @@
 #include "GameObject.h"
 #include "Obstacle.h"
 #include "Sprite.h"
+#include "Camera.h"
+#include "Player.h"
 
 class Lixeira: public Obstacle{
 public:

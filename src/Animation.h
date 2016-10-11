@@ -3,6 +3,7 @@
 
 #include "GameObject.h"
 #include "Timer.h"
+#include "Camera.h"
 
 class Animation : public GameObject{
 public:

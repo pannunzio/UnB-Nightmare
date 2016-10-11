@@ -5,6 +5,10 @@
 #include <iostream>
 
 #include "Rect.h"
+#include "Resources.h"
+#include "Game.h"
+#include <string>
+
 
 #define TEXT_BLACK SDL_Color{0,0,0}
 #define TEXT_WHITE SDL_Color{255,255,255}

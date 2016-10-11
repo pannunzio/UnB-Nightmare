@@ -46,6 +46,8 @@
 			<Add directory="../../../../../SDL2/SDL2_ttf-2.0.14/i686-w64-mingw32/lib" />
 			<Add directory="../../../../../SDL2/SDL2-2.0.4/i686-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="src/Acai.cpp" />
+		<Unit filename="src/Acai.h" />
 		<Unit filename="src/Agua.cpp" />
 		<Unit filename="src/Agua.h" />
 		<Unit filename="src/Animation.cpp" />
@@ -54,6 +56,8 @@
 		<Unit filename="src/Bullet.h" />
 		<Unit filename="src/CacaDePombo.cpp" />
 		<Unit filename="src/CacaDePombo.h" />
+		<Unit filename="src/Cafe.cpp" />
+		<Unit filename="src/Cafe.h" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/Camera.h" />
 		<Unit filename="src/Clock.cpp" />
@@ -97,6 +101,8 @@
 		<Unit filename="src/Rect.h" />
 		<Unit filename="src/Resources.cpp" />
 		<Unit filename="src/Resources.h" />
+		<Unit filename="src/Skate.cpp" />
+		<Unit filename="src/Skate.h" />
 		<Unit filename="src/Sound.cpp" />
 		<Unit filename="src/Sound.h" />
 		<Unit filename="src/Sprite.cpp" />

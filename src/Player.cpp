@@ -16,7 +16,7 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
 	this->isRightPosition = true;
-    this->layer = rand()%3 +1;
+    //this->layer = rand()%3 +1;
 
 	//inicialização de estado
 	this->movementState = RUNNING;
@@ -258,13 +258,13 @@ void Player::MoveSameFloor(){
 
 void Player::SetPositionInY(){
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 2;
+        this->box.y = ITEM_HEIGHT_L3 + 2;//230
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
+        this->box.y = ITEM_HEIGHT_L2;//495
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = ITEM_HEIGHT_L1;//772
 
     this->box.y -= (this->subLayer - 3) * 24;
 }

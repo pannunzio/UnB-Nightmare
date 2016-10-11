@@ -1,7 +1,4 @@
 #include "PessoaZumbi.h"
-#include "Camera.h"
-#include "Player.h"
-#include "Defines.h"
 
 PessoaZumbi::PessoaZumbi(){
     GetSprite();

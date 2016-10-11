@@ -1,8 +1,5 @@
-#include <math.h>
-#define M_PI 3.14159265
-#include "Vec2.h"
 
-#include <iostream>
+#include "Vec2.h"
 
 Vec2::Vec2() {
 	x = y = 0;
@@ -41,7 +38,7 @@ float Vec2::Distance(Vec2 vetor1, Vec2 vetor2){
 
 float Vec2::Angle(){
 	float angle = atan2(y,x);
-	angle = angle*180/M_PI;
+	angle = angle*180/My_PI;
 	return angle; // retorna anguglo
 };
 
@@ -51,7 +48,7 @@ float Vec2::AngleRad(){
 };
 
 void Vec2::Rotate(float angle){
-	angle = angle/180.0 * M_PI;
+	angle = angle/180.0 * My_PI;
 	// convetido para radianos
 	float tempx, tempy;
 	tempx = x * cos(angle) - y * sin(angle);

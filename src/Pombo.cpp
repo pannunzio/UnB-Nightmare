@@ -1,9 +1,4 @@
 #include "Pombo.h"
-#include "Player.h"
-#include "Game.h"
-#include "CacaDePombo.h"
-#include "Camera.h"
-#include "Obstacle.h"
 
 Pombo::Pombo(){
     this->sp = Sprite("img/pombo.png", 4, 0.09);

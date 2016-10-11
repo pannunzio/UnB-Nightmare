@@ -1,3 +1,5 @@
+#include "Game.h"
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
@@ -5,7 +7,6 @@
 
 #include <iostream>
 
-#include "Game.h"
 #include "State.h"
 #include "Vec2.h"
 #include "TileSet.h"

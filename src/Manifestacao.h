@@ -2,6 +2,8 @@
 #define MANIFESTACAO_H
 
 #include "Obstacle.h"
+#include "Player.h"
+#include "Camera.h"
 
 class Manifestacao: public Obstacle{
 public:

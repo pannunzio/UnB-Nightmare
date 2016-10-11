@@ -1,6 +1,4 @@
 #include "Acai.h"
-#include "Camera.h"
-#include "Player.h"
 
 Acai::Acai(int layer, int subLayer){
     this->sp = Sprite("img/ggliko.png", 6, 0.09);

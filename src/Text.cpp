@@ -1,9 +1,4 @@
 #include "Text.h"
-#include "Resources.h"
-#include "Game.h"
-#include <iostream>
-#include <string>
-
 Text::Text(){
 
 }

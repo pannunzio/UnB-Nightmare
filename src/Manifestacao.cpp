@@ -1,7 +1,4 @@
-#include "Obstacle.h"
 #include "Manifestacao.h"
-#include "Player.h"
-#include "Camera.h"
 
 Manifestacao::Manifestacao(){
     this->sp = Sprite("img/manifest.png", 6, 0.2);

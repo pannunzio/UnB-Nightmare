@@ -4,6 +4,10 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Obstacle.h"
+#include "Player.h"
+#include "Game.h"
+#include "CacaDePombo.h"
+#include "Camera.h"
 
 class Pombo: public Obstacle{
 public:

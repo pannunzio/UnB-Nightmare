@@ -4,6 +4,10 @@
 #include "GameObject.h"
 #include "Vec2.h"
 #include "Sprite.h"
+#include "Camera.h"
+#include "Game.h"
+#include "Defines.h"
+#include "Player.h"
 
 class Bullet : public GameObject{
 public:

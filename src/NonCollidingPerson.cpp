@@ -1,6 +1,4 @@
 #include "NonCollidingPerson.h"
-#include "Camera.h"
-#include "Player.h"
 
 NonCollidingPerson::NonCollidingPerson(){
     this->type = Type::PELADO;

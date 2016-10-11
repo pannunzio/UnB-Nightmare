@@ -1,15 +1,22 @@
-#include <iostream>
 #include "StageState.h"
-#include "Acai.h"
-#include "Cafe.h"
-#include "Skate.h"
 
-StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(500, 350, 50){
-
-	Camera::pos = Vec2(INIT_CAMERA_X,INIT_CAMERA_Y);
+StageState::StageState() :  tileMap(TILE_MAP_FILE, tileSet),
+                            bg(BG_FILE),
+                            menu(STAGE_STATE_MENU_POSITION_X,
+                                 STAGE_STATE_MENU_POSITION_Y,
+                                 STAGE_STATE_MENU_SPACEMENT){
 
 	this->popRequested = false;
 	this->quitRequested = false; // iniciando o valor como falso
+
+	this->pause = false;
+	this->stagePositionX = INIT_STAGE_X;
+	this->stagePositionY = INIT_STAGE_Y;
+	this->spawn = 0;
+    this->lixo = 0;
+	this->clock.SetTime(STAGE_DURATION);
+	this->waitEnd = WAIT_END_DURATION;
+
 
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
 	this->tileMap.SetTileSet(tileSet);
@@ -19,18 +26,15 @@ StageState::StageState() : tileMap(TILE_MAP_FILE, tileSet), bg(BG_FILE), menu(50
     this->music.Play(10);
 
 	AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
-
-    this->spawn = 0;
-    this->lixo = 0;
-	this->clock.SetTime(STAGE_DURATION);
-	this->waitEnd = WAIT_END_DURATION;
+	this->layer = Player::player->GetLayer();
 
 	//esse 200 e o player position
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
-	this->pause = false;
 	this->menu.AddMenuOption("Resume Game");
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
+
+    Camera::pos = Vec2(stagePositionX,stagePositionY);
 	Camera::Resume();
 }
 
@@ -54,6 +58,7 @@ void StageState::Update(float dt){
 
         this->clock.Update(dt);
         if(this->clock.GetTime() == 0) waitEnd -= dt;
+        UpdateStagePosition(dt);
 
         UpdateObjectArray(dt);
         CheckMapActionsPosition(dt);
@@ -81,6 +86,28 @@ void StageState::Update(float dt){
     }
 }
 void StageState::Pause(){
+}
+
+void StageState::UpdateStagePosition(float dt){
+    if(Player::player != NULL){
+        this->stagePositionX = Player::player->GetX();
+        Camera::MoveToFloor( Player::player->GetLayer() );
+        float diff = Player::player->GetX() - Camera::pos.x;
+        switch(Player::player->movementState){
+            case RUNNING:
+                if(Player::player->isInPosition()){
+                    Camera::SpeedModifyer(Player::player->GetPositionIncrement());
+                }else if(diff < Player::player->GetBaseX() - DELTA_ACCEPT){
+                    Camera::SpeedModifyer(100/2);
+                }else if(diff > Player::player->GetBaseX() + DELTA_ACCEPT){
+                    Camera::SpeedModifyer(100*3/2);
+                }
+                break;
+            case EATING:
+                Camera::SpeedModifyer(Player::player->GetPositionIncrement()/3);
+                break;
+        }
+    }
 }
 
 void StageState::Resume(){
@@ -171,8 +198,8 @@ void StageState::UpdateObjectArray(float dt){
             if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
                 if(j!=i && (Collision::IsColliding( objectArray[i]->box,
                                                     objectArray[j]->box,
-                                                    objectArray[i]->rotation*M_PI/180,
-                                                    objectArray[j]->rotation*M_PI/180))){
+                                                    objectArray[i]->rotation*My_PI/180,
+                                                    objectArray[j]->rotation*My_PI/180))){
                     objectArray[j]->NotifyCollision(objectArray[i].get());
                 }
             }

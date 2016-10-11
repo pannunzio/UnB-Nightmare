@@ -1,8 +1,14 @@
 #ifndef CACADEPOMBO_H
 #define CACADEPOMBO_H
 
+#include <math.h>
+
 #include "GameObject.h"
 #include "Sprite.h"
+#include "Game.h"
+#include "Defines.h"
+#include "Camera.h"
+#include "Player.h"
 
 class CacaDePombo: public GameObject{
 public:

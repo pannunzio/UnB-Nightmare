@@ -1,6 +1,4 @@
 #include "Clock.h"
-#include "Resources.h"
-#include <sstream>
 
 //lembrar de mudar o starting value da text
 Clock::Clock(): text("font/ComicNeue_Bold.otf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){

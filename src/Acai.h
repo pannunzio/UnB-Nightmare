@@ -1,8 +1,11 @@
 #ifndef ACAI_H
 #define ACAI_H
 
-#include "Item.h"
 #include <string>
+
+#include "Item.h"
+#include "Camera.h"
+#include "Player.h"
 
 using std::string;
 using std::endl;

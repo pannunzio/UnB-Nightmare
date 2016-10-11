@@ -4,6 +4,13 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Timer.h"
+#include "Obstacle.h"
+#include "Camera.h"
+#include "Defines.h"
+#include "StageState.h"
+#include "Game.h"
+#include "Player.h"
+
 
 class Agua : public GameObject {
 public:
