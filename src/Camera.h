@@ -17,7 +17,6 @@ public:
 	Camera();
 	~Camera();
 	static void Update(float dt);
-	static void Stop(){stop = true;};
 	static void Resume(){stop = false;};
 	static void MoveToFloor(int positionY);
 	static void SetSpeed(float modifyer);

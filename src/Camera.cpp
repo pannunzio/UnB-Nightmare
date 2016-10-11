@@ -21,6 +21,8 @@ void Camera::Update(float dt){
             if(pos.y > 0){//e a camera ainda nao está na origem
                 lastY = pos.y;
                 pos.y = pos.y - speed.y*dt*100;//continua descendo a camera
+            }else if(pos.y < 0){
+                pos.y = lastY = 0;//garante que vai ficar exatamente em 0
             }
             break;
         case TERREO:
@@ -38,6 +40,8 @@ void Camera::Update(float dt){
             if(pos.y < 480){
                 lastY = pos.y;
                 pos.y = pos.y + speed.y*dt*100;
+            }else if(pos.y > 480){
+                pos.y = lastY = 480;
             }
     }
 }

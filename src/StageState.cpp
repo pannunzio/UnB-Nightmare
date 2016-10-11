@@ -278,7 +278,6 @@ void StageState::RenderSubLayer(int sublayer){
 void StageState::HandleInputs(){
     if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
         pause = true;
-        Camera::Stop();
     }
 
     if(InputManager::GetInstance().KeyPress(SDLK_1)){

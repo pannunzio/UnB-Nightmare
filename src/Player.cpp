@@ -15,13 +15,12 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
-	this->isRightPositionX = false;
-	this->isRightPositionY = false;
-    //this->layer = rand()%3 +1;
+	this->isRightPosition = false;
+	//this->layer = rand()%3 +1;
 
 	//inicialização de estado
 	this->movementState = RUNNING;
-    this->maxSpeed = speed = RUNNING_SPEED;
+    this->maxSpeed = speed = lastSpeed = RUNNING_SPEED;
 	this->acceleration = RUNNING_ACC;
 	this->inputState = NO_INPUT;
 	//Inicialização de estado referente a itens
@@ -65,14 +64,10 @@ void Player::Update(float dt){
     UpdatePowerUp(dt);
 
     //colocando na posicao certa o player
-    checkPositionX(this->box.x - Camera::pos.x);
+    checkPosition(this->box.x - Camera::pos.x);
     //Volta a velocidade para o padrão após colisão
     CheckCollisionToResetSpeed();
-    AdjustSpeed(dt);
-    //SetPositionToMovementState(dt);
-
     //correndo
-    SetPositionIncrement(dt);//linha sera removida
     SetPositionToMovementState(dt);
 
     AdjustGoingUpOrDown();
@@ -340,35 +335,32 @@ void Player::CheckCollisionToResetSpeed(){
 }
 
 void Player::AdjustSpeed(float dt){
-	//ir acelerando at� a velocidade
 	//v = v0 + at
-	if(!this->IsMaxSpeed(maxSpeed)){
-		if(this->maxSpeed > this->speed)
+	if(this->speed != this->maxSpeed){
+        //lastSpeed evita que a speed fique oscilando em volta de maxSpeed
+        if(this->maxSpeed > this->speed && this->maxSpeed > this->lastSpeed){
+		    this->lastSpeed = this->speed;
 			this->speed += this->acceleration * dt;
-
-		if(this->maxSpeed < this->speed)
+		}else if(this->maxSpeed < this->speed && this->maxSpeed < this->lastSpeed){
+		    this->lastSpeed = this->speed;
 			this->speed -= this->acceleration * dt;
-			this->speed = maxSpeed;
-
-		if(this->maxSpeed == 0){
-			this->speed = 0;
+		}else{
+            this->speed = this->lastSpeed = this->maxSpeed;
 		}
 	}
 }
 
-//ajusta a posição do Player de acordo com o tipo do movimento
-//(se ele se desloca de um lado para o outro ou de cima para baixo)
+//ajusta a posição do Player de acordo com o estado
 void Player::SetPositionToMovementState(float dt){
-
     //correndo
-    SetPositionIncrement(dt);//linha sera removida
     Camera::MoveToFloor( GetLayer() );
     Camera::SetSpeed(GetSpeed());
+    AdjustSpeed(dt);
     float diff = GetX() - Camera::pos.x;
     switch(this->movementState){
         case RUNNING:
-            this->box.x += this->speed*this->positionIncrement;
-            if(IsInPositionX()){
+            this->box.x += this->speed*100*dt;
+            if(IsInPosition()){
                 Camera::pos.x= box.x - baseX;
             }else if(diff < GetBaseX()){
                 Camera::MoveX(dt*100/2);
@@ -377,19 +369,21 @@ void Player::SetPositionToMovementState(float dt){
             }
             break;
         case EATING:
-            this->box.x += this->speed*this->positionIncrement/3;
-            Camera::SetSpeed(Player::player->GetSpeed()/3);
+            this->box.x += this->speed*(dt*100/3);
+            Camera::MoveX(dt*100/3);
             break;
         case STOPPING:
-            Camera::Stop();
+            this->maxSpeed = 0;
+            this->acceleration = 5.5;
+            this->box.x += this->speed*(dt*100/3);
             break;
     }
     switch(this->inputState){
         case GOING_DOWN:
-            this->box.y += this->speed * dt * 150;
+            this->box.y += this->speed*(dt * 150);
             break;
         case GOING_UP:
-            this->box.y -= this->speed * dt * 150;
+            this->box.y -= this->speed*(dt * 150);
             break;
     }
 }
@@ -432,12 +426,12 @@ void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpe
         this->powerUp = powerup;
 }
 
-void Player::checkPositionX(float diff){
+void Player::checkPosition(float diff){
 	if(diff > baseX - DELTA_ACCEPT &&
         baseX + DELTA_ACCEPT > diff ){
-        this->isRightPositionX = true;
+        this->isRightPosition = true;
     }else{
-        this->isRightPositionX = false;
+        this->isRightPosition = false;
     }
 
 }
@@ -452,10 +446,6 @@ void Player::SetMaxSpeed(float maxSpeed){
 
 void Player::SetAcceleration(float acceleration){
 	this->acceleration = acceleration;
-}
-
-void Player::SetPositionIncrement(float dt){
-    this->positionIncrement = 100 * dt;
 }
 
 void Player::TimeOver(){
@@ -479,10 +469,6 @@ int Player::GetBaseX(){
     else return baseX;
 }
 
-float Player::GetPositionIncrement(){
-    return positionIncrement;
-}
-
 int Player::GetLayer(){
     return this->layer;
 }
@@ -491,32 +477,18 @@ int Player::GetSublayer(){
     return this->subLayer;
 }
 
-bool Player::IsRightPositionX(){
-	return this->IsRightPositionX();
-}
-
 bool Player::IsIndestructible(){
     return this->isIndestructible;
 }
 
 bool Player::isPlayerColliding(){
-    if(isColliding) return true;
-    else return false;
+    return this->isColliding;
 }
 
-bool Player::IsInPositionX(){
-    if(isRightPositionX) return true;
-    else return false;
+bool Player::IsInPosition(){
+    return this->isRightPosition;
 }
 
 bool Player::Is(std::string type){
 	return (type == "Player");
-}
-
-bool Player::IsMaxSpeed(float maxSpeed){
-	if(maxSpeed < 0) // se algo a levar para tras
-		this->speed = maxSpeed;
-	if(abs(this->speed - maxSpeed) <= 0.005)
-		return true;
-	return false;
 }

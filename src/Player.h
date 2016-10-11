@@ -72,9 +72,11 @@ enum InputState{
 
 class Player : public GameObject{
 public:
+    //
+    //      Player NÃO está como Singleton
+    //
 	Player(float x,float y);
 	virtual ~Player();
-
 	void Update(float dt);
 	void Render();
 	bool IsDead();
@@ -85,13 +87,10 @@ public:
 
     Player& GetInstance();
 
-	bool IsMaxSpeed(float maxSpeed);
 	void SetMaxSpeed(float maxSpeed);
     float GetSpeed();
 	float GetAcceleration();
 	void SetAcceleration(float acceleration);
-
-	bool IsRightPositionX(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 
 	void Shoot();
 
@@ -103,8 +102,7 @@ public:
     int GetBaseX();
 	int GetX();
 	bool isPlayerColliding();
-	bool IsInPositionX();
-	float GetPositionIncrement();
+	bool IsInPosition();
 	void TimeOver();
 
 private:
@@ -112,12 +110,13 @@ private:
 
     //Atributos de posição
 	int baseX;              //Posicao padrao
-	bool isRightPositionX;   //Flag de corretude da posição
-	bool isRightPositionY;   //Flag de corretude da posição
+	bool isRightPosition;   //Flag de corretude da posição
+
+	//Atributos de velocidade
 	float speed;            //velocidade atual
-	float acceleration;     //aceleracao
 	float maxSpeed;         //velocidade a alcançar
-    float positionIncrement;//Incremento calculado para Player no eixo X
+	float lastSpeed;        //velocidade medida no loop anterior
+	float acceleration;     //aceleracao
 
     //Atributos de PowerUp
 	PowerUp powerUp;        //Possiveis estados
@@ -135,8 +134,7 @@ private:
     bool timeOver;
     bool playerControl;
 
-	void SetPositionIncrement(float dt);
-	void checkPositionX(float diff);
+	void checkPosition(float diff);
 	void SetSpriteScale();
 	bool IsIndestructible();
 	void ChangeSpriteSheet(string file, int frameCount, int times = 0);
