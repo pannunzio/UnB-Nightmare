@@ -58,7 +58,7 @@ void StageState::Update(float dt){
 
         this->clock.Update(dt);
         if(this->clock.GetTime() == 0) waitEnd -= dt;
-        UpdateStagePosition(dt);
+        if(!Player::player) MoveCamera(dt);
 
         UpdateObjectArray(dt);
         CheckMapActionsPosition(dt);
@@ -88,26 +88,8 @@ void StageState::Update(float dt){
 void StageState::Pause(){
 }
 
-void StageState::UpdateStagePosition(float dt){
-    if(Player::player != NULL){
-        this->stagePositionX = Player::player->GetX();
-        Camera::MoveToFloor( Player::player->GetLayer() );
-        float diff = Player::player->GetX() - Camera::pos.x;
-        switch(Player::player->movementState){
-            case RUNNING:
-                if(Player::player->isInPosition()){
-                    Camera::SpeedModifyer(Player::player->GetPositionIncrement());
-                }else if(diff < Player::player->GetBaseX() - DELTA_ACCEPT){
-                    Camera::SpeedModifyer(100/2);
-                }else if(diff > Player::player->GetBaseX() + DELTA_ACCEPT){
-                    Camera::SpeedModifyer(100*3/2);
-                }
-                break;
-            case EATING:
-                Camera::SpeedModifyer(Player::player->GetPositionIncrement()/3);
-                break;
-        }
-    }
+void StageState::MoveCamera(float dt){
+    cout << "Camera sob controle do StageState" << endl;
 }
 
 void StageState::Resume(){
@@ -296,7 +278,7 @@ void StageState::RenderSubLayer(int sublayer){
 void StageState::HandleInputs(){
     if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
         pause = true;
-        Camera::Pause();
+        Camera::Stop();
     }
 
     if(InputManager::GetInstance().KeyPress(SDLK_1)){

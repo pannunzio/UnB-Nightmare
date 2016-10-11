@@ -17,16 +17,16 @@ public:
 	Camera();
 	~Camera();
 	static void Update(float dt);
-	static void Pause(){pause = true;};
-	static void Resume(){pause = false;};
+	static void Stop(){stop = true;};
+	static void Resume(){stop = false;};
 	static void MoveToFloor(int positionY);
-	static void SpeedModifyer(float modifyer);
+	static void SetSpeed(float modifyer);
+	static void MoveX(float valor);
 
 	void Is(std::string type);
 
 	static Vec2 pos;
 	static Vec2 speed;
-	static float speedCoef;
 	enum{
         SUBSOLO = 1,
         TERREO,
@@ -35,9 +35,8 @@ public:
 
 private:
 	static int layer;
-	static bool pause;
-	static void MoveX(float dt);
-
+	static bool stop;
+	static float lastY;
 };
 
 #endif

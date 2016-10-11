@@ -375,18 +375,18 @@
 	"Defines.h"
 	"Camera.h"
 
-1476150760 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
+1476192770 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
 	"Vec2.h"
 	"GameObject.h"
 	"InputManager.h"
 	"Defines.h"
 
-1475858201 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
+1476156755 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
 	<string>
 	<iostream>
 	"SDL.h"
 
-1476147058 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1476157849 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -512,7 +512,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1476146966 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1476192471 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -609,7 +609,7 @@
 	"Camera.h"
 	"Player.h"
 
-1476147765 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
+1476191625 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
 	"Camera.h"
 
 1476117490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
@@ -693,7 +693,7 @@
 1476119486 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1476145185 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1476192464 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 
 1476119541 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
@@ -718,7 +718,7 @@
 	"Game.h"
 	"Resources.h"
 
-1476147048 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1476157713 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1476119981 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp

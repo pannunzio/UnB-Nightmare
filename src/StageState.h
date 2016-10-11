@@ -66,11 +66,6 @@ using std::endl;
 #define STAGE_STATE_MENU_POSITION_Y     350
 #define STAGE_STATE_MENU_SPACEMENT      50
 
-
-#define DELTA_ACCEPT 10
-
-
-
 class StageState : public State{
 public:
 	StageState();
@@ -89,7 +84,7 @@ private:
     //Verifica se o jogo acabou
     void CheckEndOfGame();
     void SetEndOfGame(bool playerVictory);
-    void UpdateStagePosition(float dt);
+    void MoveCamera(float dt);
     //Atualiza o array de Objectos e confere quais objectos 'morreram'
     void UpdateObjectArray(float dt);
     //Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo

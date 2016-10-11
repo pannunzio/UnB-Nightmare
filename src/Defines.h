@@ -72,6 +72,8 @@ using std::endl;
 
 #define CORRECTION_POSITION_SPEED 0.2
 
+#define DELTA_ACCEPT 10 //Usado por StageState, Player e Camera
+
 //acrescentar mais aa medida q for usando
 
 #endif

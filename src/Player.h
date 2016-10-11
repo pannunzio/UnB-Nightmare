@@ -48,9 +48,6 @@
 #define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
 #define TEXT_INIT       "Coffee: 0"
 
-
-#define DELTA_ACCEPT 10
-
 enum PowerUp{
 	NONE,
 	SKATE,
@@ -88,13 +85,13 @@ public:
 
     Player& GetInstance();
 
-	bool IsTargetSpeed(float targetSpeed);
-	void SetTargetSpeed(float targetSpeed);
+	bool IsMaxSpeed(float maxSpeed);
+	void SetMaxSpeed(float maxSpeed);
     float GetSpeed();
 	float GetAcceleration();
 	void SetAcceleration(float acceleration);
 
-	bool IsRightPosition(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
+	bool IsRightPositionX(); // checa se ta numa posicao na qual a camera pode voltar ao normal;
 
 	void Shoot();
 
@@ -106,7 +103,7 @@ public:
     int GetBaseX();
 	int GetX();
 	bool isPlayerColliding();
-	bool isInPosition();
+	bool IsInPositionX();
 	float GetPositionIncrement();
 	void TimeOver();
 
@@ -114,12 +111,12 @@ private:
     Sprite sp;
 
     //Atributos de posição
-	Vec2 pos;               //Posicao atual
 	int baseX;              //Posicao padrao
-	bool isRightPosition;   //Flag de corretude da posição
+	bool isRightPositionX;   //Flag de corretude da posição
+	bool isRightPositionY;   //Flag de corretude da posição
 	float speed;            //velocidade atual
 	float acceleration;     //aceleracao
-	float targetSpeed;      //velocidade a alcançar
+	float maxSpeed;         //velocidade a alcançar
     float positionIncrement;//Incremento calculado para Player no eixo X
 
     //Atributos de PowerUp
@@ -139,7 +136,7 @@ private:
     bool playerControl;
 
 	void SetPositionIncrement(float dt);
-	void checkPosition(float diff);
+	void checkPositionX(float diff);
 	void SetSpriteScale();
 	bool IsIndestructible();
 	void ChangeSpriteSheet(string file, int frameCount, int times = 0);
@@ -166,7 +163,7 @@ private:
     void AdjustGoingUpOrDown();
 
     void StopIndestructiblePowerup();
-    void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float targetSpeed);
+    void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpeed);
 
     //Não deveria estar aqui
     Text hud;
