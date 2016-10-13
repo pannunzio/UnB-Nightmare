@@ -99,11 +99,15 @@ State& Game::GetCurrentState(){
 }
 
 void Game::Push(State* state){
-	this->storedState = state;
+    this->storedState = state;
 }
 
 void Game::Run(){
+    int cont = 0;
+    std::cout << cont << "  --  emplace and call begin -- " << std::endl;
 	this->stateStack.emplace(new TitleState);
+	this->stateStack.top()->LoadAssets();
+    cont ++;
 
 	while(!this->stateStack.top()->QuitRequested() && !this->stateStack.empty()){
 
@@ -111,18 +115,21 @@ void Game::Run(){
 		this->frameStart = SDL_GetTicks();
 		InputManager::GetInstance().Update();
 
-
 		this->stateStack.top()->Update(dt);
 		this->stateStack.top()->Render();
 
-
 		if(this->stateStack.top()->QuitRequested())
 			break;
+
 		if(this->stateStack.top()->PopRequested())
 			this->stateStack.pop();
+
 		if(this->storedState!=nullptr){
+            std::cout << cont << "  --  emplace and call begin -- " << std::endl;
 			this->stateStack.emplace(storedState);
 			this->storedState = nullptr;
+			this->stateStack.top()->LoadAssets();
+			cont ++;
 		}
 
 		//Clear screen

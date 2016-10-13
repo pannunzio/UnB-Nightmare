@@ -8,6 +8,7 @@
 
 class TileMap {
 public:
+	TileMap();
 	TileMap(std::string file, TileSet* tileSet);
 	~TileMap();
 

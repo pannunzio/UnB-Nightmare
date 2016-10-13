@@ -4,6 +4,9 @@
 #include "MapActionList.h"
 #include "Defines.h"
 
+TileMap::TileMap() {
+}
+
 TileMap::TileMap(std::string file, TileSet* ttileSet) {
 	this->tileSet = ttileSet;
 	Load(file);

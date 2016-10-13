@@ -1,11 +1,6 @@
 #include "StageState.h"
 
-StageState::StageState() :  tileMap(TILE_MAP_FILE, tileSet),
-                            bg(BG_FILE),
-                            menu(STAGE_STATE_MENU_POSITION_X,
-                                 STAGE_STATE_MENU_POSITION_Y,
-                                 STAGE_STATE_MENU_SPACEMENT){
-
+StageState::StageState(){
 	this->popRequested = false;
 	this->quitRequested = false; // iniciando o valor como falso
 
@@ -17,23 +12,6 @@ StageState::StageState() :  tileMap(TILE_MAP_FILE, tileSet),
 	this->clock.SetTime(STAGE_DURATION);
 	this->waitEnd = WAIT_END_DURATION;
 
-
-	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
-	this->tileMap.SetTileSet(tileSet);
-
-    this->music = Sound(-1);
-    this->music.Open(INIT_MUSIC_FILE, 1);
-    this->music.Play(10);
-
-	AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
-	this->layer = Player::player->GetLayer();
-
-	//esse 200 e o player position
-	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
-	this->menu.AddMenuOption("Resume Game");
-    this->menu.AddMenuOption("Restart");
-    this->menu.AddMenuOption("Quit Game");
-
     Camera::pos = Vec2(stagePositionX,stagePositionY);
 	Camera::Resume();
 }
@@ -44,7 +22,31 @@ StageState::~StageState(){
 //	objectArray.clear();
 //	this->music.Stop();
 //	Player::player = nullptr;
-//	cout << "StageState destroyed" << endl;
+}
+
+void StageState::LoadAssets(){
+    cout << "START of load assets STAGESTATE" << endl << endl;
+
+    AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
+	this->layer = Player::player->GetLayer();
+
+    this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
+    this->menu.AddMenuOption("Resume Game");
+    this->menu.AddMenuOption("Restart");
+    this->menu.AddMenuOption("Quit Game");
+
+    this->bg.Open(BG_FILE);
+
+	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
+    this->tileMap.Load(TILE_MAP_FILE);
+	this->tileMap.SetTileSet(tileSet);
+	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
+
+    this->music = Sound(-1);
+    this->music.Open(INIT_MUSIC_FILE, 1);
+    this->music.Play(10);
+
+    Resources::PrintAllLoadedResources();
 }
 
 bool StageState::GetPause(){
@@ -67,6 +69,7 @@ void StageState::Update(float dt){
         SpawnNewItem();
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
+
     }else{
         this->menu.Update(dt);
         if(this->menu.GetSelection()){
@@ -80,6 +83,7 @@ void StageState::Update(float dt){
                     break;
                 case QUIT_GAME:
                     this->popRequested = true;
+                    Game::GetInstance().Push(new TitleState());
                     break;
             }
         }
@@ -136,17 +140,17 @@ void StageState::CheckEndOfGame(){
     if(!Player::player){
         this->mapActionList.mapActions.clear();
         objectArray.clear();
-        cout << "not player" << endl;
     	SetEndOfGame(false);
     	return;
     }
 
     //se o usuario solicitar o fim do jogo ele encerra também
-    if(InputManager::GetInstance().QuitRequested())
+    if(InputManager::GetInstance().QuitRequested()){
 		this->quitRequested = true;
-
-	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY))
+    }
+	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		SetEndOfGame(false);
+    }
 
 	//testa se o tempo acabou
     if(this->clock.GetTime() < 0.5){
@@ -159,6 +163,8 @@ void StageState::CheckEndOfGame(){
     }
 
     if(Camera::pos.x > this->mapLength){
+        cout << "camera pos set end of game\n\tmap length: " << this->mapLength << endl;
+        cout << "\tcamera pos:  " << Camera::pos.x << endl;
         SetEndOfGame(true);
     }
 }

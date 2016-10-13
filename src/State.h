@@ -24,6 +24,7 @@ public:
 
 	virtual void Update(float dt) = 0;
 	virtual void Render() = 0;
+	virtual void LoadAssets() = 0;
 
 	void virtual Pause() = 0;
 	void virtual Resume() = 0;

@@ -1,28 +1,29 @@
 #include "EndState.h"
 
-EndState::EndState(StateData stateData):menu(500, 350, 50){
+EndState::EndState(StateData stateData){
+    this->isVictoryScreen = stateData.playerVictory;
+}
+
+EndState::~EndState(){
+    this->sound.Stop();
+}
+
+void EndState::LoadAssets(){
+    cout << "load Assets ENDSTATE " << endl << endl;
+    this->menu = Menu(500, 350, 50);
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
 
-    if(sound.IsPlaying(1))
-        sound.Stop();
-
-	if(stateData.playerVictory){
+    if(this->isVictoryScreen){
         this->bg = Sprite("img/cerrado.jpg");
         this->sound.Open("audio/tematerreo_vitoria.ogg", 1);
-	}
-
-	else {
+	} else {
         this->derrota = Sprite("img/derrota.png", 12,0.2);
         this->bg = Sprite("img/cerrado.jpg");
         this->sound.Open("audio/tematerreo_desespero.ogg", 1);
 	}
 
 	this->sound.Play(-1);
-}
-
-EndState::~EndState(){
-    this->sound.Stop();
 }
 
 void EndState::Update(float dt){
@@ -33,6 +34,7 @@ void EndState::Update(float dt){
             switch(menu.GetSelectedOption()){
                 case MENU_RESTART:
                     this->popRequested = true;
+//                    Game::GetInstance().Push(new StageState());
                     Game::GetInstance().Push(new StageState());
                     break;
                 case MENU_QUIT:
@@ -45,7 +47,8 @@ void EndState::Update(float dt){
 
 void EndState::Render(){
 	this->bg.Render(0,0);
-	this->derrota.Render(300,300);
+	if(!this->isVictoryScreen)
+        this->derrota.Render(300,300);
 	this->menu.Render();
 
 //    this->option1->Render(0, 0);

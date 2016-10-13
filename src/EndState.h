@@ -22,6 +22,7 @@ class EndState : public State{
 public:
 	EndState(StateData stateData);
 	~EndState();
+	void LoadAssets();
 	void Update(float dt);
 	void Render();
 
@@ -32,13 +33,15 @@ private:
 	Sprite bg;
 	Sprite derrota;
 	Sound sound;
+
+	bool isVictoryScreen;
+
     Menu menu;
     enum{
         MENU_RESTART,
         MENU_QUIT
     };
     void HandleInputs();
-
 };
 
 #endif /* ENDSTATE_H_ */

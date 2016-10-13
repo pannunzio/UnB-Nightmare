@@ -24,6 +24,11 @@ public:
     static void ClearSound();
     static void ClearFonts();
 
+    static void PrintLoadedFonts();
+    static void PrintLoadedSounds();
+    static void PrintLoadedImages();
+    static void PrintAllLoadedResources();
+
 private:
     static std::unordered_map<string, SDL_Texture*> imageTable;
     static std::unordered_map<string, Mix_Chunk*> soundTable;

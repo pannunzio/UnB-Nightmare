@@ -1,23 +1,42 @@
 #include "TitleState.h"
 
-TitleState::TitleState(): bg(BG_IMAGE),
-                          cutscene(CUTSCENE_IMAGE, CUTSCENE_FRAMES, CUTSCENE_FTIME),
-                          menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT)
+TitleState::TitleState()//:
+//                            bg(BG_IMAGE),
+//                          cutscene(CUTSCENE_IMAGE, CUTSCENE_FRAMES, CUTSCENE_FTIME),
+//                          menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT)
 {
 	this->popRequested = false;
 	this->quitRequested = false;
-    this->menu.AddMenuOption(MENU_TEXT_START);
-    this->menu.AddMenuOption(MENU_TEXT_QUIT);
-
-    this->music = Sound(SOUND_ALL_CHANNELS);
-    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
-    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
-    this->music.Play(SOUND_PLAY_INFINITY);
+//    this->menu.AddMenuOption(MENU_TEXT_START);
+//    this->menu.AddMenuOption(MENU_TEXT_QUIT);
+//
+//    this->music = Sound(SOUND_ALL_CHANNELS);
+//    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
+//    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+//    this->music.Play(SOUND_PLAY_INFINITY);
 }
 
 TitleState::~TitleState(){
     std::cout << "titlestate destroyed"<< endl;
     this->music.Stop();
+}
+
+void TitleState::LoadAssets(){
+    cout << endl << "load Assets TITLESTATE" << endl << endl;
+    this->bg.Open(BG_IMAGE);
+
+    this->cutscene.Open(CUTSCENE_IMAGE);
+    this->cutscene.SetFrameCount(CUTSCENE_FRAMES);
+    this->cutscene.SetFrameTime(CUTSCENE_FTIME);
+
+    this->menu = Menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT);
+    this->menu.AddMenuOption(MENU_TEXT_START);
+    this->menu.AddMenuOption(MENU_TEXT_QUIT);
+
+    this->music = Sound(SOUND_ALL_CHANNELS);
+//    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
+    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+    this->music.Play(SOUND_PLAY_INFINITY);
 }
 
 void TitleState::Update(float dt){
@@ -28,7 +47,7 @@ void TitleState::Update(float dt){
     if(menu.GetSelection()){
             switch(menu.GetSelectedOption()){
                 case MENU_START:
-                    //this->popRequested = true;
+                    this->popRequested = true;
                     Game::GetInstance().Push(new StageState());
                     break;
                 case MENU_QUIT:

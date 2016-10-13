@@ -63,3 +63,55 @@ void Resources::ClearFonts(){
     }
     fontTable.clear();
 }
+
+void Resources::PrintLoadedFonts(){
+    int cont = 0;
+    cout << endl << "\t*********** LOADED FONTS *************" << endl;
+    for(std::unordered_map<string, TTF_Font*>::const_iterator index = fontTable.begin(); index != fontTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+    cout << endl;
+}
+
+void Resources::PrintLoadedSounds(){
+    int cont = 0;
+    cout << endl << "\t*********** LOADED SOUNDS *************" << endl;
+    for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+    cout << endl;
+}
+
+void Resources::PrintLoadedImages(){
+    int cont = 0;
+    cout << endl << "\t*********** LOADED IMAGES *************" << endl;
+    for(std::unordered_map<string, SDL_Texture*>::const_iterator index = imageTable.begin(); index != imageTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+    cout << endl;
+}
+
+void Resources::PrintAllLoadedResources(){
+    int cont = 0;
+    cout << endl << "\t*********** ALL LOADED ITEMS *************" << endl;
+    cout << endl << "\t ---> LOADED IMAGES" << endl;
+    for(std::unordered_map<string, SDL_Texture*>::const_iterator index = imageTable.begin(); index != imageTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+    cont = 0;
+    cout << endl << "\t ---> LOADED SOUNDS" << endl;
+    for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+    cont = 0;
+    cout << endl << "\t ---> LOADED FONTS" << endl;
+    for(std::unordered_map<string, TTF_Font*>::const_iterator index = fontTable.begin(); index != fontTable.end(); index++){
+        cout << cont << " - " << index->first << endl;
+        cont++;
+    }
+}
