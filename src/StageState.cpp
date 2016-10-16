@@ -1,6 +1,7 @@
 #include "StageState.h"
 
 StageState::StageState(){
+    cout << "enter construtor STAGESTATE" << endl;
 	this->popRequested = false;
 	this->quitRequested = false; // iniciando o valor como falso
 
@@ -14,6 +15,7 @@ StageState::StageState(){
 
     Camera::pos = Vec2(stagePositionX,stagePositionY);
 	Camera::Resume();
+	cout << "exit contrutor STAGESTATE" << endl;
 }
 
 StageState::~StageState(){
@@ -29,25 +31,35 @@ void StageState::LoadAssets(){
 
     this->hud.InitHud();
 
+    cout << "back to SS load assets" << endl;
+
     AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
 	this->layer = Player::player->GetLayer();
+
+    cout << "Added player" << endl;
 
     this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
     this->menu.AddMenuOption("Resume Game");
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
 
+    cout << "Added menu" << endl;
+
     this->bg.Open(BG_FILE);
+
+    cout << "Added BG" << endl;
 
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
     this->tileMap.Load(TILE_MAP_FILE);
 	this->tileMap.SetTileSet(tileSet);
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 
+    cout << "Map Init OK" << endl;
+
     this->music = Sound(-1);
     this->music.Open(INIT_MUSIC_FILE, 1);
     this->music.Play(10);
-
+    cout << "music OK" << endl;
     Resources::PrintAllLoadedResources();
 }
 

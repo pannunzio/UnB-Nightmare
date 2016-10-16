@@ -39,11 +39,12 @@ public:
     void SetClock(string clock);
 
 private:
-	int coffeeAmmo;
+	string coffeeAmmo;
 	string clock;
 
 	Text clockText;
-//	Text coffeeText;
+//	Text clockText2;
+	Text coffeeText;
 };
 
 #endif // HUD_H

@@ -1,6 +1,6 @@
 #include "Text.h"
 Text::Text(){
-
+    cout << "EMPTY TEXT CONSTRUCTOR" << endl;
 }
 
 Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
@@ -20,8 +20,10 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text
 }
 
 Text::~Text(){
+    cout << "begin TEXT DESTRUCTOR for " << this->text << endl;
 	if(this->texture)
 		SDL_DestroyTexture(this->texture);
+    cout << "end TEXT destructor" << endl;
 }
 
 void Text::Render(int cameraX, int cameraY){
@@ -102,7 +104,6 @@ void Text::OpenText(std::string fontFile, int fontSize, TextStyle style, std::st
 	this->text = text;
 	this->color = color;
 	this->texture = nullptr;
-//	fontFile = std::to_string(fontSize) + fontFile;
 	this->font = Resources::GetFont(fontFile, fontSize);
 	this->fontFile = fontFile;
 

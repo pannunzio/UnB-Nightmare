@@ -6,6 +6,7 @@ EndState::EndState(StateData stateData){
 
 EndState::~EndState(){
     this->sound.Stop();
+    cout << "ENDSTATE DESTROYED" << endl;
 }
 
 void EndState::LoadAssets(){

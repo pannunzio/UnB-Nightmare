@@ -17,8 +17,8 @@ TitleState::TitleState()//:
 }
 
 TitleState::~TitleState(){
-    std::cout << "titlestate destroyed"<< endl;
     this->music.Stop();
+    std::cout << "titlestate destroyed"<< endl;
 }
 
 void TitleState::LoadAssets(){

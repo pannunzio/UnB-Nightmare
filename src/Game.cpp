@@ -121,14 +121,19 @@ void Game::Run(){
 		if(this->stateStack.top()->QuitRequested())
 			break;
 
-		if(this->stateStack.top()->PopRequested())
+		if(this->stateStack.top()->PopRequested()){
+			std::cout<< "right before GAME::pop requested" << endl;
 			this->stateStack.pop();
+			std::cout<< "right after GAME::pop requested" << endl;
+		}
 
 		if(this->storedState!=nullptr){
             std::cout << cont << "  --  emplace and call begin -- " << std::endl;
 			this->stateStack.emplace(storedState);
 			this->storedState = nullptr;
+			std::cout<< "right before GAME::load assets" << endl;
 			this->stateStack.top()->LoadAssets();
+			std::cout<< "right after GAME::load assets" << endl;
 			cont ++;
 		}
 
