@@ -453,6 +453,13 @@ void Player::TimeOver(){
     this->timeOver = true;
 }
 
+bool Player::IsPlayerAlive(){
+    if(this->player != nullptr)
+        return true;
+    else
+        return false;
+}
+
 float Player::GetSpeed(){
 	return this->speed;
 }
@@ -476,6 +483,10 @@ int Player::GetLayer(){
 
 int Player::GetSublayer(){
     return this->subLayer;
+}
+
+Player& Player::GetInstance(){
+    return *player;
 }
 
 bool Player::IsIndestructible(){

@@ -34,7 +34,8 @@ void StageState::LoadAssets(){
     cout << "back to SS load assets" << endl;
 
     AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
-	this->layer = Player::player->GetLayer();
+//	this->layer = Player::player->GetLayer();
+	this->layer = Player::GetInstance().GetLayer();
 
     cout << "Added player" << endl;
 
@@ -172,7 +173,8 @@ void StageState::CheckEndOfGame(){
     if(this->clock.GetTime() < 0.5){
         this->clock.SetTime(0);
         this->clock.StopClock();
-        Player::player->TimeOver();
+//        Player::player->TimeOver();
+        Player::GetInstance().TimeOver();
         if(waitEnd < 0){
             SetEndOfGame(false);
         }
@@ -219,10 +221,13 @@ void StageState::UpdateObjectArray(float dt){
 //Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo
 void StageState::CheckMapActionsPosition(float dt){
     for(int i = mapActionList.mapActions.size() - 1; i >= 0; i--) {
-        if(Player::player != nullptr &&
-           Collision::IsColliding(Player::player->box,
+//        if(Player::player != nullptr &&
+        if(Player::GetInstance().IsPlayerAlive() &&
+//           Collision::IsColliding(Player::player->box,
+           Collision::IsColliding(Player::GetInstance().box,
                                   this->mapActionList.mapActions[i].box,
-                                  Player::player->rotation,
+//                                  Player::player->rotation,
+                                  Player::GetInstance().rotation,
                                   this->mapActionList.mapActions[i].rotation)){
 
             Player::player->NotifyCollision(&mapActionList.mapActions[i]);
@@ -234,11 +239,14 @@ void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%3 == 0){
         if(this->spawn == 0 && rand()%100 <= 80){
             if(rand()%3 == 1)
-                AddObject(new Acai(Player::player->layer, rand()%3 + 1));
+                AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
+//                AddObject(new Acai(Player::player->layer, rand()%3 + 1));
             else if(rand()%3 == 2)
-                AddObject(new Skate(Player::player->layer, rand()%3 + 1));
+                AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
+//                AddObject(new Skate(Player::player->layer, rand()%3 + 1));
             else
-                AddObject(new Cafe(Player::player->layer, rand()%3 + 1));
+                AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
+//                AddObject(new Cafe(Player::player->layer, rand()%3 + 1));
         }
         this->spawn = 1;
     }
@@ -282,7 +290,8 @@ void StageState::SpawnNewDynamicObstacle(){
     		AddObject(new Manifestacao());
     	}
 
-    	if(Player::player->layer ==  LAYER_TOP){
+//    	if(Player::player->layer ==  LAYER_TOP){
+    	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
             if(rand()%100 < 5){
                 AddObjectStatic(new Pombo());
             }
@@ -292,7 +301,7 @@ void StageState::SpawnNewDynamicObstacle(){
 
 void StageState::UpdateHud(float dt){
     this->hud.SetClock(this->clock.GetText());
-    this->hud.SetCoffeeAmmo(Player::player->coffee_ammo);
+    this->hud.SetCoffeeAmmo(Player::GetInstance().coffee_ammo);
 
     this->hud.Update(dt);
 }

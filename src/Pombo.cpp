@@ -8,7 +8,8 @@ Pombo::Pombo(){
     this->speed = -3;
 
     this->fazendoCaca = false;
-    this->box.Centralize(Player::player->box.x + 1000, ITEM_HEIGHT_L3 - 150, this->sp.GetWidth(), this->sp.GetHeight());
+//    this->box.Centralize(Player::player->box.x + 1000, ITEM_HEIGHT_L3 - 150, this->sp.GetWidth(), this->sp.GetHeight());
+    this->box.Centralize(Player::GetInstance().GetX() + 1000, ITEM_HEIGHT_L3 - 150, this->sp.GetWidth(), this->sp.GetHeight());
 
 
     OpenSound("audio/pombo.wav");
@@ -24,7 +25,8 @@ void Pombo::Update(float dt){
 
 	this->box.x += this->speed * dt * 100;
 
-    if(!this->fazendoCaca && this->box.x - Player::player->box.x < 120){
+//    if(!this->fazendoCaca && this->box.x - Player::player->box.x < 120){
+    if(!this->fazendoCaca && this->box.x - Player::GetInstance().GetX() < 120){
         cout << "FAZENDO CAQUINHA!!" << endl;
         this->FazCaca();
         this->fazendoCaca = true;
@@ -57,6 +59,7 @@ int Pombo::GetSublayer(){
 void Pombo::FazCaca(){
     Vec2 shootPos = box.CenterPos();
     CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
-    caquinha->SetSubLayer(Player::player->GetSublayer());
+//    caquinha->SetSubLayer(Player::player->GetSublayer());
+    caquinha->SetSubLayer(Player::GetInstance().GetSublayer());
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }

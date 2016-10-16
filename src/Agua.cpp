@@ -13,7 +13,7 @@ Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 2,0.2){
 	this->layer = layer;
  	this->subLayer = subLayer;
 
-	this->box.x = Player::player->box.x + 1200;
+	this->box.x = Player::GetInstance().GetX() + 1200;
 
 	if(this->layer == LAYER_TOP)
         this->box.y = OBST_HEIGHT_L3;

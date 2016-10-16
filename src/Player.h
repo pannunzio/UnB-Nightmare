@@ -85,7 +85,7 @@ public:
 	int GetLayer();
 	int GetSublayer();
 
-    Player& GetInstance();
+    static Player& GetInstance();
 
 	void SetMaxSpeed(float maxSpeed);
     float GetSpeed();
@@ -104,6 +104,7 @@ public:
 	bool isPlayerColliding();
 	bool IsInPosition();
 	void TimeOver();
+	bool IsPlayerAlive();
 
 private:
     Sprite sp;

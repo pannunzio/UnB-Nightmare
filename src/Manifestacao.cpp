@@ -10,7 +10,8 @@ Manifestacao::Manifestacao(){
 	this->spriteSound = Sound(-1);
 	this->isCollidingWithPlayer = false;
 
-	this->box.x = Player::player->box.x + 1200;
+//	this->box.x = Player::player->box.x + 1200;
+	this->box.x = Player::GetInstance().GetX() + 1200;
 
     this->box.y = ITEM_HEIGHT_L2 + 30;
     this->box.y -= (this->subLayer - 3) * 26;
@@ -57,7 +58,8 @@ int Manifestacao::GetLayer(){
 
 int Manifestacao::GetSublayer(){
     if(Player::player != nullptr)
-        return Player::player->GetSublayer();
+        return Player::GetInstance().GetSublayer();
+//        return Player::player->GetSublayer();
     else
         return SUBLAYER_BOTTON;
 }
