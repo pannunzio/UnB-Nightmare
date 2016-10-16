@@ -45,7 +45,6 @@ void Item::SetAssets(int layer, int subLayer){
     this->subLayer = subLayer;
 
     this->box.x = Player::GetInstance().GetX() + 1200;
-//    this->box.x = Player::player->box.x + 1200;
     this->box.y = 0;
     this->box.w = this->sp.GetWidth();
     this->box.h = this->sp.GetHeight();

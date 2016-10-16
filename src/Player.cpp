@@ -38,9 +38,6 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
     this->isColliding = false;
     this->wasColliding = false;
     this->isPassingMapObject = false;
-
-    //Coisas que não fazem muito sentido estar aqui
-//	this->hud = Text(TEXT_FONT_FILE, 28, SOLID, TEXT_INIT, TEXT_WHITE, 40,50);
 }
 
 /***
@@ -181,15 +178,6 @@ void Player::Shoot(){
 		Game::GetInstance().GetCurrentState().AddObject(coffee);
 		coffee_ammo--;
 	}
-}
-
-void Player::RenderHud(){
-    std::stringstream hudString;
-    hudString << "Coffee: " << coffee_ammo;
-//    this->hud.SetText(hudString.str());
-    this->hud = hudString.str();
-//	this->hud.Render(0, 0);
-//    cout << "HUD - " << this->hud << endl;
 }
 
 void Player::SetSpriteScale(){

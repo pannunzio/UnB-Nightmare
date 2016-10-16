@@ -13,7 +13,6 @@ Pessoa::Pessoa(){
 	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
 
-//	this->box.x = Player::player->box.x + 1200;
 	this->box.x = Player::GetInstance().GetX() + 1200;
 
     if(this->layer == LAYER_TOP)

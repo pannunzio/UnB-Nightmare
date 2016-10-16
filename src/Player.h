@@ -100,6 +100,7 @@ public:
     InputState inputState;
     //temporario
     int GetBaseX();
+	//Favor nao tirar o getX ele ta sendo usado por deus e o mundo agora
 	int GetX();
 	bool isPlayerColliding();
 	bool IsInPosition();
@@ -163,11 +164,6 @@ private:
 
     void StopIndestructiblePowerup();
     void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpeed);
-
-    //Não deveria estar aqui
-//    Text hud;
-    string hud;
-	void RenderHud();
 };
 
 #endif /* PLAYER_H_ */

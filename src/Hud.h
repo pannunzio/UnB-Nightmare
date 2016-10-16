@@ -43,7 +43,6 @@ private:
 	string clock;
 
 	Text clockText;
-//	Text clockText2;
 	Text coffeeText;
 };
 

@@ -61,7 +61,6 @@ int CacaDePombo::GetLayer(){
 
 int CacaDePombo::GetSublayer(){
     return Player::GetInstance().GetSublayer();
-//    return Player::player->GetSublayer();
 }
 
 void CacaDePombo::SetSubLayer(int subLayer){

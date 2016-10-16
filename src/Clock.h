@@ -36,7 +36,6 @@ public:
 
 private:
 	float time;
-//	Text text;
 	string text;
 	bool running;
 };

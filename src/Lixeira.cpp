@@ -11,8 +11,7 @@ Lixeira::Lixeira(int layer){
 
 	this->spriteSound = Sound(-1);
 
-//	this->box.x = Player::player->box.x + 1200;
-	this->box.x = Player::GetInstance().GetX() + 1200;
+    this->box.x = Player::GetInstance().GetX() + 1200;
 
     if(this->layer == LAYER_TOP)
         this->box.y = ITEM_HEIGHT_L3;
