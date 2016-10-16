@@ -27,6 +27,8 @@ StageState::~StageState(){
 void StageState::LoadAssets(){
     cout << "START of load assets STAGESTATE" << endl << endl;
 
+    this->hud.InitHud();
+
     AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
 	this->layer = Player::player->GetLayer();
 
@@ -70,6 +72,7 @@ void StageState::Update(float dt){
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
 
+        UpdateHud(dt);
     }else{
         this->menu.Update(dt);
         if(this->menu.GetSelection()){
@@ -115,7 +118,8 @@ void StageState::Render(){
     RenderSubLayer(1);
     RenderSubLayer(0);
 
-	this->clock.Render();
+    this->hud.Render();
+//	this->clock.Render();
 }
 
 //Add game object
@@ -272,6 +276,13 @@ void StageState::SpawnNewDynamicObstacle(){
             }
     	}
     }
+}
+
+void StageState::UpdateHud(float dt){
+    this->hud.SetClock(this->clock.GetText());
+    this->hud.SetCoffeeAmmo(Player::player->coffee_ammo);
+
+    this->hud.Update(dt);
 }
 
 void StageState::RenderSubLayer(int sublayer){

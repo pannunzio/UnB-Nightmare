@@ -1,7 +1,7 @@
 #include "Clock.h"
 
 //lembrar de mudar o starting value da text
-Clock::Clock(): text("font/ComicNeue_Bold.otf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){
+Clock::Clock(){ //: text("font/ComicNeue_Bold.otf", 40, BLENDED, "0 : 50", TEXT_WHITE, 980, 17){
     running = true;
 }
 
@@ -16,12 +16,18 @@ void Clock::Update(float dt){
         std::stringstream novoTempo;
         novoTempo << GetMinutes() << " : " << GetSeconds2() << GetSeconds1();
 
-        this->text.SetText(novoTempo.str());
+//        this->text.SetText(novoTempo.str());
+        this->text = novoTempo.str();
     }
 }
 
 void Clock::Render(){
-    this->text.Render(75,0);
+//    this->text.Render(75,0);
+//    std::cout << "clock: " <<this->text << endl;
+}
+
+string Clock::GetText(){
+    return this->text;
 }
 
 float Clock::GetTime(){

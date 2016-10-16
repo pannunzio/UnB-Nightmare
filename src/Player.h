@@ -164,7 +164,8 @@ private:
     void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpeed);
 
     //Não deveria estar aqui
-    Text hud;
+//    Text hud;
+    string hud;
 	void RenderHud();
 };
 

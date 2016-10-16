@@ -39,6 +39,8 @@
 #include "Cafe.h"
 #include "Skate.h"
 
+#include "Hud.h"
+
 
 using std::string;
 using std::cout;
@@ -97,6 +99,8 @@ private:
     void SpawnNewDynamicObstacle();
     void HandleInputs();//registra os inputs de interesse ao StageState
 
+    void UpdateHud(float dt);
+
     void RenderSubLayer(int sublayer);
     Menu menu;
     enum{
@@ -112,6 +116,8 @@ private:
     StateData stateData;
 	Clock clock;
 	float waitEnd;
+
+    Hud hud;
 
 	Timer cooldownTimer;
 	int spawn;

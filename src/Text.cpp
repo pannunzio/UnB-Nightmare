@@ -92,3 +92,19 @@ void Text::RemakeTexture(){
 
 	SDL_FreeSurface(surface);
 }
+
+void Text::OpenText(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+    this->box.x = x;
+	this->box.y = y;
+
+	this->fontSize = fontSize;
+	this->style = style;
+	this->text = text;
+	this->color = color;
+	this->texture = nullptr;
+//	fontFile = std::to_string(fontSize) + fontFile;
+	this->font = Resources::GetFont(fontFile, fontSize);
+	this->fontFile = fontFile;
+
+	RemakeTexture();
+}

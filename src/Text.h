@@ -35,6 +35,7 @@ public:
 	void SetStyle(TextStyle style);
 	void SetFontSize(int fontSize);
 	void SetText(std::string text);
+    void OpenText(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x= 0, int y=0);
 
 private:
 	void RemakeTexture();

@@ -6,6 +6,9 @@
 #include "Defines.h"
 #include "Text.h"
 #include "Resources.h"
+#include <string>
+
+using std::string;
 
 class Clock {
 public:
@@ -22,6 +25,8 @@ public:
 	void StopClock();
 	void StartClock();
 
+	string GetText();
+
 	int GetSecondsTotal();
 
     //adiciona e subtrai um tempo constante do tempo.
@@ -31,7 +36,8 @@ public:
 
 private:
 	float time;
-	Text text;
+//	Text text;
+	string text;
 	bool running;
 };
 
