@@ -104,7 +104,7 @@ void Game::Push(State* state){
 
 void Game::Run(){
     int cont = 0;
-	this->stateStack.emplace(new TitleState);
+	this->stateStack.emplace(new StageState);
 	this->stateStack.top()->LoadAssets();
     cont ++;
 

@@ -37,13 +37,16 @@ public:
 
     void SetCoffeeAmmo(int coffeeAmmo);
     void SetClock(string clock);
+    void SetRemainingDistance(float distanceLeft);
 
 private:
 	string coffeeAmmo;
 	string clock;
+	string remainingDistance;
 
-	Text clockText;
-	Text coffeeText;
+	Text* clockText;
+	Text* coffeeText;
+	Text* distanceText;
 };
 
 #endif // HUD_H

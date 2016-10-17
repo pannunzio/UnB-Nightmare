@@ -19,6 +19,9 @@ StageState::StageState(){
 }
 
 StageState::~StageState(){
+    Resources::ClearFonts();
+    Resources::ClearImages();
+    Resources::ClearSound();
 	// limpando o vector
 //	this->mapActionList.mapActions.clear();
 //	objectArray.clear();

@@ -18,6 +18,9 @@ TitleState::TitleState()//:
 
 TitleState::~TitleState(){
     this->music.Stop();
+    Resources::ClearFonts();
+    Resources::ClearImages();
+    Resources::ClearSound();
     std::cout << "titlestate destroyed"<< endl;
 }
 
