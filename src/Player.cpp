@@ -87,7 +87,6 @@ void Player::PlayerStops(){
 
 void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
-	this->RenderHud();
 	this->SetSpriteScale();
 }
 
