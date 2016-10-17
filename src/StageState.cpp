@@ -297,6 +297,7 @@ void StageState::SpawnNewDynamicObstacle(){
 void StageState::UpdateHud(float dt){
     this->hud.SetClock(this->clock.GetText());
     this->hud.SetCoffeeAmmo(Player::GetInstance().coffee_ammo);
+//    this->hud.SetRemainingDistance((this->mapLength * TILESET_WIDTH) - Player::GetInstance().GetX());
 
     this->hud.Update(dt);
 }

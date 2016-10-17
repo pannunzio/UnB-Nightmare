@@ -25,6 +25,7 @@ void Hud::InitHud(){
 void Hud::Update(float dt){
     this->clockText->SetText(this->clock);
     this->coffeeText->SetText(this->coffeeAmmo);
+    this->distanceText->SetText(this->remainingDistance);
 }
 
 void Hud::Render(){
