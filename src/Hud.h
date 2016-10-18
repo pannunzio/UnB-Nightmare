@@ -8,6 +8,8 @@
 
 #include <string>
 #include <sstream>
+#include <iomanip>
+#include <iostream>
 
 #define HUD_BG_FILE " "
 
@@ -17,9 +19,12 @@
 #define CLOCK_INIT_TEXT "0:00"
 #define CLOCK_ICON_FILE " "
 
-#define COFFEE_AMOUNT_INIT 0
-#define COFFEE_INIT_TEXT "0"
-#define COFFEE_ICON_FILE " "
+#define COFFEE_INIT_TEXT "000"
+#define COFFEE_TEXT_FILE "font/Sketch_College.ttf"
+#define COFFEE_ICON_FILE "img/coffee_HUD.png"
+#define COFFEE_POS_X 100
+#define COFFEE_POS_Y 37
+#define COFFEE_FONT_SIZE 50
 
 using std::cout;
 using std::endl;
@@ -47,6 +52,8 @@ private:
 	Text* clockText;
 	Text* coffeeText;
 	Text* distanceText;
+
+    Sprite coffeeSprite;
 };
 
 #endif // HUD_H

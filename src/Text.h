@@ -17,6 +17,8 @@
 #define TEXT_GREEN SDL_Color{0,255,0}
 #define TEXT_BLUE SDL_Color{0,0,255}
 
+#define TEXT_MAGENTA SDL_Color{149,57,85}
+
 enum TextStyle{
     SOLID,
     SHADED,
