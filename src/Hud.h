@@ -11,20 +11,20 @@
 #include <iomanip>
 #include <iostream>
 
-#define HUD_BG_FILE " "
+#define HUD_BG_FILE "img/spritehud.png"
 
-#define NOTIFICATION_FILE " "
-
-#define CLOCK_INIT_TIME 10
 #define CLOCK_INIT_TEXT "0:00"
-#define CLOCK_ICON_FILE " "
+#define CLOCK_TEXT_FILE "font/digitaldream.ttf"
+#define CLOCK_POS_X 900
+#define CLOCK_POS_Y 45
+#define CLOCK_FONT_SIZE 30
 
 #define COFFEE_INIT_TEXT "000"
 #define COFFEE_TEXT_FILE "font/Sketch_College.ttf"
-#define COFFEE_ICON_FILE "img/coffee_HUD.png"
 #define COFFEE_POS_X 100
 #define COFFEE_POS_Y 37
 #define COFFEE_FONT_SIZE 50
+
 
 using std::cout;
 using std::endl;
@@ -53,7 +53,9 @@ private:
 	Text* coffeeText;
 	Text* distanceText;
 
-    Sprite coffeeSprite;
+    Sprite sp;
+//    Sprite coffeeSprite;
+//    Sprite clockSprite;
 };
 
 #endif // HUD_H

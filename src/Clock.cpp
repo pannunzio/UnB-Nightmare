@@ -14,7 +14,7 @@ void Clock::Update(float dt){
         this->time -= dt;
 
         std::stringstream novoTempo;
-        novoTempo << GetMinutes() << " : " << GetSeconds2() << GetSeconds1();
+        novoTempo << GetMinutes() << ":" << GetSeconds2() << GetSeconds1();
 
         this->text = novoTempo.str();
     }
