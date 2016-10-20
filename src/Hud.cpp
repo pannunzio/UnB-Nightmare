@@ -1,12 +1,14 @@
 #include "Hud.h"
 
-Hud::Hud() : sp(HUD_BG_FILE){
+Hud::Hud() : coffeeSprite(COFFEE_FILE), clockSprite(CLOCK_FILE){
     cout << "enter HUD constructor" << endl;
     this->coffeeAmmo = "";
     this->clock = "";
-    this->remainingDistance = "";
+    this->distanciaProvisoria = "a";
     cout << "exit HUD constructor" << endl;
 }
+
+
 
 Hud::~Hud(){
     cout << "destroy HUD" << endl;
@@ -25,15 +27,16 @@ void Hud::InitHud(){
 void Hud::Update(float dt){
     this->clockText->SetText(this->clock);
     this->coffeeText->SetText(this->coffeeAmmo);
-//    this->distanceText->SetText(this->remainingDistance);
+    this->distanceText->SetText(this->distanciaProvisoria);
 }
 
 void Hud::Render(){
-    this->sp.Render(16, 15);
+    this->clockSprite.Render(SPRITE_MARGIN_LEFT- clockSprite.GetWidth(), SPRITE_MARGIN_SUPERIOR);
+    this->coffeeSprite.Render(SPRITE_MARGIN_RIGHT, SPRITE_MARGIN_SUPERIOR);
 
     this->coffeeText->Render(0, 0);
-    this->clockText->Render(75, 0);
-    this->distanceText->Render(75, 0);
+    this->clockText->Render(0, 0);
+    this->distanceText->Render(0, 0);
 }
 
 void Hud::SetCoffeeAmmo(int coffeeAmmo){
@@ -50,8 +53,8 @@ void Hud::SetClock(string clock){
     this->clock = clock;
 }
 
-void Hud::SetRemainingDistance(float distanceLeft){
+void Hud::SetDistanceRun(float distance){
     std::stringstream newRemainDistance;
-    newRemainDistance << "Distance Left: " << distanceLeft;
-    this->remainingDistance = newRemainDistance.str();
+    newRemainDistance << "Distance: " << distance << "%";
+    this->distanciaProvisoria = newRemainDistance.str();
 }
