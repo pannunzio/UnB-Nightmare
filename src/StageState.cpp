@@ -237,13 +237,35 @@ void StageState::CheckMapActionsPosition(float dt){
 
 void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%3 == 0){
-        if(this->spawn == 0 && rand()%100 <= 80){
-            if(rand()%3 == 1)
+        int spawner = rand()%100;
+        if(this->spawn == 0 && spawner <= 80){
+            spawner = spawner%4; //spawner is arbitrary value to be set only after game is being balanced
+            switch(spawner){
+            case 0:{
+                AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
+                cout << "added new surprise item" << endl;
+                break;
+            }
+            case 1:{
                 AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
-            else if(rand()%3 == 2)
+                cout << "Added new acai" << endl;
+                break;
+            }
+            case 2:{
                 AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
-            else
+                cout << "Added new skate" << endl;
+                break;
+            }
+            case 3:{
                 AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
+                cout << "added new cafe" << endl;
+                break;
+            }
+            case 4:
+            case 5:
+            default:
+                break;
+            } // close switch
         }
         this->spawn = 1;
     }
@@ -255,7 +277,9 @@ void StageState::SpawnNewItem(){
 void StageState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
+    //numero magico??????
     if((1256 * this->lixo) < Camera::pos.x){
+        cout << "spawning new trash" << endl;
         AddObjectStatic(new Lixeira(LAYER_TOP));
         AddObjectStatic(new Lixeira(LAYER_MIDDLE));
         AddObjectStatic(new Lixeira(LAYER_BOTTON));
@@ -273,25 +297,38 @@ void StageState::SpawnNewDynamicObstacle(){
 
         int random = rand()%100;
     	if(random > 30){
-            if(random > 50 )
+            if(random > 50 ){
+                cout << "new pessoa" << endl;
                 AddObject(new Pessoa());
-            else
+            }
+            else {
+                cout << "new zombie" << endl;
                 AddObject(new PessoaZumbi());
+            }
     	}
 
-    	if(rand()%100 <= 5){
-            AddObject(new NonCollidingPerson());
-        }
-
-    	if(rand()%100 <=5){
-    		AddObject(new Manifestacao());
-    	}
+//    	if(rand()%100 <= 5){
+//            cout << "new peladao" << endl;
+//            AddObject(new NonCollidingPerson());
+//        }
+//
+//    	if(rand()%100 <=5){
+//            cout << "new manifestacao" << endl;
+//    		AddObject(new Manifestacao());
+//    	}
 
     	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
             if(rand()%100 < 5){
                 AddObjectStatic(new Pombo());
             }
     	}
+    }
+
+    if(Player::GetInstance().IsSurprise()){
+        if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO)
+            AddObject(new Manifestacao());
+        else if (Player::GetInstance().GetSurpriseType() == PELADAO)
+            AddObject(new NonCollidingPerson());
     }
 }
 

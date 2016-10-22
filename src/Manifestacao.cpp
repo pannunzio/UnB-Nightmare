@@ -1,6 +1,7 @@
 #include "Manifestacao.h"
 
 Manifestacao::Manifestacao(){
+    cout << "CREATE NEW MANIFESTACAO" << endl;
     this->sp = Sprite("img/manifest.png", 6, 0.2);
 	this->speed = 2 + rand()%10/10;
 	this->canBlock = true;
@@ -32,6 +33,7 @@ Manifestacao::Manifestacao(){
 }
 
 Manifestacao::~Manifestacao(){
+    cout << "destroy manifestacao" << endl;
     spriteSound.Stop(1);
 }
 

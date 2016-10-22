@@ -39,6 +39,7 @@ private:
     void GetXingamentoSound();
     void GetSprite();
     bool isParada;
+    bool isSoundPlaying;
     enum{
         MENINA,
         MENINO

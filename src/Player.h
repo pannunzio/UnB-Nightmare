@@ -70,6 +70,12 @@ enum InputState{
     GOING_DOWNSTAIRS,
 };
 
+enum SurpriseType{
+    NO_SURPRISE,
+    MANIFESTACAO,
+    PELADAO
+};
+
 class Player : public GameObject{
 public:
     //
@@ -107,6 +113,10 @@ public:
 	void TimeOver();
 	bool IsPlayerAlive();
 
+    bool IsSurprise();
+    SurpriseType GetSurpriseType();
+    void SetSurpriseType();
+
 private:
     Sprite sp;
 
@@ -135,6 +145,10 @@ private:
     //Indicador de fim de tempo
     bool timeOver;
     bool playerControl;
+
+    //controla atributos surpresa
+    bool isSurprise;
+    SurpriseType surpriseType;
 
 	void checkPosition(float diff);
 	void SetSpriteScale();

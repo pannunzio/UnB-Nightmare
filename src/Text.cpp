@@ -4,6 +4,8 @@ Text::Text(){
 }
 
 Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
+	cout << "non empty text constructor" << endl;
+
 	this->box.x = x;
 	this->box.y = y;
 

@@ -12,6 +12,7 @@
 #include <iostream>
 
 #define HUD_BG_FILE         "img/spritehud.png"
+#define HUD_SLIDER_FILE     "img/distanceslider_HUD.png"
 
 #define CLOCK_INIT_TEXT     "0:00"
 #define CLOCK_TEXT_FILE     "font/digitaldream.ttf"
@@ -25,11 +26,14 @@
 #define COFFEE_POS_X        100
 #define COFFEE_POS_Y        37
 #define COFFEE_FONT_SIZE    50
-#define COFFEE_FILE         "img/coffee_HUD.png"
+#define COFFEE_FILE_NAME         "img/coffee_HUD.png"
 
-#define SPRITE_MARGIN_RIGHT     15
-#define SPRITE_MARGIN_LEFT      1009
+#define SPRITE_MARGIN_RIGHT     17
 #define SPRITE_MARGIN_SUPERIOR  15
+
+#define SLIDER_POS_X        248
+#define SLIDER_POS_Y        50
+#define SLIDER_DELTA_X      486 //slider vai de 248 ate 734
 
 using std::cout;
 using std::endl;
@@ -61,8 +65,10 @@ private:
 	Text* coffeeText;
 	Text* distanceText;
 
-    Sprite coffeeSprite;
-    Sprite clockSprite;
+    Sprite bgSprite;
+    Sprite sliderSprite;
+//    Sprite distanceSprite;
+//    Sprite sliderSprite;
 };
 
 #endif // HUD_H

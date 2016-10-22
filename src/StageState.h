@@ -38,6 +38,7 @@
 #include "Acai.h"
 #include "Cafe.h"
 #include "Skate.h"
+#include "SurpriseItem.h"
 
 #include "Hud.h"
 

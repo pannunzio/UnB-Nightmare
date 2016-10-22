@@ -18,6 +18,8 @@ public:
     void OpenSound(string fileName);
     void ChangeSpritesheet(string fileName, int frameCount, float frameTime);
 
+    int GetSpeed();
+
     int layer;
     int subLayer;
 

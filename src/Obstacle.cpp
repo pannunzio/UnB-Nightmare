@@ -24,3 +24,7 @@ void Obstacle::ChangeSpritesheet(string fileName, int frameCount, float frameTim
     this->sp.SetFrameTime(frameTime);
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
 }
+
+int Obstacle::GetSpeed(){
+    return this->speed;
+}

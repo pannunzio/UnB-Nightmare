@@ -47,5 +47,8 @@ int NonCollidingPerson::GetLayer(){
 }
 
 int NonCollidingPerson::GetSublayer(){
-    return this->subLayer;
+    if(!Player::GetInstance().IsDead())
+        return Player::GetInstance().GetSublayer();
+    else
+        return this->subLayer;
 }

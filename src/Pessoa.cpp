@@ -1,7 +1,7 @@
 #include "Pessoa.h"
 
 Pessoa::Pessoa(){
-    this->speed = (rand()%3 + 1) * (rand()%2 - rand()%4);
+    this->speed = (rand()%3 + 1);
 
     GetSprite();
 
@@ -9,6 +9,8 @@ Pessoa::Pessoa(){
 	this->isDead = false;
 	this->layer = rand()%3 + 1;
 	this->subLayer = rand()%3 + 1;
+
+    this->isSoundPlaying = false;
 
 	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
@@ -43,8 +45,10 @@ void Pessoa::Render(){
 }
 
 void Pessoa::NotifyCollision(GameObject* other){
-    if(other->Is("Coffee") || other->Is("Player"))
+    if((other->Is("Coffee") || other->Is("Player")) && !this->isSoundPlaying){
         spriteSound.Play(1);
+        this->isSoundPlaying = true;
+    }
 
 }
 
@@ -115,6 +119,7 @@ void Pessoa::GetSprite(){
     if(rand()%2 + 1 > 1){
 
         this->speed = 0;
+        this->isParada = true;
         switch(rand()%2 + 1){
         case 1:{
             this->sp = Sprite("img/parado1.png", 1, 1);

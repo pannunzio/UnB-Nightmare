@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Obstacle.h"
+#include "SurpriseItem.h"
 
 Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
@@ -38,6 +40,8 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
     this->isColliding = false;
     this->wasColliding = false;
     this->isPassingMapObject = false;
+    this->isSurprise = false;
+    this->surpriseType = NO_SURPRISE;
 }
 
 /***
@@ -69,8 +73,11 @@ void Player::Update(float dt){
 
     AdjustGoingUpOrDown();
 
+    //LATeR: criar uma funcao propria pra resetar esses aqui
     this->isColliding = false;
     this->isPassingMapObject = false;
+    this->isSurprise = false;
+    this->surpriseType = NO_SURPRISE;
 }
 
 void Player::PlayerStops(){
@@ -102,11 +109,14 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
+
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
             this->SetMaxSpeed(0.0);
+            Obstacle* obst = (Obstacle*) other;
+            this->speed = obst->GetSpeed();
         } else {
             //se estiver com um powerup que dá indestrutibilidade, desvia dos obstaculos principais
             if (this->subLayer == 3){
@@ -118,11 +128,13 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Manifestacao")){
+        cout << "colidiu MANIFESTAÇÃO" << endl;
         StopIndestructiblePowerup();
 
         this->isColliding = true;
         this->wasColliding = true;
-        this->speed = 2;
+        Obstacle* obst = (Obstacle*) other;
+        this->speed = obst->GetSpeed();
 
         // se ficar apertando vai mais rapido
         if(InputManager::GetInstance().KeyPress(SDLK_d))
@@ -131,9 +143,11 @@ void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("Cafe")){
         this->coffee_ammo++;
+        cout << "colidiu CAFE" << endl;
     }
 
     if(other->Is("Skate")){
+        cout << "colidiu SKATE" << endl;
         if(!this->isPlayingMusic && this->powerUp != SKATE){
             this->powerupMusic.Open(SKATING_MUS, 5);
             this->powerupMusic.Play(1);
@@ -145,6 +159,7 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
+        cout << "colidiu AÇAÍ" << endl;
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
@@ -153,7 +168,7 @@ void Player::NotifyCollision(GameObject* other){
 
     //caca de pombo
     if(other->Is("Caca")){
-        cout << "opa, caca!" << endl;
+        cout << "colidiu CACA" << endl;
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, RUNNING_SLOW_SPEED);
     }
@@ -163,8 +178,22 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Agua")){
+        cout << "colidiu AGUA" << endl;
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, RUNNING_SLOW_SPEED);
+    }
+    if(other->Is("Surprise!")){
+        cout << "Surprise!!!" << endl;
+        this->isSurprise = true;
+        SurpriseItem* item = (SurpriseItem*) other;
+        this->surpriseType = item->GetSurprise();
+    }
+
+    if(other->Is("NonColliding")){
+        cout << "nudez no campus!" << endl;
+        this->speed = 2;
+        this->isColliding = true;
+        this->wasColliding = true;
     }
 }
 
@@ -326,13 +355,21 @@ void Player::AdjustSpeed(float dt){
 	//v = v0 + at
 	if(this->speed != this->maxSpeed){
         //lastSpeed evita que a speed fique oscilando em volta de maxSpeed
-        if(this->maxSpeed > this->speed && this->maxSpeed > this->lastSpeed){
-		    this->lastSpeed = this->speed;
+        if(this->maxSpeed > this->speed
+            && this->maxSpeed > this->lastSpeed){
+
+            this->lastSpeed = this->speed;
 			this->speed += this->acceleration * dt;
-		}else if(this->maxSpeed < this->speed && this->maxSpeed < this->lastSpeed){
+
+		}
+		else if(this->maxSpeed < this->speed
+            && this->maxSpeed < this->lastSpeed){
+
 		    this->lastSpeed = this->speed;
 			this->speed -= this->acceleration * dt;
-		}else{
+
+		}
+		else{
             this->speed = this->lastSpeed = this->maxSpeed;
 		}
 	}
@@ -490,4 +527,12 @@ bool Player::IsInPosition(){
 
 bool Player::Is(std::string type){
 	return (type == "Player");
+}
+
+bool Player::IsSurprise(){
+    return this->isSurprise;
+}
+
+SurpriseType Player::GetSurpriseType(){
+    return this->surpriseType;
 }
