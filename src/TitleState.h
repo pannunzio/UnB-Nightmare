@@ -41,6 +41,7 @@ private:
 	Sprite bg;
 	Sprite cutscene;
 	Menu menu;
+    bool isPlayingCutscene;
 	void HandleInputs();
 
 	Timer timer;

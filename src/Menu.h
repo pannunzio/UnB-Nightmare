@@ -29,6 +29,7 @@ public:
     bool GetSelection();
     int GetSelectedOption();
     void AddMenuOption(string newOpt);
+    void RemoveMenuOption(int option);
     void SetPosition(float posX, float posY, int newLineSpace);
 
 

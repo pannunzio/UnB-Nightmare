@@ -99,6 +99,11 @@ void Menu::AddMenuOption(string newOpt){
     }
 }
 
+void Menu::RemoveMenuOption(int option){
+    std::cout << "remove menu option " << option << endl;
+    options.erase(options.begin() + option);
+}
+
 void Menu::SetPosition(float posX, float posY, int newLineSpace){
     this->box.x = posX;
     this->box.y = posY;

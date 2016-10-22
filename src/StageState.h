@@ -101,6 +101,7 @@ private:
     void HandleInputs();//registra os inputs de interesse ao StageState
 
     void UpdateHud(float dt);
+    void UpdateMenu(float dt);
 
     void RenderSubLayer(int sublayer);
     Menu menu;
@@ -128,6 +129,7 @@ private:
 	float stagePositionX;
 	float stagePositionY;
 	int layer;
+	bool gameEnd;
 
 	Sound music;
 };

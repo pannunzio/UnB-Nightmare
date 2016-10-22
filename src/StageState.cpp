@@ -12,6 +12,7 @@ StageState::StageState(){
     this->lixo = 0;
 	this->clock.SetTime(STAGE_DURATION);
 	this->waitEnd = WAIT_END_DURATION;
+	this->gameEnd = false;
 
     Camera::pos = Vec2(stagePositionX,stagePositionY);
 	Camera::Resume();
@@ -89,23 +90,8 @@ void StageState::Update(float dt){
         SpawnNewDynamicObstacle();
 
         UpdateHud(dt);
-    }else{
-        this->menu.Update(dt);
-        if(this->menu.GetSelection()){
-            switch(menu.GetSelectedOption()){
-                case RESUME:
-                    pause = false;
-                    Camera::Resume();
-                    break;
-                case RESTART:
-                    //RestartStage();
-                    break;
-                case QUIT_GAME:
-                    this->popRequested = true;
-                    Game::GetInstance().Push(new TitleState());
-                    break;
-            }
-        }
+    } else {
+        UpdateMenu(dt);
     }
 }
 void StageState::Pause(){
@@ -127,7 +113,6 @@ void StageState::Render(){
 	//chamando o render de cada gameObject
 	this->bg.Render(0, 0);
 	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
-	if(pause == true) this->menu.Render();
 
     RenderSubLayer(3);
     RenderSubLayer(2);
@@ -135,6 +120,8 @@ void StageState::Render(){
     RenderSubLayer(0);
 
     this->hud.Render();
+    if(pause == true)
+        this->menu.Render();
 //	this->clock.Render();
 }
 
@@ -167,6 +154,7 @@ void StageState::CheckEndOfGame(){
     //se o usuario solicitar o fim do jogo ele encerra também
     if(InputManager::GetInstance().QuitRequested()){
 		this->quitRequested = true;
+		this->gameEnd = true;
     }
 	if(InputManager::GetInstance().KeyPress(ESCAPE_KEY)){
 		SetEndOfGame(false);
@@ -192,8 +180,15 @@ void StageState::CheckEndOfGame(){
 void StageState::SetEndOfGame(bool playerVictory){
     this->stateData.timeleft = clock.GetTime();
     this->stateData.playerVictory = playerVictory;
-    this->popRequested =  true;
-    Game::GetInstance().Push(new EndState(stateData));
+    if(playerVictory){
+        this->popRequested =  true;
+        Game::GetInstance().Push(new EndState(stateData));
+    } else {
+        pause = true;
+        if(!this->gameEnd)
+            this->menu.RemoveMenuOption(RESUME);
+    }
+    this->gameEnd = true;
 }
 
 //Atualiza o array de Objectos e confere quais objectos 'morreram'
@@ -307,16 +302,6 @@ void StageState::SpawnNewDynamicObstacle(){
             }
     	}
 
-//    	if(rand()%100 <= 5){
-//            cout << "new peladao" << endl;
-//            AddObject(new NonCollidingPerson());
-//        }
-//
-//    	if(rand()%100 <=5){
-//            cout << "new manifestacao" << endl;
-//    		AddObject(new Manifestacao());
-//    	}
-
     	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
             if(rand()%100 < 5){
                 AddObjectStatic(new Pombo());
@@ -340,6 +325,42 @@ void StageState::UpdateHud(float dt){
     this->hud.SetDistanceRun(percentual);
 
     this->hud.Update(dt);
+}
+
+void StageState::UpdateMenu(float dt){
+    this->menu.Update(dt);
+    if(this->menu.GetSelection()){
+        if(!this->gameEnd){
+            switch(menu.GetSelectedOption()){
+                case RESUME:
+                    pause = false;
+                    Camera::Resume();
+                    cout << "RESUME GAME" << endl;
+                    break;
+                case RESTART:
+                    //RestartStage();
+                    cout << "RESTART GAME" << endl;
+                    break;
+                case QUIT_GAME:
+                    cout << "QUIT GAME" << endl;
+                    this->popRequested = true;
+                    Game::GetInstance().Push(new TitleState());
+                    break;
+            }
+        } else {
+            switch(menu.GetSelectedOption()){
+                case (RESTART - 1):
+                    //RestartStage();
+                    cout << "RESTART GAME" << endl;
+                    break;
+                case (QUIT_GAME - 1):
+                    cout << "QUIT GAME" << endl;
+                    this->popRequested = true;
+                    Game::GetInstance().Push(new TitleState());
+                    break;
+            }
+        }
+    }
 }
 
 void StageState::RenderSubLayer(int sublayer){

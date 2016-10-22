@@ -1,19 +1,9 @@
 #include "TitleState.h"
 
-TitleState::TitleState()//:
-//                            bg(BG_IMAGE),
-//                          cutscene(CUTSCENE_IMAGE, CUTSCENE_FRAMES, CUTSCENE_FTIME),
-//                          menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT)
-{
+TitleState::TitleState() {
 	this->popRequested = false;
 	this->quitRequested = false;
-//    this->menu.AddMenuOption(MENU_TEXT_START);
-//    this->menu.AddMenuOption(MENU_TEXT_QUIT);
-//
-//    this->music = Sound(SOUND_ALL_CHANNELS);
-//    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
-//    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
-//    this->music.Play(SOUND_PLAY_INFINITY);
+	this->isPlayingCutscene = true;
 }
 
 TitleState::~TitleState(){
@@ -37,7 +27,6 @@ void TitleState::LoadAssets(){
     this->menu.AddMenuOption(MENU_TEXT_QUIT);
 
     this->music = Sound(SOUND_ALL_CHANNELS);
-//    this->music.Open(MUSIC_TEMA_TERREO, SOUND_CHANNEL_1);
     this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
     this->music.Play(SOUND_PLAY_INFINITY);
 }
@@ -45,9 +34,14 @@ void TitleState::LoadAssets(){
 void TitleState::Update(float dt){
     this->cutscene.Update(dt);
     this->timer.Update(dt);
-    this->menu.Update(dt);
-    HandleInputs();
-    if(menu.GetSelection()){
+
+    if(this->timer.GetCurrentTime() > 32){
+        this->isPlayingCutscene = false;
+    }
+
+    if(!this->isPlayingCutscene){
+        this->menu.Update(dt);
+        if(menu.GetSelection()){
             switch(menu.GetSelectedOption()){
                 case MENU_START:
                     this->popRequested = true;
@@ -60,14 +54,17 @@ void TitleState::Update(float dt){
                 default:
                     cout << "selectedOption: " << menu.GetSelectedOption() << endl;
             }
+        }
     }
+
+    HandleInputs();
 }
 
 void TitleState::Render(){
 	this->timer.Update(Game::GetInstance().GetDeltaTime());
 	this->bg.Render(0,0);
 	this->menu.Render();
-    if(this->timer.GetCurrentTime() < 32)
+    if(this->isPlayingCutscene)
     	this->cutscene.Render(0,0);
 }
 
@@ -83,6 +80,9 @@ void TitleState::HandleInputs(){
 		this->quitRequested = true;
 	}
 
+    if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
+        this->isPlayingCutscene = false;
+    }
 	/***
         Botões Mágicos
     ***/
