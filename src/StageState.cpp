@@ -2,20 +2,8 @@
 
 StageState::StageState(){
     cout << "enter construtor STAGESTATE" << endl;
-	this->popRequested = false;
-	this->quitRequested = false; // iniciando o valor como falso
+	SetInitialStateValues();
 
-	this->pause = false;
-	this->stagePositionX = INIT_STAGE_X;
-	this->stagePositionY = INIT_STAGE_Y;
-	this->spawn = 0;
-    this->lixo = 0;
-	this->clock.SetTime(STAGE_DURATION);
-	this->waitEnd = WAIT_END_DURATION;
-	this->gameEnd = false;
-
-    Camera::pos = Vec2(stagePositionX,stagePositionY);
-	Camera::Resume();
 	cout << "exit contrutor STAGESTATE" << endl;
 }
 
@@ -140,6 +128,23 @@ void StageState::AddObjectStatic(GameObject* ptr){
     |  |  |
     V  V  V
 */
+
+void StageState::SetInitialStateValues(){
+    this->popRequested = false;
+	this->quitRequested = false; // iniciando o valor como falso
+
+	this->pause = false;
+	this->stagePositionX = INIT_STAGE_X;
+	this->stagePositionY = INIT_STAGE_Y;
+	this->spawn = 0;
+    this->lixo = 0;
+	this->clock.SetTime(STAGE_DURATION);
+	this->waitEnd = WAIT_END_DURATION;
+	this->gameEnd = false;
+
+    Camera::pos = Vec2(stagePositionX,stagePositionY);
+	Camera::Resume();
+}
 
 //verifica se o jogo acabou
 void StageState::CheckEndOfGame(){
@@ -339,6 +344,9 @@ void StageState::UpdateMenu(float dt){
                     break;
                 case RESTART:
                     //RestartStage();
+                    objectArray.clear();
+                    SetInitialStateValues();
+                    LoadAssets();
                     cout << "RESTART GAME" << endl;
                     break;
                 case QUIT_GAME:
@@ -352,6 +360,10 @@ void StageState::UpdateMenu(float dt){
                 case (RESTART - 1):
                     //RestartStage();
                     cout << "RESTART GAME" << endl;
+                    objectArray.clear();
+                    SetInitialStateValues();
+                    LoadAssets();
+                    this->clock.StartClock();
                     break;
                 case (QUIT_GAME - 1):
                     cout << "QUIT GAME" << endl;
