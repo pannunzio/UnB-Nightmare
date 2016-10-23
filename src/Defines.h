@@ -61,7 +61,7 @@ using std::endl;
 #define PLAYER_HEIGHT_L1 772
 
 #define OBST_HEIGHT_L3 230
-#define OBST_HEIGHT_L2 495
+#define OBST_HEIGHT_L2 485
 #define OBST_HEIGHT_L1 772
 
 #define ITEM_HEIGHT_L3 230

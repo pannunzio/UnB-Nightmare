@@ -140,6 +140,7 @@ void Pessoa::GetSprite(){
             return;
         }
         case MENINO:{
+            this->box.y -= 10; //gambiarra!
             this->sp = Sprite(MENINO_FILE, MENINO_FRAMES, MENINO_FTIME);
             return;
         }
