@@ -20,7 +20,7 @@
 /******
     Player Defines
 ******/
-#define RUNNING_FILE        "img/playerRunning.png"
+#define RUNNING_FILE        "img/Running.png"
 #define RUNNING_FRAMES       6
 #define RUNNING_FTIME        0.09
 #define RUNNING_ACC          1.5
@@ -32,13 +32,13 @@
 #define STOPPING_FRAMES  12
 #define STOPPING_TIMES   1
 
-#define SKATING_FILE    "img/playerskating.png"
+#define SKATING_FILE    "img/skating.png"
 #define SKATING_FRAMES  3
 #define SKATING_SPEED   7
 #define SKATING_TIME    5
 #define SKATING_MUS     "audio/skate.ogg"
 
-#define EATING_FILE     "img/comendoAcai.png"
+#define EATING_FILE     "img/eating.png"
 #define EATING_FRAMES   6
 #define EATING_SPEED
 #define EATING_TIME     3
