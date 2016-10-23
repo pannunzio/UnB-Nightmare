@@ -116,6 +116,7 @@ public:
     bool IsSurprise();
     SurpriseType GetSurpriseType();
     void SetSurpriseType();
+    float GetAddTime();
 
 private:
     Sprite sp;
@@ -149,6 +150,9 @@ private:
     //controla atributos surpresa
     bool isSurprise;
     SurpriseType surpriseType;
+
+    //controla obstaculos de tempo
+    float addTime;
 
 	void checkPosition(float diff);
 	void SetSpriteScale();

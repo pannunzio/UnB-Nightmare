@@ -51,6 +51,8 @@ int Clock::GetSecondsTotal(){
 
 void Clock::AddTimeToTime(int peso){
     this->time += peso;
+//    if(this->time < 0)
+//        this->time = 0;
 }
 
 void Clock::SubtractTimeFromTime(int peso){

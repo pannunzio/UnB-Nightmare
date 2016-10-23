@@ -25,11 +25,11 @@ void Menu::Update(float dt){
 	// Menu Select
     if(gotInput){
         gotInput = false;
-        options[currentOption]->SetColor(TEXT_WHITE);
-        options[currentOption]->SetStyle(SHADED);
+        options[currentOption]->SetColor(TEXT_BLACK);
+        buttons[currentOption].Open(BUTTON_SELECTED);
         if(lastOption != -1){
-            options[lastOption]->SetColor(TEXT_BLACK);
-            options[lastOption]->SetStyle(BLENDED);
+            options[lastOption]->SetColor(TEXT_WHITE);
+            buttons[lastOption].Open(BUTTON_NOT_SELECTED);
         }
     }
 }
@@ -60,6 +60,11 @@ void Menu::HandleInputs(){
 
 void Menu::Render(){
     this->bg.Render((int)Camera::pos.x + box.x - (this->bg.GetWidth()/2), (int)Camera::pos.y + this->box.y + 50 - (this->bg.GetHeight()/2));
+
+    for(int i = 0; i < buttons.size(); i++){
+        this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));
+    }
+
     for(int i = 0; i < options.size(); i++){
         this->options[i]->Render(0, 0);
     }
@@ -91,17 +96,27 @@ int Menu::GetSelectedOption(){
 }
 
 void Menu::AddMenuOption(string newOpt){
-    options.push_back(new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, newOpt, TEXT_BLACK, 0,0 ) );
+    options.push_back(new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, newOpt, TEXT_WHITE, 0,0 ) );
     options.back()->SetPos(this->box.x,this->box.y + newLineSpace*(options.size()-1),true,false);
+
+    Sprite selectedButton = Sprite(BUTTON_NOT_SELECTED, 1, 1);
+    buttons.push_back(selectedButton);
+
     if(options.size() == 1){
-        options[currentOption]->SetColor(TEXT_WHITE);
-        options[currentOption]->SetStyle(SHADED);
+        options[currentOption]->SetColor(TEXT_BLACK);
+        buttons[currentOption].Open(BUTTON_SELECTED);
     }
 }
 
 void Menu::RemoveMenuOption(int option){
-    std::cout << "remove menu option " << option << endl;
     options.erase(options.begin() + option);
+    buttons.erase(buttons.begin() + option);
+
+    for(int i = 0; i < options.size(); i++){
+        this->options[i]->SetPos(this->box.x,this->box.y + newLineSpace*i,true,false);
+    }
+    options[currentOption]->SetColor(TEXT_BLACK);
+    buttons[currentOption].Open(BUTTON_SELECTED);
 }
 
 void Menu::SetPosition(float posX, float posY, int newLineSpace){

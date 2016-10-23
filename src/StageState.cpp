@@ -77,7 +77,10 @@ void StageState::Update(float dt){
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
 
+        this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());
+
         UpdateHud(dt);
+
     } else {
         UpdateMenu(dt);
     }
@@ -239,7 +242,7 @@ void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%3 == 0){
         int spawner = rand()%100;
         if(this->spawn == 0 && spawner <= 80){
-            spawner = spawner%4; //spawner is arbitrary value to be set only after game is being balanced
+            spawner = spawner%5; //spawner is arbitrary value to be set only after game is being balanced
             switch(spawner){
             case 0:{
                 AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
@@ -262,6 +265,9 @@ void StageState::SpawnNewItem(){
                 break;
             }
             case 4:
+                AddObject(new ClockItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
+                cout << "added new clock " << endl;
+                break;
             case 5:
             default:
                 break;

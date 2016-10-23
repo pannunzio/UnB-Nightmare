@@ -16,7 +16,8 @@ TitleState::~TitleState(){
 
 void TitleState::LoadAssets(){
     cout << endl << "load Assets TITLESTATE" << endl << endl;
-    this->bg.Open(BG_IMAGE);
+//    this->bg.Open(BG_IMAGE);
+    this->bg.Open("img/telainicialC.jpg");
 
     this->cutscene.Open(CUTSCENE_IMAGE);
     this->cutscene.SetFrameCount(CUTSCENE_FRAMES);

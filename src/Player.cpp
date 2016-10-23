@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "SurpriseItem.h"
+#include "ClockItem.h"
 
 Player* Player::player = nullptr;
 int Player::coffee_ammo = 0;
@@ -42,6 +43,7 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
     this->isPassingMapObject = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
+    this->addTime = 0.0;
 }
 
 /***
@@ -78,6 +80,7 @@ void Player::Update(float dt){
     this->isPassingMapObject = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
+    this->addTime = 0.0;
 }
 
 void Player::PlayerStops(){
@@ -194,6 +197,12 @@ void Player::NotifyCollision(GameObject* other){
         this->speed = 2;
         this->isColliding = true;
         this->wasColliding = true;
+    }
+
+    if (other->Is("ClockItem")){
+        ClockItem* item = (ClockItem*) other;
+        this->addTime = item->GetTimeToAdd();
+        cout << "player caught clockitem: " << item->GetTimeToAdd() << endl;
     }
 }
 
@@ -535,4 +544,8 @@ bool Player::IsSurprise(){
 
 SurpriseType Player::GetSurpriseType(){
     return this->surpriseType;
+}
+
+float Player::GetAddTime(){
+    return this->addTime;
 }

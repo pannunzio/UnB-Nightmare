@@ -9,8 +9,12 @@
 #include "../src/Camera.h"
 #include "../src/InputManager.h"
 
-#define BG_MENU "img/menuProvisorio.jpg"
+#define BG_MENU "img/menuProvisorio.png"
 #define MENU_MIN_t 0
+
+#define BUTTON_SELECTED     "img/buttonselected.png"
+#define BUTTON_NOT_SELECTED "img/buttonnotselected.png"
+#define BUTTON_OFFSET_Y     5
 
 class Menu: public GameObject
 {
@@ -42,6 +46,8 @@ private:
     int lastOption;
     int selectedOption;
     std::vector<Text*> options;
+    std::vector<Sprite> buttons;
+
     bool gotInput;
     void HandleInputs();
 
