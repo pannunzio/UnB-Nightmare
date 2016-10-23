@@ -50,6 +50,7 @@ private:
 	enum{
         MENU_START,
         MENU_QUIT,
+        MENU_INSTRUCT
 	};
 };
 

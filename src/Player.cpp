@@ -4,7 +4,7 @@
 #include "ClockItem.h"
 
 Player* Player::player = nullptr;
-int Player::coffee_ammo = 0;
+int Player::coffee_ammo = 1;
 
 /***
         CONSTRUTOR

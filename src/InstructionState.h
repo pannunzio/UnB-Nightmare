@@ -1,5 +1,5 @@
-#ifndef STAGESTATE_H_
-#define STAGESTATE_H_
+#ifndef INSTRUCTIONSTATE_H
+#define INSTRUCIONSTATE_H
 
 #include <iostream>
 #include <vector>
@@ -24,7 +24,6 @@
 #include "EndState.h"
 #include "Player.h"
 #include "Item.h"
-#include "Collision.h"
 #include "Defines.h"
 #include "Obstacle.h"
 #include "Pombo.h"
@@ -63,17 +62,17 @@ using std::endl;
 #define INIT_PLAYER_X   200
 #define INIT_PLAYER_Y   550
 
-#define STAGE_DURATION      90 //em segundos
+#define STAGE_DURATION      60 //em segundos
 #define WAIT_END_DURATION   5
 
-#define STAGE_STATE_MENU_POSITION_X     500
-#define STAGE_STATE_MENU_POSITION_Y     350
-#define STAGE_STATE_MENU_SPACEMENT      50
+#define INSTR_STATE_MENU_POSITION_X     500
+#define INSTR_STATE_MENU_POSITION_Y     350
+#define INSTR_STATE_MENU_SPACEMENT      50
 
-class StageState : public State{
+class InstructionState : public State{
 public:
-	StageState();
-	~StageState();
+	InstructionState();
+	~InstructionState();
 
 	void LoadAssets();
 
@@ -108,10 +107,14 @@ private:
     void RenderSubLayer(int sublayer);
     Menu menu;
     enum{
-        RESUME,
-        RESTART,
-        QUIT_GAME
+        START_GAME,
+        VOLTAR
     };
+
+    Text* instructions;
+    bool showInstruction;
+    string instruction;
+
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
@@ -136,4 +139,4 @@ private:
 	Sound music;
 };
 
-#endif
+#endif // INSTRUCTIONSTATE_H

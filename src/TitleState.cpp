@@ -1,4 +1,5 @@
 #include "TitleState.h"
+#include "InstructionState.h"
 
 TitleState::TitleState() {
 	this->popRequested = false;
@@ -26,6 +27,7 @@ void TitleState::LoadAssets(){
     this->menu = Menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT);
     this->menu.AddMenuOption(MENU_TEXT_START);
     this->menu.AddMenuOption(MENU_TEXT_QUIT);
+    this->menu.AddMenuOption("Instructions");
 
     this->music = Sound(SOUND_ALL_CHANNELS);
     this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
@@ -52,6 +54,9 @@ void TitleState::Update(float dt){
                     this->popRequested = true;
                     this->quitRequested = true;
                     break;
+                case MENU_INSTRUCT:
+                    this->popRequested = true;
+                    Game::GetInstance().Push(new InstructionState());
                 default:
                     cout << "selectedOption: " << menu.GetSelectedOption() << endl;
             }
