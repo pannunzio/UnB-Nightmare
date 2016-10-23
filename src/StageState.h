@@ -87,6 +87,7 @@ public:
 	void AddObjectStatic(GameObject* ptr);
 
 private:
+    void SetInitialStateValues();
     //Verifica se o jogo acabou
     void CheckEndOfGame();
     void SetEndOfGame(bool playerVictory);
