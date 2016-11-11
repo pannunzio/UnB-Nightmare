@@ -84,8 +84,8 @@ void StageState::Update(float dt){
         CheckMapActionsPosition(dt);
 
         this->cooldownTimer.Update(dt);
-        SpawnNewItem();
-        SpawnNewStaticObstacle();
+        //SpawnNewItem();
+        //SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
 
         this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());

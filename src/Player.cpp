@@ -3,7 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
@@ -21,7 +21,8 @@ int Player::coffee_ammo = 1;
 /***
         CONSTRUTOR
 ***/
-Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME){
+Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME),
+                                   ballon(STAIRS_BALLON){
 	//Inicialização da referencia a Player
 	this->player = this;
 
@@ -56,6 +57,9 @@ Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIM
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
     this->addTime = 0.0;
+
+    //Inicialização do balão
+    this->ballonRender = false;
 }
 
 /***
@@ -90,6 +94,7 @@ void Player::Update(float dt){
     //LATeR: criar uma funcao propria pra resetar esses aqui
     this->isColliding = false;
     this->isPassingMapObject = false;
+    this->ballonRender = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
     this->addTime = 0.0;
@@ -110,6 +115,9 @@ void Player::PlayerStops(){
 void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
 	this->SetSpriteScale();
+	if(this->ballonRender){
+        this->ballon.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
+	}
 }
 
 bool Player::IsDead(){
@@ -126,6 +134,7 @@ bool Player::IsDead(){
 void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
+        DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
@@ -174,7 +183,7 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
-        DEBUG_PRINT("colidiu AÇAÍ")
+        DEBUG_PRINT("colidiu ACAI")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
@@ -189,7 +198,9 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Escada")){
+        DEBUG_PRINT("colidiu ESCADA")
         this->isPassingMapObject = true;
+        this->ballonRender = true;
     }
 
     if(other->Is("Agua")){
@@ -329,6 +340,7 @@ void Player::UpdatePowerUp(float dt){
     case SKATE:
         this->itemTimer.Update(dt);
         this->isPassingMapObject = false;
+        this->ballonRender = false;
         this->isIndestructible = true;
         if (this->itemTimer.GetCurrentTime() > SKATING_TIME){
             EndPowerUp();

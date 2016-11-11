@@ -29,9 +29,8 @@ bool MapActions::IsDead(){
 }
 
 void MapActions::NotifyCollision(GameObject* other){
-    if(other->Is("Player")){
-//        cout << "map action colliding with player" << endl;
-    }
+//    if(other->Is("Player")){
+//    }
 }
 
 bool MapActions::Is(std::string type){

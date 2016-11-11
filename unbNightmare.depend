@@ -480,7 +480,7 @@
 	<vector>
 	<memory>
 
-1474938490 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.h
+1478894803 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.h
 	"GameObject.h"
 	"Sprite.h"
 	<string>
@@ -516,7 +516,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1478188022 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1478895020 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -629,7 +629,7 @@
 	<memory>
 	<string>
 
-1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
+1478891457 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
 	"EndState.h"
 
 1478188579 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
@@ -677,13 +677,13 @@
 	"Game.h"
 	"Defines.h"
 
-1477167130 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
+1478892864 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
 	"Manifestacao.h"
 
 1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
 	"MapActionList.h"
 
-1476122902 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.cpp
+1478894805 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.cpp
 	"MapActions.h"
 
 1477167130 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
@@ -698,7 +698,7 @@
 1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1478889163 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1478895625 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -726,7 +726,7 @@
 	"Game.h"
 	"Resources.h"
 
-1478890547 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1478895840 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1476123581 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp

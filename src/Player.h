@@ -44,6 +44,8 @@
 #define EATING_SPEED
 #define EATING_TIME     3
 
+#define STAIRS_BALLON   "img/minion.png"
+
 #define COFFEE_FILE     "img/coffee.png"
 
 #define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
@@ -121,6 +123,8 @@ public:
 
 private:
     Sprite sp;
+    Sprite ballon;
+    bool ballonRender;
 
     //Atributos de posição
 	int baseX;              //Posicao padrao
