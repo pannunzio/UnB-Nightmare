@@ -3,6 +3,18 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
+//#define DEBUG
+
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Player* Player::player = nullptr;
 int Player::coffee_ammo = 1;
 
@@ -131,7 +143,7 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Manifestacao")){
-        cout << "colidiu MANIFESTAÇÃO" << endl;
+        DEBUG_PRINT("colidiu MANIFESTAÇÃO")
         StopIndestructiblePowerup();
 
         this->isColliding = true;
@@ -146,11 +158,11 @@ void Player::NotifyCollision(GameObject* other){
 
     if(other->Is("Cafe")){
         this->coffee_ammo++;
-        cout << "colidiu CAFE" << endl;
+        DEBUG_PRINT("colidiu CAFE")
     }
 
     if(other->Is("Skate")){
-        cout << "colidiu SKATE" << endl;
+        DEBUG_PRINT("colidiu SKATE")
         if(!this->isPlayingMusic && this->powerUp != SKATE){
             this->powerupMusic.Open(SKATING_MUS, 5);
             this->powerupMusic.Play(1);
@@ -162,7 +174,7 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
-        cout << "colidiu AÇAÍ" << endl;
+        DEBUG_PRINT("colidiu AÇAÍ")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
@@ -171,7 +183,7 @@ void Player::NotifyCollision(GameObject* other){
 
     //caca de pombo
     if(other->Is("Caca")){
-        cout << "colidiu CACA" << endl;
+        DEBUG_PRINT("colidiu CACA")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, RUNNING_SLOW_SPEED);
     }
@@ -181,19 +193,19 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Agua")){
-        cout << "colidiu AGUA" << endl;
+        DEBUG_PRINT("colidiu AGUA")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, RUNNING_SLOW_SPEED);
     }
     if(other->Is("Surprise!")){
-        cout << "Surprise!!!" << endl;
+        DEBUG_PRINT("Surprise!!!")
         this->isSurprise = true;
         SurpriseItem* item = (SurpriseItem*) other;
         this->surpriseType = item->GetSurprise();
     }
 
     if(other->Is("NonColliding")){
-        cout << "nudez no campus!" << endl;
+        DEBUG_PRINT("nudez no campus!")
         this->speed = 2;
         this->isColliding = true;
         this->wasColliding = true;
@@ -202,7 +214,7 @@ void Player::NotifyCollision(GameObject* other){
     if (other->Is("ClockItem")){
         ClockItem* item = (ClockItem*) other;
         this->addTime = item->GetTimeToAdd();
-        cout << "player caught clockitem: " << item->GetTimeToAdd() << endl;
+        DEBUG_PRINT("player caught clockitem: " << item->GetTimeToAdd())
     }
 }
 
@@ -549,3 +561,7 @@ SurpriseType Player::GetSurpriseType(){
 float Player::GetAddTime(){
     return this->addTime;
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

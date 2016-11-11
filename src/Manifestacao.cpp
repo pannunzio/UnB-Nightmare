@@ -1,7 +1,18 @@
 #include "Manifestacao.h"
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Manifestacao::Manifestacao(){
-    cout << "CREATE NEW MANIFESTACAO" << endl;
+    DEBUG_PRINT("CREATE NEW MANIFESTACAO")
     this->sp = Sprite("img/manifest.png", 6, 0.2);
 	this->speed = 2 + rand()%10/10;
 	this->canBlock = true;
@@ -33,7 +44,7 @@ Manifestacao::Manifestacao(){
 }
 
 Manifestacao::~Manifestacao(){
-    cout << "destroy manifestacao" << endl;
+    DEBUG_PRINT("destroy manifestacao")
     spriteSound.Stop(1);
 }
 
@@ -63,3 +74,7 @@ int Manifestacao::GetSublayer(){
     else
         return SUBLAYER_BOTTON;
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

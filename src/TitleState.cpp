@@ -1,5 +1,16 @@
 #include "TitleState.h"
-#include "InstructionState.h"
+
+//#define DEBUG
+
+#ifdef DEBUG
+    //se estiver definido debug, imprime os trecos
+    #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+    #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+    //caso contrario, recebe argumentos mas faz nada
+    #define DEBUG_PRINT(message)
+    #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
 
 TitleState::TitleState() {
 	this->popRequested = false;
@@ -12,25 +23,24 @@ TitleState::~TitleState(){
     Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearSound();
-    std::cout << "titlestate destroyed"<< endl;
+    DEBUG_PRINT("titlestate destroyed")
 }
 
 void TitleState::LoadAssets(){
-    cout << endl << "load Assets TITLESTATE" << endl << endl;
-//    this->bg.Open(BG_IMAGE);
-    this->bg.Open("img/telainicialC.jpg");
+    DEBUG_PRINT("load Assets TITLESTATE")
+    this->bg.Open(TS_BG_IMAGE);
 
-    this->cutscene.Open(CUTSCENE_IMAGE);
-    this->cutscene.SetFrameCount(CUTSCENE_FRAMES);
-    this->cutscene.SetFrameTime(CUTSCENE_FTIME);
+    this->cutscene.Open(TS_CUTSCENE_IMAGE);
+    this->cutscene.SetFrameCount(TS_CUTSCENE_FRAMES);
+    this->cutscene.SetFrameTime(TS_CUTSCENE_FTIME);
 
-    this->menu = Menu(MENU_POSX, MENU_POSY, MENU_SPACEMENT);
-    this->menu.AddMenuOption(MENU_TEXT_START);
-    this->menu.AddMenuOption(MENU_TEXT_QUIT);
-    this->menu.AddMenuOption("Instructions");
+    this->menu = Menu(TS_MENU_POSX, TS_MENU_POSY, TS_MENU_SPACEMENT);
+    this->menu.AddMenuOption(TS_MENU_TEXT_START);
+    this->menu.AddMenuOption(TS_MENU_TEXT_QUIT);
+    this->menu.AddMenuOption(TS_MENU_TEXT_INSTRUCTIONS);
 
     this->music = Sound(SOUND_ALL_CHANNELS);
-    this->music.Open(MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+    this->music.Open(TS_MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
     this->music.Play(SOUND_PLAY_INFINITY);
 }
 
@@ -102,3 +112,7 @@ void TitleState::HandleInputs(){
         this->bg.Open("img/telainicial.png");
 	}
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

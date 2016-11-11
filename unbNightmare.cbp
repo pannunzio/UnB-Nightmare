@@ -62,6 +62,8 @@
 		<Unit filename="src/Camera.h" />
 		<Unit filename="src/Clock.cpp" />
 		<Unit filename="src/Clock.h" />
+		<Unit filename="src/ClockItem.cpp" />
+		<Unit filename="src/ClockItem.h" />
 		<Unit filename="src/Collision.h" />
 		<Unit filename="src/Defines.h" />
 		<Unit filename="src/EndState.cpp" />
@@ -70,8 +72,12 @@
 		<Unit filename="src/Game.h" />
 		<Unit filename="src/GameObject.cpp" />
 		<Unit filename="src/GameObject.h" />
+		<Unit filename="src/Hud.cpp" />
+		<Unit filename="src/Hud.h" />
 		<Unit filename="src/InputManager.cpp" />
 		<Unit filename="src/InputManager.h" />
+		<Unit filename="src/InstructionState.cpp" />
+		<Unit filename="src/InstructionState.h" />
 		<Unit filename="src/Item.cpp" />
 		<Unit filename="src/Item.h" />
 		<Unit filename="src/Lixeira.cpp" />
@@ -113,6 +119,8 @@
 		<Unit filename="src/State.h" />
 		<Unit filename="src/StateData.cpp" />
 		<Unit filename="src/StateData.h" />
+		<Unit filename="src/SurpriseItem.cpp" />
+		<Unit filename="src/SurpriseItem.h" />
 		<Unit filename="src/Text.cpp" />
 		<Unit filename="src/Text.h" />
 		<Unit filename="src/TileMap.cpp" />
@@ -125,6 +133,7 @@
 		<Unit filename="src/TitleState.h" />
 		<Unit filename="src/Vec2.cpp" />
 		<Unit filename="src/Vec2.h" />
+		<Unit filename="src/debug.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

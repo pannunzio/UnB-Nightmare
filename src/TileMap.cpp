@@ -4,6 +4,18 @@
 #include "MapActionList.h"
 #include "Defines.h"
 
+
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 TileMap::TileMap() {
 }
 
@@ -44,7 +56,7 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
 }
 
 void TileMap::Load(std::string file){
-	std::cout << "TileMap::Load" << endl;
+	DEBUG_PRINT("TileMap::Load")
 	FILE* arq = fopen(file.c_str(), "r");
 
 	if(!arq)
@@ -63,7 +75,7 @@ void TileMap::Load(std::string file){
 					MapActionList::AddMapAction(MapActions( TILESET_WIDTH * i + 250, TILESET_HEIGHT * j + 40, 3 - j));
 			}
 		}
-	std::cout << "Tile map succesfuly read" << std::endl;
+	DEBUG_PRINT("Tile map succesfuly read")
 }
 
 void TileMap::SetTileSet(TileSet* ttileSet){
@@ -83,3 +95,8 @@ int TileMap::GetHeight(){
 int TileMap::GetDepth(){
 		return this->mapDepth;
 }
+
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

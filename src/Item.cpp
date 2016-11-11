@@ -1,5 +1,16 @@
 #include "Item.h"
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Item::~Item(){
     this->captureSound.Stop();
 }
@@ -22,7 +33,7 @@ bool Item::IsDead(){
 
 void Item::NotifyCollision(GameObject* other){
     if(other->Is("Player")){
-        cout << "BATI NO PLAYERRR SL: " << this->GetSublayer() << " SUB:: " << this->subLayer << endl;
+        DEBUG_PRINT("BATI NO PLAYERRR SL: " << this->GetSublayer() << " SUB:: " << this->subLayer)
         this->isDead = true;
         this->captureSound.Play(1);
     }
@@ -68,3 +79,7 @@ void Item::SetAssets(int layer, int subLayer){
     if(this->subLayer == SUBLAYER_BOTTON)
         this->box.y += SUBLAYER_DISTANCE;
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

@@ -1,10 +1,21 @@
 #include "StageState.h"
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 StageState::StageState(){
-    cout << "enter construtor STAGESTATE" << endl;
+    DEBUG_PRINT("enter construtor STAGESTATE")
 	SetInitialStateValues();
 
-	cout << "exit contrutor STAGESTATE" << endl;
+	DEBUG_PRINT("exit contrutor STAGESTATE")
 }
 
 StageState::~StageState(){
@@ -19,40 +30,40 @@ StageState::~StageState(){
 }
 
 void StageState::LoadAssets(){
-    cout << "START of load assets STAGESTATE" << endl << endl;
+    DEBUG_PRINT("START of load assets STAGESTATE")
 
     this->hud = Hud();
     this->hud.InitHud();
 
-    cout << "back to SS load assets" << endl;
+    DEBUG_PRINT("back to SS load assets")
 
     AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
 	this->layer = Player::GetInstance().GetLayer();
 
-    cout << "Added player" << endl;
+    DEBUG_PRINT("Added player")
 
     this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
     this->menu.AddMenuOption("Resume Game");
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
 
-    cout << "Added menu" << endl;
+    DEBUG_PRINT("Added menu")
 
     this->bg.Open(BG_FILE);
 
-    cout << "Added BG" << endl;
+    DEBUG_PRINT("Added BG")
 
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
     this->tileMap.Load(TILE_MAP_FILE);
 	this->tileMap.SetTileSet(tileSet);
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 
-    cout << "Map Init OK" << endl;
+    DEBUG_PRINT("Map Init OK")
 
     this->music = Sound(-1);
     this->music.Open(INIT_MUSIC_FILE, 1);
     this->music.Play(10);
-    cout << "music OK" << endl;
+    DEBUG_PRINT("music OK")
     Resources::PrintAllLoadedResources();
 }
 
@@ -89,7 +100,7 @@ void StageState::Pause(){
 }
 
 void StageState::MoveCamera(float dt){
-    cout << "Camera sob controle do StageState" << endl;
+    DEBUG_PRINT("Camera sob controle do StageState")
 }
 
 void StageState::Resume(){
@@ -179,8 +190,8 @@ void StageState::CheckEndOfGame(){
     }
 
     if(Camera::pos.x > this->mapLength){
-        cout << "camera pos set end of game\n\tmap length: " << this->mapLength << endl;
-        cout << "\tcamera pos:  " << Camera::pos.x << endl;
+        DEBUG_PRINT("camera pos set end of game\n\tmap length: " << this->mapLength)
+        DEBUG_PRINT("\tcamera pos:  " << Camera::pos.x)
         SetEndOfGame(true);
     }
 }
@@ -246,27 +257,27 @@ void StageState::SpawnNewItem(){
             switch(spawner){
             case 0:{
                 AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new surprise item" << endl;
+                DEBUG_PRINT("added new surprise item")
                 break;
             }
             case 1:{
                 AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "Added new acai" << endl;
+                DEBUG_PRINT("Added new acai")
                 break;
             }
             case 2:{
                 AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "Added new skate" << endl;
+                DEBUG_PRINT("Added new skate")
                 break;
             }
             case 3:{
                 AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new cafe" << endl;
+                DEBUG_PRINT("added new cafe")
                 break;
             }
             case 4:
                 AddObject(new ClockItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new clock " << endl;
+                DEBUG_PRINT("added new clock ")
                 break;
             case 5:
             default:
@@ -285,7 +296,7 @@ void StageState::SpawnNewStaticObstacle(){
 
     //numero magico??????
     if((1256 * this->lixo) < Camera::pos.x){
-        cout << "spawning new trash" << endl;
+        DEBUG_PRINT("spawning new trash")
         AddObjectStatic(new Lixeira(LAYER_TOP));
         AddObjectStatic(new Lixeira(LAYER_MIDDLE));
         AddObjectStatic(new Lixeira(LAYER_BOTTON));
@@ -304,11 +315,11 @@ void StageState::SpawnNewDynamicObstacle(){
         int random = rand()%100;
     	if(random > 30){
             if(random > 50 ){
-                cout << "new pessoa" << endl;
+                DEBUG_PRINT("new pessoa")
                 AddObject(new Pessoa());
             }
             else {
-                cout << "new zombie" << endl;
+                DEBUG_PRINT("new zombie")
                 AddObject(new PessoaZumbi());
             }
     	}
@@ -346,17 +357,17 @@ void StageState::UpdateMenu(float dt){
                 case RESUME:
                     pause = false;
                     Camera::Resume();
-                    cout << "RESUME GAME" << endl;
+                    DEBUG_PRINT("RESUME GAME")
                     break;
                 case RESTART:
                     //RestartStage();
                     objectArray.clear();
                     SetInitialStateValues();
                     LoadAssets();
-                    cout << "RESTART GAME" << endl;
+                    DEBUG_PRINT("RESTART GAME")
                     break;
                 case QUIT_GAME:
-                    cout << "QUIT GAME" << endl;
+                    DEBUG_PRINT("QUIT GAME")
                     this->popRequested = true;
                     Game::GetInstance().Push(new TitleState());
                     break;
@@ -365,14 +376,14 @@ void StageState::UpdateMenu(float dt){
             switch(menu.GetSelectedOption()){
                 case (RESTART - 1):
                     //RestartStage();
-                    cout << "RESTART GAME" << endl;
+                    DEBUG_PRINT("RESTART GAME")
                     objectArray.clear();
                     SetInitialStateValues();
                     LoadAssets();
                     this->clock.StartClock();
                     break;
                 case (QUIT_GAME - 1):
-                    cout << "QUIT GAME" << endl;
+                    DEBUG_PRINT("QUIT GAME")
                     this->popRequested = true;
                     Game::GetInstance().Push(new TitleState());
                     break;
@@ -397,3 +408,7 @@ void StageState::HandleInputs(){
         this->clock.AddTimeToTime(10);
     }
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

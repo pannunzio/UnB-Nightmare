@@ -1,5 +1,5 @@
 #ifndef INSTRUCTIONSTATE_H
-#define INSTRUCIONSTATE_H
+#define INSTRUCTIONSTATE_H
 
 #include <iostream>
 #include <vector>

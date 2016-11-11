@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1476116833 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
 	"Agua.h"
 
-1476116848 c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.h
+1476120448 c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
@@ -13,26 +13,26 @@
 	"Game.h"
 	"Player.h"
 
-1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\gameobject.h
+1474938490 c:\users\thiag\documents\githubrep\unb-nightmare\src\gameobject.h
 	"Rect.h"
 	"Vec2.h"
 	"Sprite.h"
 	"Sound.h"
 
-1476119571 c:\users\thiag\documents\githubrep\unb-nightmare\src\rect.h
+1476123171 c:\users\thiag\documents\githubrep\unb-nightmare\src\rect.h
 	<cmath>
 	<iostream>
 	"Vec2.h"
 
-1476120480 c:\users\thiag\documents\githubrep\unb-nightmare\src\vec2.h
+1476124080 c:\users\thiag\documents\githubrep\unb-nightmare\src\vec2.h
 	<iostream>
 	<math.h>
 
-1476119822 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
+1476123422 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
 	<SDL.h>
 	<iostream>
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
 	"SDL_stdinc.h"
 	"SDL_assert.h"
@@ -63,12 +63,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_main.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_main.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_stdinc.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_stdinc.h
 	"SDL_config.h"
 	<sys/types.h>
 	<stdio.h>
@@ -97,34 +97,34 @@
 	<stdlib.h>
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_config.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_config.h
 	"SDL_platform.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_platform.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_platform.h
 	"AvailabilityMacros.h"
 	"TargetConditionals.h"
 	<winapifamily.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\begin_code.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\begin_code.h
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\close_code.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\close_code.h
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_assert.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_assert.h
 	"SDL_config.h"
 	"begin_code.h"
 	<signal.h>
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_atomic.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_atomic.h
 	"SDL_stdinc.h"
 	"SDL_platform.h"
 	"begin_code.h"
 	<mbarrier.h>
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_audio.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_audio.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_endian.h"
@@ -134,24 +134,24 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_error.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_error.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_endian.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_endian.h
 	"SDL_stdinc.h"
 	<endian.h>
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_mutex.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_mutex.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_thread.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_thread.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_atomic.h"
@@ -160,18 +160,18 @@
 	<process.h>
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_rwops.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_rwops.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_clipboard.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_clipboard.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_cpuinfo.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_cpuinfo.h
 	"SDL_stdinc.h"
 	<intrin.h>
 	<intrin.h>
@@ -183,7 +183,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_events.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_events.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -197,7 +197,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_video.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_video.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -205,12 +205,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_pixels.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_pixels.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_rect.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_rect.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_pixels.h"
@@ -218,7 +218,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_surface.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_surface.h
 	"SDL_stdinc.h"
 	"SDL_pixels.h"
 	"SDL_rect.h"
@@ -227,11 +227,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_blendmode.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_blendmode.h
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_keyboard.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_keyboard.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_keycode.h"
@@ -239,27 +239,27 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_keycode.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_keycode.h
 	"SDL_stdinc.h"
 	"SDL_scancode.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_scancode.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_scancode.h
 	"SDL_stdinc.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_mouse.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_mouse.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_joystick.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_joystick.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_gamecontroller.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_gamecontroller.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_rwops.h"
@@ -267,11 +267,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_quit.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_quit.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_gesture.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_gesture.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
@@ -279,60 +279,60 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_touch.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_touch.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_filesystem.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_filesystem.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_haptic.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_haptic.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"SDL_joystick.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_hints.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_hints.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_loadso.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_loadso.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_log.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_log.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_messagebox.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_messagebox.h
 	"SDL_stdinc.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_power.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_power.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_render.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_render.h
 	"SDL_stdinc.h"
 	"SDL_rect.h"
 	"SDL_video.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_system.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_system.h
 	"SDL_stdinc.h"
 	"SDL_keyboard.h"
 	"SDL_render.h"
@@ -340,23 +340,23 @@
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_timer.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_timer.h
 	"SDL_stdinc.h"
 	"SDL_error.h"
 	"begin_code.h"
 	"close_code.h"
 
-1451764693 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_version.h
+1451768293 c:\sdl2\sdl2-2.0.4\i686-w64-mingw32\include\sdl2\sdl_version.h
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
 
-1475937805 c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.h
+1475941405 c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.h
 	<iostream>
 	<SDL_mixer.h>
 	"Resources.h"
 
-1451801791 c:\sdl2\sdl2_mixer-2.0.1\i686-w64-mingw32\include\sdl2\sdl_mixer.h
+1451805391 c:\sdl2\sdl2_mixer-2.0.1\i686-w64-mingw32\include\sdl2\sdl_mixer.h
 	"SDL_stdinc.h"
 	"SDL_rwops.h"
 	"SDL_audio.h"
@@ -365,9 +365,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1475621615 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
+1475625215 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
 
-1476119402 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
+1477167130 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
@@ -375,18 +375,18 @@
 	"Defines.h"
 	"Camera.h"
 
-1476194401 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
+1476198001 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
 	"Vec2.h"
 	"GameObject.h"
 	"InputManager.h"
 	"Defines.h"
 
-1476156755 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
+1477264072 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
 	<string>
 	<iostream>
 	"SDL.h"
 
-1476157849 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1477408415 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -422,8 +422,11 @@
 	"Acai.h"
 	"Cafe.h"
 	"Skate.h"
+	"SurpriseItem.h"
+	"ClockItem.h"
+	"Hud.h"
 
-1476119981 c:\users\thiag\documents\githubrep\unb-nightmare\src\state.h
+1476446954 c:\users\thiag\documents\githubrep\unb-nightmare\src\state.h
 	"Sprite.h"
 	"GameObject.h"
 	<iostream>
@@ -433,30 +436,31 @@
 	"TileMap.h"
 	"TileSet.h"
 
-1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.h
+1474938490 c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.h
 	"SDL.h"
 	<iostream>
 	<vector>
 	<unordered_map>
 
-1476120146 c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.h
+1476446954 c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.h
 	"TileSet.h"
 	<vector>
 
-1476120276 c:\users\thiag\documents\githubrep\unb-nightmare\src\tileset.h
+1476123876 c:\users\thiag\documents\githubrep\unb-nightmare\src\tileset.h
 	<iostream>
 	"Sprite.h"
 	"Vec2.h"
 
-1474934891 c:\users\thiag\documents\githubrep\unb-nightmare\src\statedata.h
+1474938491 c:\users\thiag\documents\githubrep\unb-nightmare\src\statedata.h
 
-1476117507 c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.h
+1477060293 c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.h
 	<sstream>
 	"Defines.h"
 	"Text.h"
 	"Resources.h"
+	<string>
 
-1476120074 c:\users\thiag\documents\githubrep\unb-nightmare\src\text.h
+1477060293 c:\users\thiag\documents\githubrep\unb-nightmare\src\text.h
 	<SDL_ttf.h>
 	<iostream>
 	"Rect.h"
@@ -464,29 +468,29 @@
 	"Game.h"
 	<string>
 
-1454362933 c:\sdl2\sdl2_ttf-2.0.14\i686-w64-mingw32\include\sdl2\sdl_ttf.h
+1454366533 c:\sdl2\sdl2_ttf-2.0.14\i686-w64-mingw32\include\sdl2\sdl_ttf.h
 	"SDL.h"
 	"begin_code.h"
 	"close_code.h"
 
-1476119300 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.h
+1476122900 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.h
 	"GameObject.h"
 	"MapActions.h"
 	"Camera.h"
 	<vector>
 	<memory>
 
-1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.h
+1474938490 c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.h
 	"GameObject.h"
 	"Sprite.h"
 	<string>
 
-1476116906 c:\users\thiag\documents\githubrep\unb-nightmare\src\animation.h
+1476120506 c:\users\thiag\documents\githubrep\unb-nightmare\src\animation.h
 	"GameObject.h"
 	"Timer.h"
 	"Camera.h"
 
-1476118732 c:\users\thiag\documents\githubrep\unb-nightmare\src\game.h
+1478217785 c:\users\thiag\documents\githubrep\unb-nightmare\src\game.h
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -495,13 +499,13 @@
 	<cstdlib>
 	"State.h"
 
-1451800373 c:\sdl2\sdl2_image-2.0.1\i686-w64-mingw32\include\sdl2\sdl_image.h
+1451803973 c:\sdl2\sdl2_image-2.0.1\i686-w64-mingw32\include\sdl2\sdl_image.h
 	"SDL.h"
 	"SDL_version.h"
 	"begin_code.h"
 	"close_code.h"
 
-1476117566 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
+1476446954 c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.h
 	"State.h"
 	"Sprite.h"
 	"Text.h"
@@ -512,7 +516,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1476197879 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1478188022 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -527,7 +531,7 @@
 	"Bullet.h"
 	"Defines.h"
 
-1476116961 c:\users\thiag\documents\githubrep\unb-nightmare\src\bullet.h
+1476120561 c:\users\thiag\documents\githubrep\unb-nightmare\src\bullet.h
 	"GameObject.h"
 	"Vec2.h"
 	"Sprite.h"
@@ -536,20 +540,20 @@
 	"Defines.h"
 	"Player.h"
 
-1476119134 c:\users\thiag\documents\githubrep\unb-nightmare\src\item.h
+1476122734 c:\users\thiag\documents\githubrep\unb-nightmare\src\item.h
 	<string>
 	"GameObject.h"
 	"Camera.h"
 	"Defines.h"
 	"Player.h"
 
-1474934890 c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.h
+1474938490 c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.h
 	<cmath>
 	<algorithm>
 	"Vec2.h"
 	"Rect.h"
 
-1476119536 c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.h
+1476123136 c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.h
 	"GameObject.h"
 	"Sprite.h"
 	"Obstacle.h"
@@ -558,49 +562,49 @@
 	"CacaDePombo.h"
 	"Camera.h"
 
-1476119264 c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.h
+1476122864 c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.h
 	"Obstacle.h"
 	"Player.h"
 	"Camera.h"
 
-1476119446 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.h
+1477167130 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.h
 	<iostream>
 	"GameObject.h"
 	"Obstacle.h"
 	"Player.h"
 	"Camera.h"
 
-1476119484 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.h
+1476123084 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.h
 	"GameObject.h"
 	"Obstacle.h"
 	"Player.h"
 	"Camera.h"
 	"Defines.h"
 
-1476119199 c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.h
+1476122799 c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.h
 	"GameObject.h"
 	"Obstacle.h"
 	"Sprite.h"
 	"Camera.h"
 	"Player.h"
 
-1476119366 c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.h
+1476122966 c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.h
 	"GameObject.h"
 	"Obstacle.h"
 	"Sprite.h"
 	"Camera.h"
 	"Player.h"
 
-1476116908 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\animation.cpp
+1476120508 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\animation.cpp
 	"Animation.h"
 
-1476116948 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\bullet.cpp
+1476120548 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\bullet.cpp
 	"Bullet.h"
 
-1476117036 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\cacadepombo.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\cacadepombo.cpp
 	"CacaDePombo.h"
 
-1476117063 c:\users\thiag\documents\githubrep\unb-nightmare\src\cacadepombo.h
+1476120663 c:\users\thiag\documents\githubrep\unb-nightmare\src\cacadepombo.h
 	<math.h>
 	"GameObject.h"
 	"Sprite.h"
@@ -609,13 +613,13 @@
 	"Camera.h"
 	"Player.h"
 
-1476194819 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
+1476198419 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
 	"Camera.h"
 
-1476117490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
+1477264072 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
 	"Clock.h"
 
-1476119689 c:\users\thiag\documents\githubrep\unb-nightmare\src\resources.h
+1478223615 c:\users\thiag\documents\githubrep\unb-nightmare\src\resources.h
 	"SDL.h"
 	"SDL_image.h"
 	"SDL_mixer.h"
@@ -625,10 +629,10 @@
 	<memory>
 	<string>
 
-1476117544 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
 	"EndState.h"
 
-1475935368 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
+1478188579 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
 	"State.h"
 	"Text.h"
 	"Timer.h"
@@ -637,8 +641,9 @@
 	"Menu.h"
 	"StageState.h"
 	"Game.h"
+	"InstructionState.h"
 
-1476118269 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\game.cpp
+1478890913 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\game.cpp
 	"Game.h"
 	<SDL.h>
 	<SDL_image.h>
@@ -657,60 +662,63 @@
 	<stdio.h>
 	<ctime>
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\gameobject.cpp
+1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\gameobject.cpp
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.cpp
+1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.cpp
 	"InputManager.h"
 
-1476119151 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
+1478891011 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
 	"Item.h"
 
-1476119200 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
 	"Lixeira.h"
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\main.cpp
+1478888932 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\main.cpp
 	"Game.h"
 	"Defines.h"
 
-1476119255 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
+1477167130 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
 	"Manifestacao.h"
 
-1474934890 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
+1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
 	"MapActionList.h"
 
-1476119302 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.cpp
+1476122902 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactions.cpp
 	"MapActions.h"
 
-1476119358 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
+1477167130 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
 	"NonCollidingPerson.h"
 
-1476119388 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
+1477167130 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
 	"Obstacle.h"
 
-1476119448 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
+1477264072 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
 	"Pessoa.h"
 
-1476119486 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1476197851 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1478889163 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
+	"Obstacle.h"
+	"SurpriseItem.h"
+	"ClockItem.h"
 
-1476119541 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
+1477060293 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
 	"Pombo.h"
 
-1476119575 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\rect.cpp
+1476123175 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\rect.cpp
 	"Rect.h"
 
-1476119686 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\resources.cpp
+1478889406 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\resources.cpp
 	"Resources.h"
 	"Game.h"
 	<sstream>
 
-1475937810 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
+1475941410 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1476119822 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1476123422 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>
@@ -718,10 +726,10 @@
 	"Game.h"
 	"Resources.h"
 
-1476194483 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1478890547 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
-1476119981 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
+1476123581 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
 	"State.h"
 	"Game.h"
 	"GameObject.h"
@@ -729,30 +737,30 @@
 	"Camera.h"
 	<iostream>
 
-1474934891 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\statedata.cpp
+1474938491 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\statedata.cpp
 	"StateData.h"
 
-1476120042 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\text.cpp
+1478889732 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\text.cpp
 	"Text.h"
 
-1476120146 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.cpp
+1478890782 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.cpp
 	<cstdio>
 	"TileMap.h"
 	"MapActionList.h"
 	"Defines.h"
 
-1476120276 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tileset.cpp
+1478890653 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tileset.cpp
 	"TileSet.h"
 	"TileMap.h"
 	<math.h>
 
-1475621593 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
+1475625193 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.cpp
 	"Timer.h"
 
-1475936867 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
+1478889400 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.cpp
 	"TitleState.h"
 
-1476120479 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\vec2.cpp
+1476124079 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\vec2.cpp
 	"Vec2.h"
 
 1475618393 c:\users\thiag\documents\githubrep\unb-nightmare\include\menu.h
@@ -763,10 +771,10 @@
 	"../src/Camera.h"
 	"../src/InputManager.h"
 
-1475858201 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
+1477264072 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
 	"Menu.h"
 
-1475680586 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
+1477264072 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
 	<vector>
 	<string>
 	"../src/Sprite.h"
@@ -774,30 +782,108 @@
 	"../src/Camera.h"
 	"../src/InputManager.h"
 
-1476116690 c:\users\thiag\documents\githubrep\unb-nightmare\src\acai.h
+1476120290 c:\users\thiag\documents\githubrep\unb-nightmare\src\acai.h
 	<string>
 	"Item.h"
 	"Camera.h"
 	"Player.h"
 
-1476118221 c:\users\thiag\documents\githubrep\unb-nightmare\src\cafe.h
+1476121821 c:\users\thiag\documents\githubrep\unb-nightmare\src\cafe.h
 	<string>
 	"Item.h"
 	"Camera.h"
 	"Player.h"
 
-1476119776 c:\users\thiag\documents\githubrep\unb-nightmare\src\skate.h
+1476123376 c:\users\thiag\documents\githubrep\unb-nightmare\src\skate.h
 	<string>
 	"Item.h"
 	"Camera.h"
 	"Player.h"
 
-1476116694 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\acai.cpp
+1477408415 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\acai.cpp
 	"Acai.h"
 
-1476117085 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\cafe.cpp
+1476120685 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\cafe.cpp
 	"Cafe.h"
 
-1476119776 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\skate.cpp
+1476123376 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\skate.cpp
 	"Skate.h"
+
+1477167130 c:\users\thiag\documents\githubrep\unb-nightmare\src\surpriseitem.h
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1477167130 c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.h
+	"Resources.h"
+	"Sprite.h"
+	"Text.h"
+	"Clock.h"
+	<string>
+	<sstream>
+	<iomanip>
+	<iostream>
+
+1478889711 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.cpp
+	"Hud.h"
+
+1478891148 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\surpriseitem.cpp
+	"SurpriseItem.h"
+
+1477264072 c:\users\thiag\documents\githubrep\unb-nightmare\src\clockitem.h
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1477264072 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clockitem.cpp
+	<math.h>
+	"ClockItem.h"
+
+1478188064 c:\users\thiag\documents\githubrep\unb-nightmare\src\instructionstate.h
+	<iostream>
+	<vector>
+	<memory>
+	"Sprite.h"
+	"GameObject.h"
+	"State.h"
+	"InputManager.h"
+	"StateData.h"
+	"Clock.h"
+	"Timer.h"
+	"TileMap.h"
+	"TileSet.h"
+	"MapActionList.h"
+	"Animation.h"
+	"Sound.h"
+	"Game.h"
+	"GameObject.h"
+	"Camera.h"
+	"EndState.h"
+	"Player.h"
+	"Item.h"
+	"Defines.h"
+	"Obstacle.h"
+	"Pombo.h"
+	"Agua.h"
+	"MapActionList.h"
+	"Manifestacao.h"
+	"Pessoa.h"
+	"PessoaZumbi.h"
+	"Lixeira.h"
+	"NonCollidingPerson.h"
+	"Acai.h"
+	"Cafe.h"
+	"Skate.h"
+	"SurpriseItem.h"
+	"ClockItem.h"
+	"Hud.h"
+
+1478890110 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\instructionstate.cpp
+	"InstructionState.h"
+
+1478191217 c:\users\thiag\documents\githubrep\unb-nightmare\src\debug.hpp
+	<iostream>
+
+1478223245 c:\users\thiag\documents\githubrep\unb-nightmare\src\debug.h
+	<iostream>
 

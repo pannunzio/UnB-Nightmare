@@ -2,6 +2,18 @@
 #include "Game.h"
 #include <sstream>
 
+//#define DEBUG
+
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 std::unordered_map<string, SDL_Texture*> Resources::imageTable;
 std::unordered_map<string, Mix_Chunk*> Resources::soundTable;
 std::unordered_map<string, TTF_Font*> Resources::fontTable;
@@ -66,9 +78,9 @@ void Resources::ClearFonts(){
 
 void Resources::PrintLoadedFonts(){
     int cont = 0;
-    cout << endl << "\t*********** LOADED FONTS *************" << endl;
+    DEBUG_PRINT("*********** LOADED FONTS *************")
     for(std::unordered_map<string, TTF_Font*>::const_iterator index = fontTable.begin(); index != fontTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
     cout << endl;
@@ -76,9 +88,9 @@ void Resources::PrintLoadedFonts(){
 
 void Resources::PrintLoadedSounds(){
     int cont = 0;
-    cout << endl << "\t*********** LOADED SOUNDS *************" << endl;
+    DEBUG_PRINT("\t*********** LOADED SOUNDS *************")
     for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
     cout << endl;
@@ -86,9 +98,9 @@ void Resources::PrintLoadedSounds(){
 
 void Resources::PrintLoadedImages(){
     int cont = 0;
-    cout << endl << "\t*********** LOADED IMAGES *************" << endl;
+    DEBUG_PRINT("\t*********** LOADED IMAGES *************")
     for(std::unordered_map<string, SDL_Texture*>::const_iterator index = imageTable.begin(); index != imageTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
     cout << endl;
@@ -96,22 +108,26 @@ void Resources::PrintLoadedImages(){
 
 void Resources::PrintAllLoadedResources(){
     int cont = 0;
-    cout << endl << "\t*********** ALL LOADED ITEMS *************" << endl;
-    cout << endl << "\t ---> LOADED IMAGES" << endl;
+    DEBUG_PRINT("\t*********** ALL LOADED ITEMS *************")
+    DEBUG_PRINT("\t ---> LOADED IMAGES")
     for(std::unordered_map<string, SDL_Texture*>::const_iterator index = imageTable.begin(); index != imageTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
     cont = 0;
-    cout << endl << "\t ---> LOADED SOUNDS" << endl;
+    DEBUG_PRINT("\t ---> LOADED SOUNDS")
     for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
     cont = 0;
-    cout << endl << "\t ---> LOADED FONTS" << endl;
+    DEBUG_PRINT("\t ---> LOADED FONTS")
     for(std::unordered_map<string, TTF_Font*>::const_iterator index = fontTable.begin(); index != fontTable.end(); index++){
-        cout << cont << " - " << index->first << endl;
+        DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

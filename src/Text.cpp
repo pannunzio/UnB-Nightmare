@@ -1,10 +1,24 @@
 #include "Text.h"
+
+//#define DEBUG
+
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
+
 Text::Text(){
-    cout << "EMPTY TEXT CONSTRUCTOR" << endl;
+    DEBUG_PRINT("EMPTY TEXT CONSTRUCTOR")
 }
 
 Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text, SDL_Color color, int x, int y){
-	cout << "non empty text constructor" << endl;
+	DEBUG_PRINT("non empty text constructor")
 
 	this->box.x = x;
 	this->box.y = y;
@@ -22,10 +36,10 @@ Text::Text(std::string fontFile, int fontSize, TextStyle style, std::string text
 }
 
 Text::~Text(){
-    cout << "begin TEXT DESTRUCTOR for " << this->text << endl;
+    DEBUG_PRINT("begin TEXT DESTRUCTOR for ")
 	if(this->texture)
 		SDL_DestroyTexture(this->texture);
-    cout << "end TEXT destructor" << endl;
+    DEBUG_PRINT("end TEXT destructor")
 }
 
 void Text::Render(int cameraX, int cameraY){
@@ -111,3 +125,7 @@ void Text::OpenText(std::string fontFile, int fontSize, TextStyle style, std::st
 
 	RemakeTexture();
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

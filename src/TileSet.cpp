@@ -2,15 +2,26 @@
 #include "TileMap.h"
 #include <math.h>
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 TileSet::TileSet(int ttileWidth, int ttileHeight, string file) : tileSet(file){
 	this->tileWidth = ttileWidth;
 	this->tileHeight = ttileHeight;
 
 	if(this->tileSet.IsOpen()){
-		std::cout << "Abertura bem sucedida" << std::endl;
+		DEBUG_PRINT("Abertura bem sucedida")
 		this->rows = this->tileSet.GetHeight()/this->tileHeight;
 		this->columns = this->tileSet.GetWidth()/this->tileWidth;
-		std::cout << "Rows x Columns" << std::endl << this->rows << " " << this->columns << std::endl;
+		DEBUG_PRINT("Rows x Columns" << std::endl << this->rows << " " << this->columns)
 	}
 }
 
@@ -40,3 +51,7 @@ int TileSet::GetTileHeight(){
 Vec2 TileSet::IndexReverse(unsigned index){
 	return Vec2((int)(index/this->rows), (index%this->rows) );
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

@@ -9,20 +9,22 @@
 #include "Menu.h"
 #include "StageState.h"
 #include "Game.h"
+#include "InstructionState.h"
 
-#define BG_IMAGE            "img/telainicial.png"
-#define CUTSCENE_IMAGE      "img/cutscene.png"
-#define CUTSCENE_FRAMES     8
-#define CUTSCENE_FTIME      2
+#define TS_BG_IMAGE            "img/telainicialC.jpg"
+#define TS_CUTSCENE_IMAGE      "img/cutscene.png"
+#define TS_CUTSCENE_FRAMES     8
+#define TS_CUTSCENE_FTIME      2
 
-#define MENU_POSX           250
-#define MENU_POSY           350
-#define MENU_SPACEMENT      50
-#define MENU_TEXT_START     "Start"
-#define MENU_TEXT_QUIT      "Quit Game"
+#define TS_MENU_POSX                250
+#define TS_MENU_POSY                350
+#define TS_MENU_SPACEMENT           50
+#define TS_MENU_TEXT_START          "Start"
+#define TS_MENU_TEXT_QUIT           "Quit Game"
+#define TS_MENU_TEXT_INSTRUCTIONS   "Instructions"
 
-#define MUSIC_TEMA_TERREO   "audio/tematerreo_main.ogg"
-#define MUSIC_TEMA_MENU     "audio/menu.ogg"
+#define TS_MUSIC_TEMA_TERREO   "audio/tematerreo_main.ogg"
+#define TS_MUSIC_TEMA_MENU     "audio/menu.ogg"
 
 
 class TitleState : public State{

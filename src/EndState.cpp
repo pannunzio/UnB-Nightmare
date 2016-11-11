@@ -1,16 +1,27 @@
 #include "EndState.h"
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 EndState::EndState(StateData stateData){
     this->isVictoryScreen = stateData.playerVictory;
 }
 
 EndState::~EndState(){
     this->sound.Stop();
-    cout << "ENDSTATE DESTROYED" << endl;
+    DEBUG_PRINT("ENDSTATE DESTROYED")
 }
 
 void EndState::LoadAssets(){
-    cout << "load Assets ENDSTATE " << endl << endl;
+    DEBUG_PRINT("load Assets ENDSTATE ")
     this->menu = Menu(500, 350, 50);
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
@@ -68,3 +79,7 @@ void EndState::HandleInputs(){
 		this->quitRequested = true;
 	}
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

@@ -21,6 +21,17 @@
 
 Game* Game::instance = nullptr;
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Game::Game(string title, int width, int height){
 	srand(time(NULL));
 	this->dt = 0;
@@ -52,7 +63,7 @@ Game::Game(string title, int width, int height){
 
 	this->storedState = nullptr;
 	this->instance = this;
-	std::cout << "Game built" << std::endl;
+	DEBUG_PRINT("Game built")
 
 	SDL_version compiled;
     const SDL_version *linked;
@@ -79,7 +90,7 @@ Game::~Game(){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 
-	cout << "game destroyed" << endl;
+	DEBUG_PRINT("game destroyed")
 }
 
 Game& Game::GetInstance(){
@@ -136,7 +147,7 @@ void Game::Run(){
 		//SDL_Delay(33); // isso vai dar aproximadamente 33 frames/s
 	}
 
-	std::cout << "saiu no game run" << std::endl;
+	DEBUG_PRINT("saiu no game run")
 	Resources::ClearImages();
 	delete instance;
 }
@@ -148,3 +159,7 @@ float Game::GetDeltaTime(){
 void Game::CalculateDeltaTime(){
 	this->dt = (SDL_GetTicks() - this->frameStart) / 1000.0;
 }
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

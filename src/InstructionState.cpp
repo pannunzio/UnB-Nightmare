@@ -1,51 +1,63 @@
 #include "InstructionState.h"
 
+//#define DEBUG
+
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 InstructionState::InstructionState(){
-    cout << "enter construtor InstructionState" << endl;
+    DEBUG_PRINT("enter construtor InstructionState")
 	SetInitialStateValues();
 	this->instruction = "Pressione Enter para começar";
 
-	cout << "exit contrutor InstructionState" << endl;
+	DEBUG_PRINT("exit contrutor InstructionState")
 }
 
 InstructionState::~InstructionState(){
 }
 
 void InstructionState::LoadAssets(){
-    cout << "START of load assets InstructionState" << endl << endl;
+    DEBUG_PRINT("START of load assets InstructionState")
 
     this->hud = Hud();
     this->hud.InitHud();
 
     this->instructions = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, this->instruction, TEXT_BLACK, 15, 400);
-    cout << "back to SS load assets" << endl;
+    DEBUG_PRINT("back to SS load assets")
 
     AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
 	this->layer = Player::GetInstance().GetLayer();
 
-    cout << "Added player" << endl;
+    DEBUG_PRINT("Added player")
 
     this->menu = Menu(INSTR_STATE_MENU_POSITION_X, 500, INSTR_STATE_MENU_SPACEMENT);
     this->menu.AddMenuOption("Start");
     this->menu.AddMenuOption("Voltar");
 
-    cout << "Added menu" << endl;
+    DEBUG_PRINT("Added menu")
 
     this->bg.Open(BG_FILE);
 
-    cout << "Added BG" << endl;
+    DEBUG_PRINT("Added BG")
 
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
     this->tileMap.Load(TILE_MAP_FILE);
 	this->tileMap.SetTileSet(tileSet);
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
 
-    cout << "Map Init OK" << endl;
+    DEBUG_PRINT("Map Init OK")
 
     this->music = Sound(-1);
     this->music.Open(INIT_MUSIC_FILE, 1);
     this->music.Play(10);
-    cout << "music OK" << endl;
+    DEBUG_PRINT("music OK")
     Resources::PrintAllLoadedResources();
 }
 
@@ -80,7 +92,7 @@ void InstructionState::Pause(){
 }
 
 void InstructionState::MoveCamera(float dt){
-    cout << "Camera sob controle do InstructionState" << endl;
+    DEBUG_PRINT("Camera sob controle do InstructionState")
 }
 
 void InstructionState::Resume(){
@@ -179,8 +191,8 @@ void InstructionState::CheckEndOfGame(){
     }
 
     if(Camera::pos.x > this->mapLength){
-        cout << "camera pos set end of game\n\tmap length: " << this->mapLength << endl;
-        cout << "\tcamera pos:  " << Camera::pos.x << endl;
+        DEBUG_PRINT("camera pos set end of game\n\tmap length: " << this->mapLength)
+        DEBUG_PRINT("\tcamera pos:  " << Camera::pos.x)
         SetEndOfGame(true);
     }
 }
@@ -255,27 +267,27 @@ void InstructionState::SpawnNewItem(){
             switch(spawner){
             case 0:{
                 AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new surprise item" << endl;
+                DEBUG_PRINT("added new surprise item")
                 break;
             }
             case 1:{
                 AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "Added new acai" << endl;
+                DEBUG_PRINT("Added new acai")
                 break;
             }
             case 2:{
                 AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "Added new skate" << endl;
+                DEBUG_PRINT("Added new skate")
                 break;
             }
             case 3:{
                 AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new cafe" << endl;
+                DEBUG_PRINT("added new cafe")
                 break;
             }
             case 4:
                 AddObject(new ClockItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                cout << "added new clock " << endl;
+                DEBUG_PRINT("added new clock ")
                 break;
             case 5:
             default:
@@ -294,7 +306,7 @@ void InstructionState::SpawnNewStaticObstacle(){
 
     //numero magico??????
     if((1256 * this->lixo) < Camera::pos.x){
-        cout << "spawning new trash" << endl;
+        DEBUG_PRINT("spawning new trash")
         AddObjectStatic(new Lixeira(LAYER_TOP));
         AddObjectStatic(new Lixeira(LAYER_MIDDLE));
         AddObjectStatic(new Lixeira(LAYER_BOTTON));
@@ -313,11 +325,11 @@ void InstructionState::SpawnNewDynamicObstacle(){
         int random = rand()%100;
     	if(random > 30){
             if(random > 50 ){
-                cout << "new pessoa" << endl;
+                DEBUG_PRINT("new pessoa")
                 AddObject(new Pessoa());
             }
             else {
-                cout << "new zombie" << endl;
+                DEBUG_PRINT("new zombie")
                 AddObject(new PessoaZumbi());
             }
     	}
@@ -352,7 +364,7 @@ void InstructionState::UpdateMenu(float dt){
     if(this->menu.GetSelection()){
         switch(menu.GetSelectedOption()){
             case (START_GAME):
-                cout << "QUIT GAME" << endl;
+                DEBUG_PRINT("QUIT GAME")
                 this->popRequested = true;
                 Game::GetInstance().Push(new StageState());
                 break;
@@ -383,3 +395,6 @@ void InstructionState::HandleInputs(){
     }
 }
 
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG
