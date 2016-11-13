@@ -116,36 +116,36 @@ void Pessoa::GetXingamentoSound(){
 }
 
 void Pessoa::GetSprite(){
-    if(rand()%2 + 1 > 1){
+    if(rand()%2 > 0){
 
         this->speed = 0;
         this->isParada = true;
         switch(rand()%2 + 1){
         case 1:{
             this->sp = Sprite("img/parado1.png", 1, 1);
-            return;
+            break;
         }
         case 2:{
             this->sp = Sprite("img/parada.png", 6, 0.2);
-            return;
+            break;
         }
         default:
-            return;
+            break;
         }
     } else {
         int aux = rand()%2; //0 ou 1
         switch(aux){
         case MENINA:{
             this->sp = Sprite(MENINA_FILE, MENINA_FRAMES, MENINA_FTIME);
-            return;
+            break;
         }
         case MENINO:{
             this->box.y -= 10; //gambiarra!
             this->sp = Sprite(MENINO_FILE, MENINO_FRAMES, MENINO_FTIME);
-            return;
+            break;
         }
         default:
-            return;
+            break;
         }
     }
 }

@@ -3,7 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-#define DEBUG
+//#define DEBUG
 
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
@@ -21,11 +21,11 @@ int Player::coffee_ammo = 1;
 /***
         CONSTRUTOR
 ***/
-Player::Player(float x, float y) : sp(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME),
-                                   ballon(STAIRS_BALLON){
+Player::Player(float x, float y) {
 	//Inicialização da referencia a Player
 	this->player = this;
-
+    this->sp.SetSprite(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME);
+    this->ballon.SetSprite(STAIRS_BALLON);
 	//Inicialização de posição
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
@@ -132,7 +132,6 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
-
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
         DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
         if(!isIndestructible){

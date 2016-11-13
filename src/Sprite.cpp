@@ -28,6 +28,7 @@ Sprite::Sprite(string file){
 	this->currentFrame = 1;
 	this->timeElapsed = 0;
 	this->times = 0;
+	this->file = file;
 	Open(file);
 }
 
@@ -40,7 +41,20 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
 	this->height = 0;
 	this->width = 0; // tem q ser baseado no tamanho da imagem
 	this->times = 0;
+    this->file = file;
+	Open(file);
+}
 
+void Sprite::SetSprite(string file, int frameCount, float frameTime){
+    this->scaleX = this->scaleY = 1;
+	this->texture = nullptr;
+	this->frameCount = frameCount;
+	this->frameTime = frameTime;
+	this->currentFrame = 1;
+	this->height = 0;
+	this->width = 0; // tem q ser baseado no tamanho da imagem
+	this->times = 0;
+    this->file = file;
 	Open(file);
 }
 
@@ -94,6 +108,7 @@ bool Sprite::IsOpen(){
 }
 
 void Sprite::Open(string file){
+    this->file = file;
 	this->texture = Resources::GetImage(file);
 
 	if(SDL_QueryTexture(this->texture, NULL, NULL, &this->width, &this->height) != 0)
@@ -108,6 +123,10 @@ int Sprite::GetHeight(){
 
 int Sprite::GetWidth(){
 	return (this->width * this->scaleX)/this->frameCount;
+}
+
+string Sprite::GetFile(){
+    return this->file;
 }
 
 void Sprite::SetScaleX(float scale){

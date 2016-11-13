@@ -84,8 +84,8 @@ void StageState::Update(float dt){
         CheckMapActionsPosition(dt);
 
         this->cooldownTimer.Update(dt);
-        //SpawnNewItem();
-        //SpawnNewStaticObstacle();
+        SpawnNewItem();
+        SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
 
         this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());
@@ -214,7 +214,9 @@ void StageState::SetEndOfGame(bool playerVictory){
 void StageState::UpdateObjectArray(float dt){
     //obs: NAO USAR O UPDATE ARRAY DO STATE!!!!
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
-    	objectArray[i]->Update(dt);
+        objectArray[i]->Update(dt);
+    }
+    for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
@@ -223,10 +225,11 @@ void StageState::UpdateObjectArray(float dt){
                                                     objectArray[i]->rotation*My_PI/180,
                                                     objectArray[j]->rotation*My_PI/180))){
                     objectArray[j]->NotifyCollision(objectArray[i].get());
+                    DEBUG_ONLY(if(objectArray[j].get()->Is("Player")))
+                        DEBUG_PRINT("Player colidiu com " << (objectArray[i].get())->sp.GetFile() << "x: " << objectArray[i].get()->box.x << "| y: " << objectArray[i].get()->box.y)
                 }
             }
 		}
-
 		if(objectArray[i]->IsDead()){
 		   objectArray.erase (objectArray.begin() + i);
 		   i--;

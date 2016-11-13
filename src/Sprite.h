@@ -14,6 +14,7 @@ class Sprite {
 public:
 	Sprite();
 	Sprite(string file);
+	Sprite(string file, int frameCount, float frameTime);
 	~Sprite();
 
 	void Open(string file);
@@ -23,6 +24,7 @@ public:
 	int GetHeight();
 	int GetWidth();
 	bool IsOpen();
+	string GetFile();
 
 	void SetScaleX(float scale);
 	void SetScaleY(float scale);
@@ -36,8 +38,8 @@ public:
 	void SetAnimationTimes(int times);
 	void SetFrameTime(float frameTime);
 	bool IsAnimationFinished();
+	void SetSprite(string file, int frameCount = 1, float frameTime = 1);
 //	void SetAlpha()
-	Sprite(string file, int frameCount, float frameTime);
 
 private:
 	SDL_Texture* texture;
@@ -55,6 +57,7 @@ private:
 	float frameTime;
 	int times;
 	int timesCounter;
+	string file;
 };
 
 #endif

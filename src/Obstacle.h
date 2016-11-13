@@ -23,7 +23,7 @@ public:
     int layer;
     int subLayer;
 
-    Sprite sp;
+    //Sprite sp;
 	bool canBlock;
 	int speed;
     bool isDead;

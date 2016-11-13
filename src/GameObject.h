@@ -24,6 +24,7 @@ public:
 	 // 0 = nao colide com nada, 1 = baixo, 2 = meio ,3 = topo, 4 = todos
 	int subLayer;
 
+	Sprite sp;
 	Rect box;
 	float rotation;
 };

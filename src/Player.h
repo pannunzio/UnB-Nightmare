@@ -81,9 +81,6 @@ enum SurpriseType{
 
 class Player : public GameObject{
 public:
-    //
-    //      Player NÃO está como Singleton
-    //
 	Player(float x,float y);
 	virtual ~Player();
 	void Update(float dt);
@@ -122,7 +119,7 @@ public:
     float GetAddTime();
 
 private:
-    Sprite sp;
+    //Sprite sp;
     Sprite ballon;
     bool ballonRender;
 
