@@ -45,19 +45,6 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
 	Open(file);
 }
 
-void Sprite::SetSprite(string file, int frameCount, float frameTime){
-    this->scaleX = this->scaleY = 1;
-	this->texture = nullptr;
-	this->frameCount = frameCount;
-	this->frameTime = frameTime;
-	this->currentFrame = 1;
-	this->height = 0;
-	this->width = 0; // tem q ser baseado no tamanho da imagem
-	this->times = 0;
-    this->file = file;
-	Open(file);
-}
-
 Sprite::~Sprite(){
 	//SDL_DestroyTexture(texture);
 	//cout << "Sprite destroyed" << endl;

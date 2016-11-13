@@ -38,7 +38,6 @@ public:
 	void SetAnimationTimes(int times);
 	void SetFrameTime(float frameTime);
 	bool IsAnimationFinished();
-	void SetSprite(string file, int frameCount = 1, float frameTime = 1);
 //	void SetAlpha()
 
 private:

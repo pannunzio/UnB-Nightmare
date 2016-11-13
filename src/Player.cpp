@@ -24,8 +24,8 @@ int Player::coffee_ammo = 1;
 Player::Player(float x, float y) {
 	//Inicialização da referencia a Player
 	this->player = this;
-    this->sp.SetSprite(RUNNING_FILE, RUNNING_FRAMES, RUNNING_FTIME);
-    this->ballon.SetSprite(STAIRS_BALLON);
+    this->sp = Sprite(RUNNING_SPRITE, RUNNING_FRAMES, RUNNING_FTIME);
+    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
 	//Inicialização de posição
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
@@ -75,6 +75,8 @@ Player::~Player() {
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
+	if(ballonRender)
+        this->ballon.Update(dt);
 
     if(timeOver == true)
         PlayerStops();
@@ -103,7 +105,7 @@ void Player::Update(float dt){
 void Player::PlayerStops(){
     switch(movementState){
         case RUNNING:
-            this->ChangeSpriteSheet(STOPPING_FILE, STOPPING_FRAMES, STOPPING_TIMES);
+            this->ChangeSpriteSheet(STOPPING_SPRITE, STOPPING_FRAMES, STOPPING_TIMES);
             movementState = STOPPING;
             break;
         default:
@@ -116,7 +118,8 @@ void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
 	this->SetSpriteScale();
 	if(this->ballonRender){
-        this->ballon.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
+        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::pos.x),
+                            (int)(this->box.y - BALLON_POS_Y - Camera::pos.y));
 	}
 }
 
@@ -178,7 +181,7 @@ void Player::NotifyCollision(GameObject* other){
         }
 
         SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, SKATING_SPEED);
-        this->ChangeSpriteSheet(SKATING_FILE, SKATING_FRAMES);
+        this->ChangeSpriteSheet(SKATING_SPRITE, SKATING_FRAMES);
     }
 
     if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
@@ -208,7 +211,7 @@ void Player::NotifyCollision(GameObject* other){
         SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, RUNNING_SLOW_SPEED);
     }
     if(other->Is("Surprise!")){
-        DEBUG_PRINT("Surprise!!!")
+        DEBUG_PRINT("colidiu SURPRISE!")
         this->isSurprise = true;
         SurpriseItem* item = (SurpriseItem*) other;
         this->surpriseType = item->GetSurprise();
@@ -343,7 +346,7 @@ void Player::UpdatePowerUp(float dt){
         this->isIndestructible = true;
         if (this->itemTimer.GetCurrentTime() > SKATING_TIME){
             EndPowerUp();
-            this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
+            this->ChangeSpriteSheet(RUNNING_SPRITE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
@@ -351,7 +354,7 @@ void Player::UpdatePowerUp(float dt){
         this->itemTimer.Update(dt);
         if (this->itemTimer.GetCurrentTime() > EATING_TIME){
             EndPowerUp();
-            this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
+            this->ChangeSpriteSheet(RUNNING_SPRITE, RUNNING_FRAMES);
             this->movementState = RUNNING;
         }
         break;
@@ -471,7 +474,7 @@ void Player::StopIndestructiblePowerup(){
     if(this->isIndestructible){
         this->powerUp = NONE;
         this->powerupMusic.Stop();
-        this->ChangeSpriteSheet(RUNNING_FILE, RUNNING_FRAMES);
+        this->ChangeSpriteSheet(RUNNING_SPRITE, RUNNING_FRAMES);
         this->isIndestructible = false;
     }
 }
@@ -529,7 +532,7 @@ int Player::GetX(){
 }
 
 int Player::GetBaseX(){
-    if(powerUp == SKATE) return baseX + 100;
+    if(powerUp == SKATE) return baseX + SKATING_BASEX_INC;
     else return baseX;
 }
 
@@ -558,7 +561,7 @@ bool Player::IsInPosition(){
 }
 
 bool Player::Is(std::string type){
-	return (type == "Player");
+	return type == PLAYER_TYPE;
 }
 
 bool Player::IsSurprise(){

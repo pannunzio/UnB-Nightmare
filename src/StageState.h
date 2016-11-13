@@ -63,7 +63,7 @@ using std::endl;
 #define INIT_PLAYER_X   200
 #define INIT_PLAYER_Y   550
 
-#define STAGE_DURATION      90 //em segundos
+#define STAGE_DURATION      50 //em segundos
 #define WAIT_END_DURATION   5
 
 #define STAGE_STATE_MENU_POSITION_X     500

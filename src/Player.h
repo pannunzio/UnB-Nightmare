@@ -21,7 +21,9 @@
 /******
     Player Defines
 ******/
-#define RUNNING_FILE        "img/Running.png"
+#define PLAYER_TYPE "Player"
+
+#define RUNNING_SPRITE        "img/Running.png"
 #define RUNNING_FRAMES       6
 #define RUNNING_FTIME        0.09
 #define RUNNING_ACC          1.5
@@ -29,22 +31,27 @@
 #define RUNNING_SPEED        5
 
 
-#define STOPPING_FILE    "img/derrota.png"
-#define STOPPING_FRAMES  12
-#define STOPPING_TIMES   1
+#define STOPPING_SPRITE     "img/derrota.png"
+#define STOPPING_FRAMES     12
+#define STOPPING_TIMES      1
 
-#define SKATING_FILE    "img/skating.png"
-#define SKATING_FRAMES  3
-#define SKATING_SPEED   7
-#define SKATING_TIME    5
-#define SKATING_MUS     "audio/skate.ogg"
+#define SKATING_SPRITE      "img/skating.png"
+#define SKATING_FRAMES      3
+#define SKATING_SPEED       7
+#define SKATING_TIME        5
+#define SKATING_MUS         "audio/skate.ogg"
+#define SKATING_BASEX_INC   100
 
-#define EATING_FILE     "img/eating.png"
-#define EATING_FRAMES   6
+#define EATING_FILE         "img/eating.png"
+#define EATING_FRAMES       6
 #define EATING_SPEED
-#define EATING_TIME     3
+#define EATING_TIME         3
 
-#define STAIRS_BALLON   "img/minion.png"
+#define BALLON_STAIRS           "img/ballonStairs.png"
+#define BALLON_STAIRS_FRAMES    2
+#define BALLON_STAIRS_FTIME     0.09
+#define BALLON_POS_X            100
+#define BALLON_POS_Y            40
 
 #define COFFEE_FILE     "img/coffee.png"
 

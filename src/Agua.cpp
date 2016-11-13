@@ -1,19 +1,12 @@
 #include "Agua.h"
 
-//VER ISSO AQUI
-//void Sprite::SetAlpha(){
-//	// colocar codigo aqui pra o sprite fazer transparente
-//	// e ai coloca o sp.SetAlpha na agua.
-//
-//}
-
-Agua::Agua(int layer, int subLayer) : sp("img/agua.png", 2,0.2){
+Agua::Agua(int layer, int subLayer) : sp(AGUA_SPRITE, AGUA_FRAMES, AGUA_FTIME){
 	this->isDead = false;
-	this->speed = 1;
+	this->speed = AGUA_SPEED;
 	this->layer = layer;
  	this->subLayer = subLayer;
 
-	this->box.x = Player::GetInstance().GetX() + 1200;
+	this->box.x = Player::GetInstance().GetX() + AGUA_TO_PLAYER_DISTANCE;
 
 	if(this->layer == LAYER_TOP)
         this->box.y = OBST_HEIGHT_L3;
@@ -66,7 +59,7 @@ void Agua::NotifyCollision(GameObject* other){
 }
 
 bool Agua::Is(std::string type){
-	return (type == "Agua");
+	return type == AGUA_TYPE;
 }
 
 int Agua::GetLayer(){

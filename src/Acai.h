@@ -4,8 +4,18 @@
 #include <string>
 
 #include "Item.h"
-#include "Camera.h"
 #include "Player.h"
+
+/******
+    Acai Defines
+******/
+#define ACAI_TYPE "Acai"
+
+#define ACAI_SPRITE "img/acai.png"
+#define ACAI_FRAMES 6
+#define ACAI_FTIME  0.09
+
+#define ACAI_AUDIO  "audio/comida_getitem.wav"
 
 using std::string;
 using std::endl;

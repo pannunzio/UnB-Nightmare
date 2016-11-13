@@ -1,5 +1,17 @@
 #include "Pombo.h"
 
+//#define DEBUG
+
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Pombo::Pombo(){
     this->sp = Sprite("img/pombo.png", 4, 0.09);
     this->layer = LAYER_TOP;
@@ -25,7 +37,7 @@ void Pombo::Update(float dt){
 	this->box.x += this->speed * dt * 100;
 
     if(!this->fazendoCaca && this->box.x - Player::GetInstance().GetX() < 120){
-        cout << "FAZENDO CAQUINHA!!" << endl;
+        DEBUG_PRINT("FAZENDO CAQUINHA!!")
         this->FazCaca();
         this->fazendoCaca = true;
     }
@@ -60,3 +72,8 @@ void Pombo::FazCaca(){
     caquinha->SetSubLayer(Player::GetInstance().GetSublayer());
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }
+
+
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

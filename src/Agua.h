@@ -11,6 +11,24 @@
 #include "Game.h"
 #include "Player.h"
 
+/******
+    Agua Defines
+******/
+#define AGUA_TYPE   "Agua"
+
+#define AGUA_SPRITE "img/agua.png"
+#define AGUA_FRAMES 2
+#define AGUA_FTIME  0.2
+
+#define AGUA_SPEED  1
+
+#define AGUA_TO_PLAYER_DISTANCE 1200
+
+
+/******
+    Ainda tem numeros mágicos >=(
+******/
+
 
 class Agua : public GameObject {
 public:
