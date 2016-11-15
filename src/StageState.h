@@ -51,8 +51,6 @@ using std::endl;
 /******
     StageState Defines
 ******/
-#define TILE_MAP_FILE   "map/tileMap.txt"
-#define TILE_SET_FILE   "img/tileset.png"
 #define BG_FILE         "img/cerrado.jpg"
 
 #define INIT_STAGE_X   0
@@ -60,11 +58,10 @@ using std::endl;
 
 #define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
 
-#define INIT_PLAYER_X   200
-#define INIT_PLAYER_Y   550
+#define INIT_PLAYER_X   TILESET_WIDTH/2
 
 #define STAGE_DURATION      50 //em segundos
-#define WAIT_END_DURATION   5
+#define WAIT_END_DURATION   5  //medido no olhômetro
 
 #define STAGE_STATE_MENU_POSITION_X     500
 #define STAGE_STATE_MENU_POSITION_Y     350

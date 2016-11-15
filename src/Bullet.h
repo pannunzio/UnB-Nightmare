@@ -9,6 +9,9 @@
 #include "Defines.h"
 #include "Player.h"
 
+#define BULLET_MAX_DISTANCE 1000
+
+
 class Bullet : public GameObject{
 public:
 	Bullet(float x, float y, float speed, string sprite, int frameCount	,float frameTime, bool targetsPlayer, std::string type);

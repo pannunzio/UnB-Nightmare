@@ -16,6 +16,11 @@
 #define MENINO_FRAMES   6
 #define MENINO_FTIME    0.2
 
+#define OBST_HEIGHT_L3 230
+#define OBST_HEIGHT_L2 485
+#define OBST_HEIGHT_L1 772
+
+
 using std::cout;
 using std::endl;
 using std::string;

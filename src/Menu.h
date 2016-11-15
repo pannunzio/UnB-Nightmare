@@ -12,6 +12,8 @@
 #define BG_MENU "img/menuProvisorio.png"
 #define MENU_MIN_t 0
 
+#define MENU_TYPE "Menu"
+
 #define BUTTON_SELECTED     "img/buttonselected.png"
 #define BUTTON_NOT_SELECTED "img/buttonnotselected.png"
 #define BUTTON_OFFSET_Y     5

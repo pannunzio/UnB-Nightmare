@@ -64,6 +64,7 @@
 		<Unit filename="src/Clock.h" />
 		<Unit filename="src/ClockItem.cpp" />
 		<Unit filename="src/ClockItem.h" />
+		<Unit filename="src/Collision.cpp" />
 		<Unit filename="src/Collision.h" />
 		<Unit filename="src/Defines.h" />
 		<Unit filename="src/EndState.cpp" />

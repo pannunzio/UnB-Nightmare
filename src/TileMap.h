@@ -3,6 +3,11 @@
 
 #include "TileSet.h"
 
+#define TILE_MAP_FILE   "map/tileMapTeste.txt"
+#define TILE_SET_FILE   "img/tilesetNewResized3.png"
+#define TILESET_WIDTH   345
+#define TILESET_HEIGHT  733/3
+
 
 #include <vector>
 

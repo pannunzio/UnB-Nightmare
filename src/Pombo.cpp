@@ -20,7 +20,7 @@ Pombo::Pombo(){
     this->speed = -3;
 
     this->fazendoCaca = false;
-    this->box.Centralize(Player::GetInstance().GetX() + 1000, ITEM_HEIGHT_L3 - 150, this->sp.GetWidth(), this->sp.GetHeight());
+    this->box.Centralize(Player::GetInstance().GetX() + 1000, LAYER_TOP_HEIGHT - 150, this->sp.GetWidth(), this->sp.GetHeight());
 
 
     OpenSound("audio/pombo.wav");

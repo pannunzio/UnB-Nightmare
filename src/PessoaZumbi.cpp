@@ -16,13 +16,13 @@ PessoaZumbi::PessoaZumbi(){
 	this->box.x = Player::GetInstance().GetX() + 1200;
 
    if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 3;
+        this->box.y = LAYER_TOP_HEIGHT + 3;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2 + 10;
+        this->box.y = LAYER_MIDDLE_HEIGHT + 10;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1 + 7;
+        this->box.y = LAYER_BOTTON_HEIGHT + 7;
 
     this->box.y -= (this->subLayer - 3) * 26;
 }

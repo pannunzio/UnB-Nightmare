@@ -61,28 +61,32 @@ void Menu::HandleInputs(){
 void Menu::Render(){
     this->bg.Render((int)Camera::pos.x + box.x - (this->bg.GetWidth()/2), (int)Camera::pos.y + this->box.y + 50 - (this->bg.GetHeight()/2));
 
-    for(int i = 0; i < buttons.size(); i++){
+    for(unsigned int i = 0; i < buttons.size(); i++){
         this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));
     }
 
-    for(int i = 0; i < options.size(); i++){
+    for(unsigned int i = 0; i < options.size(); i++){
         this->options[i]->Render(0, 0);
     }
 }
 
 bool Menu::IsDead(){
+    return false;
 }
 
 void Menu::NotifyCollision(GameObject* other){
 }
 
 bool Menu::Is(std::string type){
+    return MENU_TYPE;
 }
 
 int Menu::GetLayer(){
+    return 0;
 }
 
 int Menu::GetSublayer(){
+    return 0;
 }
 bool Menu::GetSelection(){
     if(selectedOption != -1) return true;

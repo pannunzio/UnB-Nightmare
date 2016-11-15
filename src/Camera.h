@@ -5,12 +5,17 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "Defines.h"
+#include "Rect.h"
 
 
 /******
     Camera Defines
 ******/
+#define CAMERA_NORMAL_SPEED 5
 
+#define CAMERA_LAYER_TOP -130
+#define CAMERA_LAYER_MIDDLE 80
+#define CAMERA_LAYER_BOTTON 120
 
 class Camera {
 public:
@@ -24,7 +29,7 @@ public:
 
 	void Is(std::string type);
 
-	static Vec2 pos;
+	static Rect pos;
 	static Vec2 speed;
 	enum{
         SUBSOLO = 1,

@@ -24,7 +24,7 @@ Manifestacao::Manifestacao(){
 
 	this->box.x = Player::GetInstance().GetX() + 1200;
 
-    this->box.y = ITEM_HEIGHT_L2 + 30;
+    this->box.y = LAYER_MIDDLE_HEIGHT + 30;
     this->box.y -= (this->subLayer - 3) * 26;
 
     spriteSound.Open("audio/manifestacao_11s.wav", 2);

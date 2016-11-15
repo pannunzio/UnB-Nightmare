@@ -25,8 +25,7 @@ Player::Player(float x, float y) {
 	//Inicialização da referencia a Player
 	this->player = this;
     this->sp = Sprite(RUNNING_SPRITE, RUNNING_FRAMES, RUNNING_FTIME);
-    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
-	//Inicialização de posição
+    //Inicialização de posição
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
@@ -59,6 +58,7 @@ Player::Player(float x, float y) {
     this->addTime = 0.0;
 
     //Inicialização do balão
+    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
     this->ballonRender = false;
 }
 
@@ -75,23 +75,22 @@ Player::~Player() {
 void Player::Update(float dt){
 	//atualiza o sprite
 	this->sp.Update(dt);
+
+	//se for o caso, atualiza o balão
 	if(ballonRender)
         this->ballon.Update(dt);
 
     if(timeOver == true)
         PlayerStops();
 
-    MoveGirl(); // faz os movimentos do input
+    // faz os movimentos do input
+    MoveGirl();
+
+    // Atualiza o tempo e estado dos powerUps
     UpdatePowerUp(dt);
 
-    //colocando na posicao certa o player
-    checkPosition(this->box.x - Camera::pos.x);
-    //Volta a velocidade para o padrão após colisão
-    CheckCollisionToResetSpeed();
-    //correndo
-    SetPositionToMovementState(dt);
-
-    AdjustGoingUpOrDown();
+    //Atualiza a posição de acordo com o estado atual
+    UpdatePosition(dt);
 
     //LATeR: criar uma funcao propria pra resetar esses aqui
     this->isColliding = false;
@@ -165,7 +164,7 @@ void Player::NotifyCollision(GameObject* other){
         // se ficar apertando vai mais rapido
         if(InputManager::GetInstance().KeyPress(SDLK_d))
         	this->box.x += 20;
-    }
+        }
 
     if(other->Is("Cafe")){
         this->coffee_ammo++;
@@ -301,13 +300,13 @@ void Player::MoveSameFloor(){
 
 void Player::SetPositionInY(){
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3 + 2;//230
+        this->box.y = LAYER_TOP_HEIGHT + 2;//230
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;//495
+        this->box.y = LAYER_MIDDLE_HEIGHT;//495
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;//772
+        this->box.y = LAYER_BOTTON_HEIGHT;//772
 
     this->box.y -= (this->subLayer - 3) * 24;
 }
@@ -317,7 +316,6 @@ void Player::MoveThroughFloors(){
     if(this->powerUp != PowerUp::SKATE){
         //verifica se esta ao lado da escada
         if(this->subLayer == SUBLAYER_TOP){
-
             //verifica se nao esta no topo para poder subir
             if(this->layer == LAYER_MIDDLE || this->layer == LAYER_BOTTON)
                 if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && this->isPassingMapObject){
@@ -325,7 +323,6 @@ void Player::MoveThroughFloors(){
                     this->subLayer = SUBLAYER_TOP;
                     this->inputState = GOING_UP;
                 }
-
             //verifica se nao esta em baixo para poder descer
             if(this->layer == LAYER_TOP|| this->layer == LAYER_MIDDLE)
                 if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
@@ -339,10 +336,11 @@ void Player::MoveThroughFloors(){
 
 void Player::UpdatePowerUp(float dt){
     switch(this->powerUp){
+    case NONE:
+        break;
     case SKATE:
         this->itemTimer.Update(dt);
         this->isPassingMapObject = false;
-        this->ballonRender = false;
         this->isIndestructible = true;
         if (this->itemTimer.GetCurrentTime() > SKATING_TIME){
             EndPowerUp();
@@ -372,8 +370,11 @@ void Player::EndPowerUp(){
     if(this->powerupMusic.IsPlaying())
         this->powerupMusic.Stop();
 
-    if(this->IsIndestructible())
+    if(this->isIndestructible){
         this->isIndestructible = false;
+        this->powerUp = NONE;
+        this->powerupMusic.Stop();
+    }
 }
 
 void Player::CheckCollisionToResetSpeed(){
@@ -386,7 +387,7 @@ void Player::CheckCollisionToResetSpeed(){
     }
 }
 
-void Player::AdjustSpeed(float dt){
+void Player::UpdateSpeed(float dt){
 	//v = v0 + at
 	if(this->speed != this->maxSpeed){
         //lastSpeed evita que a speed fique oscilando em volta de maxSpeed
@@ -411,17 +412,21 @@ void Player::AdjustSpeed(float dt){
 }
 
 //ajusta a posição do Player de acordo com o estado
-void Player::SetPositionToMovementState(float dt){
-    //correndo
+void Player::UpdatePosition(float dt){
+    UpdateSpeed(dt);
+    checkPosition(this->box.x - Camera::pos.x);
+    //Volta a velocidade para o padrão após colisão
+    CheckCollisionToResetSpeed();
+
     Camera::MoveToFloor( GetLayer() );
     Camera::SetSpeed(GetSpeed());
-    AdjustSpeed(dt);
-    float diff = GetX() - Camera::pos.x;
+
+    float diff = this->box.x - Camera::pos.x;
     switch(this->movementState){
         case RUNNING:
             this->box.x += this->speed*100*dt;
             if(IsInPosition()){
-                Camera::pos.x= box.x - baseX;
+                Camera::pos.x = box.x - baseX;
             }else if(diff < GetBaseX()){
                 Camera::MoveX(dt*100/2);
             }else if(diff > GetBaseX()){
@@ -446,6 +451,7 @@ void Player::SetPositionToMovementState(float dt){
             this->box.y -= this->speed*(dt * 150);
             break;
     }
+    AdjustGoingUpOrDown();
 }
 
 //ajusta a posição do player quando troca de andar
@@ -453,19 +459,19 @@ void Player::AdjustGoingUpOrDown(){
 
     if(this->inputState != NO_INPUT){
 
-        if(this->layer == LAYER_TOP && abs(this->box.y - ITEM_HEIGHT_L3) < 10){							//
+        if(this->layer == LAYER_TOP && abs(this->box.y - LAYER_TOP_HEIGHT) < 10){							//
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L3 - (this->subLayer - 3)*26;
+            this->box.y = LAYER_TOP_HEIGHT - (this->subLayer - 3)*26;
         }
 
-        if(this->layer == LAYER_MIDDLE && abs(this->box.y - ITEM_HEIGHT_L2) < 10){
+        if(this->layer == LAYER_MIDDLE && abs(this->box.y - LAYER_MIDDLE_HEIGHT) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L2 - (this->subLayer - 3)*26;
+            this->box.y = LAYER_MIDDLE_HEIGHT - (this->subLayer - 3)*26;
         }
 
-        if(this->layer == LAYER_BOTTON && abs(this->box.y - ITEM_HEIGHT_L1) < 10){
+        if(this->layer == LAYER_BOTTON && abs(this->box.y - LAYER_BOTTON_HEIGHT) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = ITEM_HEIGHT_L1 - (this->subLayer - 3)*26;
+            this->box.y = LAYER_BOTTON_HEIGHT - (this->subLayer - 3)*26;
         }
     }
 }
@@ -487,13 +493,12 @@ void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpe
 }
 
 void Player::checkPosition(float diff){
-	if(diff > baseX - DELTA_ACCEPT &&
-        baseX + DELTA_ACCEPT > diff ){
+	if(diff > this->baseX - DELTA_ACCEPT &&
+        this->baseX + DELTA_ACCEPT > diff ){
         this->isRightPosition = true;
     }else{
         this->isRightPosition = false;
     }
-
 }
 
 /***

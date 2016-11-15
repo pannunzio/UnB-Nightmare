@@ -24,11 +24,11 @@ void Bullet::Update(float dt){
 	distanceLeft-= speed*dt*100;
 
     if(layer == LAYER_TOP)							//
-        box.y=ITEM_HEIGHT_L3;						//
+        box.y=LAYER_TOP_HEIGHT;						//
     if(layer == LAYER_MIDDLE)						//
-        box.y=ITEM_HEIGHT_L2;						//
+        box.y=LAYER_MIDDLE;						//
     if(layer == LAYER_BOTTON)						//
-        box.y=ITEM_HEIGHT_L1;						//
+        box.y=LAYER_BOTTON_HEIGHT;						//
     												//
     box.y = box.y - (this->subLayer - 3)*26;		//
     ///////////////////////////////////////////////////

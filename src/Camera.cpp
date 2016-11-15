@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Vec2 Camera::pos = Vec2(0,0);
+Rect Camera::pos = Rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,2);
 
 int Camera::layer = TERREO;
@@ -18,30 +18,30 @@ void Camera::Update(float dt){
     //move a camera no eixo Y
     switch(layer){
         case MESANINO://se esta na layer 3
-            if(pos.y > 0){//e a camera ainda nao está na origem
+            if(pos.y > CAMERA_LAYER_TOP){//e a camera ainda nao está na origem
                 lastY = pos.y;
                 pos.y = pos.y - speed.y*dt*100;//continua descendo a camera
-            }else if(pos.y < 0){
-                pos.y = lastY = 0;//garante que vai ficar exatamente em 0
+            }else if(pos.y < CAMERA_LAYER_TOP){
+                pos.y = lastY = CAMERA_LAYER_TOP;//garante que vai ficar exatamente em 0
             }
             break;
         case TERREO:
-            if(pos.y > 220 && lastY > 220){
+            if(pos.y > CAMERA_LAYER_MIDDLE && lastY > CAMERA_LAYER_MIDDLE){
                 lastY = pos.y;
                 pos.y = pos.y - speed.y*dt*100;
-            }else if(pos.y < 220 && lastY < 220){
+            }else if(pos.y < CAMERA_LAYER_MIDDLE && lastY < CAMERA_LAYER_MIDDLE){
                 lastY = pos.y;
                 pos.y = pos.y + speed.y*dt*100;
             }else{
-                pos.y = lastY = 220;
+                pos.y = lastY = CAMERA_LAYER_MIDDLE;
             }
             break;
         case SUBSOLO:
-            if(pos.y < 480){
+            if(pos.y < CAMERA_LAYER_BOTTON){
                 lastY = pos.y;
                 pos.y = pos.y + speed.y*dt*100;
-            }else if(pos.y > 480){
-                pos.y = lastY = 480;
+            }else if(pos.y > CAMERA_LAYER_BOTTON){
+                pos.y = lastY = CAMERA_LAYER_BOTTON;
             }
     }
 }

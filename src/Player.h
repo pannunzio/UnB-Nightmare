@@ -53,6 +53,8 @@
 #define BALLON_POS_X            100
 #define BALLON_POS_Y            40
 
+#define DELTA_ACCEPT 10
+
 #define COFFEE_FILE     "img/coffee.png"
 
 #define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
@@ -180,11 +182,11 @@ private:
 
     void UpdatePowerUp(float dt);
     void CheckCollisionToResetSpeed();
-    void AdjustSpeed(float dt);
+    void UpdateSpeed(float dt);
 
     //ajusta a posição do Player de acordo com o tipo do movimento
     //(se ele se desloca de um lado para o outro ou de cima para baixo)
-    void SetPositionToMovementState(float dt);
+    void UpdatePosition(float dt);
 
     //ajusta a posição do player quando troca de andar
     void AdjustGoingUpOrDown();

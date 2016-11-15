@@ -32,7 +32,7 @@ void InstructionState::LoadAssets(){
     this->instructions = new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, this->instruction, TEXT_BLACK, 15, 400);
     DEBUG_PRINT("back to SS load assets")
 
-    AddObject(new Player(INIT_PLAYER_X, INIT_PLAYER_Y));
+    AddObject(new Player(INIT_PLAYER_X, LAYER_MIDDLE_HEIGHT));
 	this->layer = Player::GetInstance().GetLayer();
 
     DEBUG_PRINT("Added player")

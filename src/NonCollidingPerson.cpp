@@ -15,13 +15,13 @@ NonCollidingPerson::NonCollidingPerson(){
     this->box.x = Player::GetInstance().GetX() + 1200;
 
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = LAYER_TOP_HEIGHT;
 
     if(this->layer == LAYER_MIDDLE)
-        box.y = ITEM_HEIGHT_L2;
+        box.y = LAYER_MIDDLE_HEIGHT;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = LAYER_BOTTON_HEIGHT;
 
     this->box.y += 65;
 }

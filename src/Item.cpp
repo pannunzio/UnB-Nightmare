@@ -65,13 +65,13 @@ void Item::SetAssets(int layer, int subLayer){
     this->captureSound.SetChannel(5);
 
 	if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = LAYER_TOP_HEIGHT;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
+        this->box.y = LAYER_MIDDLE_HEIGHT;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = LAYER_BOTTON_HEIGHT;
 
     if (this->subLayer < SUBLAYER_TOP)
         this->box.y += SUBLAYER_DISTANCE;

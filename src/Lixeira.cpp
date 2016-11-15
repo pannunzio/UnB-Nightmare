@@ -14,13 +14,13 @@ Lixeira::Lixeira(int layer){
     this->box.x = Player::GetInstance().GetX() + 1200;
 
     if(this->layer == LAYER_TOP)
-        this->box.y = ITEM_HEIGHT_L3;
+        this->box.y = LAYER_TOP_HEIGHT;
 
     if(this->layer == LAYER_MIDDLE)
-        this->box.y = ITEM_HEIGHT_L2;
+        this->box.y = LAYER_MIDDLE_HEIGHT;
 
     if(this->layer == LAYER_BOTTON)
-        this->box.y = ITEM_HEIGHT_L1;
+        this->box.y = LAYER_BOTTON_HEIGHT;
 
     this->box.y += 20;
     this->box.y -= (this->subLayer - 3) * 26;

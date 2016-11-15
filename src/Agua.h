@@ -19,10 +19,16 @@
 #define AGUA_SPRITE "img/agua.png"
 #define AGUA_FRAMES 2
 #define AGUA_FTIME  0.2
+#define NORMAL_GAME_SPEED 5
+
 
 #define AGUA_SPEED  1
 
 #define AGUA_TO_PLAYER_DISTANCE 1200
+#define OBST_HEIGHT_L3 230
+#define OBST_HEIGHT_L2 485
+#define OBST_HEIGHT_L1 772
+
 
 
 /******
