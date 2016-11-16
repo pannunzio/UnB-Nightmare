@@ -20,6 +20,7 @@ public:
 	void Centralize(float x, float y, float w, float h);
 
 	float x,y,w,h;
+	float rotation;
 
 	Rect& operator=(const Vec2& vetor);
 	Rect operator+(const Vec2& vetor);

@@ -23,7 +23,7 @@ void Item::Update(float dt){
 }
 
 void Item::Render(){
-    this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);
+    this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
 

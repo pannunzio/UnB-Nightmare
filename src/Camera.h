@@ -22,14 +22,24 @@ public:
 	Camera();
 	~Camera();
 	static void Update(float dt);
-	static void Resume(){stop = false;};
 	static void MoveToFloor(int positionY);
-	static void SetSpeed(float modifyer);
 	static void MoveX(float valor);
+
+    static void SetXYWH(float x, float y, float w, float h);
+	static void SetX(float x);
+	static void SetY(float y);
+	static void SetWidth(float w);
+	static void SetHeight(float h);
+
+	static void SetSpeed(float modifyer);
+
+    static float GetX();
+	static float GetY();
+	static float GetWidth();
+	static float GetHeight();
 
 	void Is(std::string type);
 
-	static Rect pos;
 	static Vec2 speed;
 	enum{
         SUBSOLO = 1,
@@ -38,8 +48,8 @@ public:
 	};
 
 private:
+	static Rect pos;
 	static int layer;
-	static bool stop;
 	static float lastY;
 };
 

@@ -8,17 +8,17 @@ Agua::Agua(int layer, int subLayer) : sp(AGUA_SPRITE, AGUA_FRAMES, AGUA_FTIME){
 
 	this->box.x = Player::GetInstance().GetX() + AGUA_TO_PLAYER_DISTANCE;
 
-	if(this->layer == LAYER_TOP)
-        this->box.y = OBST_HEIGHT_L3;
+	//if(this->layer == LAYER_TOP)
+        //this->box.y = OBST_HEIGHT_L3;
 
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = OBST_HEIGHT_L2;
+    //if(this->layer == LAYER_MIDDLE)
+        //this->box.y = OBST_HEIGHT_L2;
 
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = OBST_HEIGHT_L1;
+    //if(this->layer == LAYER_BOTTON)
+        //this->box.y = OBST_HEIGHT_L1;
 
-    this->box.y += sp.GetHeight();
-	this->box.y -= (this->subLayer - 3) * 26 - 200;
+//    this->box.y += sp.GetHeight();
+//	this->box.y -= (this->subLayer - 3) * 26 - 200;
 
 }
 
@@ -37,7 +37,7 @@ void Agua::Update(float dt){
 		this->box.y += 1 * dt * 100;
 		this->deadTimer.Update(dt);
 	}
-    if(this->box.x - Camera::pos.x <= 0){
+    if(this->box.x - Camera::GetX() <= 0){
     	this->speed = NORMAL_GAME_SPEED;
     }
 
@@ -46,8 +46,7 @@ void Agua::Update(float dt){
 }
 
 void Agua::Render(){
-	//sp.Render(box.x - Camera::pos.x, box.y - Camera::pos.y);
-	this->sp.Render(this->box.x, this->box.y - Camera::pos.y);
+	this->sp.Render(this->box.x, this->box.y - Camera::GetY());
 }
 
 bool Agua::IsDead(){

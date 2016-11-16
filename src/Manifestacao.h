@@ -5,9 +5,15 @@
 #include "Player.h"
 #include "Camera.h"
 
+#define MANIFESTACAO_SPRITE     "img/manifest.png"
+#define MANIFESTACAO_FRAMES     6
+#define MANIFESTACAO_FTIME      0.2
+
+#define MANIFESTACAO_SOUND      "audio/manifestacao_11s.wav"
+
 class Manifestacao: public Obstacle{
 public:
-    Manifestacao();
+    Manifestacao(float layerHeight);
     ~Manifestacao();
 
 	void Render();

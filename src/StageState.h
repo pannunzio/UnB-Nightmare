@@ -54,7 +54,6 @@ using std::endl;
 #define BG_FILE         "img/cerrado.jpg"
 
 #define INIT_STAGE_X   0
-#define INIT_STAGE_Y   280
 
 #define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
 
@@ -66,6 +65,20 @@ using std::endl;
 #define STAGE_STATE_MENU_POSITION_X     500
 #define STAGE_STATE_MENU_POSITION_Y     350
 #define STAGE_STATE_MENU_SPACEMENT      50
+
+//      Chances iniciais de surgir: obstaculos
+#define STAGE_STATE_SPAWN_PERSON    100-70 //70% de chance
+#define STAGE_STATE_SPAWN_ZOMBIE    100-50 //50% de chance
+#define STAGE_STATE_SPAWN_BIRD      100-40 //40% de chance
+
+//      Chances iniciais de surgir: itens
+#define STAGE_STATE_SPAWN_TRASH     100-70 //70% de chance
+#define STAGE_STATE_SPAWN_ACAI      100-50 //50% de chance
+#define STAGE_STATE_SPAWN_SKATE     100-40 //40% de chance
+#define STAGE_STATE_SPAWN_SURPRISE  100-40 //40% de chance
+#define STAGE_STATE_SPAWN_CLOCK     100-40 //40% de chance
+
+
 
 class StageState : public State{
 public:
@@ -85,7 +98,7 @@ public:
 	void AddObjectStatic(GameObject* ptr);
 
 private:
-    void SetInitialStateValues();
+    void ResetState();
     //Verifica se o jogo acabou
     void CheckEndOfGame();
     void SetEndOfGame(bool playerVictory);
@@ -109,6 +122,14 @@ private:
         RESTART,
         QUIT_GAME
     };
+    enum{
+        SURPRISE,
+        ACAI,
+        SKATE,
+        CAFE,
+        CLOCK,
+        ITEM_TOTAL
+    };
 	TileSet*  tileSet;
 	TileMap tileMap;
 	std::vector<std::unique_ptr<GameObject>> objectArray;
@@ -123,14 +144,40 @@ private:
 	Timer cooldownTimer;
 	int spawn;
 	int lixo;
-	int mapLength;
 	bool pause;
-	float stagePositionX;
-	float stagePositionY;
 	int layer;
 	bool gameEnd;
-
 	Sound music;
+
+    /**
+        Map builders
+    **/
+    int mapLength;
+    float stagePositionX;
+	float stagePositionY;
+	int layerTopHeight;
+	int layerMiddleHeight;
+	int layerBottonHeight;
+
+	/**
+        Spawn builders
+	**/
+	//      Obstaculos
+	int spawnPerson;
+	int spawnZombie;
+	int spawnBird;
+	int spawnTrash;
+	//      Itens
+	int spawnSkate;
+	int spawnAcai;
+	int spawnSurprise;
+	int spawnClock;
+
+
+	/**
+        DEBUG
+	**/
+	void MagicButtons();
 };
 
 #endif

@@ -71,7 +71,8 @@ enum PowerUp{
 enum MovementState{
     RUNNING,
     EATING,
-    STOPPING
+    STOPPING,
+    SKATING
 };
 
 enum InputState{
@@ -100,7 +101,8 @@ public:
 	int GetLayer();
 	int GetSublayer();
 
-    static Player& GetInstance();
+    static Player& GetInstance();//isso aqui não faz sentido. Se eu tenho GetInstance(),
+    static Player* player;       //não tem pq o ponteiro de player ser public
 
 	void SetMaxSpeed(float maxSpeed);
     float GetSpeed();
@@ -109,7 +111,6 @@ public:
 
 	void Shoot();
 
-	static Player* player;
 	static int coffee_ammo; // caso pegue cafe, tem q aumentar isso aki
     MovementState movementState;
     InputState inputState;
@@ -193,6 +194,11 @@ private:
 
     void StopIndestructiblePowerup();
     void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpeed);
+
+    /**
+        DEBUG
+    **/
+    void MagicButtons();
 };
 
 #endif /* PLAYER_H_ */

@@ -26,7 +26,6 @@ public:
 
 	Sprite sp;
 	Rect box;
-	float rotation;
 };
 
 #endif

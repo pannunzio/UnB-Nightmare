@@ -59,7 +59,7 @@ void Menu::HandleInputs(){
 }
 
 void Menu::Render(){
-    this->bg.Render((int)Camera::pos.x + box.x - (this->bg.GetWidth()/2), (int)Camera::pos.y + this->box.y + 50 - (this->bg.GetHeight()/2));
+    this->bg.Render((int)Camera::GetX() + box.x - (this->bg.GetWidth()/2), (int)Camera::GetY() + this->box.y + 50 - (this->bg.GetHeight()/2));
 
     for(unsigned int i = 0; i < buttons.size(); i++){
         this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));

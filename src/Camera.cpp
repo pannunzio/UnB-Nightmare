@@ -4,7 +4,6 @@ Rect Camera::pos = Rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,2);
 
 int Camera::layer = TERREO;
-bool Camera::stop = false;
 float Camera::lastY = 0;
 
 Camera::Camera() {
@@ -47,7 +46,7 @@ void Camera::Update(float dt){
 }
 
 void Camera::MoveX(float valor){
-    Camera::pos.x += speed.x*valor;
+    pos.x += speed.x*valor;
 }
 
 void Camera::SetSpeed(float newSpeed){
@@ -56,4 +55,43 @@ void Camera::SetSpeed(float newSpeed){
 
 void Camera::MoveToFloor(int newLayer){
     layer = newLayer;
+}
+
+void Camera::SetXYWH(float x, float y, float w, float h){
+    pos.x = x;
+    pos.y = y;
+    pos.w = w;
+    pos.h = h;
+}
+
+void Camera::SetX(float x){
+    pos.x = x;
+}
+
+void Camera::SetY(float y){
+    pos.y = y;
+}
+
+void Camera::SetWidth(float w){
+    pos.w = w;
+}
+
+void Camera::SetHeight(float h){
+    pos.h = h;
+}
+
+float Camera::GetX(){
+    return pos.x;
+}
+
+float Camera::GetY(){
+    return pos.y;
+}
+
+float Camera::GetWidth(){
+    return pos.w;
+}
+
+float Camera::GetHeight(){
+    return pos.h;
 }

@@ -5,7 +5,7 @@ Animation::Animation(float x, float y, float rotation, std::string spr, int fram
 
 	this->box.Centralize(x, y, this->sp.GetWidth(), this->sp.GetHeight());
 
-	this->rotation = rotation;
+	this->box.rotation = rotation;
 
 	this->oneTimeOnly = ends;
 	this->timeLimit = frameTime * frameCount;
@@ -19,7 +19,7 @@ void Animation::Update(float dt){
 }
 
 void Animation::Render(){
-	this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);
+	this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetX());
 }
 
 bool Animation::IsDead(){

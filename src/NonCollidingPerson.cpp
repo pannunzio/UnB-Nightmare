@@ -31,7 +31,7 @@ NonCollidingPerson::~NonCollidingPerson(){
 }
 
 void NonCollidingPerson::Render(){
-    this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 30);
+    this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
 }
 
 void NonCollidingPerson::NotifyCollision(GameObject* other){

@@ -3,8 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-//#define DEBUG
-
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -29,7 +28,10 @@ Player::Player(float x, float y) {
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
-	this->box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
+	this->box.x = x;
+	this->box.y = y;
+	this->box.w = sp.GetWidth();
+	this->box.h = sp.GetHeight();
 	this->isRightPosition = false;
 	//this->layer = rand()%3 +1;
 
@@ -60,6 +62,18 @@ Player::Player(float x, float y) {
     //Inicialização do balão
     this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
     this->ballonRender = false;
+
+    DEBUG_PRINT(" - PlayerX: " << this->box.x)
+    DEBUG_PRINT(" - PlayerY: " << this->box.y)
+    DEBUG_PRINT(" - PlayerLayer: " << this->layer)
+    DEBUG_PRINT(" - PlayerSubLay: "<< this->subLayer)
+
+    DEBUG_PRINT("MagicButtons:")
+    DEBUG_PRINT(" - Subir um andar: Q")
+    DEBUG_PRINT(" - Descer um andar: A")
+    DEBUG_PRINT(" - Ganhar 10 segundos: 1")
+    DEBUG_PRINT(" - Ir para Comendo: 2")
+    DEBUG_PRINT(" - Ir para Skating: 2")
 }
 
 /***
@@ -73,6 +87,7 @@ Player::~Player() {
         UPDATE
 ***/
 void Player::Update(float dt){
+	DEBUG_ONLY(MagicButtons())
 	//atualiza o sprite
 	this->sp.Update(dt);
 
@@ -114,17 +129,17 @@ void Player::PlayerStops(){
 }
 
 void Player::Render(){
-	this->sp.Render((int)(this->box.x - Camera::pos.x), (int)(this->box.y - Camera::pos.y));
+	this->sp.Render((int)(this->box.x - Camera::GetX()), (int)(this->box.y - Camera::GetY()));
 	this->SetSpriteScale();
 	if(this->ballonRender){
-        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::pos.x),
-                            (int)(this->box.y - BALLON_POS_Y - Camera::pos.y));
+        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::GetX()),
+                            (int)(this->box.y - BALLON_POS_Y - Camera::GetY()));
 	}
 }
 
 bool Player::IsDead(){
 	// camera passou player
-	if(Camera::pos.x + 30 > box.x + sp.GetWidth()){
+	if(Camera::GetX() + 30 > box.x + sp.GetWidth()){
 		this->player = nullptr;
 //		cout<<"TESTE"<<endl;
 		return true;
@@ -153,13 +168,14 @@ void Player::NotifyCollision(GameObject* other){
     }
 
     if(other->Is("Manifestacao")){
-        DEBUG_PRINT("colidiu MANIFESTAÇÃO")
+        DEBUG_PRINT("colidiu MANIFESTACAO")
         StopIndestructiblePowerup();
 
         this->isColliding = true;
         this->wasColliding = true;
         Obstacle* obst = (Obstacle*) other;
         this->speed = obst->GetSpeed();
+        this->maxSpeed = obst->GetSpeed();
 
         // se ficar apertando vai mais rapido
         if(InputManager::GetInstance().KeyPress(SDLK_d))
@@ -283,19 +299,6 @@ void Player::MoveSameFloor(){
         Shoot();
 
     }
-
-    /***
-    BOTOES DE DEBUG
-    ***/
-    if(InputManager::GetInstance().KeyPress(SDLK_o)){
-        this->layer++;
-    }
-    if(InputManager::GetInstance().KeyPress(SDLK_l)){
-        this->layer--;
-    }
-    if(InputManager::GetInstance().KeyPress(SDLK_g)){
-        this->movementState = EATING;
-    }
 }
 
 void Player::SetPositionInY(){
@@ -414,19 +417,19 @@ void Player::UpdateSpeed(float dt){
 //ajusta a posição do Player de acordo com o estado
 void Player::UpdatePosition(float dt){
     UpdateSpeed(dt);
-    checkPosition(this->box.x - Camera::pos.x);
+    checkPosition(this->box.x - Camera::GetX());
     //Volta a velocidade para o padrão após colisão
     CheckCollisionToResetSpeed();
 
     Camera::MoveToFloor( GetLayer() );
     Camera::SetSpeed(GetSpeed());
 
-    float diff = this->box.x - Camera::pos.x;
+    float diff = this->box.x - Camera::GetX();
     switch(this->movementState){
         case RUNNING:
             this->box.x += this->speed*100*dt;
             if(IsInPosition()){
-                Camera::pos.x = box.x - baseX;
+                Camera::SetX(box.x - baseX);
             }else if(diff < GetBaseX()){
                 Camera::MoveX(dt*100/2);
             }else if(diff > GetBaseX()){
@@ -441,6 +444,8 @@ void Player::UpdatePosition(float dt){
             this->maxSpeed = 0;
             this->acceleration = 5.5;
             this->box.x += this->speed*(dt*100/3);
+            break;
+        case SKATING:
             break;
     }
     switch(this->inputState){
@@ -579,6 +584,24 @@ SurpriseType Player::GetSurpriseType(){
 
 float Player::GetAddTime(){
     return this->addTime;
+}
+
+/**
+    DEBUG
+**/
+void Player::MagicButtons(){
+    if(InputManager::GetInstance().KeyPress(SDLK_q)){
+        this->layer++;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_a)){
+        this->layer--;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_2)){
+        this->movementState = EATING;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_3)){
+        this->movementState = SKATING;
+    }
 }
 
 #ifdef DEBUG

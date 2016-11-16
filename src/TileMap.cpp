@@ -5,7 +5,7 @@
 #include "Defines.h"
 
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -56,7 +56,7 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
 }
 
 void TileMap::Load(std::string file){
-	DEBUG_PRINT("TileMap::Load")
+	DEBUG_PRINT("TileMap::Load()-begin-")
 	FILE* arq = fopen(file.c_str(), "r");
 
 	if(!arq)
@@ -75,7 +75,7 @@ void TileMap::Load(std::string file){
 					MapActionList::AddMapAction(MapActions( TILESET_WIDTH * i + 250, TILESET_HEIGHT * j + 40, 3 - j));
 			}
 		}
-	DEBUG_PRINT("Tile map succesfuly read")
+	DEBUG_PRINT("TileMap::Load()-end-")
 }
 
 void TileMap::SetTileSet(TileSet* ttileSet){

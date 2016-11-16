@@ -33,9 +33,9 @@ PessoaZumbi::~PessoaZumbi(){
 
 void PessoaZumbi::Render(){
     if(this->speed >= 0)
-        this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 30);
+        this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
     else
-        this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 30);
+        this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
 }
 
 void PessoaZumbi::NotifyCollision(GameObject* other){

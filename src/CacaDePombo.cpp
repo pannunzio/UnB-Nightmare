@@ -32,7 +32,7 @@ void CacaDePombo::Update(float dt){
 }
 
 void CacaDePombo::Render(){
-    this->sp.Render(this->Sbox.x - Camera::pos.x, this->Sbox.y - Camera::pos.y);
+    this->sp.Render(this->Sbox.x - Camera::GetX(), this->Sbox.y - Camera::GetY());
 }
 
 bool CacaDePombo::IsDead(){

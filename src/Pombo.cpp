@@ -42,12 +42,12 @@ void Pombo::Update(float dt){
         this->fazendoCaca = true;
     }
 
-    if(this->box.x - Camera::pos.x + this->sp.GetWidth() < 0)
+    if(this->box.x - Camera::GetX() + this->sp.GetWidth() < 0)
 		this->isDead = true;
 }
 
 void Pombo::Render(){
-    this->sp.RenderFlipped(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y);
+    this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
 void Pombo::NotifyCollision(GameObject* other){

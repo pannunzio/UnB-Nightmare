@@ -33,7 +33,7 @@ Lixeira::~Lixeira(){
 }
 
 void Lixeira::Render(){
-    this->sp.Render(this->box.x - Camera::pos.x, this->box.y - Camera::pos.y - 10);
+    this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 10);
 }
 
 void Lixeira::NotifyCollision(GameObject* other){

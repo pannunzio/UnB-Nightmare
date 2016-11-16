@@ -1,6 +1,6 @@
 #include "StageState.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -12,10 +12,64 @@
 #endif //DEBUG
 
 StageState::StageState(){
-    DEBUG_PRINT("enter construtor STAGESTATE")
-	SetInitialStateValues();
+    DEBUG_PRINT("StageState::StageState()-begin-")
+    ResetState();
+    /**
+        DEBUG
+    **/
+    DEBUG_PRINT("MagicButtons:")
+    DEBUG_PRINT(" - Cafe:         C")
+    DEBUG_PRINT(" - SurpriseItem: V")
+    DEBUG_PRINT(" - Skate:        B")
+    DEBUG_PRINT(" - Acai:         N")
+    DEBUG_PRINT(" - CLockItem:    M")
+    DEBUG_PRINT(" - Pombo:        F")
+	DEBUG_PRINT(" - Manifestacao: G")
+	DEBUG_PRINT(" - Zumbi:        H")
+	DEBUG_PRINT(" - Pessoa:       J")
+    DEBUG_PRINT(" - Lixeira:      K")
+	DEBUG_PRINT("StageState::StageState()-end-")
+}
 
-	DEBUG_PRINT("exit contrutor STAGESTATE")
+void StageState::ResetState(){
+    DEBUG_PRINT("StageState::ResetState()-begin-")
+
+    //Variáveis de comunicação com a game
+    this->popRequested = false;
+	this->quitRequested = false;
+
+    //Variáveis de construção do cenário
+	this->stagePositionX = INIT_STAGE_X;
+	this->layerTopHeight = LAYER_TOP_HEIGHT;
+	this->layerMiddleHeight = LAYER_MIDDLE_HEIGHT;
+	this->layerBottonHeight = LAYER_BOTTON_HEIGHT;
+
+	//Variáves de condições de jogo
+	this->clock.SetTime(STAGE_DURATION);
+	this->pause = false;
+	this->spawn = 0;
+    this->lixo = 0;
+    //      Obstaculos
+    this->spawnPerson = STAGE_STATE_SPAWN_PERSON;
+	this->spawnZombie = STAGE_STATE_SPAWN_ZOMBIE;
+	this->spawnBird = STAGE_STATE_SPAWN_BIRD;
+	this->spawnTrash = STAGE_STATE_SPAWN_TRASH;
+	//      Itens
+	this->spawnSkate = STAGE_STATE_SPAWN_SKATE;
+	this->spawnAcai = STAGE_STATE_SPAWN_ACAI;
+	this->spawnSurprise = STAGE_STATE_SPAWN_SURPRISE;
+	this->spawnClock = STAGE_STATE_SPAWN_CLOCK;
+
+
+	//Variáveis de finalização do StageState
+	this->waitEnd = WAIT_END_DURATION;
+	this->gameEnd = false;
+
+
+    Camera::SetX(INIT_STAGE_X);
+    Camera::SetY(INIT_STAGE_Y);
+
+	DEBUG_PRINT("StageState::ResetState()-end-")
 }
 
 StageState::~StageState(){
@@ -30,41 +84,36 @@ StageState::~StageState(){
 }
 
 void StageState::LoadAssets(){
-    DEBUG_PRINT("START of load assets STAGESTATE")
+    DEBUG_PRINT("StageState::LoadAssets()-begin-")
 
     this->hud = Hud();
     this->hud.InitHud();
 
-    DEBUG_PRINT("back to SS load assets")
-
     AddObject(new Player(INIT_PLAYER_X, LAYER_MIDDLE_HEIGHT));
 	this->layer = Player::GetInstance().GetLayer();
-
-    DEBUG_PRINT("Added player")
+    DEBUG_PRINT(" - Added player")
 
     this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
     this->menu.AddMenuOption("Resume Game");
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
-
-    DEBUG_PRINT("Added menu")
+    DEBUG_PRINT(" - Added menu")
 
     this->bg.Open(BG_FILE);
-
-    DEBUG_PRINT("Added BG")
+    DEBUG_PRINT(" - Added BG")
 
 	this->tileSet = new TileSet(TILESET_WIDTH, TILESET_HEIGHT, TILE_SET_FILE);
     this->tileMap.Load(TILE_MAP_FILE);
 	this->tileMap.SetTileSet(tileSet);
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
-
-    DEBUG_PRINT("Map Init OK")
+    DEBUG_PRINT(" - Map Init OK")
 
     this->music = Sound(-1);
     this->music.Open(INIT_MUSIC_FILE, 1);
     this->music.Play(10);
-    DEBUG_PRINT("music OK")
+    DEBUG_PRINT(" - music OK")
     Resources::PrintAllLoadedResources();
+    DEBUG_PRINT("StageState::LoadAssets()-end-")
 }
 
 bool StageState::GetPause(){
@@ -73,6 +122,7 @@ bool StageState::GetPause(){
 
 void StageState::Update(float dt){
     if(pause == false){
+        DEBUG_ONLY(MagicButtons())
         CheckEndOfGame();
         HandleInputs();
 
@@ -84,9 +134,10 @@ void StageState::Update(float dt){
         CheckMapActionsPosition(dt);
 
         this->cooldownTimer.Update(dt);
-        SpawnNewItem();
-        SpawnNewStaticObstacle();
-        SpawnNewDynamicObstacle();
+
+        //SpawnNewItem();
+        //SpawnNewStaticObstacle();
+        //SpawnNewDynamicObstacle();
 
         this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());
 
@@ -100,13 +151,14 @@ void StageState::Pause(){
 }
 
 void StageState::MoveCamera(float dt){
-    DEBUG_PRINT("Camera sob controle do StageState")
+    DEBUG_PRINT("StageState::MoveCamera()-begin-")
+    DEBUG_PRINT(" - Camera sob controle do StageState")
+    DEBUG_PRINT("StageState::MoveCamera()-end-")
 }
 
 void StageState::Resume(){
     if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
         pause = false;
-        Camera::Resume();
     }
 }
 
@@ -114,7 +166,7 @@ void StageState::Render(){
     Camera::Update(Game::GetInstance().GetDeltaTime());
 	//chamando o render de cada gameObject
 	this->bg.Render(0, 0);
-	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
+	this->tileMap.RenderLayer(0, Camera::GetX(),Camera::GetY());
 
     RenderSubLayer(3);
     RenderSubLayer(2);
@@ -142,23 +194,6 @@ void StageState::AddObjectStatic(GameObject* ptr){
     |  |  |
     V  V  V
 */
-
-void StageState::SetInitialStateValues(){
-    this->popRequested = false;
-	this->quitRequested = false; // iniciando o valor como falso
-
-	this->pause = false;
-	this->stagePositionX = INIT_STAGE_X;
-	this->stagePositionY = INIT_STAGE_Y;
-	this->spawn = 0;
-    this->lixo = 0;
-	this->clock.SetTime(STAGE_DURATION);
-	this->waitEnd = WAIT_END_DURATION;
-	this->gameEnd = false;
-
-    Camera::pos = Vec2(stagePositionX,stagePositionY);
-	Camera::Resume();
-}
 
 //verifica se o jogo acabou
 void StageState::CheckEndOfGame(){
@@ -189,9 +224,7 @@ void StageState::CheckEndOfGame(){
         }
     }
 
-    if(Camera::pos.x > this->mapLength){
-        DEBUG_PRINT("camera pos set end of game\n\tmap length: " << this->mapLength)
-        DEBUG_PRINT("\tcamera pos:  " << Camera::pos.x)
+    if(Camera::GetX() > this->mapLength){
         SetEndOfGame(true);
     }
 }
@@ -219,15 +252,14 @@ void StageState::UpdateObjectArray(float dt){
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
-            if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
-                if(j!=i && (Collision::IsColliding( objectArray[i]->box,
-                                                    objectArray[j]->box,
-                                                    objectArray[i]->rotation*My_PI/180,
-                                                    objectArray[j]->rotation*My_PI/180))){
-                    objectArray[j]->NotifyCollision(objectArray[i].get());
-                    DEBUG_ONLY(if(objectArray[j].get()->Is("Player")))
-                        DEBUG_PRINT("Player colidiu com " << (objectArray[i].get())->sp.GetFile() << "x: " << objectArray[i].get()->box.x << "| y: " << objectArray[i].get()->box.y)
-                }
+            if(i == j)continue;
+            if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) &&
+               (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
+                    if(Collision::IsColliding(objectArray[i]->box, objectArray[j]->box)){
+                        objectArray[j]->NotifyCollision(objectArray[i].get());
+                        DEBUG_PRINT((objectArray[j].get())->sp.GetFile() << " colidiu com " <<
+                                    (objectArray[i].get())->sp.GetFile())
+                    }
             }
 		}
 		if(objectArray[i]->IsDead()){
@@ -243,9 +275,7 @@ void StageState::CheckMapActionsPosition(float dt){
 
         if(Player::GetInstance().IsPlayerAlive() &&
            Collision::IsColliding(Player::GetInstance().box,
-                                  this->mapActionList.mapActions[i].box,
-                                  Player::GetInstance().rotation,
-                                  this->mapActionList.mapActions[i].rotation)){
+                                  this->mapActionList.mapActions[i].box)){
 
             Player::GetInstance().NotifyCollision(&mapActionList.mapActions[i]);
         }
@@ -254,33 +284,33 @@ void StageState::CheckMapActionsPosition(float dt){
 
 void StageState::SpawnNewItem(){
     if(this->clock.GetSeconds1()%3 == 0){
-        int spawner = rand()%100;
-        if(this->spawn == 0 && spawner <= 80){
-            spawner = spawner%5; //spawner is arbitrary value to be set only after game is being balanced
-            switch(spawner){
-            case 0:{
+        int random = rand()%100;
+        if(this->spawn == 0 && random <= 80){
+            int item = random%ITEM_TOTAL; //spawner is arbitrary value to be set only after game is being balanced
+            switch(item){
+            case SURPRISE:{
                 AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                DEBUG_PRINT("added new surprise item")
+                DEBUG_PRINT(" - added new surprise item")
                 break;
             }
-            case 1:{
+            case ACAI:{
                 AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                DEBUG_PRINT("Added new acai")
+                DEBUG_PRINT(" - Added new acai")
                 break;
             }
-            case 2:{
+            case SKATE:{
                 AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                DEBUG_PRINT("Added new skate")
+                DEBUG_PRINT(" - Added new skate")
                 break;
             }
-            case 3:{
+            case CAFE:{
                 AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                DEBUG_PRINT("added new cafe")
+                DEBUG_PRINT(" - added new cafe")
                 break;
             }
-            case 4:
+            case CLOCK:
                 AddObject(new ClockItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
-                DEBUG_PRINT("added new clock ")
+                DEBUG_PRINT(" - added new clock ")
                 break;
             case 5:
             default:
@@ -298,15 +328,15 @@ void StageState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
     //numero magico??????
-    if((1256 * this->lixo) < Camera::pos.x){
-        DEBUG_PRINT("spawning new trash")
+    if((1256 * this->lixo) < Camera::GetX()){
+        DEBUG_PRINT(" - spawning new trash")
         AddObjectStatic(new Lixeira(LAYER_TOP));
         AddObjectStatic(new Lixeira(LAYER_MIDDLE));
         AddObjectStatic(new Lixeira(LAYER_BOTTON));
         this->lixo++;
     }
 
-    if(rand()%1000 <= 43){
+    if(rand()%100 <= 4,3){
         //INUNDACAO!
     }
 }
@@ -316,19 +346,19 @@ void StageState::SpawnNewDynamicObstacle(){
     	this->cooldownTimer.Restart();
 
         int random = rand()%100;
-    	if(random > 30){
-            if(random > 50 ){
-                DEBUG_PRINT("new pessoa")
+    	if(random > spawnPerson){
+            if(random > spawnZombie){
+                DEBUG_PRINT(" - new pessoa")
                 AddObject(new Pessoa());
             }
             else {
-                DEBUG_PRINT("new zombie")
+                DEBUG_PRINT(" - new zombie")
                 AddObject(new PessoaZumbi());
             }
     	}
 
     	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
-            if(rand()%100 < 5){
+            if(random < spawnBird){
                 AddObjectStatic(new Pombo());
             }
     	}
@@ -336,7 +366,7 @@ void StageState::SpawnNewDynamicObstacle(){
 
     if(Player::GetInstance().IsSurprise()){
         if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO)
-            AddObject(new Manifestacao());
+            AddObject(new Manifestacao(this->layerMiddleHeight));
         else if (Player::GetInstance().GetSurpriseType() == PELADAO)
             AddObject(new NonCollidingPerson());
     }
@@ -359,13 +389,12 @@ void StageState::UpdateMenu(float dt){
             switch(menu.GetSelectedOption()){
                 case RESUME:
                     pause = false;
-                    Camera::Resume();
                     DEBUG_PRINT("RESUME GAME")
                     break;
                 case RESTART:
                     //RestartStage();
                     objectArray.clear();
-                    SetInitialStateValues();
+                    ResetState();
                     LoadAssets();
                     DEBUG_PRINT("RESTART GAME")
                     break;
@@ -381,7 +410,7 @@ void StageState::UpdateMenu(float dt){
                     //RestartStage();
                     DEBUG_PRINT("RESTART GAME")
                     objectArray.clear();
-                    SetInitialStateValues();
+                    ResetState();
                     LoadAssets();
                     this->clock.StartClock();
                     break;
@@ -412,6 +441,42 @@ void StageState::HandleInputs(){
     }
 }
 
+/**
+    DEBUG
+**/
+void StageState::MagicButtons(){
+    if(InputManager::GetInstance().KeyPress(SDLK_v)){
+        AddObject(new SurpriseItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_b)){
+        AddObject(new Skate(Player::GetInstance().GetLayer(), rand()%3 + 1));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_n)){
+        AddObject(new Acai(Player::GetInstance().GetLayer(), rand()%3 + 1));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_m)){
+        AddObject(new ClockItem(Player::GetInstance().GetLayer(), rand()%3 + 1));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_c)){
+        AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
+    }
+
+    if(InputManager::GetInstance().KeyPress(SDLK_k)){
+        AddObjectStatic(new Lixeira(LAYER_TOP));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_j)){
+        AddObject(new Pessoa());
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_h)){
+        AddObject(new PessoaZumbi());
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_g)){
+        AddObject(new Manifestacao(this->layerMiddleHeight));
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_f)){
+        AddObject(new Pombo());
+    }
+}
 #ifdef DEBUG
     #undef DEBUG
 #endif // DEBUG

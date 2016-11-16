@@ -98,7 +98,6 @@ void InstructionState::MoveCamera(float dt){
 void InstructionState::Resume(){
     if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
         pause = false;
-        Camera::Resume();
     }
 }
 
@@ -106,7 +105,7 @@ void InstructionState::Render(){
     Camera::Update(Game::GetInstance().GetDeltaTime());
 	//chamando o render de cada gameObject
 	this->bg.Render(0, 0);
-	this->tileMap.RenderLayer(0, Camera::pos.x,Camera::pos.y);
+	this->tileMap.RenderLayer(0, Camera::GetX(),Camera::GetY());
 
     RenderSubLayer(3);
     RenderSubLayer(2);
@@ -152,14 +151,14 @@ void InstructionState::SetInitialStateValues(){
 	this->gameEnd = false;
 	this->showInstruction = false;
 
-    Camera::pos = Vec2(stagePositionX,stagePositionY);
-	Camera::Resume();
+    Camera::SetX(INIT_STAGE_X);
+	Camera::SetY(INIT_STAGE_Y);
 }
 
 //verifica se o jogo acabou
 void InstructionState::CheckEndOfGame(){
     //Se o player não existir, encerra o jogo
-    if(!Player::player){
+    if(Player::player != NULL){
         this->mapActionList.mapActions.clear();
         objectArray.clear();
         this->popRequested =  true;
@@ -190,9 +189,9 @@ void InstructionState::CheckEndOfGame(){
         }
     }
 
-    if(Camera::pos.x > this->mapLength){
+    if(Camera::GetX() > this->mapLength){
         DEBUG_PRINT("camera pos set end of game\n\tmap length: " << this->mapLength)
-        DEBUG_PRINT("\tcamera pos:  " << Camera::pos.x)
+        DEBUG_PRINT("\tcamera pos:  " << Camera::GetX())
         SetEndOfGame(true);
     }
 }
@@ -209,9 +208,7 @@ void InstructionState::UpdateObjectArray(float dt){
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) && (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
                 if(j!=i && (Collision::IsColliding( objectArray[i]->box,
-                                                    objectArray[j]->box,
-                                                    objectArray[i]->rotation*My_PI/180,
-                                                    objectArray[j]->rotation*My_PI/180))){
+                                                    objectArray[j]->box))){
                     objectArray[j]->NotifyCollision(objectArray[i].get());
 
                     if(objectArray[i]->Is("Player")){
@@ -248,10 +245,7 @@ void InstructionState::CheckMapActionsPosition(float dt){
 
         if(Player::GetInstance().IsPlayerAlive() &&
            Collision::IsColliding(Player::GetInstance().box,
-                                  this->mapActionList.mapActions[i].box,
-                                  Player::GetInstance().rotation,
-                                  this->mapActionList.mapActions[i].rotation)){
-
+                                  this->mapActionList.mapActions[i].box)){
             Player::GetInstance().NotifyCollision(&mapActionList.mapActions[i]);
             this->instruction = "Pressione as SETAS ^ ou v para subir/descer Escadas!";
         }
@@ -305,7 +299,7 @@ void InstructionState::SpawnNewStaticObstacle(){
 //	respawn das coisas
 
     //numero magico??????
-    if((1256 * this->lixo) < Camera::pos.x){
+    if((1256 * this->lixo) < Camera::GetX()){
         DEBUG_PRINT("spawning new trash")
         AddObjectStatic(new Lixeira(LAYER_TOP));
         AddObjectStatic(new Lixeira(LAYER_MIDDLE));
@@ -342,8 +336,8 @@ void InstructionState::SpawnNewDynamicObstacle(){
     }
 
     if(Player::GetInstance().IsSurprise()){
-        if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO)
-            AddObject(new Manifestacao());
+        if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO){}
+            //AddObject(new Manifestacao());
         else if (Player::GetInstance().GetSurpriseType() == PELADAO)
             AddObject(new NonCollidingPerson());
     }

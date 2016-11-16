@@ -6,7 +6,7 @@
 
 class Collision {
     public:
-        static bool IsColliding(const Rect& a, const Rect& b, float angleOfA, float angleOfB);
+        static bool IsColliding(const Rect& a, const Rect& b);
 
     private:
         static bool xCollision;
