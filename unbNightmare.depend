@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1479304829 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
+1479342863 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
 	"Agua.h"
 
 1479342713 c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.h
@@ -28,7 +28,7 @@
 	<iostream>
 	<math.h>
 
-1479076832 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
+1479358250 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
 	<SDL.h>
 	<iostream>
 
@@ -693,13 +693,13 @@
 1479306259 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
 	"Obstacle.h"
 
-1479341955 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
+1479342848 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
 	"Pessoa.h"
 
 1479305998 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479341507 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479358397 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -719,7 +719,7 @@
 1475941410 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1479076814 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1479355537 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>
@@ -772,10 +772,10 @@
 	"../src/Camera.h"
 	"../src/InputManager.h"
 
-1479305954 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
+1479351700 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
 	"Menu.h"
 
-1479306021 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
+1479351691 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h
 	<vector>
 	<string>
 	"../src/Sprite.h"

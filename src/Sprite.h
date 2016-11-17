@@ -38,7 +38,10 @@ public:
 	void SetAnimationTimes(int times);
 	void SetFrameTime(float frameTime);
 	bool IsAnimationFinished();
-//	void SetAlpha()
+	void SetAlpha(int);
+	void FadeIn(int inc = 1);
+	void FadeOut(int dec = 1);
+	void FadeToValue(int);
 
 private:
 	SDL_Texture* texture;
@@ -57,6 +60,16 @@ private:
 	int times;
 	int timesCounter;
 	string file;
+
+	int fadeValue;
+    int fadeModifyer;
+    uint8_t actualAlpha;
+	bool fadingIn;
+	bool fadingOut;
+	bool fadingToValue;
+	void _fadeIn();
+	void _fadeOut();
+	void _fadeToValue();
 };
 
 #endif

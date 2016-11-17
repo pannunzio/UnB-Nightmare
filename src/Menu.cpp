@@ -100,7 +100,7 @@ int Menu::GetSelectedOption(){
 }
 
 void Menu::AddMenuOption(string newOpt){
-    options.push_back(new Text("font/ComicNeue-Angular_Bold_Oblique.otf", 35, BLENDED, newOpt, TEXT_WHITE, 0,0 ) );
+    options.push_back(new Text(MENU_TEXT_FONT, MENU_TEXT_FONT_SIZE, BLENDED, newOpt, TEXT_WHITE, 0,0 ) );
     options.back()->SetPos(this->box.x,this->box.y + newLineSpace*(options.size()-1),true,false);
 
     Sprite selectedButton = Sprite(BUTTON_NOT_SELECTED, 1, 1);

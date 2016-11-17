@@ -69,11 +69,15 @@ Player::Player(float x, float y) {
     DEBUG_PRINT(" - PlayerSubLay: "<< this->subLayer)
 
     DEBUG_PRINT("MagicButtons:")
-    DEBUG_PRINT(" - Subir um andar: Q")
-    DEBUG_PRINT(" - Descer um andar: A")
+    DEBUG_PRINT(" - Subir um andar:     Q")
+    DEBUG_PRINT(" - Descer um andar:    A")
     DEBUG_PRINT(" - Ganhar 10 segundos: 1")
-    DEBUG_PRINT(" - Ir para Comendo: 2")
-    DEBUG_PRINT(" - Ir para Skating: 2")
+    DEBUG_PRINT(" - Ir para Comendo:    2")
+    DEBUG_PRINT(" - Ir para Skating:    2")
+    DEBUG_PRINT(" - opacidade 100:      0")
+    DEBUG_PRINT(" - FadeIn():           9")
+    DEBUG_PRINT(" - FadeOut():          8")
+    DEBUG_PRINT(" - FadeTo(30):         7")
 }
 
 /***
@@ -601,6 +605,18 @@ void Player::MagicButtons(){
     }
     if(InputManager::GetInstance().KeyPress(SDLK_3)){
         this->movementState = SKATING;
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_0)){
+        this->sp.SetAlpha(100);
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_9)){
+        this->sp.FadeIn(2);
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_8)){
+        this->sp.FadeOut(2);
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_7)){
+        this->sp.FadeToValue(30);
     }
 }
 
