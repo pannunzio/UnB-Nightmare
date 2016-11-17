@@ -10,9 +10,11 @@
 
 using std::string;
 
+#define DEFAULT_OBSTACLE_DISTANCE 200
+
 class Obstacle : public GameObject{
 public:
-
+    Obstacle();
     void Update(float dt);
 	bool IsDead();
     void OpenSound(string fileName);
@@ -27,6 +29,8 @@ public:
 	bool canBlock;
 	int speed;
     bool isDead;
+
+    bool isSoundPlaying;
     Sound spriteSound;
 };
 

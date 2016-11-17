@@ -6,7 +6,7 @@ Agua::Agua(int layer, int subLayer) : sp(AGUA_SPRITE, AGUA_FRAMES, AGUA_FTIME){
 	this->layer = layer;
  	this->subLayer = subLayer;
 
-	this->box.x = Player::GetInstance().GetX() + AGUA_TO_PLAYER_DISTANCE;
+	this->box.x = Player::GetInstance().GetX() + DEFAULT_OBSTACLE_DISTANCE;
 
 	//if(this->layer == LAYER_TOP)
         //this->box.y = OBST_HEIGHT_L3;

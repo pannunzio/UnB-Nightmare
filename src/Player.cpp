@@ -29,9 +29,9 @@ Player::Player(float x, float y) {
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
 	this->box.x = x;
-	this->box.y = y;
 	this->box.w = sp.GetWidth();
 	this->box.h = sp.GetHeight();
+	this->box.y -= box.h;//alina pelo pé da imagem
 	this->isRightPosition = false;
 	//this->layer = rand()%3 +1;
 

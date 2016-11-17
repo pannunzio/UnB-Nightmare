@@ -253,6 +253,7 @@ void StageState::UpdateObjectArray(float dt){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
             if(i == j)continue;
+
             if((objectArray[i]->GetLayer() == objectArray[j]->GetLayer()) &&
                (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
                     if(Collision::IsColliding(objectArray[i]->box, objectArray[j]->box)){
@@ -346,7 +347,7 @@ void StageState::SpawnNewDynamicObstacle(){
     	this->cooldownTimer.Restart();
 
         int random = rand()%100;
-    	if(random > spawnPerson){
+    	//if(random > spawnPerson){
             if(random > spawnZombie){
                 DEBUG_PRINT(" - new pessoa")
                 AddObject(new Pessoa());
@@ -355,7 +356,7 @@ void StageState::SpawnNewDynamicObstacle(){
                 DEBUG_PRINT(" - new zombie")
                 AddObject(new PessoaZumbi());
             }
-    	}
+    	//}
 
     	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
             if(random < spawnBird){

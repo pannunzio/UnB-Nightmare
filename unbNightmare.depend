@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1479342863 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
+1479392979 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.cpp
 	"Agua.h"
 
-1479342713 c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.h
+1479392990 c:\users\thiag\documents\githubrep\unb-nightmare\src\agua.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
@@ -367,7 +367,7 @@
 
 1475625215 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
 
-1479306162 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
+1479394609 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
@@ -382,7 +382,7 @@
 	"Defines.h"
 	"Rect.h"
 
-1479242039 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
+1479393996 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
 	<string>
 	<iostream>
 	"SDL.h"
@@ -563,19 +563,19 @@
 	"CacaDePombo.h"
 	"Camera.h"
 
-1479317356 c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.h
+1479397847 c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.h
 	"Obstacle.h"
 	"Player.h"
 	"Camera.h"
 
-1479306053 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.h
+1479397701 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.h
 	<iostream>
 	"GameObject.h"
 	"Obstacle.h"
 	"Player.h"
 	"Camera.h"
 
-1479305932 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.h
+1479397807 c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.h
 	"GameObject.h"
 	"Obstacle.h"
 	"Player.h"
@@ -671,14 +671,14 @@
 1479305679 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
 	"Item.h"
 
-1479305701 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
+1479394209 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
 	"Lixeira.h"
 
 1479242097 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\main.cpp
 	"Game.h"
 	"Defines.h"
 
-1479361174 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
+1479393707 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
 	"Manifestacao.h"
 
 1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
@@ -690,16 +690,16 @@
 1479306070 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
 	"NonCollidingPerson.h"
 
-1479306259 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
+1479397650 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
 	"Obstacle.h"
 
-1479342848 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
+1479394540 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
 	"Pessoa.h"
 
-1479305998 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
+1479394706 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479361741 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479391007 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -727,7 +727,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479361068 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479396543 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479305820 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
@@ -887,6 +887,6 @@
 1478223245 c:\users\thiag\documents\githubrep\unb-nightmare\src\debug.h
 	<iostream>
 
-1479360938 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.cpp
+1479397456 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.cpp
 	"Collision.h"
 

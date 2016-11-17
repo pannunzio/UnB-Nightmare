@@ -1,30 +1,10 @@
 #include "PessoaZumbi.h"
 
-PessoaZumbi::PessoaZumbi(){
+PessoaZumbi::PessoaZumbi():Obstacle(){
     GetSprite();
-	this->speed = 1;
-	this->canBlock = true;
-	this->isDead = false;
-	this->layer = rand()%3 + 1;
-	this->subLayer = rand()%3 + 1;
-
 	this->spriteSound = Sound(3);
-
     GetZombieSound();
     this->spriteSound.Play(1);
-
-	this->box.x = Player::GetInstance().GetX() + 1200;
-
-   if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT + 3;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = LAYER_MIDDLE_HEIGHT + 10;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT + 7;
-
-    this->box.y -= (this->subLayer - 3) * 26;
 }
 
 PessoaZumbi::~PessoaZumbi(){

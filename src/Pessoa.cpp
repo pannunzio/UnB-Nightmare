@@ -1,6 +1,6 @@
 #include "Pessoa.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -11,36 +11,13 @@
         #define DEBUG_ONLY(x) //do{;}while(0)
 #endif //DEBUG
 
-Pessoa::Pessoa(){
-    this->speed = (rand()%3 + 1);
-
+Pessoa::Pessoa(): Obstacle(){
+    DEBUG_PRINT("Pessoa::Pessoa()-begin-")
     GetSprite();
-
-	this->canBlock = true;
-	this->isDead = false;
-	this->layer = rand()%3 + 1;
-	this->subLayer = rand()%3 + 1;
-
-    this->isSoundPlaying = false;
 
 	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
-
-	this->box.x = Player::GetInstance().GetX() + 1200;
-    if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT + 3;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = LAYER_MIDDLE_HEIGHT + 10;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT + 5;
-    this->box.y -= (this->subLayer - 3) * 25;
-    DEBUG_PRINT(" - PessoaX: " << this->box.x)
-    DEBUG_PRINT(" - PessoaY: " << this->box.y)
-    DEBUG_PRINT(" - PessoaLayer: " << this->layer)
-    DEBUG_PRINT(" - PessoaSubLay: "<< this->subLayer)
-
+    DEBUG_PRINT("Pessoa::Pessoa()-end-")
 }
 
 Pessoa::~Pessoa(){

@@ -1,29 +1,11 @@
 #include "Lixeira.h"
 
-Lixeira::Lixeira(int layer){
+Lixeira::Lixeira(int layer):Obstacle(){
     sp = Sprite("img/lixeira.png", 1, 1);
 	this->speed = 0;
-	this->canBlock = true;
-	this->isDead = false;
-
 	this->layer = layer;
 	this->subLayer = 3;
-
 	this->spriteSound = Sound(-1);
-
-    this->box.x = Player::GetInstance().GetX() + 1200;
-
-    if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = LAYER_MIDDLE_HEIGHT;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT;
-
-    this->box.y += 20;
-    this->box.y -= (this->subLayer - 3) * 26;
 
     OpenSound("audio/lixeira.wav");
 }

@@ -24,9 +24,6 @@
 
 #define AGUA_SPEED  1
 
-#define AGUA_TO_PLAYER_DISTANCE 1200
-
-
 /******
     Ainda tem numeros mágicos >=(
 ******/
