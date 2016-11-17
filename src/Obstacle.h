@@ -19,7 +19,7 @@ public:
 	bool IsDead();
     void OpenSound(string fileName);
     void ChangeSpritesheet(string fileName, int frameCount, float frameTime);
-
+    void SetHeight();
     int GetSpeed();
 
     int layer;

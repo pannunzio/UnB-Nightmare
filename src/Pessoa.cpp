@@ -1,6 +1,6 @@
 #include "Pessoa.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -14,7 +14,7 @@
 Pessoa::Pessoa(): Obstacle(){
     DEBUG_PRINT("Pessoa::Pessoa()-begin-")
     GetSprite();
-
+    SetHeight();
 	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
     DEBUG_PRINT("Pessoa::Pessoa()-end-")
@@ -26,12 +26,12 @@ Pessoa::~Pessoa(){
 
 void Pessoa::Render(){
     if(this->isParada){
-        this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 20);
+        this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
     } else {
         if(this->speed >= 0)
-    	 	this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
+    	 	this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 		else
-			this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
+			this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
     }
 }
 
@@ -117,15 +117,14 @@ void Pessoa::GetSprite(){
                 this->sp = Sprite(MENINA_FILE, MENINA_FRAMES, MENINA_FTIME);
                 break;
             case MENINO:
-                this->box.y -= 10; //gambiarra!
                 this->sp = Sprite(MENINO_FILE, MENINO_FRAMES, MENINO_FTIME);
                 break;
             default:
                 break;
         }
     }
-    this->box.w = sp.GetWidth();
-    this->box.h = sp.GetHeight();
+    this->box.w = this->sp.GetWidth();
+    this->box.h = this->sp.GetHeight();
 }
 
 

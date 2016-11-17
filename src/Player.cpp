@@ -28,10 +28,10 @@ Player::Player(float x, float y) {
 	this->baseX = (int)x;
 	this->subLayer = SUBLAYER_MIDDLE;
 	this->layer = LAYER_MIDDLE;
+	this->box.w = this->sp.GetWidth();
+	this->box.h = this->sp.GetHeight();
 	this->box.x = x;
-	this->box.w = sp.GetWidth();
-	this->box.h = sp.GetHeight();
-	this->box.y -= box.h;//alina pelo pé da imagem
+	this->box.y = y - this->box.h;//alinha pelo pé da imagem
 	this->isRightPosition = false;
 	//this->layer = rand()%3 +1;
 
@@ -121,21 +121,8 @@ void Player::Update(float dt){
     this->addTime = 0.0;
 }
 
-void Player::PlayerStops(){
-    switch(movementState){
-        case RUNNING:
-            this->ChangeSpriteSheet(STOPPING_SPRITE, STOPPING_FRAMES, STOPPING_TIMES);
-            movementState = STOPPING;
-            break;
-        default:
-            break;
-    }
-    playerControl = false;
-}
-
 void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::GetX()), (int)(this->box.y - Camera::GetY()));
-	this->SetSpriteScale();
 	if(this->ballonRender){
         this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::GetX()),
                             (int)(this->box.y - BALLON_POS_Y - Camera::GetY()));
@@ -236,6 +223,83 @@ void Player::NotifyCollision(GameObject* other){
     }
 }
 
+void Player::MoveGirl(){
+    if(playerControl == true){
+        MoveSameFloor();
+        MoveThroughFloors();
+    }
+    SetSpriteScale();
+}
+
+void Player::MoveSameFloor(){
+    //movimento de sublayer
+	if(InputManager::GetInstance().KeyPress(SDLK_w)){
+		if(this->subLayer <= 2){
+			this->subLayer++;
+			this->box.y -= SUBLAYER_HEIGHT;
+		}
+    }else if(InputManager::GetInstance().KeyPress(SDLK_s)){
+		if(this->subLayer >= 2){
+			this->subLayer--;
+			this->box.y += SUBLAYER_HEIGHT;
+		}
+	}else if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
+        Shoot();
+    }
+}
+
+//Confere se o player pode ou nao subir/descer escada
+void Player::MoveThroughFloors(){
+    if(this->powerUp != PowerUp::SKATE){
+        if(this->subLayer == SUBLAYER_TOP && this->isPassingMapObject){
+            switch(this->layer){
+                case LAYER_MIDDLE:
+                    if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+                            this->layer++;
+                            this->subLayer = SUBLAYER_TOP;
+                            this->inputState = GOING_UP;
+                            this->box.h = LAYER_TOP_HEIGHT - box.h;
+                    }
+                    else if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+                            this->layer--;
+                            this->subLayer = SUBLAYER_TOP;
+                            this->inputState = GOING_DOWN;
+                            this->box.h = LAYER_BOTTON_HEIGHT - box.h;
+                    }
+                    break;
+                case LAYER_BOTTON:
+                    if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
+                        this->layer++;
+                        this->subLayer = SUBLAYER_TOP;
+                        this->inputState = GOING_UP;
+                        this->box.h = LAYER_TOP_HEIGHT - box.h;
+                    }
+                    break;
+                case LAYER_TOP:
+                    if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+                        this->layer--;
+                        this->subLayer = SUBLAYER_TOP;
+                        this->inputState = GOING_DOWN;
+                        this->box.h = LAYER_MIDDLE_HEIGHT - box.h;
+                    }
+                    break;
+            }
+        }
+    }
+}
+
+void Player::PlayerStops(){
+    switch(movementState){
+        case RUNNING:
+            this->ChangeSpriteSheet(STOPPING_SPRITE, STOPPING_FRAMES, STOPPING_TIMES);
+            movementState = STOPPING;
+            break;
+        default:
+            break;
+    }
+    playerControl = false;
+}
+
 void Player::Shoot(){
 	Vec2 shootPos = box.CenterPos();
 
@@ -247,15 +311,6 @@ void Player::Shoot(){
 	}
 }
 
-void Player::SetSpriteScale(){
-    if(this->subLayer == 3)
-    	this->sp.SetScale(0.95);
-    if(this->subLayer == 2)
-        this->sp.SetScale(1);
-    if(this->subLayer == 1)
-        this->sp.SetScale(1.05);
-}
-
 void Player::ChangeSpriteSheet(string file, int frameCount, int times){
     this->sp.Open(file);
     this->sp.SetFrameCount(frameCount);
@@ -263,68 +318,13 @@ void Player::ChangeSpriteSheet(string file, int frameCount, int times){
     this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
 }
 
-
-void Player::MoveGirl(){
-    if(playerControl == true){
-        MoveSameFloor();
-        MoveThroughFloors();
-    }
-    SetPositionInY();
-}
-
-//confere os comandos inseridos pelo usuario
-void Player::MoveSameFloor(){
-    //movimento de sublayer
-	if(InputManager::GetInstance().KeyPress(SDLK_w)){
-		if(this->subLayer <= 2)
-			this->subLayer++;
-    }
-
-	if(InputManager::GetInstance().KeyPress(SDLK_s)){
-		if(this->subLayer >= 2)
-			this->subLayer--;
-	}
-	//atira cafe
-    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-        Shoot();
-
-    }
-}
-
-void Player::SetPositionInY(){
-    if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT + 2;//230
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = LAYER_MIDDLE_HEIGHT;//495
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT;//772
-
-    this->box.y -= (this->subLayer - 3) * 24;
-}
-
-//Confere se o player pode ou nao subir/descer escada
-void Player::MoveThroughFloors(){
-    if(this->powerUp != PowerUp::SKATE){
-        //verifica se esta ao lado da escada
-        if(this->subLayer == SUBLAYER_TOP){
-            //verifica se nao esta no topo para poder subir
-            if(this->layer == LAYER_MIDDLE || this->layer == LAYER_BOTTON)
-                if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY) && this->isPassingMapObject){
-                    this->layer++;
-                    this->subLayer = SUBLAYER_TOP;
-                    this->inputState = GOING_UP;
-                }
-            //verifica se nao esta em baixo para poder descer
-            if(this->layer == LAYER_TOP|| this->layer == LAYER_MIDDLE)
-                if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY) && isPassingMapObject){
-                    this->layer--;
-                    this->subLayer = SUBLAYER_TOP;
-                    this->inputState = GOING_DOWN;
-                }
-        }
-    }
+void Player::SetSpriteScale(){
+    if(this->subLayer == 3)
+    	this->sp.SetScale(0.95);
+    if(this->subLayer == 2)
+        this->sp.SetScale(1);
+    if(this->subLayer == 1)
+        this->sp.SetScale(1.05);
 }
 
 void Player::UpdatePowerUp(float dt){
@@ -451,22 +451,20 @@ void Player::UpdatePosition(float dt){
 
 //ajusta a posição do player quando troca de andar
 void Player::AdjustGoingUpOrDown(){
-
     if(this->inputState != NO_INPUT){
-
         if(this->layer == LAYER_TOP && abs(this->box.y - LAYER_TOP_HEIGHT) < 10){							//
             this->inputState = NO_INPUT;
-            this->box.y = LAYER_TOP_HEIGHT - (this->subLayer - 3)*26;
+            this->box.y = LAYER_TOP_HEIGHT - this->box.h;
         }
 
         if(this->layer == LAYER_MIDDLE && abs(this->box.y - LAYER_MIDDLE_HEIGHT) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = LAYER_MIDDLE_HEIGHT - (this->subLayer - 3)*26;
+            this->box.y = LAYER_MIDDLE_HEIGHT - this->box.h;
         }
 
         if(this->layer == LAYER_BOTTON && abs(this->box.y - LAYER_BOTTON_HEIGHT) < 10){
             this->inputState = NO_INPUT;
-            this->box.y = LAYER_BOTTON_HEIGHT - (this->subLayer - 3)*26;
+            this->box.y = LAYER_BOTTON_HEIGHT - this->box.h;
         }
     }
 }
@@ -581,9 +579,11 @@ float Player::GetAddTime(){
 **/
 void Player::MagicButtons(){
     if(InputManager::GetInstance().KeyPress(SDLK_q)){
+        this->inputState = GOING_UP;
         this->layer++;
     }
     if(InputManager::GetInstance().KeyPress(SDLK_a)){
+        this->inputState = GOING_DOWN;
         this->layer--;
     }
     if(InputManager::GetInstance().KeyPress(SDLK_2)){

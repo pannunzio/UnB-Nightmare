@@ -1,6 +1,6 @@
 #include "Obstacle.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -21,26 +21,42 @@ Obstacle::Obstacle(){
 	this->speed = (rand()%3 + 1);
 
     this->box.x = Player::GetInstance().GetX() + DEFAULT_OBSTACLE_DISTANCE;
-    if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT;
-
-    if(this->layer == LAYER_MIDDLE)
-        this->box.y = LAYER_MIDDLE_HEIGHT;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT;
 
     this->isSoundPlaying = false;
     this->spriteSound = Sound(-1);
 
 
-    DEBUG_PRINT(" - Obstacle: " << this->box.x)
-    DEBUG_PRINT(" - Obstacle: " << this->box.y)
     DEBUG_PRINT(" - Obstacle: " << this->layer)
     DEBUG_PRINT(" - Obstacle: " << this->subLayer)
     DEBUG_PRINT("Obstacle::Obstacle()-end-")
 }
 
+void Obstacle::SetHeight(){
+    this->box.h = this->sp.GetHeight();
+    switch(this->layer){
+        case LAYER_TOP:
+            this->box.y = LAYER_TOP_HEIGHT - this->box.h;
+            break;
+        case LAYER_MIDDLE:
+            this->box.y = LAYER_MIDDLE_HEIGHT - this->box.h;
+            break;
+        case LAYER_BOTTON:
+            this->box.y = LAYER_BOTTON_HEIGHT - this->box.h;
+            break;
+    }
+    switch(this->subLayer){
+        case SUBLAYER_TOP:
+            this->box.y -= SUBLAYER_HEIGHT;
+            break;
+        case LAYER_MIDDLE:
+            break;
+        case LAYER_BOTTON:
+            this->box.y += SUBLAYER_HEIGHT;
+            break;
+    }
+    DEBUG_PRINT(" - Obstacle: " << this->box.x)
+    DEBUG_PRINT(" - Obstacle: " << this->box.y)
+}
 void Obstacle::Update(float dt){
 	this->sp.Update(dt);
 	this->box.x += this->speed * dt * 100;
