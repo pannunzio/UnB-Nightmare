@@ -1,6 +1,6 @@
 #include "Manifestacao.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -60,13 +60,13 @@ void Manifestacao::Render(){
 }
 
 void Manifestacao::NotifyCollision(GameObject* other){
-    if(!other->Is("Player")){
-        this->isCollidingWithPlayer = false;
-    }
-    else{
-        DEBUG_PRINT("Manifestacao colidindo com Player")
-        this->isCollidingWithPlayer = true;
-    }
+//    if(!other->Is("Player")){
+//        this->isCollidingWithPlayer = false;
+//    }
+//    else{
+//        DEBUG_PRINT("Manifestacao colidindo com Player")
+//        this->isCollidingWithPlayer = true;
+//    }
     //manifestacao nao faz nada, fica la de boa na dela ,manifestando e atrapalhando o coredor
 }
 

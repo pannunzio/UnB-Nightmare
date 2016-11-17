@@ -1,6 +1,6 @@
 #include "Collision.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -41,8 +41,6 @@ bool Collision::IsColliding(const Rect& a, const Rect& b){
     else return false;
 }
 
-
 #ifdef DEBUG
     #undef DEBUG
 #endif // DEBUG
-

@@ -517,7 +517,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1479318183 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1479362384 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -678,7 +678,7 @@
 	"Game.h"
 	"Defines.h"
 
-1479341082 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
+1479361174 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
 	"Manifestacao.h"
 
 1474938490 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
@@ -699,7 +699,7 @@
 1479305998 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479358397 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479361741 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -719,7 +719,7 @@
 1475941410 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1479355537 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1479360641 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>
@@ -727,7 +727,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479342044 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479361068 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479305820 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
@@ -887,6 +887,6 @@
 1478223245 c:\users\thiag\documents\githubrep\unb-nightmare\src\debug.h
 	<iostream>
 
-1479342190 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.cpp
+1479360938 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.cpp
 	"Collision.h"
 

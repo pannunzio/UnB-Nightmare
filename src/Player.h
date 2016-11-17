@@ -53,6 +53,8 @@
 #define BALLON_POS_X            100
 #define BALLON_POS_Y            40
 
+#define PLAYER_MANIFEST_INC     10
+
 #define DELTA_ACCEPT 10
 
 #define COFFEE_FILE     "img/coffee.png"

@@ -257,8 +257,8 @@ void StageState::UpdateObjectArray(float dt){
                (objectArray[i]->GetSublayer() == objectArray[j]->GetSublayer())){
                     if(Collision::IsColliding(objectArray[i]->box, objectArray[j]->box)){
                         objectArray[j]->NotifyCollision(objectArray[i].get());
-                        DEBUG_PRINT((objectArray[j].get())->sp.GetFile() << " colidiu com " <<
-                                    (objectArray[i].get())->sp.GetFile())
+//                        DEBUG_PRINT((objectArray[j].get())->sp.GetFile() << " colidiu com " <<
+//                                    (objectArray[i].get())->sp.GetFile())
                     }
             }
 		}
@@ -460,7 +460,6 @@ void StageState::MagicButtons(){
     if(InputManager::GetInstance().KeyPress(SDLK_c)){
         AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
     }
-
     if(InputManager::GetInstance().KeyPress(SDLK_k)){
         AddObjectStatic(new Lixeira(LAYER_TOP));
     }

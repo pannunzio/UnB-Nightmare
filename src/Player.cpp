@@ -98,6 +98,7 @@ void Player::Update(float dt){
 	//se for o caso, atualiza o balão
 	if(ballonRender)
         this->ballon.Update(dt);
+    if(!this->isColliding) this->ballonRender = false;
 
     if(timeOver == true)
         PlayerStops();
@@ -154,7 +155,9 @@ bool Player::IsDead(){
 
 void Player::NotifyCollision(GameObject* other){
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
-        DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
+        this->isColliding = true;
+        DEBUG_ONLY(if(this->isColliding == true && this->wasColliding == false))
+            DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
         if(!isIndestructible){
             this->isColliding = true;
             this->wasColliding = true;
@@ -167,86 +170,69 @@ void Player::NotifyCollision(GameObject* other){
                 this->subLayer--;
             } else if (this->subLayer == 1){
                 this->subLayer++;
+            } else if (this->subLayer == 2){
+                this->subLayer++;
             }
         }
-    }
-
-    if(other->Is("Manifestacao")){
+    }else if(other->Is("Manifestacao")){
         DEBUG_PRINT("colidiu MANIFESTACAO")
         StopIndestructiblePowerup();
-
         this->isColliding = true;
         this->wasColliding = true;
         Obstacle* obst = (Obstacle*) other;
         this->speed = obst->GetSpeed();
         this->maxSpeed = obst->GetSpeed();
-
-        // se ficar apertando vai mais rapido
+        this->ballonRender = true;
+        //arrumar isso aqui embaixo
+        //if(this->ballon.GetFile != "PRA_FRENTE.png")
+            //this->ballon.changeSprite();
         if(InputManager::GetInstance().KeyPress(SDLK_d))
-        	this->box.x += 20;
-        }
+        	this->box.x += PLAYER_MANIFEST_INC;
 
-    if(other->Is("Cafe")){
-        this->coffee_ammo++;
+    }else if(other->Is("NonColliding")){
+        DEBUG_PRINT("nudez no campus!")
+        this->isColliding = true;
+        this->speed = 2;
+        this->wasColliding = true;
+    }else if(other->Is("Cafe")){
         DEBUG_PRINT("colidiu CAFE")
-    }
-
-    if(other->Is("Skate")){
+        this->coffee_ammo++;
+    }else if(other->Is("Skate")){
         DEBUG_PRINT("colidiu SKATE")
         if(!this->isPlayingMusic && this->powerUp != SKATE){
             this->powerupMusic.Open(SKATING_MUS, 5);
             this->powerupMusic.Play(1);
             this->powerupMusic.SetVolume(180);
         }
-
         SetNewSpeedAndPowerup(PowerUp::SKATE, this->speed, SKATING_SPEED);
         this->ChangeSpriteSheet(SKATING_SPRITE, SKATING_FRAMES);
-    }
-
-    if(other->Is("Acai")){//DEBUG aperte G para ficar no estado EATING
+    }else if(other->Is("Acai")){
         DEBUG_PRINT("colidiu ACAI")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::COMIDA, 3.5, RUNNING_SLOW_SPEED);
         ChangeSpriteSheet(EATING_FILE, EATING_FRAMES);
         movementState = EATING;
-    }
-
-    //caca de pombo
-    if(other->Is("Caca")){
+    }else if(other->Is("Caca")){
         DEBUG_PRINT("colidiu CACA")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, RUNNING_SLOW_SPEED);
-    }
-
-    if(other->Is("Escada")){
+    }else if(other->Is("Escada")){
         DEBUG_PRINT("colidiu ESCADA")
         this->isPassingMapObject = true;
         this->ballonRender = true;
-    }
-
-    if(other->Is("Agua")){
+    }else if(other->Is("Agua")){
         DEBUG_PRINT("colidiu AGUA")
         StopIndestructiblePowerup();
         SetNewSpeedAndPowerup(PowerUp::NONE, 3.0, RUNNING_SLOW_SPEED);
-    }
-    if(other->Is("Surprise!")){
+    }else if(other->Is("Surprise!")){
         DEBUG_PRINT("colidiu SURPRISE!")
         this->isSurprise = true;
         SurpriseItem* item = (SurpriseItem*) other;
         this->surpriseType = item->GetSurprise();
-    }
-
-    if(other->Is("NonColliding")){
-        DEBUG_PRINT("nudez no campus!")
-        this->speed = 2;
-        this->isColliding = true;
-        this->wasColliding = true;
-    }
-
-    if (other->Is("ClockItem")){
+    }else if(other->Is("ClockItem")){
+        DEBUG_PRINT("colidiu CLOCKITEM")
         ClockItem* item = (ClockItem*) other;
         this->addTime = item->GetTimeToAdd();
-        DEBUG_PRINT("player caught clockitem: " << item->GetTimeToAdd())
     }
 }
 
