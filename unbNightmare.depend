@@ -28,7 +28,7 @@
 	<iostream>
 	<math.h>
 
-1479494781 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
+1479500243 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
@@ -629,7 +629,7 @@
 	<memory>
 	<string>
 
-1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
+1479498124 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\endstate.cpp
 	"EndState.h"
 
 1479419063 c:\users\thiag\documents\githubrep\unb-nightmare\src\titlestate.h
@@ -718,7 +718,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1479496110 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1479500809 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>

@@ -79,6 +79,7 @@ private:
 	void _fadeToggle();
 	void _fadeToValue();
 	uint8_t _fadeSpeed();
+	void _cleanFade();
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Resources.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -183,6 +183,7 @@ void Sprite::SetScale(float scale){
 void Sprite::Update(float dt){
 	this->timeElapsed += dt;
 
+    _cleanFade();
 	if(this->fadingToValue)
         this->_fadeToValue();
     if(this->fadingToggle)
@@ -221,6 +222,15 @@ void Sprite::Update(float dt){
         }
     }
 	SetFrame(this->currentFrame);
+}
+
+void Sprite::_cleanFade(){
+    if(this->fadeValue != this->actualAlpha &&
+       this->actualAlpha != SDL_ALPHA_OPAQUE &&
+       !this->fadingIn && !this->fadingOut){
+        this->fadingIn = true;//sempre considera a sprite acesa
+        DEBUG_PRINT("fadingIn limpo: " << this->fadingIn)
+    }
 }
 
 bool Sprite::IsAnimationFinished(){
@@ -307,7 +317,7 @@ void Sprite::FadeToggle(bool onOff, int slow){
     //se o toggle estava desligado e acabei de ligar
     if(!this->fadingToggle && onOff){//liga
         this->fadingToggle = true;
-        if(this->fadingIn) this->fadingIn = false;
+        if(this->fadingIn) this->fadingIn = true;//false;
         if(this->fadingOut) this->fadingOut = false;
 
         if(slow > SDL_ALPHA_OPAQUE) this->fadeModifyer = SDL_ALPHA_OPAQUE;
