@@ -52,7 +52,6 @@ void EndState::Update(float dt){
             switch(menu.GetSelectedOption()){
                 case MENU_RESTART:
                     this->popRequested = true;
-//                    Game::GetInstance().Push(new StageState());
                     Game::GetInstance().Push(new StageState());
                     break;
                 case MENU_QUIT:
