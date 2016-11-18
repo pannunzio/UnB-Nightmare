@@ -39,6 +39,7 @@ public:
 	void SetFrameTime(float frameTime);
 	bool IsAnimationFinished();
 	void SetAlpha(int);
+	int GetAlpha();
 	void FadeIn(int inc = 1);
 	void FadeOut(int dec = 1);
 	void FadeToValue(int);

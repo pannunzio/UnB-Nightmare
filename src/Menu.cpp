@@ -1,5 +1,16 @@
 #include "Menu.h"
 
+//#define DEBUG
+#ifdef DEBUG
+        //se estiver definido debug, imprime os trecos
+        #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
+        #define DEBUG_ONLY(x) do{x;}while(0);
+#else
+        //caso contrario, recebe argumentos mas faz nada
+        #define DEBUG_PRINT(message)
+        #define DEBUG_ONLY(x) //do{;}while(0)
+#endif //DEBUG
+
 Menu::Menu(){
 }
 
@@ -7,8 +18,7 @@ Menu::Menu(float posX, float posY, int newLineSpace):bg(BG_MENU){
     //ctor
     this->box.x = posX;
     this->box.y = posY;
-    this->sp = Sprite(BUTTON_SELECTED);
-
+    this->buttonSelected.Open(BUTTON_SELECTED);
     this->newLineSpace = newLineSpace;
     this->currentOption = 0;
     this->lastOption = -1;
@@ -23,14 +33,13 @@ Menu::~Menu()
 
 void Menu::Update(float dt){
     HandleInputs();
+    this->buttonSelected.Update(dt);
 	// Menu Select
     if(gotInput){
         gotInput = false;
         options[currentOption]->SetColor(TEXT_BLACK);
-        buttons[currentOption].Open(BUTTON_SELECTED);
         if(lastOption != -1){
             options[lastOption]->SetColor(TEXT_WHITE);
-            buttons[lastOption].Open(BUTTON_NOT_SELECTED);
         }
     }
 }
@@ -59,9 +68,15 @@ void Menu::HandleInputs(){
 
 void Menu::Render(){
     this->bg.Render((int)Camera::GetX() + box.x - (this->bg.GetWidth()/2), (int)Camera::GetY() + this->box.y + 50 - (this->bg.GetHeight()/2));
-    //this->selectedOption.Render();
     for(unsigned int i = 0; i < buttons.size(); i++){
         this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));
+    }
+
+    this->buttonSelected.Render(box.x - (buttonSelected.GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*currentOption));
+    if(this->buttonSelected.GetAlpha() == 255 ){
+        this->buttonSelected.FadeOut();
+    }else if(this->buttonSelected.GetAlpha() == 0){
+        this->buttonSelected.FadeIn();
     }
 
     for(unsigned int i = 0; i < options.size(); i++){
@@ -104,11 +119,6 @@ void Menu::AddMenuOption(string newOpt){
 
     Sprite selectedButton = Sprite(BUTTON_NOT_SELECTED, 1, 1);
     buttons.push_back(selectedButton);
-
-    if(options.size() == 1){
-        options[currentOption]->SetColor(TEXT_BLACK);
-        buttons[currentOption].Open(BUTTON_SELECTED);
-    }
 }
 
 void Menu::RemoveMenuOption(int option){
@@ -119,7 +129,6 @@ void Menu::RemoveMenuOption(int option){
         this->options[i]->SetPos(this->box.x,this->box.y + newLineSpace*i,true,false);
     }
     options[currentOption]->SetColor(TEXT_BLACK);
-    buttons[currentOption].Open(BUTTON_SELECTED);
 }
 
 void Menu::SetPosition(float posX, float posY, int newLineSpace){
@@ -128,3 +137,6 @@ void Menu::SetPosition(float posX, float posY, int newLineSpace){
     this->newLineSpace = newLineSpace;
 }
 
+#ifdef DEBUG
+    #undef DEBUG
+#endif // DEBUG

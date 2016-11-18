@@ -211,6 +211,10 @@ void Sprite::SetAlpha(int alpha){
         SDL_GetError();
 }
 
+int Sprite::GetAlpha(){
+    return this->actualAlpha;
+}
+
 void Sprite::FadeToValue(int fadeValue){
     if(fadeValue > 255) this->fadeValue = 255;
     else if(fadeValue < 0) this->fadeValue = 0;
@@ -280,8 +284,6 @@ void Sprite::_fadeOut(){
         this->fadeModifyer = 1;
     }
 }
-
-
 
 #ifdef DEBUG
     #undef DEBUG
