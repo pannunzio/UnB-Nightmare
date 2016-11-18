@@ -74,6 +74,7 @@ void Menu::Render(){
     }
 
     this->buttonSelected.Render(box.x - (buttonSelected.GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*currentOption));
+    //this->buttonSelected.FadeToggle(true);
     if(this->buttonSelected.GetAlpha() == 255 ){
         this->buttonSelected.FadeOut();
     }else if(this->buttonSelected.GetAlpha() == 0){

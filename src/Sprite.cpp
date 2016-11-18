@@ -29,6 +29,7 @@ Sprite::Sprite(){
 	this->fadingIn = false;
 	this->fadingOut = false;
 	this->fadingToValue = false;
+	this->fadingToggle = false;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
 	this->actualAlpha = 255;
@@ -49,6 +50,7 @@ Sprite::Sprite(string file){
 	this->fadingIn = false;
 	this->fadingOut = false;
 	this->fadingToValue = false;
+	this->fadingToggle = false;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
 	this->actualAlpha = 255;
@@ -68,6 +70,7 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
     this->fadingIn = false;
 	this->fadingOut = false;
 	this->fadingToValue = false;
+	this->fadingToggle = false;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
 	this->actualAlpha = 255;
@@ -165,6 +168,8 @@ void Sprite::Update(float dt){
 
 	if(this->fadingToValue)
         this->_fadeToValue();
+    if(this->fadingToggle)
+        this->_fadeToValue();
 	if(this->fadingIn || this->fadingOut)
         this->_fade();
 
@@ -249,7 +254,7 @@ void Sprite::FadeIn(int increment){
     if(!this->fadingToValue) this->fadeValue = 255;
 
     if(increment > 255) this->fadeModifyer = 255;
-    else if(increment < 0) this->fadeModifyer = 0;
+    else if(increment < 1) this->fadeModifyer = 1;
     else this->fadeModifyer = increment;
 }
 
@@ -259,14 +264,41 @@ void Sprite::FadeOut(int decrement){
     if(!this->fadingToValue) this->fadeValue = 0;
 
     if(decrement > 255) this->fadeModifyer = 255;
-    else if(decrement < 0) this->fadeModifyer = 0;
+    else if(decrement < 1) this->fadeModifyer = 1;
     else this->fadeModifyer = decrement;
+}
+
+void Sprite::FadeToggle(bool onOff, int slow){
+    if(onOff){//liga
+        this->fadingToggle = true;
+        if(this->fadingIn) this->fadingIn = false;
+        if(this->fadingOut) this->fadingOut = false;
+
+        if(slow > 255) this->fadeModifyer = 255;
+        else if(slow < 1) this->fadeModifyer = 1;
+        else this->fadeModifyer = slow;
+    }else{//desliga
+        this->fadingToggle = false;
+        this->fadeModifyer = 1;
+        if(this->fadingIn) this->fadingIn = true;//sempre termina com o sprite "aceso"
+        if(this->fadingOut) this->fadingOut = false;
+    }
+}
+
+void Sprite::_fadeToggle(){
+    if(this->actualAlpha == 255 ){
+        this->fadingOut = true;
+        this->fadingIn = false;
+    }else if(this->actualAlpha == 0){
+        this->fadingIn = true;
+        this->fadingOut = false;
+    }
 }
 
 void Sprite::_fade(){
     if(SDL_GetTextureAlphaMod(this->texture, &(this->actualAlpha) ) < 0)
         SDL_GetError();
-    DEBUG_PRINT("actualAlpha: " << this->actualAlpha)
+    DEBUG_PRINT("actualAlpha: " << (int) this->actualAlpha)
     if(SDL_SetTextureAlphaMod(this->texture, _fadeSpeed() ) < 0)
         SDL_GetError();
 }
@@ -283,7 +315,7 @@ uint8_t Sprite::_fadeSpeed(){
                 if(this->actualAlpha < 255) return (this->actualAlpha+1);
                 else{
                     this->fadingIn = false;
-                    this->fadeModifyer = 1;
+                    if(!this->fadingToggle) this->fadeModifyer = 1;
                     return this->actualAlpha;
                 }
             }

@@ -43,6 +43,7 @@ public:
 	void FadeIn(int inc = 1);
 	void FadeOut(int dec = 1);
 	void FadeToValue(int);
+	void FadeToggle(bool onOff, int slow = 1);
 
 private:
 	SDL_Texture* texture;
@@ -69,7 +70,9 @@ private:
 	bool fadingIn;
 	bool fadingOut;
 	bool fadingToValue;
+	bool fadingToggle;
 	void _fade();
+	void _fadeToggle();
 	void _fadeToValue();
 	uint8_t _fadeSpeed();
 };

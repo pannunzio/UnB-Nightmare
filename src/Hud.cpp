@@ -62,7 +62,6 @@ void Hud::ShowBallon(float dt){
                     this->ballon.SetFrame(1);
                 break;
             case 2:
-                DEBUG_PRINT("Cheguei aqui")
                 if(this->ballon.GetFile() != BALLON_STAIRS){
                     this->ballon.Open(BALLON_STAIRS);
                     this->ballon.SetFrameCount(BALLON_STAIRS_FRAMES);
