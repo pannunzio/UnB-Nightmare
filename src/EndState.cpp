@@ -1,6 +1,6 @@
 #include "EndState.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -13,6 +13,13 @@
 
 EndState::EndState(StateData stateData){
     this->isVictoryScreen = stateData.playerVictory;
+    this->menu = Menu(500, 350, 50);
+    this->menu.AddMenuOption("Restart");
+    this->menu.AddMenuOption("Quit Game");
+    this->bg.SetFile(BG_FILE);
+    this->derrota.SetFile("img/derrota.png");
+    this->derrota.SetFrameCount(12);
+    this->derrota.SetFrameTime(0.2);
 }
 
 EndState::~EndState(){
@@ -22,16 +29,13 @@ EndState::~EndState(){
 
 void EndState::LoadAssets(){
     DEBUG_PRINT("load Assets ENDSTATE ")
-    this->menu = Menu(500, 350, 50);
-    this->menu.AddMenuOption("Restart");
-    this->menu.AddMenuOption("Quit Game");
-
+    this->menu.Load();
     if(this->isVictoryScreen){
-        this->bg = Sprite("img/cerrado.jpg");
+        this->bg.Load(BG_FILE);
         this->sound.Open("audio/tematerreo_vitoria.ogg", 1);
 	} else {
-        this->derrota = Sprite("img/derrota.png", 12,0.2);
-        this->bg = Sprite("img/cerrado.jpg");
+        this->derrota.Load();
+        this->bg.Load(BG_FILE);
         this->sound.Open("audio/tematerreo_desespero.ogg", 1);
 	}
 
@@ -39,7 +43,9 @@ void EndState::LoadAssets(){
 }
 
 void EndState::Update(float dt){
-	this->derrota.Update(dt);
+	if(!this->isVictoryScreen)
+        this->derrota.Update(dt);
+
 	this->HandleInputs();
 	this->menu.Update(dt);
 	if(menu.GetSelection()){

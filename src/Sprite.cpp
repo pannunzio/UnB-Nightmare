@@ -5,7 +5,7 @@
 #include "Game.h"
 #include "Resources.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -17,6 +17,7 @@
 #endif //DEBUG
 
 Sprite::Sprite(){
+    DEBUG_PRINT("Sprite vazio construido")
 	this->scaleX = scaleY = 1;
 	this->height = 0;
 	this->width = 0;
@@ -32,7 +33,8 @@ Sprite::Sprite(){
 	this->fadingToggle = false;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
-	this->actualAlpha = 255;
+	this->fadeValue = 0;
+	this->actualAlpha = SDL_ALPHA_OPAQUE;
 }
 
 Sprite::Sprite(string file){
@@ -51,9 +53,10 @@ Sprite::Sprite(string file){
 	this->fadingOut = false;
 	this->fadingToValue = false;
 	this->fadingToggle = false;
+	this->fadeValue = 0;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
-	this->actualAlpha = 255;
+	this->actualAlpha = SDL_ALPHA_OPAQUE;
 	Open(file);
 }
 
@@ -71,9 +74,10 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
 	this->fadingOut = false;
 	this->fadingToValue = false;
 	this->fadingToggle = false;
+	this->fadeValue = 0;
 	this->fadeModifyer = 1;
 	this->fadeCounter = 1;
-	this->actualAlpha = 255;
+	this->actualAlpha = SDL_ALPHA_OPAQUE;
 	Open(file);
 }
 
@@ -126,6 +130,14 @@ bool Sprite::IsOpen(){
 	return true;
 }
 
+void Sprite::Load(string file){
+    if(file == "") this->Open(this->file);
+    else{
+        this->file = file;
+        this->Open(file);
+    }
+}
+
 void Sprite::Open(string file){
     this->file = file;
 	this->texture = Resources::GetImage(file);
@@ -151,6 +163,11 @@ string Sprite::GetFile(){
     return this->file;
 }
 
+void Sprite::SetFile(string file){
+    this->file = file;
+    DEBUG_PRINT("this->file: " << this->file)
+}
+
 void Sprite::SetScaleX(float scale){
 	this->scaleX = scale;
 }
@@ -169,9 +186,19 @@ void Sprite::Update(float dt){
 	if(this->fadingToValue)
         this->_fadeToValue();
     if(this->fadingToggle)
-        this->_fadeToValue();
+        this->_fadeToggle();
 	if(this->fadingIn || this->fadingOut)
         this->_fade();
+    DEBUG_PRINT("************************************")
+    DEBUG_PRINT("file: " << this->file)
+    DEBUG_PRINT("fadeCounter: " << this->fadeCounter )
+    DEBUG_PRINT("fadeValue: " << this->fadeValue )
+    DEBUG_PRINT("fadeModifyer: " << this->fadeModifyer )
+    DEBUG_PRINT("fadingIn: " << this->fadingIn )
+    DEBUG_PRINT("fadingOut: " << this->fadingOut )
+    DEBUG_PRINT("fadingToValue: " << this->fadingToValue )
+    DEBUG_PRINT("fadingToggle: " << this->fadingToggle )
+    DEBUG_PRINT("actualAlpha: " << (int)this->actualAlpha )
 
 	if(this->timeElapsed > this->frameTime){
 		 this->currentFrame++;
@@ -196,6 +223,13 @@ void Sprite::Update(float dt){
 	SetFrame(this->currentFrame);
 }
 
+bool Sprite::IsAnimationFinished(){
+    if(this->timesCounter == this->times &&
+       this->currentFrame == this->frameCount)
+       return true;
+    else return false;
+}
+
 void Sprite::SetFrame(int frame){
 	this->currentFrame = frame;
 	SetClip((this->width/this->frameCount) * (this->currentFrame - 1), 0, this->width/this->frameCount, this->height);
@@ -215,8 +249,8 @@ void Sprite::SetFrameTime(float frameTime){
 }
 
 void Sprite::SetAlpha(int alpha){
-    if(alpha > 255) alpha = 255;
-    if(alpha < 0) alpha = 0;
+    if(alpha > SDL_ALPHA_OPAQUE) alpha = SDL_ALPHA_OPAQUE;
+    if(alpha < SDL_ALPHA_TRANSPARENT) alpha = SDL_ALPHA_TRANSPARENT;
     this->fadeValue = alpha;
     if(SDL_SetTextureAlphaMod(this->texture, alpha) < 0)
         SDL_GetError();
@@ -227,8 +261,8 @@ int Sprite::GetAlpha(){
 }
 
 void Sprite::FadeToValue(int fadeValue){
-    if(fadeValue > 255) this->fadeValue = 255;
-    else if(fadeValue < 0) this->fadeValue = 0;
+    if(fadeValue > SDL_ALPHA_OPAQUE) this->fadeValue = SDL_ALPHA_OPAQUE;
+    else if(fadeValue < SDL_ALPHA_TRANSPARENT) this->fadeValue = SDL_ALPHA_TRANSPARENT;
     else this->fadeValue = fadeValue;
 
     this->fadingToValue = true;
@@ -249,11 +283,12 @@ void Sprite::_fadeToValue(){
 }
 
 void Sprite::FadeIn(int increment){
+    if(!this->fadingIn && this->actualAlpha != this->fadeValue)
     if(this->fadingOut) this->fadingOut = false;
     this->fadingIn = true;
-    if(!this->fadingToValue) this->fadeValue = 255;
+    if(!this->fadingToValue) this->fadeValue = SDL_ALPHA_OPAQUE;
 
-    if(increment > 255) this->fadeModifyer = 255;
+    if(increment > SDL_ALPHA_OPAQUE) this->fadeModifyer = SDL_ALPHA_OPAQUE;
     else if(increment < 1) this->fadeModifyer = 1;
     else this->fadeModifyer = increment;
 }
@@ -263,21 +298,24 @@ void Sprite::FadeOut(int decrement){
     this->fadingOut = true;
     if(!this->fadingToValue) this->fadeValue = 0;
 
-    if(decrement > 255) this->fadeModifyer = 255;
+    if(decrement > SDL_ALPHA_OPAQUE) this->fadeModifyer = SDL_ALPHA_OPAQUE;
     else if(decrement < 1) this->fadeModifyer = 1;
     else this->fadeModifyer = decrement;
 }
 
 void Sprite::FadeToggle(bool onOff, int slow){
-    if(onOff){//liga
+    //se o toggle estava desligado e acabei de ligar
+    if(!this->fadingToggle && onOff){//liga
         this->fadingToggle = true;
         if(this->fadingIn) this->fadingIn = false;
         if(this->fadingOut) this->fadingOut = false;
 
-        if(slow > 255) this->fadeModifyer = 255;
+        if(slow > SDL_ALPHA_OPAQUE) this->fadeModifyer = SDL_ALPHA_OPAQUE;
         else if(slow < 1) this->fadeModifyer = 1;
         else this->fadeModifyer = slow;
-    }else{//desliga
+
+    //se estava ligado e acabei de desligar
+    }else if(this->fadingToggle  && !onOff){//desliga
         this->fadingToggle = false;
         this->fadeModifyer = 1;
         if(this->fadingIn) this->fadingIn = true;//sempre termina com o sprite "aceso"
@@ -286,33 +324,28 @@ void Sprite::FadeToggle(bool onOff, int slow){
 }
 
 void Sprite::_fadeToggle(){
-    if(this->actualAlpha == 255 ){
+    if(this->actualAlpha == SDL_ALPHA_OPAQUE ){
         this->fadingOut = true;
         this->fadingIn = false;
-    }else if(this->actualAlpha == 0){
+    }else if(this->actualAlpha == SDL_ALPHA_TRANSPARENT){
         this->fadingIn = true;
         this->fadingOut = false;
     }
 }
 
 void Sprite::_fade(){
-    if(SDL_GetTextureAlphaMod(this->texture, &(this->actualAlpha) ) < 0)
+    if(SDL_GetTextureAlphaMod(this->texture, &(actualAlpha) ) < 0)
         SDL_GetError();
-    DEBUG_PRINT("actualAlpha: " << (int) this->actualAlpha)
     if(SDL_SetTextureAlphaMod(this->texture, _fadeSpeed() ) < 0)
         SDL_GetError();
 }
 
 uint8_t Sprite::_fadeSpeed(){
-    DEBUG_PRINT("fadeCounter: " << this->fadeCounter )
-    DEBUG_PRINT("fadeModifyer: " << this->fadeModifyer )
-    DEBUG_PRINT("fadingIn: " << this->fadingIn )
-    DEBUG_PRINT("fadingOut: " << this->fadingOut )
     if(this->fadeCounter < this->fadeModifyer) this->fadeCounter++;
     else{
             this->fadeCounter = 1;
             if(this->fadingIn){
-                if(this->actualAlpha < 255) return (this->actualAlpha+1);
+                if(this->actualAlpha + this->fadeModifyer <= SDL_ALPHA_OPAQUE) return (this->actualAlpha + this->fadeModifyer);
                 else{
                     this->fadingIn = false;
                     if(!this->fadingToggle) this->fadeModifyer = 1;
@@ -320,7 +353,7 @@ uint8_t Sprite::_fadeSpeed(){
                 }
             }
             else if(this->fadingOut){
-                if(this->actualAlpha > 0) return (this->actualAlpha-1);
+                if(this->actualAlpha - this->fadeModifyer >= SDL_ALPHA_TRANSPARENT) return (this->actualAlpha - this->fadeModifyer);
                 else{
                     this->fadingOut = false;
                     this->fadeModifyer = 1;

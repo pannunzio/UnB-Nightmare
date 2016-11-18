@@ -13,6 +13,11 @@
 
 StageState::StageState(){
     DEBUG_PRINT("StageState::StageState()-begin-")
+    this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
+    this->menu.AddMenuOption("Resume Game");
+    this->menu.AddMenuOption("Restart");
+    this->menu.AddMenuOption("Quit Game");
+
     ResetState();
     /**
         DEBUG
@@ -93,10 +98,7 @@ void StageState::LoadAssets(){
 	this->layer = Player::GetInstance().GetLayer();
     DEBUG_PRINT(" - Added player")
 
-    this->menu = Menu(STAGE_STATE_MENU_POSITION_X, STAGE_STATE_MENU_POSITION_Y, STAGE_STATE_MENU_SPACEMENT);
-    this->menu.AddMenuOption("Resume Game");
-    this->menu.AddMenuOption("Restart");
-    this->menu.AddMenuOption("Quit Game");
+    this->menu.Load();
     DEBUG_PRINT(" - Added menu")
 
     this->bg.Open(BG_FILE);

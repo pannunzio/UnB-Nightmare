@@ -1,6 +1,6 @@
 #include "TitleState.h"
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
     //se estiver definido debug, imprime os trecos
@@ -16,6 +16,12 @@ TitleState::TitleState() {
 	this->popRequested = false;
 	this->quitRequested = false;
 	this->isPlayingCutscene = true;
+	this->bg.SetFile(TS_BG_IMAGE);
+	this->menu = Menu(TS_MENU_POSX, TS_MENU_POSY, TS_MENU_SPACEMENT);
+    this->menu.AddMenuOption(TS_MENU_TEXT_START);
+    this->menu.AddMenuOption(TS_MENU_TEXT_QUIT);
+    this->menu.AddMenuOption(TS_MENU_TEXT_INSTRUCTIONS);
+    this->cutscene.SetFile(TS_CUTSCENE_IMAGE);
 }
 
 TitleState::~TitleState(){
@@ -28,16 +34,13 @@ TitleState::~TitleState(){
 
 void TitleState::LoadAssets(){
     DEBUG_PRINT("load Assets TITLESTATE")
-    this->bg.Open(TS_BG_IMAGE);
-
-    this->cutscene.Open(TS_CUTSCENE_IMAGE);
+    this->bg.Load();
+    this->menu.Load();
+    this->cutscene.Load();
     this->cutscene.SetFrameCount(TS_CUTSCENE_FRAMES);
     this->cutscene.SetFrameTime(TS_CUTSCENE_FTIME);
-
-    this->menu = Menu(TS_MENU_POSX, TS_MENU_POSY, TS_MENU_SPACEMENT);
-    this->menu.AddMenuOption(TS_MENU_TEXT_START);
-    this->menu.AddMenuOption(TS_MENU_TEXT_QUIT);
-    this->menu.AddMenuOption(TS_MENU_TEXT_INSTRUCTIONS);
+    //this->cutscene = Sprite(TS_CUTSCENE_IMAGE, TS_CUTSCENE_FRAMES, TS_CUTSCENE_FTIME);
+    this->cutscene.SetAnimationTimes(1);
 
     this->music = Sound(SOUND_ALL_CHANNELS);
     this->music.Open(TS_MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
@@ -45,11 +48,11 @@ void TitleState::LoadAssets(){
 }
 
 void TitleState::Update(float dt){
-    this->cutscene.Update(dt);
     this->timer.Update(dt);
-
-    if(this->timer.GetCurrentTime() > 32){
-        this->isPlayingCutscene = false;
+    if(this->isPlayingCutscene){
+        this->cutscene.Update(dt);
+        if(this->cutscene.IsAnimationFinished())
+            this->isPlayingCutscene = false;
     }
 
     if(!this->isPlayingCutscene){

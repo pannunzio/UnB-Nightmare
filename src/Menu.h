@@ -26,6 +26,7 @@ public:
     Menu();
     Menu(float posX, float posY, int newLineSpace);
     virtual ~Menu();
+    void Load();
     void Update(float dt);
     void Render();
     bool IsDead();

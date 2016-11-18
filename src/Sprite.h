@@ -2,7 +2,9 @@
 #define SPRITE_H_
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <iostream>
+//#include "Game.h"
 
 
 using std::cout;
@@ -24,7 +26,9 @@ public:
 	int GetHeight();
 	int GetWidth();
 	bool IsOpen();
+	void Load(string file = "");
 	string GetFile();
+	void SetFile(string);
 
 	void SetScaleX(float scale);
 	void SetScaleY(float scale);
@@ -38,11 +42,11 @@ public:
 	void SetAnimationTimes(int times);
 	void SetFrameTime(float frameTime);
 	bool IsAnimationFinished();
-	void SetAlpha(int);
+	void SetAlpha(int alpha = 0);
 	int GetAlpha();
 	void FadeIn(int inc = 1);
 	void FadeOut(int dec = 1);
-	void FadeToValue(int);
+	void FadeToValue(int value = 0);
 	void FadeToggle(bool onOff, int slow = 1);
 
 private:
