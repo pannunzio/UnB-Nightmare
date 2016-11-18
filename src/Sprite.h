@@ -64,13 +64,14 @@ private:
 
 	int fadeValue;
     int fadeModifyer;
+    int fadeCounter;
     uint8_t actualAlpha;
 	bool fadingIn;
 	bool fadingOut;
 	bool fadingToValue;
-	void _fadeIn();
-	void _fadeOut();
+	void _fade();
 	void _fadeToValue();
+	uint8_t _fadeSpeed();
 };
 
 #endif

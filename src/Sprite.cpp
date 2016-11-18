@@ -30,6 +30,8 @@ Sprite::Sprite(){
 	this->fadingOut = false;
 	this->fadingToValue = false;
 	this->fadeModifyer = 1;
+	this->fadeCounter = 1;
+	this->actualAlpha = 255;
 }
 
 Sprite::Sprite(string file){
@@ -47,6 +49,9 @@ Sprite::Sprite(string file){
 	this->fadingIn = false;
 	this->fadingOut = false;
 	this->fadingToValue = false;
+	this->fadeModifyer = 1;
+	this->fadeCounter = 1;
+	this->actualAlpha = 255;
 	Open(file);
 }
 
@@ -63,6 +68,9 @@ Sprite::Sprite(string file, int frameCount, float frameTime){
     this->fadingIn = false;
 	this->fadingOut = false;
 	this->fadingToValue = false;
+	this->fadeModifyer = 1;
+	this->fadeCounter = 1;
+	this->actualAlpha = 255;
 	Open(file);
 }
 
@@ -157,10 +165,8 @@ void Sprite::Update(float dt){
 
 	if(this->fadingToValue)
         this->_fadeToValue();
-	if(this->fadingIn)
-        this->_fadeIn();
-    else if(this->fadingOut)
-        this->_fadeOut();
+	if(this->fadingIn || this->fadingOut)
+        this->_fade();
 
 	if(this->timeElapsed > this->frameTime){
 		 this->currentFrame++;
@@ -247,20 +253,6 @@ void Sprite::FadeIn(int increment){
     else this->fadeModifyer = increment;
 }
 
-void Sprite::_fadeIn(){
-    if(SDL_GetTextureAlphaMod(this->texture, &this->actualAlpha) < 0)
-        SDL_GetError();
-
-    int sum = this->actualAlpha + this->fadeModifyer;
-    if(this->actualAlpha != 255){
-        if(SDL_SetTextureAlphaMod(this->texture, ((sum > 255) ? 255 : sum) ) < 0)
-            SDL_GetError();
-    }else{
-        this->fadingIn = false;
-        this->fadeModifyer = 1;
-    }
-}
-
 void Sprite::FadeOut(int decrement){
     if(this->fadingIn) this->fadingIn = false;
     this->fadingOut = true;
@@ -271,17 +263,38 @@ void Sprite::FadeOut(int decrement){
     else this->fadeModifyer = decrement;
 }
 
-void Sprite::_fadeOut(){
-    if(SDL_GetTextureAlphaMod(this->texture, &this->actualAlpha) < 0)
+void Sprite::_fade(){
+    if(SDL_GetTextureAlphaMod(this->texture, &(this->actualAlpha) ) < 0)
         SDL_GetError();
+    DEBUG_PRINT("actualAlpha: " << this->actualAlpha)
+    if(SDL_SetTextureAlphaMod(this->texture, _fadeSpeed() ) < 0)
+        SDL_GetError();
+}
 
-    int sum = this->actualAlpha - this->fadeModifyer;
-    if(this->actualAlpha != 0){
-        if(SDL_SetTextureAlphaMod(this->texture, ((sum < 0) ? 0 : sum) ) < 0)
-            SDL_GetError();
-    }else{
-        this->fadingOut = false;
-        this->fadeModifyer = 1;
+uint8_t Sprite::_fadeSpeed(){
+    DEBUG_PRINT("fadeCounter: " << this->fadeCounter )
+    DEBUG_PRINT("fadeModifyer: " << this->fadeModifyer )
+    DEBUG_PRINT("fadingIn: " << this->fadingIn )
+    DEBUG_PRINT("fadingOut: " << this->fadingOut )
+    if(this->fadeCounter < this->fadeModifyer) this->fadeCounter++;
+    else{
+            this->fadeCounter = 1;
+            if(this->fadingIn){
+                if(this->actualAlpha < 255) return (this->actualAlpha+1);
+                else{
+                    this->fadingIn = false;
+                    this->fadeModifyer = 1;
+                    return this->actualAlpha;
+                }
+            }
+            else if(this->fadingOut){
+                if(this->actualAlpha > 0) return (this->actualAlpha-1);
+                else{
+                    this->fadingOut = false;
+                    this->fadeModifyer = 1;
+                    return this->actualAlpha;
+                }
+            }
     }
 }
 

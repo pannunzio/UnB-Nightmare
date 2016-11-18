@@ -28,7 +28,7 @@
 	<iostream>
 	<math.h>
 
-1479441044 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
+1479446824 c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.h
 	<SDL.h>
 	<iostream>
 
@@ -719,7 +719,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1479441327 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1479446795 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>
@@ -772,7 +772,7 @@
 	"../src/Camera.h"
 	"../src/InputManager.h"
 
-1479440918 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
+1479446743 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.cpp
 	"Menu.h"
 
 1479439431 c:\users\thiag\documents\githubrep\unb-nightmare\src\menu.h

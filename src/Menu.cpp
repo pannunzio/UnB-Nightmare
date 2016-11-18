@@ -78,6 +78,7 @@ void Menu::Render(){
     }else if(this->buttonSelected.GetAlpha() == 0){
         this->buttonSelected.FadeIn();
     }
+    DEBUG_PRINT("alpha: " << this->buttonSelected.GetAlpha());
 
     for(unsigned int i = 0; i < options.size(); i++){
         this->options[i]->Render(0, 0);
