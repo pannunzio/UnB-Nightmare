@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "Text.h"
 #include "Clock.h"
+#include "InputManager.h"
 
 #include <string>
 #include <sstream>
@@ -35,12 +36,16 @@
 #define SLIDER_POS_Y        50
 #define SLIDER_DELTA_X      486 //slider vai de 248 ate 734
 
-#define BALLON_STAIRS           "img/ballonStairs.png"
-#define BALLON_STAIRS_FRAMES    2
-#define BALLON_STAIRS_FTIME     0.09
 #define BALLON_POS_X            100
 #define BALLON_POS_Y            40
 
+#define BALLON_STAIRS           "img/ballonStairs.png"
+#define BALLON_STAIRS_FRAMES    2
+#define BALLON_STAIRS_FTIME     0.09
+
+#define BALLON_FORWARD           "img/ballonForward.png"
+#define BALLON_FORWARD_FRAMES    2
+#define BALLON_FORWARD_FTIME     0.3
 
 using std::cout;
 using std::endl;

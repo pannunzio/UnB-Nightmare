@@ -20,7 +20,7 @@ Hud::Hud(): bgSprite(HUD_BG_FILE),
     this->clock = "b";
     this->distanciaProvisoria = "a";
     this->distanceRun = 0;
-    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
+    this->ballon = Sprite(BALLON_FORWARD, BALLON_FORWARD_FRAMES, BALLON_FORWARD_FTIME);
 
     DEBUG_PRINT("exit HUD constructor")
 }
@@ -43,7 +43,14 @@ void Hud::InitHud(){
 void Hud::Update(float dt){
     this->clockText->SetText(this->clock);
     this->coffeeText->SetText(this->coffeeAmmo);
-    if(this->showBallon) this->ballon.Update(dt);
+    if(this->showBallon){
+        if(InputManager::GetInstance().IsKeyDown(SDLK_d))
+            this->ballon.SetFrame(2);
+        if(InputManager::GetInstance().KeyRelease(SDLK_d))
+            this->ballon.SetFrame(1);
+    }else{
+        this->ballon.SetFrame(1);
+    }
 //    this->distanceText->SetText(this->distanciaProvisoria);
 }
 
