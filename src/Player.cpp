@@ -69,8 +69,6 @@ Player::Player(float x, float y) {
     DEBUG_PRINT(" - PlayerSubLay: "<< this->subLayer)
 
     DEBUG_PRINT("MagicButtons:")
-    DEBUG_PRINT(" - Subir um andar:     Q")
-    DEBUG_PRINT(" - Descer um andar:    A")
     DEBUG_PRINT(" - Ganhar 10 segundos: 1")
     DEBUG_PRINT(" - Ir para Comendo:    2")
     DEBUG_PRINT(" - Ir para Skating:    2")
@@ -253,16 +251,15 @@ void Player::MoveThroughFloors(){
             switch(this->layer){
                 case LAYER_MIDDLE:
                     if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
-                            this->layer++;
-                            this->subLayer = SUBLAYER_BOTTON;
-                            this->inputState = GOING_UP;
-                            this->box.y = LAYER_TOP_HEIGHT - box.h;
-                    }
-                    else if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
-                            this->layer--;
-                            this->subLayer = SUBLAYER_TOP;
-                            this->inputState = GOING_DOWN;
-                            this->box.y = LAYER_BOTTON_HEIGHT - box.h;
+                        this->layer++;
+                        this->subLayer = SUBLAYER_BOTTON;
+                        this->inputState = GOING_UP;
+                        this->box.y = LAYER_TOP_HEIGHT - box.h + SUBLAYER_HEIGHT;
+                    }else if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
+                        this->layer--;
+                        this->subLayer = SUBLAYER_TOP;
+                        this->inputState = GOING_DOWN;
+                        this->box.y = LAYER_BOTTON_HEIGHT - box.h - SUBLAYER_HEIGHT;
                     }
                     break;
                 case LAYER_BOTTON:
@@ -270,7 +267,7 @@ void Player::MoveThroughFloors(){
                         this->layer++;
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_UP;
-                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h;
+                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h - SUBLAYER_HEIGHT;
                     }
                     break;
                 case LAYER_TOP:
@@ -278,7 +275,7 @@ void Player::MoveThroughFloors(){
                         this->layer--;
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_DOWN;
-                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h;
+                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h - SUBLAYER_HEIGHT;
                     }
                     break;
             }
@@ -319,11 +316,11 @@ void Player::ChangeSpriteSheet(string file, int frameCount, int times){
 }
 
 void Player::SetSpriteScale(){
-    if(this->subLayer == 3)
+    if(this->subLayer == SUBLAYER_TOP)
     	this->sp.SetScale(0.95);
-    if(this->subLayer == 2)
+    if(this->subLayer == SUBLAYER_MIDDLE)
         this->sp.SetScale(1);
-    if(this->subLayer == 1)
+    if(this->subLayer == SUBLAYER_BOTTON)
         this->sp.SetScale(1.05);
 }
 
@@ -549,14 +546,6 @@ float Player::GetAddTime(){
     DEBUG
 **/
 void Player::MagicButtons(){
-    if(InputManager::GetInstance().KeyPress(SDLK_q)){
-        this->inputState = GOING_UP;
-        this->layer++;
-    }
-    if(InputManager::GetInstance().KeyPress(SDLK_a)){
-        this->inputState = GOING_DOWN;
-        this->layer--;
-    }
     if(InputManager::GetInstance().KeyPress(SDLK_2)){
         this->movementState = EATING;
     }

@@ -26,7 +26,7 @@ using std::endl;
 
 #define LAYER_TOP_HEIGHT 200
 #define LAYER_MIDDLE_HEIGHT 405
-#define LAYER_BOTTON_HEIGHT 630
-#define SUBLAYER_HEIGHT 15;
+#define LAYER_BOTTON_HEIGHT 625
+#define SUBLAYER_HEIGHT 10;
 
 #endif

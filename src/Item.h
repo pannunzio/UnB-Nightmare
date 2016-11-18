@@ -8,9 +8,6 @@
 #include "Defines.h"
 #include "Player.h"
 
-#define SUBLAYER_DISTANCE 26
-
-
 class Item : public GameObject{
 public:
 //    Item(int layer, int subLayer);

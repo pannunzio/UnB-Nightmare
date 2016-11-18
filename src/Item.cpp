@@ -74,10 +74,10 @@ void Item::SetAssets(int layer, int subLayer){
         this->box.y = LAYER_BOTTON_HEIGHT;
 
     if (this->subLayer < SUBLAYER_TOP)
-        this->box.y += SUBLAYER_DISTANCE;
+        this->box.y += SUBLAYER_HEIGHT;
 
     if(this->subLayer == SUBLAYER_BOTTON)
-        this->box.y += SUBLAYER_DISTANCE;
+        this->box.y += SUBLAYER_HEIGHT;
 }
 
 #ifdef DEBUG

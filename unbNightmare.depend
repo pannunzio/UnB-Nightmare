@@ -382,7 +382,7 @@
 	"Defines.h"
 	"Rect.h"
 
-1479426324 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
+1479436275 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
 	<string>
 	<iostream>
 	"SDL.h"
@@ -541,7 +541,7 @@
 	"Defines.h"
 	"Player.h"
 
-1479419062 c:\users\thiag\documents\githubrep\unb-nightmare\src\item.h
+1479435725 c:\users\thiag\documents\githubrep\unb-nightmare\src\item.h
 	<string>
 	"GameObject.h"
 	"Camera.h"
@@ -668,7 +668,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.cpp
 	"InputManager.h"
 
-1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
+1479435747 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
 	"Item.h"
 
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
@@ -699,7 +699,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479426002 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479435780 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
