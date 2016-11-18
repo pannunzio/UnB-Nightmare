@@ -45,7 +45,6 @@ protected:
 
 private:
     int newLineSpace;
-    Sprite bg;
     int currentOption;
     int lastOption;
     int selectedOption;

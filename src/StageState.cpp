@@ -386,17 +386,17 @@ void StageState::UpdateMenu(float dt){
             switch(menu.GetSelectedOption()){
                 case RESUME:
                     pause = false;
-                    DEBUG_PRINT("RESUME GAME")
+                    DEBUG_PRINT("OPTION: RESUME GAME")
                     break;
                 case RESTART:
                     //RestartStage();
                     objectArray.clear();
                     ResetState();
                     LoadAssets();
-                    DEBUG_PRINT("RESTART GAME")
+                    DEBUG_PRINT("OPTION: RESTART GAME")
                     break;
                 case QUIT_GAME:
-                    DEBUG_PRINT("QUIT GAME")
+                    DEBUG_PRINT("OPTION: QUIT GAME")
                     this->popRequested = true;
                     Game::GetInstance().Push(new TitleState());
                     break;
@@ -405,14 +405,14 @@ void StageState::UpdateMenu(float dt){
             switch(menu.GetSelectedOption()){
                 case (RESTART - 1):
                     //RestartStage();
-                    DEBUG_PRINT("RESTART GAME")
+                    DEBUG_PRINT("OPTION: RESTART GAME")
                     objectArray.clear();
                     ResetState();
                     LoadAssets();
                     this->clock.StartClock();
                     break;
                 case (QUIT_GAME - 1):
-                    DEBUG_PRINT("QUIT GAME")
+                    DEBUG_PRINT("OPTION: QUIT GAME")
                     this->popRequested = true;
                     Game::GetInstance().Push(new TitleState());
                     break;
