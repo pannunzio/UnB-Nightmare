@@ -373,6 +373,11 @@ void StageState::UpdateHud(float dt){
     this->hud.SetClock(this->clock.GetText());
     this->hud.SetCoffeeAmmo(Player::GetInstance().coffee_ammo);
 
+    //Player deve avisar qual balão deverá ser renderizado, hud só obedece
+    this->hud.ballonX = Player::GetInstance().GetX() - Camera::GetX();
+    this->hud.ballonY = Player::GetInstance().GetY() - Camera::GetY();
+    this->hud.showBallon = Player::GetInstance().ballonRender;
+
     float percentual = (100 * Player::GetInstance().GetX()) / (this->mapLength);
     this->hud.SetDistanceRun(percentual);
 

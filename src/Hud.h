@@ -35,6 +35,13 @@
 #define SLIDER_POS_Y        50
 #define SLIDER_DELTA_X      486 //slider vai de 248 ate 734
 
+#define BALLON_STAIRS           "img/ballonStairs.png"
+#define BALLON_STAIRS_FRAMES    2
+#define BALLON_STAIRS_FTIME     0.09
+#define BALLON_POS_X            100
+#define BALLON_POS_Y            40
+
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -52,7 +59,9 @@ public:
     void SetCoffeeAmmo(int coffeeAmmo);
     void SetClock(string clock);
     void SetDistanceRun(float distance);
-
+    float ballonX;
+    float ballonY;
+    bool showBallon;
 private:
 	string coffeeAmmo;
 	string clock;
@@ -67,6 +76,7 @@ private:
 
     Sprite bgSprite;
     Sprite sliderSprite;
+    Sprite ballon;
 //    Sprite distanceSprite;
 //    Sprite sliderSprite;
 };

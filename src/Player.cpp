@@ -60,7 +60,6 @@ Player::Player(float x, float y) {
     this->addTime = 0.0;
 
     //Inicialização do balão
-    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
     this->ballonRender = false;
 
     DEBUG_PRINT(" - PlayerX: " << this->box.x)
@@ -94,8 +93,6 @@ void Player::Update(float dt){
 	this->sp.Update(dt);
 
 	//se for o caso, atualiza o balão
-	if(ballonRender)
-        this->ballon.Update(dt);
     if(!this->isColliding) this->ballonRender = false;
 
     if(timeOver == true)
@@ -118,10 +115,10 @@ void Player::Update(float dt){
 
 void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::GetX()), (int)(this->box.y - Camera::GetY()));
-	if(this->ballonRender){
-        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::GetX()),
-                            (int)(this->box.y - BALLON_POS_Y - Camera::GetY()));
-	}
+//	if(this->ballonRender){
+//        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::GetX()),
+//                            (int)(this->box.y - BALLON_POS_Y - Camera::GetY()));
+//	}
 }
 
 bool Player::IsDead(){
@@ -165,9 +162,6 @@ void Player::NotifyCollision(GameObject* other){
         this->speed = obst->GetSpeed();
         this->maxSpeed = obst->GetSpeed();
         this->ballonRender = true;
-        //arrumar isso aqui embaixo
-        //if(this->ballon.GetFile != "PRA_FRENTE.png")
-            //this->ballon.changeSprite();
         if(InputManager::GetInstance().KeyPress(SDLK_d))
         	this->box.x += PLAYER_MANIFEST_INC;
 
@@ -495,6 +489,10 @@ float Player::GetAcceleration(){
 
 int Player::GetX(){
     return box.x;
+}
+
+int Player::GetY(){
+    return box.y;
 }
 
 int Player::GetBaseX(){

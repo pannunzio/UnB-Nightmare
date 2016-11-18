@@ -1,7 +1,6 @@
 #include "Hud.h"
 
 //#define DEBUG
-
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -21,6 +20,7 @@ Hud::Hud(): bgSprite(HUD_BG_FILE),
     this->clock = "b";
     this->distanciaProvisoria = "a";
     this->distanceRun = 0;
+    this->ballon = Sprite(BALLON_STAIRS, BALLON_STAIRS_FRAMES, BALLON_STAIRS_FTIME);
 
     DEBUG_PRINT("exit HUD constructor")
 }
@@ -43,6 +43,7 @@ void Hud::InitHud(){
 void Hud::Update(float dt){
     this->clockText->SetText(this->clock);
     this->coffeeText->SetText(this->coffeeAmmo);
+    if(this->showBallon) this->ballon.Update(dt);
 //    this->distanceText->SetText(this->distanciaProvisoria);
 }
 
@@ -52,6 +53,7 @@ void Hud::Render(){
 
     this->coffeeText->Render(0, 0);
     this->clockText->Render(0, 0);
+    if(this->showBallon) this->ballon.Render(this->ballonX + BALLON_POS_X, this->ballonY - BALLON_POS_Y);
 //    this->distanceText->Render(0, 0);
 }
 

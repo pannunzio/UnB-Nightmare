@@ -47,12 +47,6 @@
 #define EATING_SPEED
 #define EATING_TIME         3
 
-#define BALLON_STAIRS           "img/ballonStairs.png"
-#define BALLON_STAIRS_FRAMES    2
-#define BALLON_STAIRS_FTIME     0.09
-#define BALLON_POS_X            100
-#define BALLON_POS_Y            40
-
 #define PLAYER_MANIFEST_INC     10
 
 #define SPRITE_RESIZE_TOP       0.95
@@ -124,6 +118,7 @@ public:
     int GetBaseX();
 	//Favor nao tirar o getX ele ta sendo usado por deus e o mundo agora
 	int GetX();
+	int GetY();
 	bool isPlayerColliding();
 	bool IsInPosition();
 	void TimeOver();
@@ -133,11 +128,9 @@ public:
     SurpriseType GetSurpriseType();
     void SetSurpriseType();
     float GetAddTime();
+    bool ballonRender;
 
 private:
-    //Sprite sp;
-    Sprite ballon;
-    bool ballonRender;
 
     //Atributos de posição
 	int baseX;              //Posicao padrao
