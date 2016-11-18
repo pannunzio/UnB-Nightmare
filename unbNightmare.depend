@@ -517,7 +517,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1479453649 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1479457185 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -690,7 +690,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
 	"NonCollidingPerson.h"
 
-1479437793 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
+1479457004 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
 	"Obstacle.h"
 
 1479420978 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
@@ -699,7 +699,7 @@
 1479440108 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479453769 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479458686 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -727,7 +727,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479453828 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479458931 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
@@ -814,7 +814,7 @@
 	"Camera.h"
 	"Player.h"
 
-1479456386 c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.h
+1479458259 c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.h
 	"Resources.h"
 	"Sprite.h"
 	"Text.h"
@@ -825,7 +825,7 @@
 	<iomanip>
 	<iostream>
 
-1479456337 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.cpp
+1479458816 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\hud.cpp
 	"Hud.h"
 
 1479438045 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\surpriseitem.cpp

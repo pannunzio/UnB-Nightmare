@@ -3,7 +3,6 @@
 
 #include "GameObject.h"
 #include "Obstacle.h"
-#include "Player.h"
 #include "Camera.h"
 #include "Defines.h"
 

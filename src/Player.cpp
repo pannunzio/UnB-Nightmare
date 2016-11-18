@@ -60,7 +60,7 @@ Player::Player(float x, float y) {
     this->addTime = 0.0;
 
     //Inicialização do balão
-    this->ballonRender = false;
+    this->ballonRender = 0;
 
     DEBUG_PRINT(" - PlayerX: " << this->box.x)
     DEBUG_PRINT(" - PlayerY: " << this->box.y)
@@ -93,7 +93,8 @@ void Player::Update(float dt){
 	this->sp.Update(dt);
 
 	//se for o caso, atualiza o balão
-    if(!this->isColliding) this->ballonRender = false;
+    if(!this->isColliding)
+        this->ballonRender = 0;
 
     if(timeOver == true)
         PlayerStops();
@@ -107,7 +108,6 @@ void Player::Update(float dt){
     //LATeR: criar uma funcao propria pra resetar esses aqui
     this->isColliding = false;
     this->isPassingMapObject = false;
-    this->ballonRender = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
     this->addTime = 0.0;
@@ -161,7 +161,7 @@ void Player::NotifyCollision(GameObject* other){
         Obstacle* obst = (Obstacle*) other;
         this->speed = obst->GetSpeed();
         this->maxSpeed = obst->GetSpeed();
-        this->ballonRender = true;
+        this->ballonRender = 1;
         if(InputManager::GetInstance().KeyPress(SDLK_d))
         	this->box.x += PLAYER_MANIFEST_INC;
 
@@ -195,7 +195,7 @@ void Player::NotifyCollision(GameObject* other){
     }else if(other->Is("Escada")){
         DEBUG_PRINT("colidiu ESCADA")
         this->isPassingMapObject = true;
-        this->ballonRender = true;
+        this->ballonRender = 2;
     }else if(other->Is("Agua")){
         DEBUG_PRINT("colidiu AGUA")
         StopIndestructiblePowerup();
@@ -561,6 +561,9 @@ void Player::MagicButtons(){
     }
     if(InputManager::GetInstance().KeyPress(SDLK_7)){
         this->sp.FadeToValue(30);
+    }
+    if(InputManager::GetInstance().IsKeyDown(SDLK_6)){
+        this->ballonRender = 2;
     }
 }
 

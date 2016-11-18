@@ -5,7 +5,6 @@
 
 #include "GameObject.h"
 #include "Obstacle.h"
-#include "Player.h"
 #include "Camera.h"
 
 #define MENINA_FILE     "img/menina.png"

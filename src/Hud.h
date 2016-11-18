@@ -66,7 +66,7 @@ public:
     void SetDistanceRun(float distance);
     float ballonX;
     float ballonY;
-    bool showBallon;
+    int showBallon;
 private:
 	string coffeeAmmo;
 	string clock;
@@ -82,6 +82,7 @@ private:
     Sprite bgSprite;
     Sprite sliderSprite;
     Sprite ballon;
+    void ShowBallon(float);
 //    Sprite distanceSprite;
 //    Sprite sliderSprite;
 };

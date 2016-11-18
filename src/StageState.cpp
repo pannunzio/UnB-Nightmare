@@ -377,6 +377,7 @@ void StageState::UpdateHud(float dt){
     this->hud.ballonX = Player::GetInstance().GetX() - Camera::GetX();
     this->hud.ballonY = Player::GetInstance().GetY() - Camera::GetY();
     this->hud.showBallon = Player::GetInstance().ballonRender;
+    DEBUG_PRINT("showBallon: " << this->hud.showBallon)
 
     float percentual = (100 * Player::GetInstance().GetX()) / (this->mapLength);
     this->hud.SetDistanceRun(percentual);

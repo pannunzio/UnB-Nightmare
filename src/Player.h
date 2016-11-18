@@ -128,7 +128,7 @@ public:
     SurpriseType GetSurpriseType();
     void SetSurpriseType();
     float GetAddTime();
-    bool ballonRender;
+    int ballonRender;
 
 private:
 

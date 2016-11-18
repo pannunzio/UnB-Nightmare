@@ -43,15 +43,37 @@ void Hud::InitHud(){
 void Hud::Update(float dt){
     this->clockText->SetText(this->clock);
     this->coffeeText->SetText(this->coffeeAmmo);
+    this->ShowBallon(dt);
+//    this->distanceText->SetText(this->distanciaProvisoria);
+}
+
+void Hud::ShowBallon(float dt){
     if(this->showBallon){
-        if(InputManager::GetInstance().IsKeyDown(SDLK_d))
-            this->ballon.SetFrame(2);
-        if(InputManager::GetInstance().KeyRelease(SDLK_d))
-            this->ballon.SetFrame(1);
+        switch(this->showBallon){
+            case 1:
+                if(this->ballon.GetFile() != BALLON_FORWARD){
+                    this->ballon.Open(BALLON_FORWARD);
+                    this->ballon.SetFrameCount(BALLON_FORWARD_FRAMES);
+                    this->ballon.SetFrameTime(BALLON_FORWARD_FTIME);
+                }
+                if(InputManager::GetInstance().IsKeyDown(SDLK_d))
+                    this->ballon.SetFrame(2);
+                if(InputManager::GetInstance().KeyRelease(SDLK_d))
+                    this->ballon.SetFrame(1);
+                break;
+            case 2:
+                DEBUG_PRINT("Cheguei aqui")
+                if(this->ballon.GetFile() != BALLON_STAIRS){
+                    this->ballon.Open(BALLON_STAIRS);
+                    this->ballon.SetFrameCount(BALLON_STAIRS_FRAMES);
+                    this->ballon.SetFrameTime(BALLON_STAIRS_FTIME);
+                }
+                this->ballon.Update(dt);
+                break;
+        }
     }else{
         this->ballon.SetFrame(1);
     }
-//    this->distanceText->SetText(this->distanciaProvisoria);
 }
 
 void Hud::Render(){
