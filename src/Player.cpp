@@ -105,13 +105,10 @@ void Player::Update(float dt){
 
     // faz os movimentos do input
     MoveGirl();
-
     // Atualiza o tempo e estado dos powerUps
     UpdatePowerUp(dt);
-
     //Atualiza a posição de acordo com o estado atual
     UpdatePosition(dt);
-
     //LATeR: criar uma funcao propria pra resetar esses aqui
     this->isColliding = false;
     this->isPassingMapObject = false;
@@ -232,7 +229,6 @@ void Player::MoveGirl(){
 }
 
 void Player::MoveSameFloor(){
-    //movimento de sublayer
 	if(InputManager::GetInstance().KeyPress(SDLK_w)){
 		if(this->subLayer <= 2){
 			this->subLayer++;
@@ -251,20 +247,22 @@ void Player::MoveSameFloor(){
 //Confere se o player pode ou nao subir/descer escada
 void Player::MoveThroughFloors(){
     if(this->powerUp != PowerUp::SKATE){
+        #ifndef DEBUG
         if(this->subLayer == SUBLAYER_TOP && this->isPassingMapObject){
+        #endif // DEBUG
             switch(this->layer){
                 case LAYER_MIDDLE:
                     if(InputManager::GetInstance().KeyPress(UP_ARROW_KEY)){
                             this->layer++;
-                            this->subLayer = SUBLAYER_TOP;
+                            this->subLayer = SUBLAYER_BOTTON;
                             this->inputState = GOING_UP;
-                            this->box.h = LAYER_TOP_HEIGHT - box.h;
+                            this->box.y = LAYER_TOP_HEIGHT - box.h;
                     }
                     else if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
                             this->layer--;
                             this->subLayer = SUBLAYER_TOP;
                             this->inputState = GOING_DOWN;
-                            this->box.h = LAYER_BOTTON_HEIGHT - box.h;
+                            this->box.y = LAYER_BOTTON_HEIGHT - box.h;
                     }
                     break;
                 case LAYER_BOTTON:
@@ -272,7 +270,7 @@ void Player::MoveThroughFloors(){
                         this->layer++;
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_UP;
-                        this->box.h = LAYER_TOP_HEIGHT - box.h;
+                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h;
                     }
                     break;
                 case LAYER_TOP:
@@ -280,11 +278,13 @@ void Player::MoveThroughFloors(){
                         this->layer--;
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_DOWN;
-                        this->box.h = LAYER_MIDDLE_HEIGHT - box.h;
+                        this->box.y = LAYER_MIDDLE_HEIGHT - box.h;
                     }
                     break;
             }
+        #ifndef DEBUG
         }
+        #endif // DEBUG
     }
 }
 
@@ -437,35 +437,6 @@ void Player::UpdatePosition(float dt){
             break;
         case SKATING:
             break;
-    }
-    switch(this->inputState){
-        case GOING_DOWN:
-            this->box.y += this->speed*(dt * 150);
-            break;
-        case GOING_UP:
-            this->box.y -= this->speed*(dt * 150);
-            break;
-    }
-    AdjustGoingUpOrDown();
-}
-
-//ajusta a posição do player quando troca de andar
-void Player::AdjustGoingUpOrDown(){
-    if(this->inputState != NO_INPUT){
-        if(this->layer == LAYER_TOP && abs(this->box.y - LAYER_TOP_HEIGHT) < 10){							//
-            this->inputState = NO_INPUT;
-            this->box.y = LAYER_TOP_HEIGHT - this->box.h;
-        }
-
-        if(this->layer == LAYER_MIDDLE && abs(this->box.y - LAYER_MIDDLE_HEIGHT) < 10){
-            this->inputState = NO_INPUT;
-            this->box.y = LAYER_MIDDLE_HEIGHT - this->box.h;
-        }
-
-        if(this->layer == LAYER_BOTTON && abs(this->box.y - LAYER_BOTTON_HEIGHT) < 10){
-            this->inputState = NO_INPUT;
-            this->box.y = LAYER_BOTTON_HEIGHT - this->box.h;
-        }
     }
 }
 

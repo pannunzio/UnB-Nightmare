@@ -191,9 +191,6 @@ private:
     //(se ele se desloca de um lado para o outro ou de cima para baixo)
     void UpdatePosition(float dt);
 
-    //ajusta a posição do player quando troca de andar
-    void AdjustGoingUpOrDown();
-
     void StopIndestructiblePowerup();
     void SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpeed);
 
