@@ -26,6 +26,34 @@ void Item::Render(){
     this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
+void Item::SetHeight(){
+    this->box.h = this->sp.GetHeight();
+    switch(this->layer){
+        case LAYER_TOP:
+            this->box.y = LAYER_TOP_HEIGHT - this->box.h;
+            break;
+        case LAYER_MIDDLE:
+            this->box.y = LAYER_MIDDLE_HEIGHT - this->box.h;
+            break;
+        case LAYER_BOTTON:
+            this->box.y = LAYER_BOTTON_HEIGHT - this->box.h;
+            break;
+    }
+    switch(this->subLayer){
+        case SUBLAYER_TOP:
+            this->box.y -= SUBLAYER_HEIGHT;
+            break;
+        case LAYER_MIDDLE:
+            break;
+        case LAYER_BOTTON:
+            this->box.y += SUBLAYER_HEIGHT;
+            break;
+    }
+    DEBUG_PRINT(" - Obstacle: " << this->box.x)
+    DEBUG_PRINT(" - Obstacle: " << this->box.y)
+}
+
+
 
 bool Item::IsDead(){
     return this->isDead;

@@ -55,6 +55,10 @@
 
 #define PLAYER_MANIFEST_INC     10
 
+#define SPRITE_RESIZE_TOP       0.95
+#define SPRITE_RESIZE_MIDDLE    1
+#define SPRITE_RESIZE_BOTTON    1.05
+
 #define DELTA_ACCEPT 10
 
 #define COFFEE_FILE     "img/coffee.png"

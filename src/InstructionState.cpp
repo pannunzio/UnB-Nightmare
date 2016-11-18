@@ -301,9 +301,8 @@ void InstructionState::SpawnNewStaticObstacle(){
     //numero magico??????
     if((1256 * this->lixo) < Camera::GetX()){
         DEBUG_PRINT("spawning new trash")
-        AddObjectStatic(new Lixeira(LAYER_TOP));
-        AddObjectStatic(new Lixeira(LAYER_MIDDLE));
-        AddObjectStatic(new Lixeira(LAYER_BOTTON));
+        AddObjectStatic(new Lixeira());
+        AddObjectStatic(new Lixeira());
         this->lixo++;
     }
 

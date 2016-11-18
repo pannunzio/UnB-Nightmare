@@ -7,6 +7,7 @@ Menu::Menu(float posX, float posY, int newLineSpace):bg(BG_MENU){
     //ctor
     this->box.x = posX;
     this->box.y = posY;
+    this->sp = Sprite(BUTTON_SELECTED);
 
     this->newLineSpace = newLineSpace;
     this->currentOption = 0;
@@ -43,7 +44,6 @@ void Menu::HandleInputs(){
 		gotInput = true;
 		lastOption = currentOption;
 		this->currentOption--;
-		//cout << option << endl;
 		if(this->currentOption < MENU_MIN_t)
 			this->currentOption = options.size() - 1;
 	}
@@ -52,7 +52,6 @@ void Menu::HandleInputs(){
 		gotInput = true;
 		lastOption = currentOption;
 		this->currentOption++;
-		//cout << this->option << endl;
 		if(this->currentOption > options.size()-1)
 			this->currentOption = MENU_MIN_t;
 	}
@@ -60,7 +59,7 @@ void Menu::HandleInputs(){
 
 void Menu::Render(){
     this->bg.Render((int)Camera::GetX() + box.x - (this->bg.GetWidth()/2), (int)Camera::GetY() + this->box.y + 50 - (this->bg.GetHeight()/2));
-
+    //this->selectedOption.Render();
     for(unsigned int i = 0; i < buttons.size(); i++){
         this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));
     }

@@ -5,6 +5,7 @@ PessoaZumbi::PessoaZumbi():Obstacle(){
 	this->spriteSound = Sound(3);
     GetZombieSound();
     this->spriteSound.Play(1);
+    SetHeight();
 }
 
 PessoaZumbi::~PessoaZumbi(){
@@ -13,9 +14,9 @@ PessoaZumbi::~PessoaZumbi(){
 
 void PessoaZumbi::Render(){
     if(this->speed >= 0)
-        this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
+        this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
     else
-        this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
+        this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
 void PessoaZumbi::NotifyCollision(GameObject* other){

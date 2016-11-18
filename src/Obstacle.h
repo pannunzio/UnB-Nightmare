@@ -18,6 +18,7 @@ public:
     void Update(float dt);
 	bool IsDead();
     void OpenSound(string fileName);
+    void SetSpriteScale();
     void ChangeSpritesheet(string fileName, int frameCount, float frameTime);
     void SetHeight();
     int GetSpeed();

@@ -13,7 +13,7 @@
 
 class Manifestacao: public Obstacle{
 public:
-    Manifestacao(float layerHeight);
+    Manifestacao();
     ~Manifestacao();
 
 	void Render();

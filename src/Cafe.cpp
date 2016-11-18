@@ -4,6 +4,7 @@ Cafe::Cafe(int layer, int subLayer){
     this->sp = Sprite("img/cafeColor.png", 6, 0.09);
     this->captureSound.Open("audio/cafe_getitem.wav", 5);
     SetAssets(layer, subLayer);
+    SetHeight();
 }
 
 bool Cafe::Is(string type){

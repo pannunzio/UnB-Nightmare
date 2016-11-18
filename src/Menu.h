@@ -49,6 +49,7 @@ private:
     int currentOption;
     int lastOption;
     int selectedOption;
+    Sprite buttonSelected;
     std::vector<Text*> options;
     std::vector<Sprite> buttons;
 

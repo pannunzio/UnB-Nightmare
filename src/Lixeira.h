@@ -9,7 +9,7 @@
 
 class Lixeira: public Obstacle{
 public:
-    Lixeira(int layer);
+    Lixeira();
     ~Lixeira();
 
 	void Render();

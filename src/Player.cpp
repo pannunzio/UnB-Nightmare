@@ -3,7 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -317,11 +317,11 @@ void Player::ChangeSpriteSheet(string file, int frameCount, int times){
 
 void Player::SetSpriteScale(){
     if(this->subLayer == SUBLAYER_TOP)
-    	this->sp.SetScale(0.95);
+    	this->sp.SetScale(SPRITE_RESIZE_TOP);
     if(this->subLayer == SUBLAYER_MIDDLE)
-        this->sp.SetScale(1);
+        this->sp.SetScale(SPRITE_RESIZE_MIDDLE);
     if(this->subLayer == SUBLAYER_BOTTON)
-        this->sp.SetScale(1.05);
+        this->sp.SetScale(SPRITE_RESIZE_BOTTON);
 }
 
 void Player::UpdatePowerUp(float dt){

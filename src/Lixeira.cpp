@@ -1,11 +1,12 @@
 #include "Lixeira.h"
 
-Lixeira::Lixeira(int layer):Obstacle(){
+Lixeira::Lixeira():Obstacle(){
     sp = Sprite("img/lixeira.png", 1, 1);
 	this->speed = 0;
-	this->layer = layer;
+	this->layer = rand()%2 + 1;
 	this->subLayer = 3;
 	this->spriteSound = Sound(-1);
+	SetHeight();
 
     OpenSound("audio/lixeira.wav");
 }

@@ -11,7 +11,7 @@
         #define DEBUG_ONLY(x) //do{;}while(0)
 #endif //DEBUG
 
-Manifestacao::Manifestacao(float layerHeight):Obstacle(){
+Manifestacao::Manifestacao():Obstacle(){
     DEBUG_PRINT("Manifestacao::Manifestacao()-begin-")
     this->sp = Sprite(MANIFESTACAO_SPRITE, MANIFESTACAO_FRAMES, MANIFESTACAO_FTIME);
 	this->isCollidingWithPlayer = false;
@@ -20,9 +20,11 @@ Manifestacao::Manifestacao(float layerHeight):Obstacle(){
 
 	this->layer = LAYER_MIDDLE;
 	this->subLayer = SUBLAYER_BOTTON;
-	this->box.y = layerHeight;
-    this->box.w = sp.GetWidth();
+	this->box.w = sp.GetWidth();
 	this->box.h = sp.GetHeight();
+	this->box.x = Player::GetInstance().GetX() + DEFAULT_OBSTACLE_DISTANCE + SUBLAYER_HEIGHT;
+	SetHeight();
+
 
     spriteSound.Open(MANIFESTACAO_SOUND, 2);
 

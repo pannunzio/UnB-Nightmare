@@ -326,18 +326,14 @@ void StageState::SpawnNewItem(){
 }
 
 void StageState::SpawnNewStaticObstacle(){
-//	respawn das coisas
-
-    //numero magico??????
-    if((1256 * this->lixo) < Camera::GetX()){
+    if(rand()%30 > 25){
         DEBUG_PRINT(" - spawning new trash")
-        AddObjectStatic(new Lixeira(LAYER_TOP));
-        AddObjectStatic(new Lixeira(LAYER_MIDDLE));
-        AddObjectStatic(new Lixeira(LAYER_BOTTON));
+        AddObjectStatic(new Lixeira());
+        AddObjectStatic(new Lixeira());
         this->lixo++;
     }
 
-    if(rand()%100 <= 4,3){
+    if(rand()%100 <= 4.3){
         //INUNDACAO!
     }
 }
@@ -367,7 +363,7 @@ void StageState::SpawnNewDynamicObstacle(){
 
     if(Player::GetInstance().IsSurprise()){
         if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO)
-            AddObject(new Manifestacao(this->layerMiddleHeight));
+            AddObject(new Manifestacao());
         else if (Player::GetInstance().GetSurpriseType() == PELADAO)
             AddObject(new NonCollidingPerson());
     }
@@ -462,7 +458,7 @@ void StageState::MagicButtons(){
         AddObject(new Cafe(Player::GetInstance().GetLayer(), rand()%3 + 1));
     }
     if(InputManager::GetInstance().KeyPress(SDLK_k)){
-        AddObjectStatic(new Lixeira(LAYER_TOP));
+        AddObjectStatic(new Lixeira());
     }
     if(InputManager::GetInstance().KeyPress(SDLK_j)){
         AddObject(new Pessoa());
@@ -471,7 +467,7 @@ void StageState::MagicButtons(){
         AddObject(new PessoaZumbi());
     }
     if(InputManager::GetInstance().KeyPress(SDLK_g)){
-        AddObject(new Manifestacao(this->layerMiddleHeight));
+        AddObject(new Manifestacao());
     }
     if(InputManager::GetInstance().KeyPress(SDLK_f)){
         AddObject(new Pombo());
