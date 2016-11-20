@@ -1,7 +1,7 @@
 #include "MapActions.h"
 
 MapActions::MapActions(float x, float y, int layer): sp("img/escada.png"){
-    this->box.w = this->sp.GetWidth()/3;
+    this->box.w = this->sp.GetWidth();
     this->box.h = this->sp.GetHeight();
     this->box.x = x;
     this->box.y = y;
