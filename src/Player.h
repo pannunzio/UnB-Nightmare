@@ -126,6 +126,7 @@ public:
     void SetSurpriseType();
     float GetAddTime();
     int ballonRender;
+    bool GetSwitchFloor();
 
 private:
     //Existencia do player
@@ -146,6 +147,9 @@ private:
     bool isIndestructible;  //Flag especial atribuida por um estado
     Sound powerupMusic;
 	bool isPlayingMusic;
+
+	bool switchFloor;
+	bool isSwitchingFloors;
 
     //Atributos de Colisão
     bool isColliding;

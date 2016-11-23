@@ -42,8 +42,13 @@ void TitleState::LoadAssets(){
     //this->cutscene = Sprite(TS_CUTSCENE_IMAGE, TS_CUTSCENE_FRAMES, TS_CUTSCENE_FTIME);
     this->cutscene.SetAnimationTimes(1);
 
-    this->music = Sound(SOUND_ALL_CHANNELS);
-    this->music.Open(TS_MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+//    this->music = Sound(SOUND_ALL_CHANNELS);
+//    this->music.Open(TS_MUSIC_TEMA_MENU, SOUND_CHANNEL_1);
+    this->music.Open("audio/subsolo_main.ogg");
+    this->music.Open("audio/tematerreo_vitoria.ogg");
+    this->music.Open("audio/tematerreo_main.ogg");
+
+    this->music.Open(TS_MUSIC_TEMA_MENU);
     this->music.Play(SOUND_PLAY_INFINITY);
 }
 

@@ -32,7 +32,8 @@ public:
 private:
 	Sprite bg;
 	Sprite derrota;
-	Sound sound;
+//	Sound sound;
+	Music music;
 
 	bool isVictoryScreen;
 

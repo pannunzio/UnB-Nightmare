@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Animation.h"
 #include "Sound.h"
+#include "Music.h"
 #include "Menu.h"
 #include "StageState.h"
 #include "Game.h"
@@ -48,7 +49,9 @@ private:
 
 	Timer timer;
 
-    Sound music;
+    //Sound music;
+    Music music;
+
 	enum{
         MENU_START,
         MENU_QUIT,

@@ -17,7 +17,7 @@
 #include "MapActionList.h"
 #include "Animation.h"
 #include "Sound.h"
-
+#include "Music.h"
 #include "Game.h"
 #include "GameObject.h"
 #include "Camera.h"
@@ -56,6 +56,7 @@ using std::endl;
 #define INIT_STAGE_X   0
 
 #define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
+#define SSOLO_MUSIC_FILE "audio/subsolo_main.ogg"
 
 #define INIT_PLAYER_X   TILESET_WIDTH/2
 
@@ -116,6 +117,8 @@ private:
     void UpdateHud(float dt);
     void UpdateMenu(float dt);
 
+    void MusicController();
+
     void RenderSubLayer(int sublayer);
     Menu menu;
     enum{
@@ -148,7 +151,8 @@ private:
 	bool pause;
 	int layer;
 	bool gameEnd;
-	Sound music;
+//	Sound music;
+    Music music;
 
     /**
         Map builders

@@ -17,20 +17,24 @@ class Resources{
 public:
     static SDL_Texture* GetImage(string file);
     static Mix_Chunk* GetSound(string file);
+    static Mix_Music* GetMusic(string file);
     static TTF_Font* GetFont(string file, int fontSize);
 
     static void ClearImages();
     static void ClearSound();
+    static void ClearMusic();
     static void ClearFonts();
 
     static void PrintLoadedFonts();
     static void PrintLoadedSounds();
     static void PrintLoadedImages();
+    static void PrintLoadedMusic();
     static void PrintAllLoadedResources();
 
 private:
     static std::unordered_map<string, SDL_Texture*> imageTable;
     static std::unordered_map<string, Mix_Chunk*> soundTable;
+    static std::unordered_map<string, Mix_Music*> musicTable;
     static std::unordered_map<string, TTF_Font*> fontTable;
 };
 

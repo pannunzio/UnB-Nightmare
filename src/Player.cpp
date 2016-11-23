@@ -48,6 +48,8 @@ Player::Player(float x, float y) {
     this->coffee_ammo = 0;
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
+    this->switchFloor = false;
+    this->isSwitchingFloors = false;
 
     //Inicialização de conhecimentos externos
     this->timeOver = false;
@@ -107,6 +109,7 @@ void Player::Update(float dt){
     this->isColliding = false;
     this->isPassingMapObject = false;
     this->addTime = 0.0;
+    this->isSwitchingFloors = false;
     DEBUG_PRINT("Player::Update()-end-")
 }
 
@@ -217,6 +220,10 @@ void Player::MoveGirl(){
     if(playerControl == true){
         MoveSameFloor();
         MoveThroughFloors();
+        if(this->isSwitchingFloors && !this->switchFloor)
+            this->switchFloor = true;
+        else if(!this->isSwitchingFloors || this->switchFloor)
+            this->switchFloor = false;
     }
     SetSpriteScale();
 }
@@ -253,11 +260,13 @@ void Player::MoveThroughFloors(){
                         this->subLayer = SUBLAYER_BOTTON;
                         this->inputState = GOING_UP;
                         this->box.y = LAYER_TOP_HEIGHT - box.h + SUBLAYER_HEIGHT;
+                        this->isSwitchingFloors = true;
                     }else if(InputManager::GetInstance().KeyPress(DOWN_ARROW_KEY)){
                         this->layer--;
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_DOWN;
                         this->box.y = LAYER_BOTTON_HEIGHT - box.h - SUBLAYER_HEIGHT;
+                        this->isSwitchingFloors = true;
                     }
                     break;
                 case LAYER_BOTTON:
@@ -266,6 +275,7 @@ void Player::MoveThroughFloors(){
                         this->subLayer = SUBLAYER_TOP;
                         this->inputState = GOING_UP;
                         this->box.y = LAYER_MIDDLE_HEIGHT - box.h - SUBLAYER_HEIGHT;
+                        this->isSwitchingFloors = true;
                     }
                     break;
                 case LAYER_TOP:
@@ -275,6 +285,9 @@ void Player::MoveThroughFloors(){
                         this->inputState = GOING_DOWN;
                         this->box.y = LAYER_MIDDLE_HEIGHT - box.h - SUBLAYER_HEIGHT;
                     }
+                    break;
+                default:
+                    this->isSwitchingFloors = false;
                     break;
             }
         #ifndef DEBUG
@@ -537,6 +550,10 @@ void Player::OffSurprise(){
 
 float Player::GetAddTime(){
     return this->addTime;
+}
+
+bool Player::GetSwitchFloor(){
+    return this->switchFloor;
 }
 
 /**

@@ -76,7 +76,7 @@ void Menu::HandleInputs(){
 }
 
 void Menu::Render(){
-    this->sp.Render(box.x - (this->sp.GetWidth()/2), this->box.y - (this->sp.GetHeight()/2));
+    this->sp.Render(box.x - (this->sp.GetWidth()/2), this->box.y - (this->sp.GetHeight()/(buttons.size() + 1)));
     for(unsigned int i = 0; i < buttons.size(); i++){
         this->buttons[i].Render(box.x - (buttons[i].GetWidth()/2), box.y - BUTTON_OFFSET_Y +(newLineSpace*i));
     }

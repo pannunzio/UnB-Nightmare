@@ -23,7 +23,7 @@ EndState::EndState(StateData stateData){
 }
 
 EndState::~EndState(){
-    this->sound.Stop();
+    this->music.Stop();
     DEBUG_PRINT("ENDSTATE DESTROYED")
 }
 
@@ -32,14 +32,14 @@ void EndState::LoadAssets(){
     this->menu.Load();
     if(this->isVictoryScreen){
         this->bg.Load(BG_FILE);
-        this->sound.Open("audio/tematerreo_vitoria.ogg", 1);
+        this->music.Open("audio/tematerreo_vitoria.ogg");
 	} else {
         this->derrota.Load();
         this->bg.Load(BG_FILE);
-        this->sound.Open("audio/tematerreo_desespero.ogg", 1);
+        this->music.Open("audio/tematerreo_desespero.ogg");
 	}
 
-	this->sound.Play(-1);
+	this->music.Play(-1);
 }
 
 void EndState::Update(float dt){

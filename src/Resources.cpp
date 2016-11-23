@@ -16,6 +16,7 @@
 
 std::unordered_map<string, SDL_Texture*> Resources::imageTable;
 std::unordered_map<string, Mix_Chunk*> Resources::soundTable;
+std::unordered_map<string, Mix_Music*> Resources::musicTable;
 std::unordered_map<string, TTF_Font*> Resources::fontTable;
 
 SDL_Texture* Resources::GetImage(string file){
@@ -37,6 +38,18 @@ Mix_Chunk* Resources::GetSound(string file){
         Mix_Chunk* chunk = Mix_LoadWAV(file.c_str());
         soundTable.emplace(file, chunk);
         return chunk;
+    } else {
+        return indice->second;
+    }
+    return nullptr;
+}
+
+Mix_Music* Resources::GetMusic(string file){
+    std::unordered_map<string, Mix_Music*>::const_iterator indice = musicTable.find(file);
+    if (indice == musicTable.end()){
+        Mix_Music* music = Mix_LoadMUS(file.c_str());
+        musicTable.emplace(file, music);
+        return music;
     } else {
         return indice->second;
     }
@@ -69,6 +82,13 @@ void Resources::ClearSound(){
     soundTable.clear();
 }
 
+void Resources::ClearMusic(){
+    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
+            Mix_FreeMusic(index->second);
+    }
+    musicTable.clear();
+}
+
 void Resources::ClearFonts(){
     for(std::unordered_map<string, TTF_Font*>::const_iterator index = fontTable.begin(); index != fontTable.end(); index++){
             TTF_CloseFont(index->second);
@@ -96,6 +116,16 @@ void Resources::PrintLoadedSounds(){
     cout << endl;
 }
 
+void Resources::PrintLoadedMusic(){
+    int cont = 0;
+    DEBUG_PRINT("\t*********** LOADED MUSIC *************")
+    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
+        DEBUG_PRINT(cont << " - " << index->first)
+        cont++;
+    }
+    cout << endl;
+}
+
 void Resources::PrintLoadedImages(){
     int cont = 0;
     DEBUG_PRINT("\t*********** LOADED IMAGES *************")
@@ -117,6 +147,12 @@ void Resources::PrintAllLoadedResources(){
     cont = 0;
     DEBUG_PRINT("\t ---> LOADED SOUNDS")
     for(std::unordered_map<string, Mix_Chunk*>::const_iterator index = soundTable.begin(); index != soundTable.end(); index++){
+        DEBUG_PRINT(cont << " - " << index->first)
+        cont++;
+    }
+    cont = 0;
+    DEBUG_PRINT("\t ---> LOADED MUSIC")
+    for(std::unordered_map<string, Mix_Music*>::const_iterator index = musicTable.begin(); index != musicTable.end(); index++){
         DEBUG_PRINT(cont << " - " << index->first)
         cont++;
     }

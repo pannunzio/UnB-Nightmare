@@ -70,17 +70,20 @@ void StageState::ResetState(){
 	this->waitEnd = WAIT_END_DURATION;
 	this->gameEnd = false;
 
-
     Camera::SetX(INIT_STAGE_X);
     Camera::SetY(INIT_STAGE_Y);
+
+    this->music.Open(INIT_MUSIC_FILE);
 
 	DEBUG_PRINT("StageState::ResetState()-end-")
 }
 
 StageState::~StageState(){
+    this->music.Stop();
     Resources::ClearFonts();
     Resources::ClearImages();
     Resources::ClearSound();
+//    Resources::ClearMusic();
 	// limpando o vector
 //	this->mapActionList.mapActions.clear();
 //	objectArray.clear();
@@ -90,6 +93,11 @@ StageState::~StageState(){
 
 void StageState::LoadAssets(){
     DEBUG_PRINT("StageState::LoadAssets()-begin-")
+
+//    this->music.Open("audio/subsolo_main.ogg");
+//    this->music.Open("audio/tematerreo_vitoria.ogg");
+//
+//    this->music.Open(INIT_MUSIC_FILE);
 
     this->hud = Hud();
     this->hud.InitHud();
@@ -110,11 +118,15 @@ void StageState::LoadAssets(){
 	this->mapLength = ((tileMap.GetWidth()-3)*TILESET_WIDTH) - 200;
     DEBUG_PRINT(" - Map Init OK")
 
-    this->music = Sound(-1);
-    this->music.Open(INIT_MUSIC_FILE, 1);
-    this->music.Play(10);
+//    this->music = Sound(-1);
+//    this->music.Open(INIT_MUSIC_FILE, 1);
+    this->music.Open(INIT_MUSIC_FILE);
+
+//    this->music.Play(1);
     DEBUG_PRINT(" - music OK")
+
     Resources::PrintAllLoadedResources();
+
     DEBUG_PRINT("StageState::LoadAssets()-end-")
 }
 
@@ -123,6 +135,8 @@ bool StageState::GetPause(){
 }
 
 void StageState::Update(float dt){
+    MusicController();
+
     CheckEndOfGame(dt);
     if(pause == false){
         DEBUG_PRINT("StageState::Update()-begin-")
@@ -417,6 +431,33 @@ void StageState::UpdateMenu(float dt){
                 break;
         }
     }
+}
+
+void StageState::MusicController(){
+    if(!this->music.IsPlaying()){
+        this->music.Play(-1);
+    }
+    switch(Player::GetInstance().GetLayer()){
+    case LAYER_BOTTON:
+        if(Player::GetInstance().GetSwitchFloor()){
+            this->music.Stop();
+            this->music.Open(SSOLO_MUSIC_FILE);
+            this->music.Play(-1);
+            std::cout << "SWITCH bottom" << std::endl;
+        }
+        break;
+    case LAYER_MIDDLE:
+        if(Player::GetInstance().GetSwitchFloor()){
+            this->music.Stop();
+            this->music.Open(INIT_MUSIC_FILE);
+            this->music.Play(-1);
+            std::cout << "SWITCH not bottom" << std::endl;
+        }
+        break;
+    default:
+        break;
+    }
+
 }
 
 void StageState::RenderSubLayer(int sublayer){
