@@ -3,7 +3,7 @@
 Rect Camera::pos = Rect(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 Vec2 Camera::speed = Vec2(CAMERA_NORMAL_SPEED,2);
 
-int Camera::layer = TERREO;
+int Camera::layer = LAYER_MIDDLE;
 float Camera::lastY = 0;
 
 Camera::Camera() {
@@ -16,7 +16,7 @@ Camera::~Camera() {
 void Camera::Update(float dt){
     //move a camera no eixo Y
     switch(layer){
-        case MESANINO://se esta na layer 3
+        case LAYER_TOP://se esta na layer 3
             if(pos.y > CAMERA_LAYER_TOP){//e a camera ainda nao está na origem
                 lastY = pos.y;
                 pos.y = pos.y - speed.y*dt*100;//continua descendo a camera
@@ -24,7 +24,7 @@ void Camera::Update(float dt){
                 pos.y = lastY = CAMERA_LAYER_TOP;//garante que vai ficar exatamente em 0
             }
             break;
-        case TERREO:
+        case LAYER_MIDDLE:
             if(pos.y > CAMERA_LAYER_MIDDLE && lastY > CAMERA_LAYER_MIDDLE){
                 lastY = pos.y;
                 pos.y = pos.y - speed.y*dt*100;
@@ -35,7 +35,7 @@ void Camera::Update(float dt){
                 pos.y = lastY = CAMERA_LAYER_MIDDLE;
             }
             break;
-        case SUBSOLO:
+        case LAYER_BOTTON:
             if(pos.y < CAMERA_LAYER_BOTTON){
                 lastY = pos.y;
                 pos.y = pos.y + speed.y*dt*100;
@@ -78,6 +78,10 @@ void Camera::SetWidth(float w){
 
 void Camera::SetHeight(float h){
     pos.h = h;
+}
+
+int Camera::GetLayer(){
+    return layer;
 }
 
 float Camera::GetX(){

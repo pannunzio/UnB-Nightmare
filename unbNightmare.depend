@@ -368,27 +368,26 @@
 
 1479419063 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
 
-1479437037 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
+1479869710 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
-	"Player.h"
 	"Defines.h"
 	"Camera.h"
 
-1479419062 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
+1479869531 c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.h
 	"Vec2.h"
 	"GameObject.h"
 	"InputManager.h"
 	"Defines.h"
 	"Rect.h"
 
-1479436275 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
+1479869773 c:\users\thiag\documents\githubrep\unb-nightmare\src\defines.h
 	<string>
 	<iostream>
 	"SDL.h"
 
-1479419063 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1479857160 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -518,7 +517,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1479457185 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1479869762 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -555,11 +554,10 @@
 	"Vec2.h"
 	"Rect.h"
 
-1479419062 c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.h
+1479870002 c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.h
 	"GameObject.h"
 	"Sprite.h"
 	"Obstacle.h"
-	"Player.h"
 	"Game.h"
 	"CacaDePombo.h"
 	"Camera.h"
@@ -613,7 +611,7 @@
 	"Camera.h"
 	"Player.h"
 
-1479419061 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
+1479869546 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\camera.cpp
 	"Camera.h"
 
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\clock.cpp
@@ -667,7 +665,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\inputmanager.cpp
 	"InputManager.h"
 
-1479437822 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
+1479859580 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\item.cpp
 	"Item.h"
 
 1479438881 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\lixeira.cpp
@@ -677,7 +675,7 @@
 	"Game.h"
 	"Defines.h"
 
-1479437546 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
+1479859615 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\manifestacao.cpp
 	"Manifestacao.h"
 
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\mapactionlist.cpp
@@ -689,7 +687,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\noncollidingperson.cpp
 	"NonCollidingPerson.h"
 
-1479457004 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
+1479869632 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.cpp
 	"Obstacle.h"
 
 1479420978 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoa.cpp
@@ -698,13 +696,13 @@
 1479440108 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479459038 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479865367 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
 	"ClockItem.h"
 
-1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
+1479870045 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pombo.cpp
 	"Pombo.h"
 
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\rect.cpp
@@ -718,7 +716,7 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sound.cpp
 	"Sound.h"
 
-1479501648 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
+1479764103 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\sprite.cpp
 	"Sprite.h"
 	<iostream>
 	<SDL.h>
@@ -726,7 +724,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479495189 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479867456 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp
@@ -743,7 +741,7 @@
 1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\text.cpp
 	"Text.h"
 
-1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.cpp
+1479685383 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.cpp
 	<cstdio>
 	"TileMap.h"
 	"MapActionList.h"
@@ -878,7 +876,7 @@
 	"ClockItem.h"
 	"Hud.h"
 
-1479438848 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\instructionstate.cpp
+1479859784 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\instructionstate.cpp
 	"InstructionState.h"
 
 1478191217 c:\users\thiag\documents\githubrep\unb-nightmare\src\debug.hpp

@@ -23,6 +23,7 @@ int Player::coffee_ammo = 1;
 Player::Player(float x, float y) {
 	//Inicialização da referencia a Player
 	this->player = this;
+	this->playerAlive = true;
     this->sp = Sprite(RUNNING_SPRITE, RUNNING_FRAMES, RUNNING_FTIME);
     //Inicialização de posição
 	this->baseX = (int)x;
@@ -53,7 +54,6 @@ Player::Player(float x, float y) {
     this->playerControl = true;//modificar para criar o inicio de jogo
     //Inicialização referente a colisão
     this->isColliding = false;
-    this->wasColliding = false;
     this->isPassingMapObject = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
@@ -89,6 +89,7 @@ Player::~Player() {
 ***/
 void Player::Update(float dt){
 	DEBUG_ONLY(MagicButtons())
+	DEBUG_PRINT("Player::Update()-begin-")
 	//atualiza o sprite
 	this->sp.Update(dt);
 
@@ -99,49 +100,40 @@ void Player::Update(float dt){
     if(timeOver == true)
         PlayerStops();
 
-    // faz os movimentos do input
     MoveGirl();
-    // Atualiza o tempo e estado dos powerUps
     UpdatePowerUp(dt);
-    //Atualiza a posição de acordo com o estado atual
     UpdatePosition(dt);
-    //LATeR: criar uma funcao propria pra resetar esses aqui
+
     this->isColliding = false;
     this->isPassingMapObject = false;
     this->isSurprise = false;
     this->surpriseType = NO_SURPRISE;
     this->addTime = 0.0;
+    DEBUG_PRINT("Player::Update()-end-")
 }
 
 void Player::Render(){
 	this->sp.Render((int)(this->box.x - Camera::GetX()), (int)(this->box.y - Camera::GetY()));
-//	if(this->ballonRender){
-//        this->ballon.Render((int)(this->box.x + BALLON_POS_X - Camera::GetX()),
-//                            (int)(this->box.y - BALLON_POS_Y - Camera::GetY()));
-//	}
 }
 
 bool Player::IsDead(){
-	// camera passou player
-	if(Camera::GetX() + 30 > box.x + sp.GetWidth()){
-		this->player = nullptr;
-//		cout<<"TESTE"<<endl;
-		return true;
+    DEBUG_PRINT("Player::IsDead()-begin-")
+    if(this->box.x + this->box.w - Camera::GetX() < 10 ){//if(Camera::GetX() + 10 > this->box.x + this->box.w){//if(this->box.x + this->box.w - Camera::GetX() > 10){
+        this->playerAlive = false;
+        this->playerControl = false;
 	}
-	return false; // retornar true se tiver camera passou, ou se o tempo acabou
-	//isso pode ser feito pelo state data.
+	DEBUG_PRINT("Player::IsDead()-end-")
+	return false;
 }
 
 void Player::NotifyCollision(GameObject* other){
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
-        this->isColliding = true;
-        DEBUG_ONLY(if(this->isColliding == true && this->wasColliding == false))
-            DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
+        DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
+        DEBUG_PRINT("player(x + w): " << this->box.x + this->box.w)
         if(!isIndestructible){
             this->isColliding = true;
-            this->wasColliding = true;
-            this->SetMaxSpeed(0.0);
             Obstacle* obst = (Obstacle*) other;
+            this->SetMaxSpeed(obst->GetSpeed());
             this->speed = obst->GetSpeed();
         } else {
             //se estiver com um powerup que dá indestrutibilidade, desvia dos obstaculos principais
@@ -157,7 +149,6 @@ void Player::NotifyCollision(GameObject* other){
         DEBUG_PRINT("colidiu MANIFESTACAO")
         StopIndestructiblePowerup();
         this->isColliding = true;
-        this->wasColliding = true;
         Obstacle* obst = (Obstacle*) other;
         this->speed = obst->GetSpeed();
         this->maxSpeed = obst->GetSpeed();
@@ -169,7 +160,6 @@ void Player::NotifyCollision(GameObject* other){
         DEBUG_PRINT("nudez no campus!")
         this->isColliding = true;
         this->speed = 2;
-        this->wasColliding = true;
     }else if(other->Is("Cafe")){
         DEBUG_PRINT("colidiu CAFE")
         this->coffee_ammo++;
@@ -194,8 +184,20 @@ void Player::NotifyCollision(GameObject* other){
         SetNewSpeedAndPowerup(PowerUp::CACA_DE_POMBO, 3.5, RUNNING_SLOW_SPEED);
     }else if(other->Is("Escada")){
         DEBUG_PRINT("colidiu ESCADA")
-        this->isPassingMapObject = true;
-        this->ballonRender = 2;
+        switch(this->layer){
+            case LAYER_TOP:
+                if(this->subLayer == SUBLAYER_BOTTON){
+                    this->ballonRender = 2;
+                    this->isPassingMapObject = true;
+                }
+                break;
+            case LAYER_MIDDLE: case LAYER_BOTTON:
+                if(this->subLayer == SUBLAYER_TOP){
+                    this->ballonRender = 2;
+                    this->isPassingMapObject = true;
+                }
+        }
+
     }else if(other->Is("Agua")){
         DEBUG_PRINT("colidiu AGUA")
         StopIndestructiblePowerup();
@@ -240,7 +242,10 @@ void Player::MoveSameFloor(){
 void Player::MoveThroughFloors(){
     if(this->powerUp != PowerUp::SKATE){
         #ifndef DEBUG
-        if(this->subLayer == SUBLAYER_TOP && this->isPassingMapObject){
+        if(this->layer == LAYER_TOP && this->subLayer == SUBLAYER_BOTTON ||
+           this->layer == LAYER_MIDDLE && this->subLayer == SUBLAYER_TOP ||
+           this->layer == LAYER_BOTTON && this->subLayer == SUBLAYER_TOP
+           && this->isPassingMapObject){
         #endif // DEBUG
             switch(this->layer){
                 case LAYER_MIDDLE:
@@ -293,7 +298,6 @@ void Player::PlayerStops(){
 
 void Player::Shoot(){
 	Vec2 shootPos = box.CenterPos();
-
 	if(this->coffee_ammo > 0){
 		Bullet* coffee = new Bullet(shootPos.x, shootPos.y, 10, COFFEE_FILE, 3, 0.3, false, "Coffee");
 		coffee->SetLayers(this->layer, this->subLayer); // para renderizar corretamente
@@ -361,17 +365,8 @@ void Player::EndPowerUp(){
     }
 }
 
-void Player::CheckCollisionToResetSpeed(){
-    if(!this->isColliding){
-        if(this->wasColliding){
-            this->speed = RUNNING_SPEED;
-            this->SetMaxSpeed(RUNNING_SPEED);
-            this->wasColliding = false;
-        }
-    }
-}
-
 void Player::UpdateSpeed(float dt){
+    if(!this->isColliding) this->speed = RUNNING_SPEED;
 	//v = v0 + at
 	if(this->speed != this->maxSpeed){
         //lastSpeed evita que a speed fique oscilando em volta de maxSpeed
@@ -397,22 +392,20 @@ void Player::UpdateSpeed(float dt){
 
 //ajusta a posição do Player de acordo com o estado
 void Player::UpdatePosition(float dt){
+    DEBUG_PRINT("Player::UpdatePosition()-begin-")
     UpdateSpeed(dt);
     checkPosition(this->box.x - Camera::GetX());
-    //Volta a velocidade para o padrão após colisão
-    CheckCollisionToResetSpeed();
 
     Camera::MoveToFloor( GetLayer() );
-    Camera::SetSpeed(GetSpeed());
 
     float diff = this->box.x - Camera::GetX();
     switch(this->movementState){
         case RUNNING:
             this->box.x += this->speed*100*dt;
-            if(IsInPosition()){
+            if(this->isRightPosition){
                 Camera::SetX(box.x - baseX);
-            }else if(diff < GetBaseX()){
-                Camera::MoveX(dt*100/2);
+            }else if(diff <= GetBaseX()){
+                Camera::MoveX(dt*100*0.5);
             }else if(diff > GetBaseX()){
                 Camera::MoveX(dt*100*3/2);
             }
@@ -429,6 +422,7 @@ void Player::UpdatePosition(float dt){
         case SKATING:
             break;
     }
+    DEBUG_PRINT("Player::UpdatePosition()-end-")
 }
 
 void Player::StopIndestructiblePowerup(){
@@ -448,12 +442,13 @@ void Player::SetNewSpeedAndPowerup(PowerUp powerup, float newSpeed, float maxSpe
 }
 
 void Player::checkPosition(float diff){
-	if(diff > this->baseX - DELTA_ACCEPT &&
-        this->baseX + DELTA_ACCEPT > diff ){
-        this->isRightPosition = true;
-    }else{
-        this->isRightPosition = false;
-    }
+    if(this->isColliding == false){
+        if(this->baseX + DELTA_ACCEPT > diff && diff > this->baseX - DELTA_ACCEPT){
+            this->isRightPosition = true;
+        }else{
+            this->isRightPosition = false;
+        }
+    }else this->isRightPosition = false;
 }
 
 /***
@@ -473,10 +468,7 @@ void Player::TimeOver(){
 }
 
 bool Player::IsPlayerAlive(){
-    if(this->player != nullptr)
-        return true;
-    else
-        return false;
+    return this->playerAlive;
 }
 
 float Player::GetSpeed(){
@@ -554,10 +546,10 @@ void Player::MagicButtons(){
         this->sp.SetAlpha(100);
     }
     if(InputManager::GetInstance().KeyPress(SDLK_9)){
-        this->sp.FadeIn(2);
+        this->sp.FadeIn();
     }
     if(InputManager::GetInstance().KeyPress(SDLK_8)){
-        this->sp.FadeOut(2);
+        this->sp.FadeOut();
     }
     if(InputManager::GetInstance().KeyPress(SDLK_7)){
         this->sp.FadeToValue(30);

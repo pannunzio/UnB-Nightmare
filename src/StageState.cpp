@@ -123,28 +123,26 @@ bool StageState::GetPause(){
 }
 
 void StageState::Update(float dt){
+    CheckEndOfGame(dt);
     if(pause == false){
+        DEBUG_PRINT("StageState::Update()-begin-")
         DEBUG_ONLY(MagicButtons())
-        CheckEndOfGame();
-        HandleInputs();
-
         this->clock.Update(dt);
-        if(this->clock.GetTime() == 0) waitEnd -= dt;
-        if(!Player::player) MoveCamera(dt);
+        HandleInputs();
 
         UpdateObjectArray(dt);
         CheckMapActionsPosition(dt);
-
         this->cooldownTimer.Update(dt);
 
-        //SpawnNewItem();
-        //SpawnNewStaticObstacle();
-        //SpawnNewDynamicObstacle();
-
+        #ifndef DEBUG
+        SpawnNewItem();
+        SpawnNewStaticObstacle();
+        SpawnNewDynamicObstacle();
+        #endif // DEBUG
         this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());
 
         UpdateHud(dt);
-
+    DEBUG_PRINT("StageState::Update()-end-")
     } else {
         UpdateMenu(dt);
     }
@@ -153,9 +151,8 @@ void StageState::Pause(){
 }
 
 void StageState::MoveCamera(float dt){
-    DEBUG_PRINT("StageState::MoveCamera()-begin-")
-    DEBUG_PRINT(" - Camera sob controle do StageState")
-    DEBUG_PRINT("StageState::MoveCamera()-end-")
+    if(Camera::GetX()+Camera::GetWidth() < mapLength)
+        Camera::MoveX(dt*100*0.5);
 }
 
 void StageState::Resume(){
@@ -178,7 +175,6 @@ void StageState::Render(){
     this->hud.Render();
     if(pause == true)
         this->menu.Render();
-//	this->clock.Render();
 }
 
 //Add game object
@@ -198,13 +194,13 @@ void StageState::AddObjectStatic(GameObject* ptr){
 */
 
 //verifica se o jogo acabou
-void StageState::CheckEndOfGame(){
+void StageState::CheckEndOfGame(float dt){
+    DEBUG_PRINT("StageState::CheckEndOfGame()-begin-")
     //Se o player não existir, encerra o jogo
-    if(!Player::player){
+    if(!Player::GetInstance().IsPlayerAlive()){
+        MoveCamera(dt);
+        waitEnd -= dt*100;
         this->mapActionList.mapActions.clear();
-        objectArray.clear();
-    	SetEndOfGame(false);
-    	return;
     }
 
     //se o usuario solicitar o fim do jogo ele encerra também
@@ -221,14 +217,17 @@ void StageState::CheckEndOfGame(){
         this->clock.SetTime(0);
         this->clock.StopClock();
         Player::GetInstance().TimeOver();
-        if(waitEnd < 0){
-            SetEndOfGame(false);
-        }
+        waitEnd -= dt;
+    }
+    if(waitEnd < 0){
+        //objectArray.clear();
+        SetEndOfGame(false);
     }
 
     if(Camera::GetX() > this->mapLength){
         SetEndOfGame(true);
     }
+    DEBUG_PRINT("StageState::CheckEndOfGame()-end-")
 }
 
 void StageState::SetEndOfGame(bool playerVictory){
@@ -239,18 +238,14 @@ void StageState::SetEndOfGame(bool playerVictory){
         Game::GetInstance().Push(new EndState(stateData));
     } else {
         pause = true;
-        if(!this->gameEnd)
-            this->menu.RemoveMenuOption(RESUME);
     }
     this->gameEnd = true;
 }
 
 //Atualiza o array de Objectos e confere quais objectos 'morreram'
 void StageState::UpdateObjectArray(float dt){
+    DEBUG_PRINT("StageState::UpdateObjectArray()-begin-")
     //obs: NAO USAR O UPDATE ARRAY DO STATE!!!!
-    for(unsigned int i = 0 ; i < objectArray.size(); i++){
-        objectArray[i]->Update(dt);
-    }
     for(unsigned int i = 0 ; i < objectArray.size(); i++){
     	//checando colisisao
 		for(unsigned int j = 0; j < objectArray.size(); j++){
@@ -270,10 +265,15 @@ void StageState::UpdateObjectArray(float dt){
 		   i--;
 		}
     }
+    for(unsigned int i = 0 ; i < objectArray.size(); i++){
+        objectArray[i]->Update(dt);
+    }
+    DEBUG_PRINT("StageState::UpdateObjectArray()-end-")
 }
 
 //Verifica se o Player está passando na frente de algum objeto de mapa como as escadas, por exemplo
 void StageState::CheckMapActionsPosition(float dt){
+	DEBUG_PRINT("StageState::CheckMapActionsPosition()-begin-")
     for(int i = mapActionList.mapActions.size() - 1; i >= 0; i--) {
 
         if(Player::GetInstance().IsPlayerAlive() &&
@@ -283,6 +283,7 @@ void StageState::CheckMapActionsPosition(float dt){
             Player::GetInstance().NotifyCollision(&mapActionList.mapActions[i]);
         }
 	}
+	DEBUG_PRINT("StageState::CheckMapActionsPosition()-end-")
 }
 
 void StageState::SpawnNewItem(){
@@ -328,24 +329,25 @@ void StageState::SpawnNewItem(){
 }
 
 void StageState::SpawnNewStaticObstacle(){
-    if(rand()%30 > 25){
+    if(rand()%100 > 98){
         DEBUG_PRINT(" - spawning new trash")
         AddObjectStatic(new Lixeira());
         AddObjectStatic(new Lixeira());
         this->lixo++;
     }
 
-    if(rand()%100 <= 4.3){
+    if(rand()%100 > 99){
         //INUNDACAO!
     }
 }
 
 void StageState::SpawnNewDynamicObstacle(){
+    DEBUG_PRINT("StageState::SpawnNewDynamicObstacle()-begin-")
     if(this->cooldownTimer.GetCurrentTime() > 0.3){ // repete a cada meio segundo
     	this->cooldownTimer.Restart();
 
         int random = rand()%100;
-    	//if(random > spawnPerson){
+    	if(random > spawnPerson){
             if(random > spawnZombie){
                 DEBUG_PRINT(" - new pessoa")
                 AddObject(new Pessoa());
@@ -354,24 +356,24 @@ void StageState::SpawnNewDynamicObstacle(){
                 DEBUG_PRINT(" - new zombie")
                 AddObject(new PessoaZumbi());
             }
-    	//}
-
-    	if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
+    	}
+        if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
             if(random < spawnBird){
                 AddObjectStatic(new Pombo());
             }
     	}
     }
-
     if(Player::GetInstance().IsSurprise()){
         if(Player::GetInstance().GetSurpriseType() == MANIFESTACAO)
             AddObject(new Manifestacao());
         else if (Player::GetInstance().GetSurpriseType() == PELADAO)
             AddObject(new NonCollidingPerson());
     }
+    DEBUG_PRINT("StageState::SpawnNewDynamicObstacle()-end-")
 }
 
 void StageState::UpdateHud(float dt){
+	DEBUG_PRINT("StageState::UpdateHud()-begin-")
     this->hud.SetClock(this->clock.GetText());
     this->hud.SetCoffeeAmmo(Player::GetInstance().coffee_ammo);
 
@@ -384,46 +386,28 @@ void StageState::UpdateHud(float dt){
     this->hud.SetDistanceRun(percentual);
 
     this->hud.Update(dt);
+    DEBUG_PRINT("StageState::UpdateHud()-end-")
 }
 
 void StageState::UpdateMenu(float dt){
     this->menu.Update(dt);
     if(this->menu.GetSelection()){
-        if(!this->gameEnd){
-            switch(menu.GetSelectedOption()){
-                case RESUME:
-                    pause = false;
-                    DEBUG_PRINT("OPTION: RESUME GAME")
-                    break;
-                case RESTART:
-                    //RestartStage();
-                    objectArray.clear();
-                    ResetState();
-                    LoadAssets();
-                    DEBUG_PRINT("OPTION: RESTART GAME")
-                    break;
-                case QUIT_GAME:
-                    DEBUG_PRINT("OPTION: QUIT GAME")
-                    this->popRequested = true;
-                    Game::GetInstance().Push(new TitleState());
-                    break;
-            }
-        } else {
-            switch(menu.GetSelectedOption()){
-                case (RESTART - 1):
-                    //RestartStage();
-                    DEBUG_PRINT("OPTION: RESTART GAME")
-                    objectArray.clear();
-                    ResetState();
-                    LoadAssets();
-                    this->clock.StartClock();
-                    break;
-                case (QUIT_GAME - 1):
-                    DEBUG_PRINT("OPTION: QUIT GAME")
-                    this->popRequested = true;
-                    Game::GetInstance().Push(new TitleState());
-                    break;
-            }
+        switch(menu.GetSelectedOption()){
+            case RESUME:
+                pause = false;
+                DEBUG_PRINT("OPTION: RESUME GAME")
+                break;
+            case RESTART:
+                objectArray.clear();
+                ResetState();
+                LoadAssets();
+                DEBUG_PRINT("OPTION: RESTART GAME")
+                break;
+            case QUIT_GAME:
+                DEBUG_PRINT("OPTION: QUIT GAME")
+                this->popRequested = true;
+                Game::GetInstance().Push(new TitleState());
+                break;
         }
     }
 }
@@ -438,10 +422,6 @@ void StageState::RenderSubLayer(int sublayer){
 void StageState::HandleInputs(){
     if(InputManager::GetInstance().KeyPress(SDLK_RETURN)){
         pause = true;
-    }
-
-    if(InputManager::GetInstance().KeyPress(SDLK_1)){
-        this->clock.AddTimeToTime(10);
     }
 }
 
@@ -478,6 +458,9 @@ void StageState::MagicButtons(){
     }
     if(InputManager::GetInstance().KeyPress(SDLK_f)){
         AddObject(new Pombo());
+    }
+    if(InputManager::GetInstance().KeyPress(SDLK_1)){
+        this->clock.AddTimeToTime(10);
     }
 }
 #ifdef DEBUG

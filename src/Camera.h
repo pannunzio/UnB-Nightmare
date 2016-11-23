@@ -33,19 +33,16 @@ public:
 
 	static void SetSpeed(float modifyer);
 
+    static int GetLayer();
     static float GetX();
 	static float GetY();
 	static float GetWidth();
 	static float GetHeight();
 
+
 	void Is(std::string type);
 
 	static Vec2 speed;
-	enum{
-        SUBSOLO = 1,
-        TERREO,
-        MESANINO
-	};
 
 private:
 	static Rect pos;

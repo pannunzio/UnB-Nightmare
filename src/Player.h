@@ -49,10 +49,6 @@
 
 #define PLAYER_MANIFEST_INC     10
 
-#define SPRITE_RESIZE_TOP       0.95
-#define SPRITE_RESIZE_MIDDLE    1
-#define SPRITE_RESIZE_BOTTON    1.05
-
 #define DELTA_ACCEPT 10
 
 #define COFFEE_FILE     "img/coffee.png"
@@ -131,7 +127,8 @@ public:
     int ballonRender;
 
 private:
-
+    //Existencia do player
+    bool playerAlive;
     //Atributos de posição
 	int baseX;              //Posicao padrao
 	bool isRightPosition;   //Flag de corretude da posição
@@ -151,7 +148,6 @@ private:
 
     //Atributos de Colisão
     bool isColliding;
-    bool wasColliding;
     bool isPassingMapObject;
 
     //Indicador de fim de tempo
@@ -177,15 +173,11 @@ private:
 
     void SetPositionInY();
 
-    //retorna true se encerrar o powerup
     void EndPowerUp();
 
     void UpdatePowerUp(float dt);
-    void CheckCollisionToResetSpeed();
     void UpdateSpeed(float dt);
 
-    //ajusta a posição do Player de acordo com o tipo do movimento
-    //(se ele se desloca de um lado para o outro ou de cima para baixo)
     void UpdatePosition(float dt);
 
     void StopIndestructiblePowerup();

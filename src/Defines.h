@@ -29,4 +29,8 @@ using std::endl;
 #define LAYER_BOTTON_HEIGHT 625
 #define SUBLAYER_HEIGHT 10;
 
+#define SPRITE_RESIZE_TOP       0.95
+#define SPRITE_RESIZE_MIDDLE    1
+#define SPRITE_RESIZE_BOTTON    1.05
+
 #endif

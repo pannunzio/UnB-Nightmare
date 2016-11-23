@@ -72,7 +72,7 @@ int Manifestacao::GetLayer(){
 }
 
 int Manifestacao::GetSublayer(){
-    if(Player::player != nullptr)
+    if(Player::GetInstance().IsPlayerAlive())
         return Player::GetInstance().GetSublayer();
     else
         return SUBLAYER_BOTTON;

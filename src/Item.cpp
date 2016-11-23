@@ -16,7 +16,7 @@ Item::~Item(){
 }
 
 void Item::Update(float dt){
-    if(Player::player){
+    if(Player::GetInstance().IsPlayerAlive()){
         this->sp.Update(dt);
     } else
         this->isDead = true;

@@ -4,13 +4,12 @@
 #include "GameObject.h"
 #include "Sprite.h"
 #include "Timer.h"
-#include "Player.h"
 #include "Defines.h"
 #include "Camera.h"
 
 using std::string;
 
-#define DEFAULT_OBSTACLE_DISTANCE 200
+#define DEFAULT_OBSTACLE_DISTANCE 400
 
 class Obstacle : public GameObject{
 public:
@@ -28,7 +27,7 @@ public:
 
     //Sprite sp;
 	bool canBlock;
-	int speed;
+	float speed;
     bool isDead;
 
     bool isSoundPlaying;

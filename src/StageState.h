@@ -100,7 +100,7 @@ public:
 private:
     void ResetState();
     //Verifica se o jogo acabou
-    void CheckEndOfGame();
+    void CheckEndOfGame(float dt);
     void SetEndOfGame(bool playerVictory);
     void MoveCamera(float dt);
     //Atualiza o array de Objectos e confere quais objectos 'morreram'

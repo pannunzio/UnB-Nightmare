@@ -71,7 +71,7 @@ void InstructionState::Update(float dt){
 
     this->clock.Update(dt);
     if(this->clock.GetTime() == 0) waitEnd -= dt;
-    if(!Player::player) MoveCamera(dt);
+    if(!Player::GetInstance().IsPlayerAlive()) MoveCamera(dt);
 
     UpdateObjectArray(dt);
     CheckMapActionsPosition(dt);
@@ -158,7 +158,7 @@ void InstructionState::SetInitialStateValues(){
 //verifica se o jogo acabou
 void InstructionState::CheckEndOfGame(){
     //Se o player não existir, encerra o jogo
-    if(Player::player != NULL){
+    if(!Player::GetInstance().IsPlayerAlive()){
         this->mapActionList.mapActions.clear();
         objectArray.clear();
         this->popRequested =  true;

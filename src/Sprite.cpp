@@ -299,7 +299,7 @@ void Sprite::FadeIn(int increment){
     if(!this->fadingToValue) this->fadeValue = SDL_ALPHA_OPAQUE;
 
     if(increment > SDL_ALPHA_OPAQUE) this->fadeModifyer = SDL_ALPHA_OPAQUE;
-    else if(increment < 1) this->fadeModifyer = 1;
+    else if(increment <= 1) this->fadeModifyer = 1;
     else this->fadeModifyer = increment;
 }
 
