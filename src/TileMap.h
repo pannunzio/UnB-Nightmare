@@ -4,8 +4,8 @@
 #include "TileSet.h"
 
 #define TILE_MAP_FILE   "map/tileMapTeste.txt"
-#define TILE_SET_FILE   "img/tilesetSKDAResized.png"
-#define TILESET_WIDTH   345
+#define TILE_SET_FILE   "img/tilesetANFIResized.png"
+#define TILESET_WIDTH   344
 #define TILESET_HEIGHT  733/3
 
 

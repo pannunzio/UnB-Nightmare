@@ -49,7 +49,7 @@
 
 #define PLAYER_MANIFEST_INC     10
 
-#define DELTA_ACCEPT 10
+#define DELTA_ACCEPT 5
 
 #define COFFEE_FILE     "img/coffee.png"
 

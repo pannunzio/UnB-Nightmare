@@ -3,7 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -127,31 +127,31 @@ bool Player::IsDead(){
 }
 
 void Player::NotifyCollision(GameObject* other){
+    if(!this->timeOver && !other->Is("Escada")){
+        Obstacle* obst = (Obstacle*) other;
+        this->SetMaxSpeed(obst->GetSpeed());
+        this->speed = obst->GetSpeed();
+    }
     if(other->Is("Pessoa") || other ->Is("Zumbi") || other->Is("Lixeira")){
         DEBUG_PRINT("colidiu Pessoa/Zumbi/Lixeira")
         DEBUG_PRINT("player(x + w): " << this->box.x + this->box.w)
         if(!isIndestructible){
             this->isColliding = true;
-            Obstacle* obst = (Obstacle*) other;
-            this->SetMaxSpeed(obst->GetSpeed());
-            this->speed = obst->GetSpeed();
         } else {
             //se estiver com um powerup que dá indestrutibilidade, desvia dos obstaculos principais
-            if (this->subLayer == 3){
-                this->subLayer--;
-            } else if (this->subLayer == 1){
-                this->subLayer++;
-            } else if (this->subLayer == 2){
-                this->subLayer++;
-            }
+            //está conflitando com os inputs e tirando o player do lugar
+//            if (this->subLayer == 3){
+//                this->subLayer--;
+//            } else if (this->subLayer == 1){
+//                this->subLayer++;
+//            } else if (this->subLayer == 2){
+//                this->subLayer++;
+//            }
         }
     }else if(other->Is("Manifestacao")){
         DEBUG_PRINT("colidiu MANIFESTACAO")
         StopIndestructiblePowerup();
         this->isColliding = true;
-        Obstacle* obst = (Obstacle*) other;
-        this->speed = obst->GetSpeed();
-        this->maxSpeed = obst->GetSpeed();
         this->ballonRender = 1;
         if(InputManager::GetInstance().KeyPress(SDLK_d))
         	this->box.x += PLAYER_MANIFEST_INC;
@@ -159,7 +159,8 @@ void Player::NotifyCollision(GameObject* other){
     }else if(other->Is("NonColliding")){
         DEBUG_PRINT("nudez no campus!")
         this->isColliding = true;
-        this->speed = 2;
+        if(!this->timeOver)
+            this->speed /= this->speed;
     }else if(other->Is("Cafe")){
         DEBUG_PRINT("colidiu CAFE")
         this->coffee_ammo++;
@@ -285,12 +286,15 @@ void Player::MoveThroughFloors(){
 }
 
 void Player::PlayerStops(){
+    //é possivel colocar um tipo de parada por estado do player
     switch(movementState){
         case RUNNING:
             this->ChangeSpriteSheet(STOPPING_SPRITE, STOPPING_FRAMES, STOPPING_TIMES);
             movementState = STOPPING;
             break;
         default:
+//            this->ChangeSpriteSheet(STOPPING_SPRITE, STOPPING_FRAMES, STOPPING_TIMES);
+//            movementState = STOPPING;
             break;
     }
     playerControl = false;
@@ -366,7 +370,7 @@ void Player::EndPowerUp(){
 }
 
 void Player::UpdateSpeed(float dt){
-    if(!this->isColliding) this->speed = RUNNING_SPEED;
+    if(!this->isColliding && !this->timeOver) this->speed = RUNNING_SPEED;
 	//v = v0 + at
 	if(this->speed != this->maxSpeed){
         //lastSpeed evita que a speed fique oscilando em volta de maxSpeed

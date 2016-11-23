@@ -59,7 +59,7 @@ using std::endl;
 
 #define INIT_PLAYER_X   TILESET_WIDTH/2
 
-#define STAGE_DURATION      50 //em segundos
+#define STAGE_DURATION      90 //em segundos
 #define WAIT_END_DURATION   5  //medido no olhômetro
 
 #define STAGE_STATE_MENU_POSITION_X     500
@@ -78,6 +78,7 @@ using std::endl;
 #define STAGE_STATE_SPAWN_SURPRISE  100-40 //40% de chance
 #define STAGE_STATE_SPAWN_CLOCK     100-40 //40% de chance
 
+#define COOL_DOWN_TIME      0.5
 
 
 class StageState : public State{

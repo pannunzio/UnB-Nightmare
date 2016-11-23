@@ -368,7 +368,7 @@
 
 1479419063 c:\users\thiag\documents\githubrep\unb-nightmare\src\timer.h
 
-1479869710 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
+1479876619 c:\users\thiag\documents\githubrep\unb-nightmare\src\obstacle.h
 	"GameObject.h"
 	"Sprite.h"
 	"Timer.h"
@@ -387,7 +387,7 @@
 	<iostream>
 	"SDL.h"
 
-1479857160 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
+1479879334 c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.h
 	<iostream>
 	<vector>
 	<memory>
@@ -443,7 +443,7 @@
 	<vector>
 	<unordered_map>
 
-1479684714 c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.h
+1479875866 c:\users\thiag\documents\githubrep\unb-nightmare\src\tilemap.h
 	"TileSet.h"
 	<vector>
 
@@ -517,7 +517,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1479869762 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1479875985 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -696,7 +696,7 @@
 1479440108 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479865367 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479879078 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -724,7 +724,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479867456 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479877197 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp

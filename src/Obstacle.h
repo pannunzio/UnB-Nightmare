@@ -9,7 +9,7 @@
 
 using std::string;
 
-#define DEFAULT_OBSTACLE_DISTANCE 400
+#define DEFAULT_OBSTACLE_DISTANCE 1200
 
 class Obstacle : public GameObject{
 public:

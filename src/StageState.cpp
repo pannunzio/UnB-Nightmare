@@ -1,6 +1,6 @@
 #include "StageState.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -133,12 +133,14 @@ void StageState::Update(float dt){
         UpdateObjectArray(dt);
         CheckMapActionsPosition(dt);
         this->cooldownTimer.Update(dt);
-
         #ifndef DEBUG
         SpawnNewItem();
         SpawnNewStaticObstacle();
         SpawnNewDynamicObstacle();
         #endif // DEBUG
+        if(this->cooldownTimer.GetCurrentTime() > COOL_DOWN_TIME)
+            this->cooldownTimer.Restart();
+
         this->clock.AddTimeToTime(Player::GetInstance().GetAddTime());
 
         UpdateHud(dt);
@@ -329,23 +331,23 @@ void StageState::SpawnNewItem(){
 }
 
 void StageState::SpawnNewStaticObstacle(){
-    if(rand()%100 > 98){
-        DEBUG_PRINT(" - spawning new trash")
-        AddObjectStatic(new Lixeira());
-        AddObjectStatic(new Lixeira());
-        this->lixo++;
-    }
+    if(this->cooldownTimer.GetCurrentTime() > COOL_DOWN_TIME){
+        if(rand()%100 > 98){
+            DEBUG_PRINT(" - spawning new trash")
+            AddObjectStatic(new Lixeira());
+            AddObjectStatic(new Lixeira());
+            this->lixo++;
+        }
 
-    if(rand()%100 > 99){
-        //INUNDACAO!
+        if(rand()%100 > 99){
+            //INUNDACAO!
+        }
     }
 }
 
 void StageState::SpawnNewDynamicObstacle(){
     DEBUG_PRINT("StageState::SpawnNewDynamicObstacle()-begin-")
-    if(this->cooldownTimer.GetCurrentTime() > 0.3){ // repete a cada meio segundo
-    	this->cooldownTimer.Restart();
-
+    if(this->cooldownTimer.GetCurrentTime() > COOL_DOWN_TIME){
         int random = rand()%100;
     	if(random > spawnPerson){
             if(random > spawnZombie){
