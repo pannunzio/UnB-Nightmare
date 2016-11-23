@@ -20,7 +20,7 @@ Pombo::Pombo(){
     this->speed = -3;
 
     this->fazendoCaca = false;
-    this->box.Centralize(Camera::GetX() + 1000, LAYER_TOP_HEIGHT - 150, this->sp.GetWidth(), this->sp.GetHeight());
+    this->box.Centralize(Camera::GetX() + 1000, LAYER_TOP_HEIGHT - 200, this->sp.GetWidth(), this->sp.GetHeight());
 
 
     OpenSound("audio/pombo.wav");
@@ -36,7 +36,7 @@ void Pombo::Update(float dt){
 
 	this->box.x += this->speed * dt * 100;
 
-    if(!this->fazendoCaca && this->box.x - Camera::GetX() < 120){
+    if(!this->fazendoCaca && this->box.x - Camera::GetX() < 500){
         DEBUG_PRINT("FAZENDO CAQUINHA!!")
         this->FazCaca();
         this->fazendoCaca = true;

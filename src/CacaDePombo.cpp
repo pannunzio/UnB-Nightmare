@@ -9,8 +9,9 @@ CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float f
 	this->distanceLeft = 300;
 	this->distanceLimit = 3;
     this->layer = LAYER_TOP;
-    this->gravidade = 9.8;
-    this->speed.x = 100;
+    this->subLayer = rand()%3 + 1;
+    this->gravidade = 5;
+    this->speed.x = -300;
     this->speed.y = 0;
     this->box.x = x2;
     this->box.y = y2;
@@ -23,12 +24,9 @@ CacaDePombo::~CacaDePombo(){
 
 void CacaDePombo::Update(float dt){
     this->speed.y += this->gravidade;
-
-        //    this->distanceLeft -= sqrtf((speed.x*speed.x) + (speed.y+speed.y));
     this->distanceLeft --;
     this->Sbox.x += this->speed.x * dt;
     this->Sbox.y += this->speed.y * dt;
-    this->box.x += this->speedP * dt * 100;
 }
 
 void CacaDePombo::Render(){
