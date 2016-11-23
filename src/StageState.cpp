@@ -370,6 +370,7 @@ void StageState::SpawnNewDynamicObstacle(){
             AddObject(new Manifestacao());
         else if (Player::GetInstance().GetSurpriseType() == PELADAO)
             AddObject(new NonCollidingPerson());
+        Player::GetInstance().OffSurprise();
     }
     DEBUG_PRINT("StageState::SpawnNewDynamicObstacle()-end-")
 }
@@ -380,9 +381,13 @@ void StageState::UpdateHud(float dt){
     this->hud.SetCoffeeAmmo(Player::GetInstance().coffee_ammo);
 
     //Player deve avisar qual balão deverá ser renderizado, hud só obedece
-    this->hud.ballonX = Player::GetInstance().GetX() - Camera::GetX();
-    this->hud.ballonY = Player::GetInstance().GetY() - Camera::GetY();
-    this->hud.showBallon = Player::GetInstance().ballonRender;
+    if(Player::GetInstance().IsPlayerAlive()){
+        this->hud.ballonX = Player::GetInstance().GetX() - Camera::GetX();
+        this->hud.ballonY = Player::GetInstance().GetY() - Camera::GetY();
+        this->hud.showBallon = Player::GetInstance().ballonRender;
+    }else{
+        this->hud.showBallon = 0;
+    }
 
     float percentual = (100 * Player::GetInstance().GetX()) / (this->mapLength);
     this->hud.SetDistanceRun(percentual);

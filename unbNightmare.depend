@@ -517,7 +517,7 @@
 	"StageState.h"
 	"TitleState.h"
 
-1479875985 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
+1479881576 c:\users\thiag\documents\githubrep\unb-nightmare\src\player.h
 	<cstdlib>
 	<sstream>
 	"GameObject.h"
@@ -696,7 +696,7 @@
 1479440108 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\pessoazumbi.cpp
 	"PessoaZumbi.h"
 
-1479879078 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
+1479880952 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\player.cpp
 	"Player.h"
 	"Obstacle.h"
 	"SurpriseItem.h"
@@ -724,7 +724,7 @@
 	"Game.h"
 	"Resources.h"
 
-1479877197 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
+1479881472 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\stagestate.cpp
 	"StageState.h"
 
 1479419063 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\state.cpp

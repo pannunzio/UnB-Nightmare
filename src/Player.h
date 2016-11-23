@@ -47,7 +47,7 @@
 #define EATING_SPEED
 #define EATING_TIME         3
 
-#define PLAYER_MANIFEST_INC     10
+#define PLAYER_MANIFEST_INC     30
 
 #define DELTA_ACCEPT 5
 
@@ -121,6 +121,7 @@ public:
 	bool IsPlayerAlive();
 
     bool IsSurprise();
+    void OffSurprise();
     SurpriseType GetSurpriseType();
     void SetSurpriseType();
     float GetAddTime();

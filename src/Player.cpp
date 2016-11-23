@@ -3,7 +3,7 @@
 #include "SurpriseItem.h"
 #include "ClockItem.h"
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
         //se estiver definido debug, imprime os trecos
         #define DEBUG_PRINT(message) do{std::cout << message << std::endl;}while(0);
@@ -106,8 +106,6 @@ void Player::Update(float dt){
 
     this->isColliding = false;
     this->isPassingMapObject = false;
-    this->isSurprise = false;
-    this->surpriseType = NO_SURPRISE;
     this->addTime = 0.0;
     DEBUG_PRINT("Player::Update()-end-")
 }
@@ -530,6 +528,11 @@ bool Player::IsSurprise(){
 
 SurpriseType Player::GetSurpriseType(){
     return this->surpriseType;
+}
+
+void Player::OffSurprise(){
+    this->isSurprise = false;
+    this->surpriseType = NO_SURPRISE;
 }
 
 float Player::GetAddTime(){
