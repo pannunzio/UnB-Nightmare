@@ -51,8 +51,6 @@
 
 #define DELTA_ACCEPT 5
 
-#define COFFEE_FILE     "img/coffee.png"
-
 #define TEXT_FONT_FILE  "font/ComicNeue_Bold.otf"
 #define TEXT_INIT       "Coffee: 0"
 

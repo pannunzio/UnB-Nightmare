@@ -10,9 +10,13 @@
 #include "Camera.h"
 #include "Player.h"
 
+#define CACA_SPRITE     "img/cacaPombo.png"
+#define CACA_FRAMETIME  0.9
+#define CACA_FRAMECOUNT 9
+
 class CacaDePombo: public GameObject{
 public:
-	CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s);
+	CacaDePombo(float originX, float originY);
 	~CacaDePombo();
 
 	void Update(float dt);
@@ -23,10 +27,6 @@ public:
     int GetLayer();
 	int GetSublayer();
 
-	void SetSubLayer(int subLayer);
-
-    bool targetsPlayer;
-
 private:
 	Sprite sp;
 	float distanceLeft;
@@ -34,8 +34,10 @@ private:
     Vec2 speed;
     float gravidade;
 	std::string type;
-    Rect Sbox;
-    float speedP;
+	bool isExplosion;
+	bool animationOver;
+//    Rect Sbox;
+//    float speedP;
     Sound colisaoPlayer;
 };
 

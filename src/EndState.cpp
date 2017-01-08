@@ -11,8 +11,8 @@
         #define DEBUG_ONLY(x) //do{;}while(0)
 #endif //DEBUG
 
-EndState::EndState(StateData stateData){
-    this->isVictoryScreen = stateData.playerVictory;
+EndState::EndState(){;
+    this->isVictoryScreen = true; // stateData.playerVictory;
     this->menu = Menu(500, 350, 50);
     this->menu.AddMenuOption("Restart");
     this->menu.AddMenuOption("Quit Game");
@@ -67,7 +67,6 @@ void EndState::Render(){
 	if(!this->isVictoryScreen)
         this->derrota.Render(300,300);
 	this->menu.Render();
-
 //    this->option1->Render(0, 0);
 //    this->option2->Render(0, 0);
 }

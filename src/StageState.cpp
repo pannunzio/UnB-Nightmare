@@ -251,7 +251,7 @@ void StageState::SetEndOfGame(bool playerVictory){
     this->stateData.playerVictory = playerVictory;
     if(playerVictory){
         this->popRequested =  true;
-        Game::GetInstance().Push(new EndState(stateData));
+        Game::GetInstance().Push(new EndState());
     } else {
         pause = true;
     }
@@ -374,7 +374,7 @@ void StageState::SpawnNewDynamicObstacle(){
             }
     	}
         if(Player::GetInstance().GetLayer() ==  LAYER_TOP){
-            if(random < spawnBird){
+            if(random > spawnBird){
                 AddObjectStatic(new Pombo());
             }
     	}

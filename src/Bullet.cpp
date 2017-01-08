@@ -1,17 +1,17 @@
 #include "Bullet.h"
 
-Bullet::Bullet(float x, float y,  float speed, string sprite, int frameCount,float frameTime, bool targetsPlayer, std::string type)
-		: sp(sprite,frameCount,frameTime), shooterSound("audio/cafe_shoot.wav", 6)
+Bullet::Bullet(float originX, float originY) :  sp(BULLET_SPRITE, BULLET_FRAMECOUNT, BULLET_FRAMETIME),
+                                                shooterSound("audio/cafe_shoot.wav", 6)
 {
-    this->layer = 2;
-    this->subLayer = 2;
-	this->type = type;
-	this->speed = speed;
-	this->targetsPlayer = targetsPlayer;
-	box.Centralize(x,y,sp.GetWidth(),sp.GetHeight());
+    this->sp.SetAnimationTimes(1);
+    this->layer = Player::GetInstance().GetLayer();
+    this->subLayer = Player::GetInstance().GetSublayer();
+	this->speed = 10;
+
+	this->box.Centralize(originX, originY, this->sp.GetWidth(), this->sp.GetHeight());
+
 	distanceLeft = BULLET_MAX_DISTANCE;
 	shooterSound.Play(1);
-//	shooterSound.SetVolume(100);
 }
 
 Bullet::~Bullet() {
@@ -20,23 +20,12 @@ Bullet::~Bullet() {
 
 void Bullet::Update(float dt){
 	sp.Update(dt);
-	box.x = box.x + speed*dt*100;
-	distanceLeft-= speed*dt*100;
-
-    if(layer == LAYER_TOP)							//
-        box.y=LAYER_TOP_HEIGHT;						//
-    if(layer == LAYER_MIDDLE)						//
-        box.y=LAYER_MIDDLE;						//
-    if(layer == LAYER_BOTTON)						//
-        box.y=LAYER_BOTTON_HEIGHT;						//
-    												//
-    box.y = box.y - (this->subLayer - 3)*26;		//
-    ///////////////////////////////////////////////////
-
+	box.x += speed * dt * 100;
+	distanceLeft -= speed * dt * 100;
 
 }
 void Bullet::Render(){
-	sp.Render(box.x - Camera::GetX(), box.y - Camera::GetY() + 30,box.rotation);
+	sp.Render(box.x - Camera::GetX(), box.y - Camera::GetY(), box.rotation);
 }
 
 bool Bullet::IsDead(){
@@ -48,12 +37,11 @@ bool Bullet::IsDead(){
 void Bullet::NotifyCollision(GameObject* other){
 	if(other->Is("Zumbi") || other->Is("Pessoa")){
 		distanceLeft = 0;
-		std::cout << "colidiu com a menina" << std::endl;
 	}
 }
 
 bool Bullet::Is(std::string type){
-	return(type == this->type);
+	return(type == "Coffee");
 }
 
 
@@ -63,10 +51,4 @@ int Bullet::GetLayer(){
 
 int Bullet::GetSublayer(){
     return this->subLayer;
-}
-
-
-void Bullet::SetLayers(int layer, int subLayer){
-    this->layer = layer;
-    this->subLayer = subLayer;
 }

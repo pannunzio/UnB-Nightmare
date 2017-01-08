@@ -235,7 +235,7 @@ void Sprite::_cleanFade(){
 
 bool Sprite::IsAnimationFinished(){
     if(this->timesCounter == this->times &&
-       this->currentFrame == this->frameCount)
+       this->currentFrame -1 == this->frameCount)
        return true;
     else return false;
 }

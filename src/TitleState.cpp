@@ -1,4 +1,5 @@
 #include "TitleState.h"
+#include "EndState.h"
 
 #define DEBUG
 
@@ -20,7 +21,7 @@ TitleState::TitleState() {
 	this->menu = Menu(TS_MENU_POSX, TS_MENU_POSY, TS_MENU_SPACEMENT);
     this->menu.AddMenuOption(TS_MENU_TEXT_START);
     this->menu.AddMenuOption(TS_MENU_TEXT_QUIT);
-    this->menu.AddMenuOption(TS_MENU_TEXT_INSTRUCTIONS);
+//    this->menu.AddMenuOption(TS_MENU_TEXT_INSTRUCTIONS);
     this->cutscene.SetFile(TS_CUTSCENE_IMAGE);
 }
 
@@ -39,7 +40,7 @@ void TitleState::LoadAssets(){
     this->cutscene.Load();
     this->cutscene.SetFrameCount(TS_CUTSCENE_FRAMES);
     this->cutscene.SetFrameTime(TS_CUTSCENE_FTIME);
-    //this->cutscene = Sprite(TS_CUTSCENE_IMAGE, TS_CUTSCENE_FRAMES, TS_CUTSCENE_FTIME);
+    this->cutscene = Sprite(TS_CUTSCENE_IMAGE, TS_CUTSCENE_FRAMES, TS_CUTSCENE_FTIME);
     this->cutscene.SetAnimationTimes(1);
 
 //    this->music = Sound(SOUND_ALL_CHANNELS);
@@ -53,7 +54,6 @@ void TitleState::LoadAssets(){
 }
 
 void TitleState::Update(float dt){
-    this->timer.Update(dt);
     if(this->isPlayingCutscene){
         this->cutscene.Update(dt);
         if(this->cutscene.IsAnimationFinished())
@@ -72,9 +72,6 @@ void TitleState::Update(float dt){
                     this->popRequested = true;
                     this->quitRequested = true;
                     break;
-                case MENU_INSTRUCT:
-                    this->popRequested = true;
-                    Game::GetInstance().Push(new InstructionState());
                 default:
                     cout << "selectedOption: " << menu.GetSelectedOption() << endl;
             }
@@ -118,6 +115,10 @@ void TitleState::HandleInputs(){
 	}
 	if(InputManager::GetInstance().KeyPress(SDLK_s)){
         this->bg.Open("img/telainicial.png");
+	}
+	if(InputManager::GetInstance().KeyPress(SDLK_r)){
+        this->popRequested = true;
+        Game::GetInstance().Push(new TitleState());
 	}
 }
 
