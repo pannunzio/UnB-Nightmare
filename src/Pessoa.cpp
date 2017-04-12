@@ -63,7 +63,7 @@ void Pessoa::GetXingamentoSound(){
             fileName = "audio/Oxe2.wav";
             break;
         case 2:
-            fileName = "audio/Odoida3.wav";
+            fileName = "audio/Odoida1.wav";
             break;
         case 3:
             fileName = "audio/Oxe1.wav";

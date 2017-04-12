@@ -45,7 +45,7 @@ Player::Player(float x, float y) {
 	this->powerUp = NONE;
     this->isIndestructible = false;
     this->itemTimer = Timer();
-    this->coffee_ammo = 10;
+    this->coffee_ammo = 0;
     this->powerupMusic = Sound(1);
     this->isPlayingMusic = false;
     this->switchFloor = false;

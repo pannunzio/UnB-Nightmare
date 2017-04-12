@@ -61,7 +61,7 @@ using std::endl;
 
 #define INIT_PLAYER_X   TILESET_WIDTH/2
 
-#define STAGE_DURATION      90 //em segundos
+#define STAGE_DURATION      74 //em segundos
 #define WAIT_END_DURATION   5  //medido no olhômetro
 
 #define STAGE_STATE_MENU_POSITION_X     500

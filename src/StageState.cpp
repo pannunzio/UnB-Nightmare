@@ -59,6 +59,7 @@ void StageState::ResetState(){
 	this->spawnZombie = STAGE_STATE_SPAWN_ZOMBIE;
 	this->spawnBird = STAGE_STATE_SPAWN_BIRD;
 	this->spawnTrash = STAGE_STATE_SPAWN_TRASH;
+
 	//      Itens
 	this->spawnSkate = STAGE_STATE_SPAWN_SKATE;
 	this->spawnAcai = STAGE_STATE_SPAWN_ACAI;

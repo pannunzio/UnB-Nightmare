@@ -31,7 +31,7 @@ void EndState::LoadAssets(){
     DEBUG_PRINT("load Assets ENDSTATE ")
     this->menu.Load();
     if(this->isVictoryScreen){
-        this->bg.Load(BG_FILE);
+        this->bg.Load("img/cerrado_win.jpg");
         this->music.Open("audio/tematerreo_vitoria.ogg");
 	} else {
         this->derrota.Load();
