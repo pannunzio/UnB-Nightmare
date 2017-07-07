@@ -1,56 +1,67 @@
 #include "CacaDePombo.h"
+#include "Animation.h"
 
-CacaDePombo::CacaDePombo(float x, float y, string sprite, int frameCount,float frameTime, bool targetsPlayer, float x2, float y2, float s):
-        sp(sprite, frameCount, frameTime), colisaoPlayer("audio/caca_explosao.wav", 6){
-
-    this->type = type;
-	this->targetsPlayer = targetsPlayer;
-	this->Sbox.Centralize(x, y, this->sp.GetWidth(), this->sp.GetHeight());
-	this->distanceLeft = 300;
+CacaDePombo::CacaDePombo(float originX, float originY): sp(CACA_SPRITE, CACA_FRAMECOUNT, CACA_FRAMETIME),
+                                                        colisaoPlayer("audio/caca_explosao.wav", 6){
+    this->box.Centralize(originX, originY, this->sp.GetWidth(), this->sp.GetHeight());
+	this->distanceLeft = 200;
 	this->distanceLimit = 3;
     this->layer = LAYER_TOP;
-    this->subLayer = rand()%3 + 1;
+    this->subLayer = Player::GetInstance().GetSublayer();
     this->gravidade = 5;
     this->speed.x = -300;
     this->speed.y = 0;
-    this->box.x = x2;
-    this->box.y = y2;
-    this->speedP = s;
+    this->isExplosion = false;
+    this->animationOver = false;
 }
 
 CacaDePombo::~CacaDePombo(){
-
 }
 
 void CacaDePombo::Update(float dt){
-    this->speed.y += this->gravidade;
-    this->distanceLeft --;
-    this->Sbox.x += this->speed.x * dt;
-    this->Sbox.y += this->speed.y * dt;
+    if(!this->isExplosion){
+        this->speed.y += this->gravidade;
+        this->distanceLeft --;
+        this->box.x += this->speed.x * dt;
+        this->box.y += this->speed.y * dt;
+    } else {
+        if(this->sp.IsAnimationFinished())
+            this->animationOver = true;
+    }
 }
 
 void CacaDePombo::Render(){
-    this->sp.Render(this->Sbox.x - Camera::GetX(), this->Sbox.y - Camera::GetY());
+    this->sp.Render(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
 bool CacaDePombo::IsDead(){
-    if (this->distanceLeft <= distanceLimit){
+    if (this->distanceLeft <= distanceLimit && !this->isExplosion){
         if(this->colisaoPlayer.IsPlaying())
             this->colisaoPlayer.Stop(2);
+        return true;
+    }
+    if(this->isExplosion && this->animationOver){
         return true;
     }
     return false;
 }
 
 void CacaDePombo::NotifyCollision(GameObject* other){
-    if (other->Is("Player")){
-        cout << "atingiu player" << endl;
+    if (other->Is("Player") && !this->isExplosion){
         this->distanceLeft = 0;
-        this->colisaoPlayer.PlayArbitraryFadeIn(1, 2);
+        this->colisaoPlayer.Play(1);
+        this->isExplosion = true;
+        this->sp.Open("img/cacaexplode.png");
+        this->sp.SetFrameCount(6);
+        this->sp.SetAnimationTimes(1);
+        this->sp.SetClip(this->box.x, this->box.y, this->sp.GetWidth(), this->sp.GetHeight());
     }
 }
 bool CacaDePombo::Is(std::string type){
-    return (type == "Caca");
+    if(!this->isExplosion)
+        return (type == "Caca");
+    else
+        return (type == "Animation");
 }
 
 int CacaDePombo::GetLayer(){
@@ -59,8 +70,4 @@ int CacaDePombo::GetLayer(){
 
 int CacaDePombo::GetSublayer(){
     return Player::GetInstance().GetSublayer();
-}
-
-void CacaDePombo::SetSubLayer(int subLayer){
-    this->subLayer = subLayer;
 }

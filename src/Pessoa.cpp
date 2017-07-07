@@ -12,16 +12,16 @@
 #endif //DEBUG
 
 Pessoa::Pessoa(): Obstacle(){
-    DEBUG_PRINT("Pessoa::Pessoa()-begin-")
+//    DEBUG_PRINT("Pessoa::Pessoa()-begin-")
     GetSprite();
     SetHeight();
 	this->spriteSound = Sound(4);
 	this->GetXingamentoSound();
-    DEBUG_PRINT("Pessoa::Pessoa()-end-")
+//    DEBUG_PRINT("Pessoa::Pessoa()-end-")
 }
 
 Pessoa::~Pessoa(){
-    spriteSound.Stop();
+    //spriteSound.Stop();
 }
 
 void Pessoa::Render(){
@@ -63,7 +63,7 @@ void Pessoa::GetXingamentoSound(){
             fileName = "audio/Oxe2.wav";
             break;
         case 2:
-            fileName = "audio/Odoida3.wav";
+            fileName = "audio/Odoida1.wav";
             break;
         case 3:
             fileName = "audio/Oxe1.wav";

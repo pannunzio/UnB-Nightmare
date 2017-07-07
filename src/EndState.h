@@ -20,7 +20,7 @@
 
 class EndState : public State{
 public:
-	EndState(StateData stateData);
+	EndState();
 	~EndState();
 	void LoadAssets();
 	void Update(float dt);

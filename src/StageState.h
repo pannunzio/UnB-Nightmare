@@ -53,14 +53,15 @@ using std::endl;
 ******/
 #define BG_FILE         "img/cerrado.jpg"
 
-#define INIT_STAGE_X   0
+#define INIT_STAGE_X    0
+#define INIT_STAGE_Y    0
 
-#define INIT_MUSIC_FILE "audio/tematerreo_main.ogg"
-#define SSOLO_MUSIC_FILE "audio/subsolo_main.ogg"
+#define INIT_MUSIC_FILE "audio/terreo.ogg"//"audio/tematerreo_main.ogg"
+#define SSOLO_MUSIC_FILE "audio/subsolo.ogg"
 
 #define INIT_PLAYER_X   TILESET_WIDTH/2
 
-#define STAGE_DURATION      90 //em segundos
+#define STAGE_DURATION      74 //em segundos
 #define WAIT_END_DURATION   5  //medido no olhômetro
 
 #define STAGE_STATE_MENU_POSITION_X     500
@@ -70,7 +71,7 @@ using std::endl;
 //      Chances iniciais de surgir: obstaculos
 #define STAGE_STATE_SPAWN_PERSON    100-70 //70% de chance
 #define STAGE_STATE_SPAWN_ZOMBIE    100-50 //50% de chance
-#define STAGE_STATE_SPAWN_BIRD      100-40 //40% de chance
+#define STAGE_STATE_SPAWN_BIRD      100-15 //05% de chance
 
 //      Chances iniciais de surgir: itens
 #define STAGE_STATE_SPAWN_TRASH     100-70 //70% de chance

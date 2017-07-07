@@ -10,7 +10,6 @@
 #include "Menu.h"
 #include "StageState.h"
 #include "Game.h"
-#include "InstructionState.h"
 
 #define TS_BG_IMAGE            "img/telainicialC.jpg"
 #define TS_CUTSCENE_IMAGE      "img/cutscene.png"
@@ -24,8 +23,8 @@
 #define TS_MENU_TEXT_QUIT           "Quit Game"
 #define TS_MENU_TEXT_INSTRUCTIONS   "Instructions"
 
-#define TS_MUSIC_TEMA_TERREO   "audio/tematerreo_main.ogg"
-#define TS_MUSIC_TEMA_MENU     "audio/menu.ogg"
+#define TS_MUSIC_TEMA_TERREO   "audio/menu.aiff"
+#define TS_MUSIC_TEMA_MENU     "audio/menu.aiff"
 
 
 class TitleState : public State{

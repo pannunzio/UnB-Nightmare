@@ -10,11 +10,14 @@
 #include "Player.h"
 
 #define BULLET_MAX_DISTANCE 1000
+#define BULLET_SPRITE       "img/coffee.png"
+#define BULLET_FRAMECOUNT   9
+#define BULLET_FRAMETIME    0.3
 
 
 class Bullet : public GameObject{
 public:
-	Bullet(float x, float y, float speed, string sprite, int frameCount	,float frameTime, bool targetsPlayer, std::string type);
+	Bullet(float originX, float originY);
 	~Bullet();
 	void Update(float dt);
 	void Render();
@@ -24,16 +27,10 @@ public:
     int GetLayer();
 	int GetSublayer();
 
-	void SetLayers(int layer, int subLayer);
-
-	bool targetsPlayer;
-
 private:
 	Sprite sp;
 	float distanceLeft;
 	float speed;
-	std::string type; // Coffe, Bullet
-
     Sound shooterSound;
 };
 

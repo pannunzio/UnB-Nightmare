@@ -888,3 +888,507 @@
 1479419062 source:c:\users\thiag\documents\githubrep\unb-nightmare\src\collision.cpp
 	"Collision.h"
 
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\acai.cpp
+	"Acai.h"
+
+1479175899 c:\users\mariana\documents\github\unb-nightmare\src\acai.h
+	<string>
+	"Item.h"
+	"Player.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\item.h
+	<string>
+	"GameObject.h"
+	"Camera.h"
+	"Defines.h"
+	"Player.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\gameobject.h
+	"Rect.h"
+	"Vec2.h"
+	"Sprite.h"
+	"Sound.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\rect.h
+	<cmath>
+	<iostream>
+	"Vec2.h"
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\vec2.h
+	<iostream>
+	<math.h>
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\sprite.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
+
+1475939435 c:\users\mariana\documents\github\unb-nightmare\src\sound.h
+	<iostream>
+	<SDL_mixer.h>
+	"Resources.h"
+
+1479890606 c:\users\mariana\documents\github\unb-nightmare\src\resources.h
+	"SDL.h"
+	"SDL_image.h"
+	"SDL_mixer.h"
+	"SDL_ttf.h"
+	<iostream>
+	<unordered_map>
+	<memory>
+	<string>
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\camera.h
+	"Vec2.h"
+	"GameObject.h"
+	"InputManager.h"
+	"Defines.h"
+	"Rect.h"
+
+1473041926 c:\users\mariana\documents\github\unb-nightmare\src\inputmanager.h
+	"SDL.h"
+	<iostream>
+	<vector>
+	<unordered_map>
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\defines.h
+	<string>
+	<iostream>
+	"SDL.h"
+
+1483416590 c:\users\mariana\documents\github\unb-nightmare\src\player.h
+	<cstdlib>
+	<sstream>
+	"GameObject.h"
+	"Timer.h"
+	"Clock.h"
+	"Text.h"
+	"Sound.h"
+	"Game.h"
+	"Player.h"
+	"InputManager.h"
+	"Camera.h"
+	"Bullet.h"
+	"Defines.h"
+
+1475639934 c:\users\mariana\documents\github\unb-nightmare\src\timer.h
+
+1476656670 c:\users\mariana\documents\github\unb-nightmare\src\clock.h
+	<sstream>
+	"Defines.h"
+	"Text.h"
+	"Resources.h"
+	<string>
+
+1476760453 c:\users\mariana\documents\github\unb-nightmare\src\text.h
+	<SDL_ttf.h>
+	<iostream>
+	"Rect.h"
+	"Resources.h"
+	"Game.h"
+	<string>
+
+1473038638 c:\users\mariana\documents\github\unb-nightmare\src\game.h
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	<stack>
+	<ctime>
+	<cstdlib>
+	"State.h"
+
+1476321740 c:\users\mariana\documents\github\unb-nightmare\src\state.h
+	"Sprite.h"
+	"GameObject.h"
+	<iostream>
+	<vector>
+	<memory>
+	"InputManager.h"
+	"TileMap.h"
+	"TileSet.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\tilemap.h
+	"TileSet.h"
+	<vector>
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\tileset.h
+	<iostream>
+	"Sprite.h"
+	"Vec2.h"
+
+1483422877 c:\users\mariana\documents\github\unb-nightmare\src\bullet.h
+	"GameObject.h"
+	"Vec2.h"
+	"Sprite.h"
+	"Camera.h"
+	"Game.h"
+	"Defines.h"
+	"Player.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\agua.cpp
+	"Agua.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\agua.h
+	"GameObject.h"
+	"Sprite.h"
+	"Timer.h"
+	"Obstacle.h"
+	"Camera.h"
+	"Defines.h"
+	"StageState.h"
+	"Game.h"
+	"Player.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\obstacle.h
+	"GameObject.h"
+	"Sprite.h"
+	"Timer.h"
+	"Defines.h"
+	"Camera.h"
+
+1489153809 c:\users\mariana\documents\github\unb-nightmare\src\stagestate.h
+	<iostream>
+	<vector>
+	<memory>
+	"Sprite.h"
+	"GameObject.h"
+	"State.h"
+	"InputManager.h"
+	"StateData.h"
+	"Clock.h"
+	"Timer.h"
+	"TileMap.h"
+	"TileSet.h"
+	"MapActionList.h"
+	"Animation.h"
+	"Sound.h"
+	"Music.h"
+	"Game.h"
+	"GameObject.h"
+	"Camera.h"
+	"EndState.h"
+	"Player.h"
+	"Item.h"
+	"Collision.h"
+	"Defines.h"
+	"Obstacle.h"
+	"Pombo.h"
+	"Agua.h"
+	"MapActionList.h"
+	"Manifestacao.h"
+	"Pessoa.h"
+	"PessoaZumbi.h"
+	"Lixeira.h"
+	"NonCollidingPerson.h"
+	"Acai.h"
+	"Cafe.h"
+	"Skate.h"
+	"SurpriseItem.h"
+	"ClockItem.h"
+	"Hud.h"
+
+1473036312 c:\users\mariana\documents\github\unb-nightmare\src\statedata.h
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\mapactionlist.h
+	"GameObject.h"
+	"MapActions.h"
+	"Camera.h"
+	<vector>
+	<memory>
+
+1473273893 c:\users\mariana\documents\github\unb-nightmare\src\mapactions.h
+	"GameObject.h"
+	"Sprite.h"
+	<string>
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\animation.h
+	"GameObject.h"
+	"Timer.h"
+	"Camera.h"
+
+1479892782 c:\users\mariana\documents\github\unb-nightmare\src\music.h
+	"SDL.h"
+	"SDL_mixer.h"
+	<iostream>
+	<string>
+	"Resources.h"
+
+1483426058 c:\users\mariana\documents\github\unb-nightmare\src\endstate.h
+	"State.h"
+	"Sprite.h"
+	"Text.h"
+	"StateData.h"
+	"Menu.h"
+	"InputManager.h"
+	"Game.h"
+	"StageState.h"
+	"TitleState.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\menu.h
+	<vector>
+	<string>
+	"../src/Sprite.h"
+	"../src/Text.h"
+	"../src/Camera.h"
+	"../src/InputManager.h"
+
+1483464622 c:\users\mariana\documents\github\unb-nightmare\src\titlestate.h
+	"State.h"
+	"Text.h"
+	"Timer.h"
+	"Animation.h"
+	"Sound.h"
+	"Music.h"
+	"Menu.h"
+	"StageState.h"
+	"Game.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\collision.h
+	<cmath>
+	<algorithm>
+	"Vec2.h"
+	"Rect.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\pombo.h
+	"GameObject.h"
+	"Sprite.h"
+	"Obstacle.h"
+	"Game.h"
+	"CacaDePombo.h"
+	"Camera.h"
+
+1483460069 c:\users\mariana\documents\github\unb-nightmare\src\cacadepombo.h
+	<math.h>
+	"GameObject.h"
+	"Sprite.h"
+	"Game.h"
+	"Defines.h"
+	"Camera.h"
+	"Player.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\manifestacao.h
+	"Obstacle.h"
+	"Player.h"
+	"Camera.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\pessoa.h
+	<iostream>
+	"GameObject.h"
+	"Obstacle.h"
+	"Camera.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\pessoazumbi.h
+	"GameObject.h"
+	"Obstacle.h"
+	"Camera.h"
+	"Defines.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\lixeira.h
+	"GameObject.h"
+	"Obstacle.h"
+	"Sprite.h"
+	"Camera.h"
+	"Player.h"
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\noncollidingperson.h
+	"GameObject.h"
+	"Obstacle.h"
+	"Sprite.h"
+	"Camera.h"
+	"Player.h"
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\cafe.h
+	<string>
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1476205150 c:\users\mariana\documents\github\unb-nightmare\src\skate.h
+	<string>
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1477095161 c:\users\mariana\documents\github\unb-nightmare\src\surpriseitem.h
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1477241278 c:\users\mariana\documents\github\unb-nightmare\src\clockitem.h
+	"Item.h"
+	"Camera.h"
+	"Player.h"
+
+1479879988 c:\users\mariana\documents\github\unb-nightmare\src\hud.h
+	"Resources.h"
+	"Sprite.h"
+	"Text.h"
+	"Clock.h"
+	"InputManager.h"
+	<string>
+	<sstream>
+	<iomanip>
+	<iostream>
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\animation.cpp
+	"Animation.h"
+
+1483422943 source:c:\users\mariana\documents\github\unb-nightmare\src\bullet.cpp
+	"Bullet.h"
+
+1483460454 source:c:\users\mariana\documents\github\unb-nightmare\src\cacadepombo.cpp
+	"CacaDePombo.h"
+	"Animation.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\cafe.cpp
+	"Cafe.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\camera.cpp
+	"Camera.h"
+
+1477244432 source:c:\users\mariana\documents\github\unb-nightmare\src\clock.cpp
+	"Clock.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\clockitem.cpp
+	<math.h>
+	"ClockItem.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\collision.cpp
+	"Collision.h"
+
+1483426067 source:c:\users\mariana\documents\github\unb-nightmare\src\endstate.cpp
+	"EndState.h"
+
+1479175899 source:c:\users\mariana\documents\github\unb-nightmare\src\game.cpp
+	"Game.h"
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+	<iostream>
+	"State.h"
+	"Vec2.h"
+	"TileSet.h"
+	"Resources.h"
+	"InputManager.h"
+	"Rect.h"
+	"TitleState.h"
+	"Defines.h"
+	<cstdlib>
+	<stdio.h>
+	<ctime>
+
+1471717495 source:c:\users\mariana\documents\github\unb-nightmare\src\gameobject.cpp
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\hud.cpp
+	"Hud.h"
+
+1473041910 source:c:\users\mariana\documents\github\unb-nightmare\src\inputmanager.cpp
+	"InputManager.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\item.cpp
+	"Item.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\lixeira.cpp
+	"Lixeira.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\main.cpp
+	"Game.h"
+	"Defines.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\manifestacao.cpp
+	"Manifestacao.h"
+
+1473041498 source:c:\users\mariana\documents\github\unb-nightmare\src\mapactionlist.cpp
+	"MapActionList.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\mapactions.cpp
+	"MapActions.h"
+
+1479898955 source:c:\users\mariana\documents\github\unb-nightmare\src\menu.cpp
+	"Menu.h"
+
+1483415588 source:c:\users\mariana\documents\github\unb-nightmare\src\noncollidingperson.cpp
+	"NonCollidingPerson.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\obstacle.cpp
+	"Obstacle.h"
+
+1483417504 source:c:\users\mariana\documents\github\unb-nightmare\src\pessoa.cpp
+	"Pessoa.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\pessoazumbi.cpp
+	"PessoaZumbi.h"
+
+1489153869 source:c:\users\mariana\documents\github\unb-nightmare\src\player.cpp
+	"Player.h"
+	"Obstacle.h"
+	"SurpriseItem.h"
+	"ClockItem.h"
+
+1483418170 source:c:\users\mariana\documents\github\unb-nightmare\src\pombo.cpp
+	"Pombo.h"
+
+1476205150 source:c:\users\mariana\documents\github\unb-nightmare\src\rect.cpp
+	"Rect.h"
+
+1479891117 source:c:\users\mariana\documents\github\unb-nightmare\src\resources.cpp
+	"Resources.h"
+	"Game.h"
+	<sstream>
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\skate.cpp
+	"Skate.h"
+
+1475939435 source:c:\users\mariana\documents\github\unb-nightmare\src\sound.cpp
+	"Sound.h"
+
+1483461337 source:c:\users\mariana\documents\github\unb-nightmare\src\sprite.cpp
+	"Sprite.h"
+	<iostream>
+	<SDL.h>
+	<SDL_image.h>
+	"Game.h"
+	"Resources.h"
+
+1483464746 source:c:\users\mariana\documents\github\unb-nightmare\src\stagestate.cpp
+	"StageState.h"
+
+1476321632 source:c:\users\mariana\documents\github\unb-nightmare\src\state.cpp
+	"State.h"
+	"Game.h"
+	"GameObject.h"
+	"InputManager.h"
+	"Camera.h"
+	<iostream>
+
+1467937916 source:c:\users\mariana\documents\github\unb-nightmare\src\statedata.cpp
+	"StateData.h"
+
+1479879988 source:c:\users\mariana\documents\github\unb-nightmare\src\surpriseitem.cpp
+	"SurpriseItem.h"
+
+1479175899 source:c:\users\mariana\documents\github\unb-nightmare\src\text.cpp
+	"Text.h"
+
+1483464615 source:c:\users\mariana\documents\github\unb-nightmare\src\tilemap.cpp
+	<cstdio>
+	"TileMap.h"
+	"MapActionList.h"
+	"Defines.h"
+
+1479175899 source:c:\users\mariana\documents\github\unb-nightmare\src\tileset.cpp
+	"TileSet.h"
+	"TileMap.h"
+	<math.h>
+
+1475639934 source:c:\users\mariana\documents\github\unb-nightmare\src\timer.cpp
+	"Timer.h"
+
+1483464575 source:c:\users\mariana\documents\github\unb-nightmare\src\titlestate.cpp
+	"TitleState.h"
+	"EndState.h"
+
+1476205150 source:c:\users\mariana\documents\github\unb-nightmare\src\vec2.cpp
+	"Vec2.h"
+

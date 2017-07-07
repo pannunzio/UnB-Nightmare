@@ -36,7 +36,7 @@ void Pombo::Update(float dt){
 
 	this->box.x += this->speed * dt * 100;
 
-    if(!this->fazendoCaca && this->box.x - Camera::GetX() < 500){
+    if(!this->fazendoCaca && this->box.x - Camera::GetX() < 490){
         DEBUG_PRINT("FAZENDO CAQUINHA!!")
         this->FazCaca();
         this->fazendoCaca = true;
@@ -68,8 +68,9 @@ int Pombo::GetSublayer(){
 
 void Pombo::FazCaca(){
     Vec2 shootPos = box.CenterPos();
-    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
-    caquinha->SetSubLayer(rand()%3+1);//Player::GetInstance().GetSublayer());
+//    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y, "img/cacaPombo.png", 3, 1, true, box.x, box.y, speed);
+    CacaDePombo* caquinha = new CacaDePombo(shootPos.x, shootPos.y);
+//    caquinha->SetSubLayer(rand()%3+1);//Player::GetInstance().GetSublayer());
     Game::GetInstance().GetCurrentState().AddObject(caquinha);
 }
 

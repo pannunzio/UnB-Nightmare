@@ -46,25 +46,25 @@ void PessoaZumbi::GetZombieSound(){
 
     switch (rand()%6){
     case 0:{
-        fileName = "audio/Zumbi0.ogg";
+        fileName = "audio/Zumbi0.wav";
     }
     case 1:{
-        fileName = "audio/Zumbi2.ogg";
+        fileName = "audio/Zumbi2.wav";
     }
     case 2:{
-        fileName = "audio/Zumbi3.ogg";
+        fileName = "audio/Zumbi3.wav";
     }
     case 3:{
-        fileName = "audio/Zumbi6.ogg";
+        fileName = "audio/Zumbi6.wav";
     }
     case 4:{
-        fileName = "audio/Zumbi7.ogg";
+        fileName = "audio/Zumbi7.wav";
     }
     case 5:{
-        fileName = "audio/Zumbi8.ogg";
+        fileName = "audio/Zumbi8.wav";
     }
     case 6:{
-        fileName = "audio/Zumbi9.ogg";
+        fileName = "audio/Zumbi9.wav";
     }
     }
 

@@ -1,29 +1,11 @@
 #include "NonCollidingPerson.h"
 
-NonCollidingPerson::NonCollidingPerson(){
+NonCollidingPerson::NonCollidingPerson():Obstacle(){
     this->type = Type::PELADO;
     this->sp = Sprite("img/pelado.png", 6, 0.2);
 	this->speed = -5;
-	this->canBlock = false;
-	this->isDead = false;
-    this->layer = Player::GetInstance().GetLayer();
+	SetHeight();
 	this->subLayer = 0;
-
-	this->spriteSound = Sound(-1);
-//    this->captureSound = Sound(-1);
-
-    this->box.x = Player::GetInstance().GetX() + 1200;
-
-    if(this->layer == LAYER_TOP)
-        this->box.y = LAYER_TOP_HEIGHT;
-
-    if(this->layer == LAYER_MIDDLE)
-        box.y = LAYER_MIDDLE_HEIGHT;
-
-    if(this->layer == LAYER_BOTTON)
-        this->box.y = LAYER_BOTTON_HEIGHT;
-
-    this->box.y += 65;
 }
 
 NonCollidingPerson::~NonCollidingPerson(){
@@ -31,7 +13,7 @@ NonCollidingPerson::~NonCollidingPerson(){
 }
 
 void NonCollidingPerson::Render(){
-    this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY() - 30);
+    this->sp.RenderFlipped(this->box.x - Camera::GetX(), this->box.y - Camera::GetY());
 }
 
 void NonCollidingPerson::NotifyCollision(GameObject* other){

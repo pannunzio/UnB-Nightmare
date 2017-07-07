@@ -15,7 +15,7 @@
 #endif //DEBUG
 
 Player* Player::player = nullptr;
-int Player::coffee_ammo = 1;
+int Player::coffee_ammo = 0;
 
 /***
         CONSTRUTOR
@@ -312,10 +312,12 @@ void Player::PlayerStops(){
 }
 
 void Player::Shoot(){
-	Vec2 shootPos = box.CenterPos();
+	Vec2 shootPos = this->box.CenterPos();
+
 	if(this->coffee_ammo > 0){
-		Bullet* coffee = new Bullet(shootPos.x, shootPos.y, 10, COFFEE_FILE, 3, 0.3, false, "Coffee");
-		coffee->SetLayers(this->layer, this->subLayer); // para renderizar corretamente
+//		Bullet* coffee = new Bullet(shootPos.x, shootPos.y, 10, COFFEE_FILE, 3, 0.3, false, "Coffee");
+		Bullet* coffee = new Bullet(shootPos.x, shootPos.y);
+//		coffee->SetLayers(this->layer, this->subLayer); // para renderizar corretamente
 		Game::GetInstance().GetCurrentState().AddObject(coffee);
 		coffee_ammo--;
 	}
